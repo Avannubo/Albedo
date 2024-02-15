@@ -1,0 +1,1 @@
+/download/thermokon/doc/SR65.pdf = "Hoja de características (en inglés y alemán)"

@@ -1,0 +1,1 @@
+/download/thermokon/doc/STC-Ethernet.pdf = "Hoja de características (en inglés y alemán)"

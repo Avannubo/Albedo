@@ -1,0 +1,4 @@
+Módulo convertidor para el control de riego Dupline. Convierte una señal Dupline 
+estándar a una señal de 28V "Hi-Line" que puede alimentar y controlar hasta 64 
+válvulas a través de módulos como el G6440-4412. El cable "Hi-Line" puede ser de 
+hasta 7Km de longitud. Alimentación de 20 a 30VCC. Para montaje en carril DIN.

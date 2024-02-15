@@ -1,0 +1,26 @@
+<p class=taj>
+Proporciona protección de clase II (se recomienda usarla con una protección previa 
+de clase I). 
+</p>
+<p class=taj>
+Los protectores de la gama CS están destinados a la protección de bienes y 
+equipos conectados a la red de baja tensión. Permiten configuración TT.
+</p>
+<hr>
+<h3>Características técnicas</h3>
+<table>
+<tr><td width=300>Tensión máxima de servicio Uc</td><td width=300>275 V  50-60 Hz</td></tr>
+<tr><td>Nivel de protección Up (1,2/50)</td><td> < 1,3 kV (L-N)   < 1,5 kV (N-PE)</td></tr>
+<tr><td>Corriente nominal de descarga In (8/20)</td><td> 15kA</td></tr>
+<tr><td>Corriente máxima de descarga Imax (8/20)</td><td> 40kA</td></tr>
+<tr><td>Tiempo de respuesta tA</td><td> < 25ns</td></tr>
+<tr><td>Fusible previo máximo</td><td>80A gL</td></tr>
+<tr><td>Capacidad de cortocircuito con fusible previo máximo</td><td>25kA 50Hz</td></tr>
+<tr><td>Visualización  estado</td><td>Si</td></tr>
+<tr><td>Indicación remota</td><td>No</td></tr>
+<tr><td>Tipo de protección</td><td>IP 20</td></tr>
+<tr><td>Capacidad bornes de conexión</td><td> 25/35 mm2</td></tr>
+<tr><td>Temperatura de funcionamiento</td><td>-40ºC...+80ºC</td></tr>
+<tr><td>Dimensiones</td><td>90x36x70 mm</td></tr>
+<tr><td>Peso</td><td>190 gr</td></tr>
+</table>

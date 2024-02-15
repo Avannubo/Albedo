@@ -1,0 +1,129 @@
+<h2>Introducción</h2>
+<p align="justify">La descarga del rayo sobre cualquier cable conductor, 
+tanto en las líneas eléctricas, como en líneas de datos, provocan transitorios 
+que se caracterizan por su corta duración, crecimiento rápido y valores 
+de cresta muy elevados (hasta varias centenas de kV). </p>
+<p align="justify">La descarga de un rayo se propaga en un radio de varios <
+kilómetros y su dispersión en la tierra eleva su potencial, induciendo 
+fuertes sobretensiones en los cables subterráneos y aumentando la tensión 
+en las tomas de tierra. </p>
+<table border="0" cellpadding="4" cellspacing="0" width="550">
+  <tbody><tr> 
+  <tr> 
+    <td colspan="5" valign="top">
+      <div align="center"><img src="/images/cirprotec/foto14-1-c.gif" height="357" width="403"></div>
+    </td>
+  </tr>
+  <tr> 
+    <td colspan="5" valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+      <p align="justify">El rayo no es el único causante de sobretensiones transitorias, 
+        también lo son: </p>
+      </font>
+      <ul>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Grandes 
+          conmutaciones de compañía eléctrica. </font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Conmutaciones 
+          de maquinaria de gran potencia. </font></li>
+        <li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Descargas 
+          electrostáticas. </font></li>
+      </ul>
+      <font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+      <p align="justify">En una instalación eléctrica todos los conductores que 
+        acceden desde el exterior son susceptibles de facilitar el camino a las 
+        sobretensiones transitorias, provocando así perturbaciones en la alimentación 
+        de todos los sistemas conectados. </p>
+      <p align="justify">Las sobretensiones producidas por fenómenos atmosféricos 
+        llegan hasta las instalaciones de tres formas: </p>
+      </font></td>
+  </tr>
+  <tr> 
+    <td valign="top" width="33%"> 
+      <div align="center"><img src="/images/cirprotec/foto14-2-c.gif" height="117" width="165"></div>
+    </td>
+    <td colspan="3" valign="top"> 
+      <div align="center"><img src="/images/cirprotec/foto14-3-c.gif" height="117" width="165"></div>
+    </td>
+    <td valign="top" width="33%"> 
+      <div align="center"><img src="/images/cirprotec/foto14-4-c.gif" height="117" width="164"></div>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" width="30%"> <font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+      </font><p><font face="Verdana, Arial, Helvetica, sans-serif" size="2">El rayo puede caer directamente en las líneas aéreas, propagándose la 
+        sobretensión a la largo de varios kilómetros. La sobretensión acaba llegando 
+        al usuario y derivándose a tierra a través de sus equipos produciéndoles 
+        averías o su total destrucción. 
+      </font></p></td>
+    <td colspan="3" valign="top"> <font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+      </font><p><font face="Verdana, Arial, Helvetica, sans-serif" size="2">La radiación emitida por el impacto del rayo sobre un objeto (poste, 
+        árbol, pararrayos, etc.) próximo a líneas eléctricas o telefónicas, induce 
+        corrientes transitorias en éstas, transmitiéndolas al interior de nuestras 
+        instalaciones provocando averías o destrucción de los equipos conectados. 
+      </font></p></td>
+    <td valign="top" width="45%"> <font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+      </font><p><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Cuando un rayo cae directamente al suelo o a través de una estructura 
+        conectada a tierra (puede ser un poste eléctrico, un pararrayos, etc.) 
+        la corriente de la descarga del rayo puede elevar el potencial del tierra 
+        varios miles de Voltios como consecuencia de la corriente que circula 
+        por el terreno.
+      </font></p></td>
+  </tr>
+  <tr> 
+    <td colspan="5" valign="top"> <b></b> 
+      <p><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>MODOS DE 
+        PROPAGACIÓN </b></font><font face="Verdana, Arial, Helvetica, sans-serif" size="2">:</font></p>
+      <p><img src="/images/cirprotec/foto14-5-c.gif" height="183" width="429"></p>
+      <font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+      <p><b>Modo común o asimétrica</b>:<br>
+        Perturbaciones entre un conductor activo y el tierra (fase-tierra o neutro-tierra), 
+        con riesgo de perforación dieléctrica. </p>
+      <p><b>Modo diferencial o simétrica</b>:<br>
+        Perturbaciones entre conductores activos, (fase-fase o fase-neutro), especialmente 
+        peligrosas para los equipos informáticos.</p>
+      <p>&nbsp;</p>
+      </font></td>
+  </tr>
+  <tr> 
+    <td colspan="5" valign="top"> 
+      <div align="center"><img src="/images/cirprotec/foto15-1.gif" height="133" width="405"></div>
+    </td>
+  </tr>
+  <tr> 
+    <td colspan="5" valign="top"> <font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+      <p>Un protector actúa como un interruptor controlado por tensión. Si la 
+        tensión es mayor que la nominal de la línea a proteger, el protector pasa 
+        a baja impedancia y deriva a tierra. En estado normal el protector está 
+        en alta impedancia y es transparente a la instalación.</p>
+      <b> 
+      <p>EL PROTECTOR IDEAL</p>
+      </b> 
+      <p>El protector ideal, debe derivar toda la intensidad máxima (<b>Imax</b>) 
+        generada por la sobretensión y que en sus extremos la tensión residual 
+        (<b>Ures</b>) sea menor que la soportada por el equipo a proteger. </p>
+      <p>En la práctica NO EXISTE un protector discreto que cumpla ambos criterios. 
+      </p>
+      </font></td>
+  </tr>
+  <tr> 
+    <td colspan="5" valign="top"> 
+      <div align="center"><img src="/images/cirprotec/foto15-2-c.gif" height="144" width="363"></div>
+    </td>
+  </tr>
+  <tr> 
+    <td colspan="5" valign="top"> <font face="Verdana, Arial, Helvetica, sans-serif" size="2"> 
+      <p>Conseguir alto poder de descarga y bajo valor de tensión residual en 
+        un mismo protector es irrealizable, por lo que la utilización de un único 
+        protector no asegura la protección de toda la instalación donde existan 
+        equipos eléctricos muy sensibles. Para ello debemos colocar 2 o más protectores 
+        de forma coordinada. </p>
+      <p>El primer paso (<b>P1</b>) se debe seleccionar para conseguir el mayor 
+        poder de descarga (<b>Imax</b>) posible. </p>
+      <p>Los secundarios, dependiendo de valor de <b>Up</b> requerido, estarán 
+        en las distribuciones de las líneas más sensibles y lo más cerca posible 
+        de los equipos a proteger. </p>
+      </font></td>
+  </tr>
+</tbody></table>
+<p>Volver <a href="./">atrás</a>
+
+<p><i>Nota: la información contenida en esta página es &copy; de Cirprotec</i>

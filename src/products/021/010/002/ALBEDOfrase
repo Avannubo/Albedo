@@ -1,0 +1,4 @@
+Módulo de válvula Dupline. Permite controlar válvulas tipo "latch" de 3 hilos. 
+Tiene dos salidas para abrir/cerrar la válvula y dos entradas para usar, por 
+ejemplo, caudalímetro, señal antisabotaje, etc. Alimentado por Dupline 
+"Hi-Line". Para montaje enterrado a pie de válvula.

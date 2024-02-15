@@ -1,0 +1,3 @@
+Controlador motorizado para llaves de paso de agua o gas en viviendas. Permite 
+cortar el suministro en caso de fuga (usando un sistema domótico o con un simple 
+detector). Para tuberías entre 16 y 22mm de diámetro.

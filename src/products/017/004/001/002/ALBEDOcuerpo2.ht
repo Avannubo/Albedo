@@ -1,0 +1,18 @@
+<p align=justify>
+El protector desconecta la carga de la batería cuando la tensión baja hasta 
+su límite crítico (unos 2V por vaso). Esto permite prolongar la vida útil de la 
+batería y ahorra en mantenimiento innecesario y en el posible cambio prematuro 
+de la batería.
+<h3>Especificaciones</h3>
+<table cellspacing=0 cellpadding=0>
+<tr><td width=320>Tensión de la batería</td><td>24V</td></tr>
+<tr><td>Corriente máxima</td><td>10A</td></tr>
+<tr><td>Tensión de corte</td><td>20..22V</td></tr>
+<tr><td>Tensión de reconexión</td><td>Tensión de corte + 1,4V</td></tr>
+<tr><td>Dimensiones</td><td>61 x 61 x 30 mm</td></tr>
+<tr><td>Montaje</td><td>carril DIN o mural</td></tr>
+<tr><td>Cubierta</td><td>metálica IP10 (consulte disponibilidad de placa abierta</td></tr>
+<tr><td>Conectores</td><td>terminales roscados 2,5 mm2</td></tr>
+<tr><td>Temperatura de funcionamiento</td><td>-40...+55ºC</td></tr>
+<tr><td>Fusible</td><td>10A</td></tr>
+</table>

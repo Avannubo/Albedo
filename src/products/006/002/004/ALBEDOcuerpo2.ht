@@ -1,0 +1,25 @@
+<h3>Características técnicas</h3>
+<table>
+<tr><td width=300>Tensión máxima de servicio Uc</td><td width=300>275 V  50-60 Hz</td></tr>
+<tr><td>Intensidad nominal</td><td>16 A</td></tr>
+<tr><td>Nivel de protección Up (1,2/50)</td><td> < 1,2 kV  L-N   < 1,5 kV   N-PE</td></tr>
+<tr><td>Corriente nominal de descarga (10 veces 8/20)</td><td> < 3 kA  L-N   < 3 kA   N-PE</td></tr>
+<tr><td>Tensión de descarga combinada  Uoc(1,2/50)</td><td> < 6 kV  L-N   < 6 kV   N-PE</td></tr>
+<tr><td>Tiempo de respuesta tA</td><td> < 25 ns L-N < 100ns N-PE</td></tr>
+<tr><td>Visualización  estado</td><td>Si</td></tr>
+<tr><td>Fusible</td><td> -</td></tr>
+<tr><td>Filtro EMI</td><td> -</td></tr>
+<tr><td>Atenuación para f=1 Mhz</td><td> -</td></tr> 
+
+<tr><td width=300>Número de pares telefónicos protegidos</td><td width=300>1</td></tr>
+<tr><td>Tensión máxima de servicio (Par / Entre pares )</td><td>180 V</td></tr>
+<tr><td>Nivel de protección (Par / Entre pares )</td><td width=150> < 200 V</td></tr>
+<tr><td>Corriente máxima de descarga Imax (1 vez 8/20us)</td><td> 10 kA</td></tr>
+<tr><td>Corriente nominal de descarga In (10 veces 8/20us)</td><td>5 kA</td></tr>
+<tr><td>Ancho de banda</td><td>3 MHz</td></tr>
+<tr><td>Tipo de conector</td><td>RJ11</td></tr>
+<tr><td>Tipo de protección</td><td>IP 20</td></tr>
+<tr><td>Temperatura de funcionamiento</td><td>-40ºC...+60ºC</td></tr>
+<tr><td>Dimensiones</td><td>59x40x18 mm</td></tr>
+<tr><td>Peso</td><td>48 gr</td></tr>
+</table>

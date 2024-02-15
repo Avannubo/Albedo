@@ -1,0 +1,5 @@
+<p align=justify>
+<b>Pasarela (Gateway) Dupline a Ethernet Modbus/TCP</b>. Es un generador de canales con la función 
+de esclavo Ethernet Modbus/TCP. Esto implica que las 128 entradas/salidas (incluidos Analink) 
+pueden ser controladas por un maestro Ethernet Modbus/TCP (PLC's, tarjetas de interfaz para PC, etc.). 
+Montaje en carril DIN.

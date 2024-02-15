@@ -1,0 +1,4 @@
+<p align=justify>
+Transmisor binario, alimentado por pila. Transmite un telegrama al abrirse o 
+cerrarse un contacto. Es compatible con cualquier equipo basado en telegramas 
+radio de EnOcean.

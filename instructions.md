@@ -98,6 +98,4 @@ Nuevamente, el panel debería accederse desde "/admin/panel/xxxxxx" como le quis
 haremos toda la zona "/admin" protegida con login y password de los trabajadores de ALBEDO que tengan que mantenerla.
 
 
-## Finalmente, como hemos comentado, quedo a la espera del archivo zip con una versión reducida de la web en el estado actual, para poder tener el funcionamiento exacto de la estructura ???.
-
-Tal y como he dicho al principio, por su tamaño lo hemos publicado en la web en el enlace incluido???.
+## Finalmente, como hemos comentado, quedo a la espera del archivo zip con una versión reducida de la web en el estado actual, para poder tener el funcionamiento exacto de la estructura ???. Tal y como he dicho al principio, por su tamaño lo hemos publicado en la web en el enlace incluido???.

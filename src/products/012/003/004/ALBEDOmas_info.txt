@@ -1,1 +1,0 @@
-/download/thermokon/doc/SRE-Repeater.pdf = "Hoja de características (en inglés y alemán)"

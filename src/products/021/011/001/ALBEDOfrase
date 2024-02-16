@@ -1,4 +1,0 @@
-<b>Pasarela (Gateway) Dupline a PROFIBUS-DP</b>. Es un generador de canales con la función 
-de esclavo PROFIBUS-DP. Esto implica que las 128 entradas/salidas (incluidos Analink) 
-pueden ser controladas por un maestro PROFIBUS-DP (PLC's, tarjetas de interfaz para PC, etc.). 
-Montaje en carril DIN.

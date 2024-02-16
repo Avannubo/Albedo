@@ -1,1 +1,0 @@
-/download/carlo gavazzi/doc/EM10DIN.pdf = "Características del medidor EM10 DIN (en castellano)"

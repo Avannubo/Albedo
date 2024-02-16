@@ -1,1 +1,0 @@
-SPS.pdf = "Características del protector de batería (en inglés)"

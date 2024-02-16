@@ -1,2 +1,0 @@
-/download/thermokon/doc/SRC-Ethernet.pdf = "Hoja de características (en inglés y alemán)"
-/download/thermokon/doc/SRC-Ethernet-OI.pdf = "Manual de operación (en inglés)"

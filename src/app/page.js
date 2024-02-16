@@ -13,7 +13,7 @@ export default function Home() {
             <div className="flex flex-row  w-[1300px] space-x-4">
               <div className="basis-2/5	 bg-gray-50 rounded-md p-2 grow">
               <form class="w-full max-w-lg">
-                  <div class="flex flex-wrap -mx-3 mb-6">
+              <div class="flex flex-wrap -mx-3 mb-4">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                         First Name
@@ -28,7 +28,21 @@ export default function Home() {
                       <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
                     </div>
                   </div>
-                  <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="flex flex-wrap -mx-3 mb-4">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                        DNI
+                      </label>
+                      <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text"/>
+                    </div>
+                    <div class="w-full md:w-1/2 px-3">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                        DOB
+                      </label>
+                      <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" />
+                    </div>
+                  </div> 
+                  <div class="flex flex-wrap -mx-3 mb-4">
                     <div class="w-full px-3">
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                         Password
@@ -37,14 +51,30 @@ export default function Home() {
                       <p class="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
                     </div>
                   </div>
+                  <div class="flex flex-wrap -mx-3 mb-4">
+                    <div class="w-full px-3">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                        Confirm Password
+                      </label>
+                      <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************"/>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap -mx-3 mb-4">
+                    <div class="w-full px-3">
+                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                        Address
+                      </label>
+                      <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text"/>
+                    </div>
+                  </div>
                   <div class="flex flex-wrap -mx-3 mb-2">
-                    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-1/3 px-3 mb-6">
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
                         City
                       </label>
                       <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque"/>
                     </div>
-                    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-1/3 px-3 mb-6 ">
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                         State
                       </label>
@@ -65,7 +95,7 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-1/3 px-3 mb-6">
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
                         Zip
                       </label>

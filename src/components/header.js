@@ -4,7 +4,7 @@ function header() {
     return (
         <header>
             <div className="flex flex-col items-center justify-start text-white">
-                <div className="flex flex-row h-[80px] w-[1300px] bg-[#304590]  justify-start p-8 self-center">
+                <div className="flex flex-row h-[80px] w-full  bg-[#304590]  justify-start p-8 self-center">
                 <Image
                     src="/vercel.svg"
                     alt="Vercel Logo"

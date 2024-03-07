@@ -35,7 +35,7 @@ export default function Page() {
                     {/* product 1 */}
                     <div className="flex flex-col w-[130px] ">
                         <h2 className="text-[#304590] font-bold self-center">IndoorNavBasic</h2>
-                        <p className="text-[12px]"><strong>Precio:</strong> 7.200,00€ +IVA </p>
+                        <p className="text-[12px] self-center"><strong>Precio:</strong> 7.200,00€ +IVA </p>
                         <Image
                             src="/images/imagen.small.png"
                             alt="Vercel Logo"
@@ -51,7 +51,7 @@ export default function Page() {
                     {/* product 2 */}
                     <div className="flex flex-col w-[130px] ">
                         <h2 className="text-[#304590] font-bold self-center">ADPDR2P63L</h2>
-                        <p className="text-[12px]"><strong>Precio:</strong> 259,00€ +IVA  </p>
+                        <p className="text-[12px] self-center"><strong>Precio:</strong> 259,00€ +IVA  </p>
                         <Image
                             src="/images/imagen.small7.png"
                             alt="Vercel Logo"
@@ -67,7 +67,7 @@ export default function Page() {
                     {/* product 3 */}
                     <div className="flex flex-col w-[130px] ">
                         <h2 className="text-[#304590] font-bold self-center">ADPI16W24V</h2>
-                        <p className="text-[12px]"><strong>Precio:</strong>39,00€ +IVA</p>
+                        <p className="text-[12px] self-center"><strong>Precio:</strong>39,00€ +IVA</p>
                         <Image
                             src="/images/imagen.small2.png"
                             alt="Vercel Logo"
@@ -83,7 +83,7 @@ export default function Page() {
                     {/* product 4 */}
                     <div className="flex flex-col w-[130px] ">
                         <h2 className="text-[#304590] font-bold self-center">ADPI30W5V</h2>
-                        <p className="text-[12px]"><strong>Precio:</strong> 66,60€ +IVA </p>
+                        <p className="text-[12px] self-center"><strong>Precio:</strong> 66,60€ +IVA </p>
                         <Image
                             src="/images/imagen.small3.png"
                             alt="Vercel Logo"
@@ -99,7 +99,7 @@ export default function Page() {
                     {/* product 5 */}
                     <div className="flex flex-col w-[130px] ">
                         <h2 className="text-[#304590] font-bold self-center">ADFSSM100</h2>
-                        <p className="text-[12px]"><strong>Precio:</strong> 67,00€ +IVA </p>
+                        <p className="text-[12px] self-center"><strong>Precio:</strong> 67,00€ +IVA </p>
                         <Image
                             src="/images/imagen.small4.png"
                             alt="Vercel Logo"
@@ -115,7 +115,7 @@ export default function Page() {
                     {/* product 6 */}
                     <div className="flex flex-col w-[130px] ">
                         <h2 className="text-[#304590] font-bold self-center ">GLD-235-12</h2>
-                        <p className="text-[12px]"><strong>Precio:</strong> 111,00€ +IVA </p>
+                        <p className="text-[12px] self-center"><strong>Precio:</strong> 111,00€ +IVA </p>
                         <Image
                             src="/images/imagen.small6.png"
                             alt="Vercel Logo"

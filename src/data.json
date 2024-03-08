@@ -1,0 +1,200 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "john_doe",
+            "email": "john@example.com",
+            "password": "hashed_password"
+        },
+        {
+            "id": 2,
+            "username": "jane_doe",
+            "email": "jane@example.com",
+            "password": "hashed_password"
+        }
+    ],
+    "categories": [
+        {
+            "id": "Accesibilidad ",
+            "name": "Accesibilidad para museos y exposiciones",
+            "categoryDesciption": "",
+            "subCategories1": [
+                {}
+            ]
+        },
+        {
+            "id": "Iluminación",
+            "name": "Farolas LED",
+            "categoryDesciption": "",
+            "subCategories1": [
+                {
+                    "id": "Farolas",
+                    "name": "Farolas LED",
+                    "categoryDesciption": "Ahora también se puede ahorrar en el alumbrado público. ¿Qué le parecería gastar un 80% menos de electricidad en el alumbrado de su urbanización, bloque privado o de cualquier vía pública? Las lámparas LED para farolas cumplen con todos los estándares para sustituir las lámparas que usted usa actualmente y permitirle así un ahorro sustancial. Consulte con nuestro departamento de Soporte en el caso de que tenga dudas respecto a como sustituir sus lámparas actuales por cualquiera de los modelos que aquí encontrará. Le sugeriremos el modelo más adecuado. Estudie con atención las posibilidades que estos productos le brindan. En cualquier caso, ahorrará a largo plazo. Su larga duración y su consumo reducido le retornarán su inversión en muy poco tiempo. ",
+                    "subCategories2": [
+                        {}
+                    ],
+                    "products": [
+                        "ADFSSM100",
+                        "ADFSSM200",
+                        "ADFSSM300"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "Gestión Energética",
+            "name": "Fuentes de alimentación: gestión energética",
+            "categoryDesciption": "",
+            "subCategories1": [
+                {},
+                {}
+            ]
+        },
+        {
+            "id": "Gestión Energética",
+            "name": "Fuentes de alimentación: gestión energética",
+            "ALBEDOcuerpo1": "",
+            "subCategories1": [
+                {},
+                {}
+            ]
+        },
+        {
+            "id": "Protectores",
+            "name": "Protectores contra sobretensiones, rayos, etc.",
+            "ALBEDOcuerpo1": "",
+            "subCategories1": [
+                {},
+                {}
+            ]
+        },
+        {
+            "id": "Controladores",
+            "name": "Controladores",
+            "ALBEDOcuerpo1": "",
+            "subCategories1": [
+                {},
+                {}
+            ]
+        },
+        {
+            "id": "Automatismos",
+            "name": "Automatismos",
+            "ALBEDOcuerpo1": "",
+            "subCategories1": [
+                {},
+                {},
+                {},
+                {}
+            ]
+        },
+        {
+            "id": "Dupline",
+            "name": "Dupline",
+            "ALBEDOcuerpo1": "",
+            "subCategories1": [
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {} 
+            ]
+        },
+        {
+            "id": "Gama EnOcean",
+            "name": "Gama EnOcean",
+            "ALBEDOcuerpo1": "",
+            "subCategories1": [
+                {},
+                {},
+                {},
+                {}
+            ]
+        }
+    ],
+    "products": [
+        {
+            "ALBEDOcodigo": "ADFSSM100",
+            "ALBEDOtitulo": "Farola solar LED",
+            "ALBEDOprecio": "67,00€ +IVA",
+            "ALBEDOcuerpo1": "Farola solar LED con sensor de movimiento. Consume 100W y produce un flujo luminoso de 2500 Lumens.",
+            "ALBEDOcuerpo2": "Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas. ",
+            "características": {
+                "Potencia eléctrica": "100 W",
+                "Índice de protección": " IP65",
+                "Temperatura de color": "5000 K",
+                "Flujo luminoso": "2500 lm",
+                "Dimensiones": "530x270x70 mm",
+                "Dimensiones panel": " 420x210 mm",
+                "Número diodos LED": "360",
+                "Ángulo de apertura": "120 º",
+                "Tiempo de carga de la batería": "6...8 h",
+                "Autonomía de la batería": "10...12 h"
+            },
+            "ALBEDOstock_minimo": "minStock",
+            "ALBEDOstock": "This is the available stock of the product1.",
+            "imagen": "/images/ADFSSM100/imagen.png",
+            "imagen.small": "/images/ADFSSM200/imagen.small.png",
+            "ALBEDOplazo_entrega": "This is the delivery of the product1.",
+            "ALBEDOcategory": "Farolas"
+        },
+        {
+            "ALBEDOcodigo": "ADFSSM200",
+            "ALBEDOtitulo": "Farola solar LED",
+            "ALBEDOprecio": "85,00€ +IVA",
+            "ALBEDOcuerpo1": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
+            "ALBEDOcuerpo2": "Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.",
+            "características": {
+                "Potencia eléctrica": "200 W",
+                "Índice de protección": " IP65",
+                "Temperatura de color": "5000 K",
+                "Flujo luminoso": "3000 lm",
+                "Dimensiones": "645x300x70 mm",
+                "Dimensiones panel": " 535x210 mm",
+                "Número diodos LED": "360",
+                "Ángulo de apertura": "120 º",
+                "Tiempo de carga de la batería": "6...8 h",
+                "Autonomía de la batería": "10...12 h"
+            },
+            "ALBEDOstock_minimo": "minStock",
+            "ALBEDOstock": "This is the available stock of the product1.",
+            "imagen": "/images/ADFSSM200/imagen.png",
+            "imagen.small": "/images/ADFSSM200/imagen.small.png",
+            "ALBEDOplazo_entrega": "This is the delivery of the product1.",
+            "ALBEDOcategory": "Farolas"
+        },
+        {
+            "ALBEDOcodigo": "ADFSSM300",
+            "ALBEDOtitulo": "Farola solar LED",
+            "ALBEDOprecio": "91,00€ +IVA",
+            "ALBEDOcuerpo1": "Farola solar LED con sensor de movimiento. Consume 300W y produce un flujo luminoso de 4000 Lumens.",
+            "ALBEDOcuerpo2": "Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.",
+            "características": {
+                "Potencia eléctrica": "300 W",
+                "Índice de protección": " IP65",
+                "Temperatura de color": "5000 K",
+                "Flujo luminoso": "4000 lm",
+                "Dimensiones": "750x300x70 mm",
+                "Dimensiones panel": " 635x210 mm",
+                "Número diodos LED": "600",
+                "Ángulo de apertura": "120 º",
+                "Tiempo de carga de la batería": "6...8 h",
+                "Autonomía de la batería": "10...12 h"
+            },
+            "ALBEDOstock_minimo": "minStock",
+            "ALBEDOstock": "This is the available stock of the product1.",
+            "imagen": "/images/imagen.png",
+            "imagen.small": "/images/imagen.small.png",
+            "ALBEDOplazo_entrega": "This is the delivery of the product1.",
+            "ALBEDOcategory": "Farolas"
+        }
+    ]
+}

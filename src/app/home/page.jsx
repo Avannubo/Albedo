@@ -17,7 +17,7 @@ export default function Page() {
             </p>
             <div className="flex justify-center my-4">
                 <Image
-                    src="/images/facebook_portada.png"
+                    src="/images/home/facebook_portada.png"
                     alt="Vercel Logo"
                     className="self-center"
                     width={400}
@@ -37,7 +37,7 @@ export default function Page() {
                         <h2 className="text-[#304590] font-bold self-center">IndoorNavBasic</h2>
                         <p className="text-[12px] self-center"><strong>Precio:</strong> 7.200,00€ +IVA </p>
                         <Image
-                            src="/images/imagen.small.png"
+                            src="/images/home/imagen.small.png"
                             alt="Vercel Logo"
                             className="self-center"
                             width={100}
@@ -53,7 +53,7 @@ export default function Page() {
                         <h2 className="text-[#304590] font-bold self-center">ADPDR2P63L</h2>
                         <p className="text-[12px] self-center"><strong>Precio:</strong> 259,00€ +IVA  </p>
                         <Image
-                            src="/images/imagen.small7.png"
+                            src="/images/home/imagen.small7.png"
                             alt="Vercel Logo"
                             className="self-center"
                             width={100}
@@ -69,7 +69,7 @@ export default function Page() {
                         <h2 className="text-[#304590] font-bold self-center">ADPI16W24V</h2>
                         <p className="text-[12px] self-center"><strong>Precio:</strong>39,00€ +IVA</p>
                         <Image
-                            src="/images/imagen.small2.png"
+                            src="/images/home/imagen.small2.png"
                             alt="Vercel Logo"
                             className="self-center"
                             width={100}
@@ -85,7 +85,7 @@ export default function Page() {
                         <h2 className="text-[#304590] font-bold self-center">ADPI30W5V</h2>
                         <p className="text-[12px] self-center"><strong>Precio:</strong> 66,60€ +IVA </p>
                         <Image
-                            src="/images/imagen.small3.png"
+                            src="/images/home/imagen.small3.png"
                             alt="Vercel Logo"
                             className="self-center"
                             width={100}
@@ -101,7 +101,7 @@ export default function Page() {
                         <h2 className="text-[#304590] font-bold self-center">ADFSSM100</h2>
                         <p className="text-[12px] self-center"><strong>Precio:</strong> 67,00€ +IVA </p>
                         <Image
-                            src="/images/imagen.small4.png"
+                            src="/images/home/imagen.small4.png"
                             alt="Vercel Logo"
                             className="self-center"
                             width={100}
@@ -117,7 +117,7 @@ export default function Page() {
                         <h2 className="text-[#304590] font-bold self-center ">GLD-235-12</h2>
                         <p className="text-[12px] self-center"><strong>Precio:</strong> 111,00€ +IVA </p>
                         <Image
-                            src="/images/imagen.small6.png"
+                            src="/images/home/imagen.small6.png"
                             alt="Vercel Logo"
                             className="self-center"
                             width={100}
@@ -140,7 +140,7 @@ export default function Page() {
                         Estaremos a su lado en todos los procesos para llevar su idea a una realidad... Desde el <a href="">diseño</a> , y el <a href="">prototipado</a>  a la <a href="">fabricación</a> . </p>
                     <div className="flex flex-row justify-center space-x-4 my-4">
                         <Image
-                            src="/images/diseño1.png"
+                            src="/images/home/diseño1.png"
                             alt="Vercel Logo"
                             className=""
                             width={300}
@@ -148,7 +148,7 @@ export default function Page() {
                             priority
                         />
                         <Image
-                            src="/images/diseño2.png"
+                            src="/images/home/diseño2.png"
                             alt="Vercel Logo"
                             className=""
                             width={200}

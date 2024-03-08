@@ -31,7 +31,9 @@
                     "id": "Farolas",
                     "name": "Farolas LED",
                     "body": "personlized html here!!! <p>,<h1>,etc",
-                    "subCategories2": [{}],
+                    "subCategories2": [
+                        {}
+                    ],
                     "products": [
                         "ADFSSM100",
                         "ADFSSM200",
@@ -43,78 +45,125 @@
         {
             "id": "Gestión Energética",
             "name": "Fuentes de alimentación: gestión energética",
-            "categoryDesciption": "",
+            "categoryDesciption": "Incluiremos en esta gama todos aquellos productos que permiten el manejo y gestión de la energía eléctrica: fuentes de alimentación, convertidores, cargadores, etc. ",
             "subCategories1": [
-                {},
-                {}
-            ]
-        },
-        {
-            "id": "Gestión Energética",
-            "name": "Fuentes de alimentación: gestión energética",
-            "ALBEDOcuerpo1": "",
-            "subCategories1": [
-                {},
-                {}
-            ]
-        },
-        {
-            "id": "Protectores",
-            "name": "Protectores contra sobretensiones, rayos, etc.",
-            "ALBEDOcuerpo1": "",
-            "subCategories1": [
-                {},
-                {}
-            ]
-        },
-        {
-            "id": "Controladores",
-            "name": "Controladores",
-            "ALBEDOcuerpo1": "",
-            "subCategories1": [
-                {},
-                {}
-            ]
-        },
-        {
-            "id": "Automatismos",
-            "name": "Automatismos",
-            "ALBEDOcuerpo1": "",
-            "subCategories1": [
-                {},
-                {},
-                {},
-                {}
-            ]
-        },
-        {
-            "id": "Dupline",
-            "name": "Dupline",
-            "ALBEDOcuerpo1": "",
-            "subCategories1": [
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {} 
-            ]
-        },
-        {
-            "id": "Gama EnOcean",
-            "name": "Gama EnOcean",
-            "ALBEDOcuerpo1": "",
-            "subCategories1": [
-                {},
-                {},
-                {},
-                {}
+                {
+                    "id": "Fuentes de alimentación",
+                    "name": "Fuentes de alimentación",
+                    "categoryDesciption": "",
+                    "subCategories1": [
+                        {
+                            "id": "Carril DIN",
+                            "name": "Carril DIN",
+                            "categoryDesciption": "",
+                            "subCategories1": [
+                                {}
+                            ],
+                            "products": [
+                                "ADPI16W24V",
+                                "ADPI30W24V",
+                                "ADPI30W5V",
+                                "ADPI30W12V",
+                                "ADPI60W24V",
+                                "ADPI60W12V",
+                                "ADPI90W24V",
+                                "ADPI96W24V",
+                                "ADPI96W48V"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "Accesorios",
+                    "name": "Accesorios",
+                    "categoryDesciption": "",
+                    "subCategories1": [
+                        {
+                            "id": "Protectores de batería",
+                            "name": "Protectores de batería",
+                            "categoryDesciption": "",
+                            "subCategories1": [
+                                {}
+                            ],
+                            "products": [
+                                "SPS4590",
+                                "SPS4700",
+                                "SPS4710",
+                                "SPS7512",
+                                "SPS7514",
+                                "SPS7510"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "Gestión Energética",
+                    "name": "Fuentes de alimentación: gestión energética",
+                    "ALBEDOcuerpo1": "",
+                    "subCategories1": [
+                        {},
+                        {}
+                    ]
+                },
+                {
+                    "id": "Protectores",
+                    "name": "Protectores contra sobretensiones, rayos, etc.",
+                    "ALBEDOcuerpo1": "",
+                    "subCategories1": [
+                        {},
+                        {}
+                    ]
+                },
+                {
+                    "id": "Controladores",
+                    "name": "Controladores",
+                    "ALBEDOcuerpo1": "",
+                    "subCategories1": [
+                        {},
+                        {}
+                    ]
+                },
+                {
+                    "id": "Automatismos",
+                    "name": "Automatismos",
+                    "ALBEDOcuerpo1": "",
+                    "subCategories1": [
+                        {},
+                        {},
+                        {},
+                        {}
+                    ]
+                },
+                {
+                    "id": "Dupline",
+                    "name": "Dupline",
+                    "ALBEDOcuerpo1": "",
+                    "subCategories1": [
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {}
+                    ]
+                },
+                {
+                    "id": "Gama EnOcean",
+                    "name": "Gama EnOcean",
+                    "ALBEDOcuerpo1": "",
+                    "subCategories1": [
+                        {},
+                        {},
+                        {},
+                        {}
+                    ]
+                }
             ]
         }
     ],

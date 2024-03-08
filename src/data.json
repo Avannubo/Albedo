@@ -24,16 +24,14 @@
         },
         {
             "id": "Iluminación",
-            "name": "Farolas LED",
+            "name": "Iluminación",
             "categoryDesciption": "",
             "subCategories1": [
                 {
                     "id": "Farolas",
                     "name": "Farolas LED",
-                    "categoryDesciption": "Ahora también se puede ahorrar en el alumbrado público. ¿Qué le parecería gastar un 80% menos de electricidad en el alumbrado de su urbanización, bloque privado o de cualquier vía pública? Las lámparas LED para farolas cumplen con todos los estándares para sustituir las lámparas que usted usa actualmente y permitirle así un ahorro sustancial. Consulte con nuestro departamento de Soporte en el caso de que tenga dudas respecto a como sustituir sus lámparas actuales por cualquiera de los modelos que aquí encontrará. Le sugeriremos el modelo más adecuado. Estudie con atención las posibilidades que estos productos le brindan. En cualquier caso, ahorrará a largo plazo. Su larga duración y su consumo reducido le retornarán su inversión en muy poco tiempo. ",
-                    "subCategories2": [
-                        {}
-                    ],
+                    "body": "personlized html here!!! <p>,<h1>,etc",
+                    "subCategories2": [{}],
                     "products": [
                         "ADFSSM100",
                         "ADFSSM200",

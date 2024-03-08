@@ -1,7 +1,10 @@
 import Image from "next/image";
-function header() {
-    return (
-        <header class="fixed top-0 left-0 w-full">
+import { getCategories } from "@/lib/data"
+
+export default async function header() {
+    const categories = await getCategories();
+
+    return <header className="fixed top-0 left-0 w-full">
             <div className="flex flex-col items-center justify-start text-white bg-[#304590]">
                 <div className="flex flex-row h-[80px] w-[1100px] p-4 self-center"> 
                         <Image src="/images/Logo_albedo_blanco.png"
@@ -13,7 +16,17 @@ function header() {
                         />
                         <div className="flex grow justify-between self-center space-x-4">
                             <div className="flex justify-start space-x-6">
-                                <div>Productos</div>
+                                <ul>Productos
+                                {
+                                    categories.map(category => {
+                                        const {
+                                            name
+                                        } = category; 
+                        
+                                        return <li>{ name }</li>
+                                    })
+                                } 
+                                </ul>
                                 <div>Servicios</div>
                             </div>
                             <div className="w-auto">
@@ -23,6 +36,4 @@ function header() {
                     </div> 
             </div>
         </header>
-    );
 }
-export default header;

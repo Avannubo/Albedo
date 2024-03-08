@@ -1,10 +1,10 @@
 import Image from "next/image";
 function footer() {
     return (
-        <footer class=" bottom-0 left-0 w-full text-stone-700">
+        <footer className=" bottom-0 left-0 w-full text-stone-700">
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
-            <div class="flex flex-col items-center justify-start text-black">
-                <div class="flex flex-row  justify-between py-4 w-[1100px]">
+            <div className="flex flex-col items-center justify-start text-black">
+                <div className="flex flex-row  justify-between py-4 w-[1100px]">
                     <Image
                         src="/images/Logo_albedo.png"
                         alt="Vercel Logo"
@@ -27,8 +27,8 @@ function footer() {
                 </div>
             </div>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
-            <div class="flex flex-col items-center justify-start text-black">
-                <div class="flex flex-col  justify-center py-4 w-[1100px]">
+            <div className="flex flex-col items-center justify-start text-black">
+                <div className="flex flex-col  justify-center py-4 w-[1100px]">
                     <p className="self-center text-center">Copyright © 2004 - 2023 Albedo Design S.L.<br/>  Todos los derechos reservados. <br/> Si desea comprar, lea nuestras condiciones.</p>
                 </div>
             </div>

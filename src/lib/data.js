@@ -7,19 +7,12 @@ export async function requireContent() {
 
     return JSON.parse(res)
 }
-
-export async function getProducts() {
-    const {
-        products
-    } = await requireContent();
-    
-    return products
-}
-
+ 
 export async function getCategories() {
     const {
-        Categories
+        categories
     } = await requireContent();
     
-    return Categories
+    return categories
 }
+ 

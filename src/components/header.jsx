@@ -1,4 +1,5 @@
 import Image from "next/image"; 
+import Link from "next/link"; 
 function header() {
     return (
         <header className="fixed top-0 left-0 w-full">

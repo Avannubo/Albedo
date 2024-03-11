@@ -1,7 +1,9 @@
-import Image from "next/image";
-export default function Page() {
-    return <section className="space-y-4">
-        <div className="">
+import Image from "next/image"; 
+
+export default function Home() {
+  return (
+    <main>
+      <div className="">
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
             <p className="text-xl my-4">
                 <strong>ALBEDO Design</strong> es un grupo de empresas donde encontrará productos domóticos propios y de terceros, así como servicios integrales al servicio de la industria electrónica.
@@ -163,5 +165,6 @@ export default function Page() {
         <div>
 
         </div>
-    </section>
+    </main>
+  );
 }

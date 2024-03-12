@@ -10,9 +10,22 @@ export async function requireContent() {
  
 export async function getCategories() {
     const {
-        categories
+        categories,
+        
     } = await requireContent();
     
     return categories
 }
+  
+export async function getUsers() {
+    const {
+        users
+        
+    } = await requireContent();
+    
+    return users
+
+}
+  
  
+

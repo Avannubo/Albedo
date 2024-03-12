@@ -18,9 +18,6 @@
             "id": "Accesibilidad",
             "name": "Accesibilidad para museos y exposiciones",
             "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
-            "subCategories": [
-                {}
-            ],
             "products": [
                 {
                     "ALBEDOcodigo": "IndoorNav ",
@@ -39,15 +36,11 @@
             "id": "Iluminación",
             "name": "Iluminación",
             "ALBEDOcuerpo": "",
-            "products": [
-                {}
-            ],
             "subCategories": [
                 {
                     "id": "Farolas",
                     "name": "Farolas LED",
                     "ALBEDOcuerpo": "",
-                    "subCategories": [ {} ],
                     "products": [
                         {
                             "ALBEDOcodigo": "ADFSSM100",
@@ -133,25 +126,18 @@
             "name": "Fuentes de alimentación: gestión energética",
             "ALBEDOcuerpo": "",
             "imagen": "",
-            "products": [
-                {}
-            ],
             "subCategories": [
                 {
                     "id": "Fuentes de alimentación",
                     "name": "Fuentes de alimentación",
                     "ALBEDOcuerpo": "",
                     "imagen": "",
-                    "products": [
-                        {}
-                    ],
                     "subCategories": [
                         {
                             "id": "Carril DIN",
                             "name": "Carril DIN",
                             "ALBEDOcuerpo": "",
                             "imagen": "",
-                            "subCategories": [ {} ],
                             "products": [
                                 {
                                     "ALBEDOcodigo": "ADPI16W24V",
@@ -271,15 +257,11 @@
             "id": "Protectores",
             "name": "Protectores contra sobretensiones, rayos, etc.",
             "ALBEDOcuerpo": "",
-            "products": [
-                {}
-            ],
             "subCategories": [
                 {
                     "id": "eléctrica",
                     "name": "Protectores para red eléctrica",
                     "ALBEDOcuerpo": "<div></div>",
-                    "subCategories": [ {} ],
                     "products": [
                         {
                             "ALBEDOcodigo": "ADPDR2P63L",
@@ -347,7 +329,6 @@
                     "id": "telefónica",
                     "name": "Para línea telefónica",
                     "ALBEDOcuerpo": "",
-                    "subCategories": [ {} ],
                     "products": [
                         {
                             "ALBEDOcodigo": "ADMCH-ADSL",
@@ -369,15 +350,11 @@
             "id": "Controladores",
             "name": "Controladores",
             "ALBEDOcuerpo": "Dispositivos de control basados en IP para controlar de forma eficiente su sistema domótico o sus automatismos. ",
-            "products": [
-                {}
-            ],
             "subCategories": [
                 {
                     "id": "Controladores IP",
                     "name": "Controladores IP",
                     "ALBEDOcuerpo": "",
-                    "subCategories": [ {} ],
                     "products": [
                         {
                             "ALBEDOcodigo": "XIKRA-261",
@@ -447,15 +424,11 @@
             "id": "Automatismos",
             "name": "Automatismos",
             "ALBEDOcuerpo": " Una parte esencial en la domotización de una casa, oficina o tienda es la elección adecuada de los automatismos que controlarán los distintos elementos incluidos en el plan. Aquí encontrará clasificados los productos que le permitirán ese control que le proporcionará confort y seguridad. ",
-            "products": [
-                {}
-            ],
             "subCategories": [
                 {
                     "id": "Medidores de energía",
                     "name": "Medidores de energía",
                     "ALBEDOcuerpo": "",
-                    "subCategories": [ {} ],
                     "products": [
                         {
                             "ALBEDOcodigo": "EM24-DINAV-93XDPX",
@@ -511,7 +484,6 @@
                     "id": "Control de suministros",
                     "name": "Control de suministros ",
                     "ALBEDOcuerpo": "",
-                    "subCategories": [ {} ],
                     "products": [
                         {
                             "ALBEDOcodigo": "GLM-12-CI",
@@ -543,7 +515,6 @@
                     "id": "Detectores",
                     "name": "Detectores",
                     "ALBEDOcuerpo": "",
-                    "subCategories": [ {} ],
                     "products": [
                         {
                             "ALBEDOcodigo": "GL-38B",
@@ -707,7 +678,6 @@
                     "id": "Sirenas",
                     "name": "Sirenas",
                     "ALBEDOcuerpo": "",
-                    "subCategories": [ {} ],
                     "products": [
                         {
                             "ALBEDOcodigo": "GLS-15-12",
@@ -741,21 +711,15 @@
             "id": "Dupline",
             "name": "Dupline",
             "ALBEDOcuerpo": " El bus Dupline, de Carlo Gavazzi, usado ya desde hace más de 20 años y probado en más de 100.000 sistemas a lo largo del mundo, es un estándar de facto, fácil de instalar, de usar, fiable y flexible. Sus áreas de aplicaciones son muy amplias: distribución de aguas, ferrocarriles, minería, aeropuertos, ascensores y montacargas y automatización de casas y edificios (domótica e inmótica). Para ir a la página web de Carlo Gavazzi sobre Dupline, pulse en este enlace (en una nueva ventana). ",
-            "products": [
-                {}
-            ],
             "subCategories": [
                 {
                     "id": "Generadores de canales",
                     "name": "Generadores de canales",
                     "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
-                    "subCategories": [
-                        {}
-                    ],
                     "products": [
                         {
-                            "ALBEDOcodigo": "IndoorNav",
-                            "ALBEDOtitulo": "IndoorNav Basic",
+                            "ALBEDOcodigo": "uiuyi",
+                            "ALBEDOtitulo": "tyuiyi",
                             "ALBEDOprecio": "7.200 +IVA",
                             "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
                             "ALBEDOstock_minimo": "minStock",
@@ -768,6 +732,6 @@
                     ]
                 }
             ]
-         }
+        }
     ]
 }

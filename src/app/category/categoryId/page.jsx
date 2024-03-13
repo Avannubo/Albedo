@@ -4,11 +4,11 @@ import { getCategories } from "@/lib/data"
 export default function page({ params, searchParams }) {
     const data = getCategories();
     return <div>
-        {data.map(category => (
+        {/* {data.map(category => (
             <div key={category.id}>
                 <p>{category.id}</p>
             </div>
-        ))}
+        ))} */}
     </div>;
 }
 

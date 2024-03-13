@@ -8,7 +8,7 @@ export default async function page() {
         <h1>Usuarios</h1>
       {data.map((user) => {
         return (
-          <div key={user.id} className="flex space-x-4 h-auto  bg-slate-200 rounded-lg m-4 p-2">
+          <div key={user.id} className="flex space-x-2 h-auto  bg-slate-200 rounded-lg mb-2 p-2">
             <p>{user.id}</p>
             <p>{user.username}</p>
             <p>{user.email}</p>

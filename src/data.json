@@ -728,6 +728,30 @@
                             "imagen.small": "/images/ADFSSM100/imagen.small.png",
                             "ALBEDOplazo_entrega": "This is the delivery of the product1.",
                             "ALBEDOcategory": "Farolas"
+                        },
+                        {
+                            "ALBEDOcodigo": "qwerty",
+                            "ALBEDOtitulo": "qwerty",
+                            "ALBEDOprecio": "7.200 +IVA",
+                            "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
+                            "ALBEDOstock_minimo": "minStock",
+                            "ALBEDOstock": "This is the available stock of the product1.",
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": "This is the delivery of the product1.",
+                            "ALBEDOcategory": "Farolas"
+                        },
+                        {
+                            "ALBEDOcodigo": "1234",
+                            "ALBEDOtitulo": "1234",
+                            "ALBEDOprecio": "7.200 +IVA",
+                            "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
+                            "ALBEDOstock_minimo": "minStock",
+                            "ALBEDOstock": "This is the available stock of the product1.",
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": "This is the delivery of the product1.",
+                            "ALBEDOcategory": "Farolas"
                         }
                     ]
                 }

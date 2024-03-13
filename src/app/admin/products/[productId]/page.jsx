@@ -1,12 +1,10 @@
 
-import { FormEvent } from 'react'
-
-export default function Page({ pageData }) {
+export default function Page({ param }) {
+    console.log(param);
     return <section>
-        {/* {pageData.id} */}
         <div className Name="flex flex-col">
             <div className Name="">
-                <h1 className Name="font-semibold text-4xl">Product 1</h1>
+                <h1 className="font-semibold text-4xl">Product: {param}</h1>
                 <p>product Id #1234</p>
             </div>
             <div className="w-full rounded-md shadow-lg mb-12 p-10">
@@ -18,7 +16,7 @@ export default function Page({ pageData }) {
                         </div>
                         <div className="mb-4 flex-1">
                             <label for="" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
-                            <input type="text" id="" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="99,25€" required />
+                            <input type="number" step={0.1} min={0} id="" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="99,25€" required />
                         </div>
                     </div>
 

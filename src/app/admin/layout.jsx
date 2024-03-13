@@ -5,7 +5,7 @@ import AdminNav from '@/components/adminNav';
 export default function layout({ children }) {
     return <section className='flex flex-col '>
         <div className='ml-36'>
-            <AdminNav />
+            {/* <AdminNav /> */}
             <SideNav />
             <div>
                 {children}

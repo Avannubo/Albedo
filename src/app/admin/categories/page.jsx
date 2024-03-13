@@ -69,6 +69,7 @@ export default async function Page() {
 
     return (
         <div className="">
+            <h1 className="font-semibold text-4xl mb-6">Categorias</h1>
             {data.map((category) => (
                 <Category key={category.id} category={category} />
             ))}

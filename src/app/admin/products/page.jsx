@@ -13,9 +13,8 @@ export default async function Page() {
         </div>
     );
 }
-
 const Category = ({ category }) => (
-    <div key={category.id} className="space-y-2 w-full">  
+    <div key={category.id} className="space-y-2 w-full">
         {category.subCategories &&
             category.subCategories.length > 0 &&
             category.subCategories.map((subCategory) => (

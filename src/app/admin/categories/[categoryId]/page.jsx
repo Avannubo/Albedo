@@ -2,8 +2,8 @@
 
 "use client"
 
-import React, { useState } from 'react';
-import Modal from '@/app/components/deleteModal'; 
+import { useState } from 'react';
+import Modal from '@/components/admin/categories/deleteModal';  
 
 export default function Page() {
     const [isModalOpen, setIsModalOpen] = useState(false);

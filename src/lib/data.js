@@ -8,37 +8,37 @@ export async function requireContent() {
 
     return JSON.parse(res)
 }
- 
+
 export async function getCategories() {
     const {
         categories,
-        
+
     } = await requireContent();
-    
+
     return categories
 }
-  
+
 export async function getUsers() {
     const {
         users
-        
+
     } = await requireContent();
-    
+
     return users
 
 }
-  
+
 
 export async function deleteCategory(categoryId) {
     try {
         // borrar categoria
+        categoryId = "testCat";
+         console.log("delete: " + categoryId);
+         revalidatePath('/admin/categories');
 
-        revalidatePath('admin/categories')
-
-        return true 
+         return true 
     } catch (error) {
         return false
     }
 }
- 
 

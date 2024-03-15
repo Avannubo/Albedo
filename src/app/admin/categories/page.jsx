@@ -1,5 +1,5 @@
 import { getCategories } from "@/lib/data";
-import Modal from '@/app/components/deleteModal'; 
+import Modal from '@/components/admin/categories/deleteModal'; 
 import Link from "next/link";
 import Delete from "@/components/admin/categories/delete";
 
@@ -20,7 +20,7 @@ const Category = ({ category }) => (
           </svg>
         </Link>
         {/* delete svg */}
-        <Delete />
+        <Delete categoryId={category} /> 
       </div>
 
     </div>

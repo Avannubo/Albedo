@@ -24,7 +24,7 @@ export default function DeleteModal({ isOpen, onClose, categoryId }) {
         <div className="flex flex-col space-y-2">
           
           <form 
-          action={ deleteCategory(categoryId.id) }
+          action={ deleteCategory(categoryId) }
           >
               <button onClick={onClose} type="submit" className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-red-500 hover:bg-red-600 active:bg-red-500">Delete</button>
           </form>

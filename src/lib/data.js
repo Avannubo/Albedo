@@ -32,8 +32,8 @@ export async function getUsers() {
 export async function deleteCategory(categoryId) {
     try {
         // borrar categoria
-        categoryId = "testCat";
-         console.log("delete: " + categoryId);
+        // categoryId = "testCat";
+         console.log("delete: " + JSON.stringify(categoryId.categoryId.id));
          revalidatePath('/admin/categories');
 
          return true 

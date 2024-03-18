@@ -7,7 +7,7 @@ const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full">
 
     <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between">
-      <p className="h-auto ">{category.id}</p>
+      <p className="h-auto ">{category.id} : {category.name}</p>
       <div className="space-x-4 flex flex-row">
         <div className="rounded-md hover:bg-green-300 cursor-pointer ">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -22,7 +22,6 @@ const Category = ({ category }) => (
         {/* delete svg */}
         <Delete categoryId={category} /> 
       </div>
-
     </div>
     <div className="relative ">
       <svg className="absolute left-3 -top-2.5" fill="#0080c0" width="46px" height="46px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" stroke="#0080c0"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M210.82825,178.82861h-.00013l-48,48a3.99992,3.99992,0,0,1-5.65625-5.65722L198.34277,180H64a4.0002,4.0002,0,0,1-4-4V32a4,4,0,0,1,8,0V172H198.34277l-41.1709-41.17139a3.99992,3.99992,0,0,1,5.65625-5.65722l48,48h.00013a4.02834,4.02834,0,0,1,.49841.61035c.06543.09814.11047.20434.1665.30664a3.97146,3.97146,0,0,1,.20093.38183,3.91958,3.91958,0,0,1,.126.406c.03345.11377.07751.22266.10083.34033a4.01026,4.01026,0,0,1,0,1.5669c-.02332.11767-.06738.22656-.10083.34033a3.90157,3.90157,0,0,1-.126.406,3.94471,3.94471,0,0,1-.20093.38183c-.0559.1023-.10095.2085-.1665.30664A4.02834,4.02834,0,0,1,210.82825,178.82861Z"></path> </g></svg>
@@ -39,7 +38,7 @@ const Category = ({ category }) => (
         {category.products.map((product) => (
           <div key={product.ALBEDOcodigo} className="ml-14 flex flex-row justify-between bg-slate-200 rounded-lg p-2 mb-2">
             <p className="h-auto w-full  ">
-              {product.ALBEDOtitulo}
+              {product.ALBEDOcodigo} : {product.ALBEDOtitulo}
             </p>
             <div className="space-x-4 flex flex-row">
               <div className=" rounded-md hover:bg-yellow-300 cursor-pointer">
@@ -63,7 +62,6 @@ const Category = ({ category }) => (
 
 export default async function Page() {
   const data = await getCategories();
-
   return (
     <div className="">
       <h1 className="font-semibold text-4xl mb-6">Categorias</h1>

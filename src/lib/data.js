@@ -26,19 +26,35 @@ export async function getUsers() {
 
     return users
 
-}
-
+} 
 
 export async function deleteCategory(categoryId) {
     try {
-        // borrar categoria
-        // categoryId = "testCat";
-         console.log("delete: " + JSON.stringify(categoryId.categoryId.id));
-         revalidatePath('/admin/categories');
+        // Read the content from the JSON file
+        const data = await fs.readFile(process.cwd() + '/src/data.json', 'utf8');
+        const { categories, deletedContent } = JSON.parse(data);
+        
+        const category = categoryId.categoryId.id;
+        const index = categories.findIndex(obj => obj.id === category);
 
-         return true 
+        if (index !== -1) {
+            const deletedObject = categories.splice(index, 1)[0];
+            deletedContent.push(deletedObject);
+            
+            // Write the modified data back to the JSON file
+            await fs.writeFile(process.cwd() + '/src/data.json', JSON.stringify({ categories, deletedContent }));
+        }
+
+        // Perform any additional operations needed (e.g., revalidatePath function)
+        revalidatePath('/admin/categories'); // Assuming this function is defined elsewhere
+
+        return true;
     } catch (error) {
-        return false
+        console.error("Error deleting category:", error);
+        return false;
     }
 }
+
+
+
 

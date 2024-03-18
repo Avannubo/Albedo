@@ -22,15 +22,12 @@ export default function DeleteModal({ isOpen, onClose, categoryId }) {
           <p className="text-sm text-gray-500 mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor auctor arcu, at fermentum dui. Maecenas</p>
         </div>
         <div className="flex flex-col space-y-2">
-          
-          <form 
-          action={ deleteCategory(categoryId) }
-          >
-              <button onClick={onClose} type="submit" className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-red-500 hover:bg-red-600 active:bg-red-500">Delete</button>
-          </form>
+
+        <button onClick={() => deleteCategory(categoryId)} className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-red-500 hover:bg-red-600 active:bg-red-500">Delete</button>
+
           <button onClick={onClose} className="px-6 py-2.5 rounded-md text-black text-sm font-semibold border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Cancel</button>
         </div>
-      </div> 
+      </div>
     </div>
   ) : null;
 }

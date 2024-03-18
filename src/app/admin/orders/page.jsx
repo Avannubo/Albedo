@@ -1,3 +1,7 @@
-export default function page(){
-    return <section>lista de pedidos</section>
+import React from 'react'
+
+export default function page() {
+  return (
+    <div>order page</div>
+  )
 }

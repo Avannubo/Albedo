@@ -7,7 +7,7 @@ const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full">
 
     <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between">
-      <p className="h-auto ">{category.id} : {category.name}</p>
+      <p className="h-auto ">{category.name}</p>
       <div className="space-x-4 flex flex-row">
         <div className="rounded-md hover:bg-green-300 cursor-pointer ">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

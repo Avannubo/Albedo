@@ -1,18 +1,4 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "username": "john_doe",
-            "email": "john@example.com",
-            "password": "hashed_password"
-        },
-        {
-            "id": 2,
-            "username": "jane_doe",
-            "email": "jane@example.com",
-            "password": "hashed_password"
-        }
-    ],
     "categories": [
         {
             "id": "accesibilidad",
@@ -737,28 +723,28 @@
             "id": "testCat",
             "name": "testCat",
             "ALBEDOcuerpo": " El bus Dupline, de Carlo Gavazzi, usado ya desde hace más de 20 años y probado en más de 100.000 sistemas a lo largo del mundo, es un estándar de facto, fácil de instalar, de usar, fiable y flexible. Sus áreas de aplicaciones son muy amplias: distribución de aguas, ferrocarriles, minería, aeropuertos, ascensores y montacargas y automatización de casas y edificios (domótica e inmótica). Para ir a la página web de Carlo Gavazzi sobre Dupline, pulse en este enlace (en una nueva ventana). ",
-            "subCategories": [
+            "subCategories": []
+        }
+    ],
+    "deletedContent": [
+        {
+            "id": "testSubCat",
+            "name": "testSubCat",
+            "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
+            "products": [
                 {
-                    "id": "testSubCat",
-                    "name": "testSubCat",
+                    "ALBEDOcodigo": "testProduct",
+                    "ALBEDOtitulo": "tyuiyi",
+                    "ALBEDOprecio": "7.200 +IVA",
                     "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
-                    "products": [
-                        {
-                            "ALBEDOcodigo": "testProduct",
-                            "ALBEDOtitulo": "tyuiyi",
-                            "ALBEDOprecio": "7.200 +IVA",
-                            "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
-                            "ALBEDOstock_minimo": "minStock",
-                            "ALBEDOstock": "This is the available stock of the product1.",
-                            "imagen": "/images/ADFSSM100/imagen.png",
-                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                            "ALBEDOplazo_entrega": "This is the delivery of the product1.",
-                            "ALBEDOcategory": "Farolas"
-                        }
-                    ]
+                    "ALBEDOstock_minimo": "minStock",
+                    "ALBEDOstock": "This is the available stock of the product1.",
+                    "imagen": "/images/ADFSSM100/imagen.png",
+                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                    "ALBEDOplazo_entrega": "This is the delivery of the product1.",
+                    "ALBEDOcategory": "Farolas"
                 }
             ]
         }
-    ],
-    "deletedContent": []
+    ]
 }

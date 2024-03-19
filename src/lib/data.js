@@ -80,7 +80,7 @@ export async function addCategory(name, description) {
         const data = await readFile(process.cwd() + '/src/data.json', 'utf8');
         const jsonData = JSON.parse(data);
         const { categories } = jsonData;
-        
+
         const newCategory = {
             id: name,
             name: name,
@@ -100,8 +100,7 @@ export async function addCategory(name, description) {
         console.error("Error adding subcategory:", error);
         return false;
     }
-}
-
+} 
 
 export async function addSubcategory(categoryId, newCategoryName) {
     console.log("Adding subcategory to " + categoryId.categoryId.id);
@@ -110,8 +109,7 @@ export async function addSubcategory(categoryId, newCategoryName) {
     try {
         const data = await fs.readFile(process.cwd() + '/src/data.json', 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        const categoryToModifyId = categoryId.categoryId.id;
-
+        const categoryToModifyId = categoryId.categoryId.id; 
         const addSubcategoryRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
@@ -129,11 +127,9 @@ export async function addSubcategory(categoryId, newCategoryName) {
                         "ALBEDOcuerpo": "",
                         "subCategories": [],
                         "products": []
-                    }
-
+                    } 
                     category.subCategories.push(dataObj);
-                    console.log("New subcategory added:", dataObj);
-                    // Write the modified data back to the JSON file
+                    console.log("New subcategory added:", dataObj); 
                     console.log("Writing updated data to file...");
                     await fs.writeFile(process.cwd() + '/src/data.json', JSON.stringify({ categories, deletedContent }));
                     console.log("Data written successfully.");
@@ -148,8 +144,7 @@ export async function addSubcategory(categoryId, newCategoryName) {
                 }
             }
             return false;
-        };
-
+        }; 
         console.log("Starting adding subcategory process...");
         const subcategoryAdded = await addSubcategoryRecursive(categories);
         if (!subcategoryAdded) {
@@ -164,9 +159,7 @@ export async function addSubcategory(categoryId, newCategoryName) {
     }
 }
 
+export async function addproduct(categoryId, name, description) {
+    console.log("New subcategory: " + name + " " + description);
 
-
-
-
-
-
+}

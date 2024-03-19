@@ -72,62 +72,62 @@ export async function deleteCategory(categoryId) {
     }
 }
 
-export async function addCategory(newCategoryName) { 
-        // console.log("new sub Category  "+newCategoryName); 
-        try {
-            const data = await fs.readFile(process.cwd() + '/src/data.json', 'utf8');
-            const { categories, deletedContent } = JSON.parse(data); 
+export async function addCategory(name, description, body) { 
+        console.log("new sub Category  "+name+" "+ description+" "+ body); 
+        // try {
+        //     const data = await fs.readFile(process.cwd() + '/src/data.json', 'utf8');
+        //     const { categories, deletedContent } = JSON.parse(data); 
     
-            const addSubcategoryRecursive = async (categoryList) => {
-                for (let i = 0; i < categoryList.length; i++) {
-                    const category = categoryList[i];
-                    console.log("Checking category:", category);
-                    if (category.id === categoryToModifyId) {
-                        console.log("Category found:", category);
-                        // Add the new subcategory
-                        if (!category.subCategories) {
-                            category.subCategories = [];
-                        }
+        //     const addSubcategoryRecursive = async (categoryList) => {
+        //         for (let i = 0; i < categoryList.length; i++) {
+        //             const category = categoryList[i];
+        //             console.log("Checking category:", category);
+        //             if (category.id === categoryToModifyId) {
+        //                 console.log("Category found:", category);
+        //                 // Add the new subcategory
+        //                 if (!category.subCategories) {
+        //                     category.subCategories = [];
+        //                 }
     
-                        const dataObj = {
-                            "id" : newCategoryName,
-                            "name": newCategoryName,
-                            "ALBEDOcuerpo": "",
-                            "subCategories": [],
-                            "products": []
-                        }
+        //                 const dataObj = {
+        //                     "id" : newCategoryName,
+        //                     "name": newCategoryName,
+        //                     "ALBEDOcuerpo": "",
+        //                     "subCategories": [],
+        //                     "products": []
+        //                 }
     
-                        category.subCategories.push(dataObj);
-                        console.log("New subcategory added:", dataObj);
-                        // Write the modified data back to the JSON file
-                        console.log("Writing updated data to file...");
-                        await fs.writeFile(process.cwd() + '/src/data.json', JSON.stringify({ categories, deletedContent }));
-                        console.log("Data written successfully.");
-                        revalidatePath('/admin/categories');
-                        console.log("Path revalidated.");
-                        return true;
-                    }
-                    if (category.subCategories && category.subCategories.length > 0) {
-                        console.log("Checking subcategories of:", category);
-                        const subcategoryAdded = await addSubcategoryRecursive(category.subCategories);
-                        if (subcategoryAdded) return true;
-                    }
-                }
-                return false;
-            };
+        //                 category.subCategories.push(dataObj);
+        //                 console.log("New subcategory added:", dataObj);
+        //                 // Write the modified data back to the JSON file
+        //                 console.log("Writing updated data to file...");
+        //                 await fs.writeFile(process.cwd() + '/src/data.json', JSON.stringify({ categories, deletedContent }));
+        //                 console.log("Data written successfully.");
+        //                 revalidatePath('/admin/categories');
+        //                 console.log("Path revalidated.");
+        //                 return true;
+        //             }
+        //             if (category.subCategories && category.subCategories.length > 0) {
+        //                 console.log("Checking subcategories of:", category);
+        //                 const subcategoryAdded = await addSubcategoryRecursive(category.subCategories);
+        //                 if (subcategoryAdded) return true;
+        //             }
+        //         }
+        //         return false;
+        //     };
     
-            // console.log("Starting adding subcategory process...");
-            const subcategoryAdded = await addSubcategoryRecursive(categories);
-            if (!subcategoryAdded) {
-                console.log("Category not found.");
-                return false;
-            }
-            // console.log("Subcategory added successfully.");
-            return true;
-        } catch (error) {
-            // console.error("Error adding subcategory:", error);
-            return false;
-        }
+        //     // console.log("Starting adding subcategory process...");
+        //     const subcategoryAdded = await addSubcategoryRecursive(categories);
+        //     if (!subcategoryAdded) {
+        //         console.log("Category not found.");
+        //         return false;
+        //     }
+        //     // console.log("Subcategory added successfully.");
+        //     return true;
+        // } catch (error) {
+        //     // console.error("Error adding subcategory:", error);
+        //     return false;
+        // }
 }
 
 
@@ -191,6 +191,7 @@ export async function addSubcategory(categoryId, newCategoryName) {
         return false;
     }
 }
+
 
 
 

@@ -70,7 +70,7 @@ export default async function Page() {
     <div className="">
       <div className="flex mb-8">
         <h1 className="font-semibold text-4xl">Categorias</h1>
-        <button  className="rounded-lg ml-4 p-2 bg-blue-300 hover:bg-blue-400 self-center">Añadir Category</button>
+        <Link href="/admin/categories/newcatedory"  className="rounded-lg ml-4 p-2 bg-blue-300 hover:bg-blue-400 self-center">Añadir Category</Link>
       </div>
       
       {data.map((category) => (

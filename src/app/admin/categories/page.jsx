@@ -4,20 +4,14 @@ import Link from "next/link";
 import Delete from "@/components/admin/categories/delete";
 import AddSubCategory from "@/components/admin/categories/addsubcategory/add";
 import AddNewCategoryModal from '@/components/admin/categories/addnewcategory/add';
-
+import AddNewProduct from "@/components/admin/categories/addnewproduct/add";
 
 const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full"> 
     <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between mb-2">
       <p className="h-auto ">{category.name}</p>
-      <div className="space-x-4 flex flex-row">
-        
-        <div className="rounded-md hover:bg-green-300 cursor-pointer ">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-          </svg>
-        </div>
-
+      <div className="space-x-4 flex flex-row"> 
+        <AddNewProduct /> 
         <AddSubCategory categoryId={category}/>
         <Link href={`/admin/categories/${category.id}`} className=" rounded-md hover:bg-yellow-300 cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

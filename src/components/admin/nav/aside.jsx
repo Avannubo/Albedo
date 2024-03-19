@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from "next/image"; 
 
 export default function aside() {
-    return <div className="bg-slate-100 w-[300px] fixed left-0 top-0 h-[100vh] shadow-2xl z-40">
+    return <div className="bg-slate-100 w-[270px] fixed left-0 top-0 h-[100vh] shadow-2xl z-40">
         <div className='flex flex-col justify-center p-6'>
         <Image src="/images/Logo_albedo.png"
                             alt="Vercel Logo"

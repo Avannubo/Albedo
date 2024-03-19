@@ -1,8 +1,8 @@
 // deleteModal.js
 "use client"
 import { useState } from 'react';
-import { addSubcategory } from '@/lib/data';
 import React from 'react';
+import { addSubcategory } from '@/lib/data';
 
 export default function AddSubcategory({ isOpen, onClose, categoryId }) {
     const [newCategoryName, setNewCategoryName] = useState('');

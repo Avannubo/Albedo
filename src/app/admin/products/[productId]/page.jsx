@@ -1,20 +1,33 @@
+"use client"
 
-import { FormEvent } from 'react'
+// import { FormEvent } from 'react'
+import { useState } from 'react';
+import { addSubcategory } from '@/lib/data';
+import React from 'react';
 
 export default function Page({ pageData }) {
-    return <section>
+    const [newCategoryName, setNewCategoryName, setNewProductName, newproductName] = useState('');
+
+    const handleInputChangeProduct = (event) => {
+        setNewProductName(event.target.value);
+    };
+    const handleAddCategory = () => { 
+        addSubcategory(categoryId, newCategoryName);
+        onClose();
+    };
+    return <div>
         {/* {pageData.id} */}
         <div className="flex flex-col">
             <div className="">
-                <h1 className="font-semibold text-4xl">Product 1</h1>
-                <p>product Id #1234</p>
+                <h1 className="font-semibold text-4xl">Product</h1>
+                {/* <p>product Id #1234</p> */}
             </div>
             <div className="w-full rounded-md shadow-lg mb-12 p-10">
-                <form action="#" className='flex flex-col'>
+                <div action="#" className='flex flex-col'>
                     <div className='flex flex-row justify-between space-x-4'>
                         <div className="mb-4 flex-1">
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
-                            <input type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="product" required />
+                            <input onChange={handleInputChangeProduct} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="product" required />
                         </div>
                         <div className="mb-4 flex-1">
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
@@ -49,8 +62,8 @@ export default function Page({ pageData }) {
                             Guardar
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-    </section >
+    </div >
 }

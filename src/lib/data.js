@@ -30,8 +30,15 @@ export async function getUsers() {
 
 }
 
-export async function deleteCategory(categoryId) {
-    try {
+export async function deleteElement(categoryId, productId) {
+    if(productId!==null){
+        const productToDelete =  categoryId.productId.ALBEDOcodigo;
+        console.log("product to delete: "+productToDelete); 
+
+     }
+     
+    if(categoryId!==null){ 
+        try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
         const categoryToDeleteId = categoryId.categoryId.id;
@@ -68,10 +75,14 @@ export async function deleteCategory(categoryId) {
         }
         // console.log("Category deleted successfully.");
         return true;
-    } catch (error) {
-        // console.error("Error deleting category:", error);
+    } catch (error) { 
         return false;
     }
+    } 
+}
+
+function deleteCategory(Category) {
+    
 }
 
 export async function addCategory(name, description) {

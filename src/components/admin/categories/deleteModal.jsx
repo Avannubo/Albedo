@@ -1,10 +1,10 @@
 // deleteModal.js
 "use client"
 
-import { deleteCategory } from '@/lib/data';
+import { deleteElement } from '@/lib/data';
 import React from 'react';
 
-export default function DeleteModal({ isOpen, onClose, categoryId }) {
+export default function DeleteModal({ isOpen, onClose, category, product }) {
   return isOpen ? (
     <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
       <div className="w-full max-w-md bg-white shadow-lg rounded-md p-6 relative">
@@ -23,7 +23,7 @@ export default function DeleteModal({ isOpen, onClose, categoryId }) {
         </div>
         <div className="flex flex-col space-y-2">
 
-        <button onClick={() => deleteCategory(categoryId)} className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-red-500 hover:bg-red-600 active:bg-red-500">Delete</button>
+        <button onClick={() => deleteElement(category,product)} className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-red-500 hover:bg-red-600 active:bg-red-500">Delete</button>
 
           <button onClick={onClose} className="px-6 py-2.5 rounded-md text-black text-sm font-semibold border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Cancel</button>
         </div>

@@ -1534,3 +1534,38 @@
     ],
     "deletedContent": []
 }
+{
+    "categoryId": {
+        "id": "Gestion-Energética",
+        "name": "Fuentes de alimentación: gestión energética",
+        "ALBEDOcuerpo": "",
+        "imagen": "",
+        "subCategories": [
+            {
+                "id": "Fuentes-de-alimentación",
+                "name": "Fuentes de alimentación",
+                "ALBEDOcuerpo": "",
+                "imagen": "",
+                "subCategories": [],
+                "products": []
+            }
+        ],
+        "products": []
+    },
+    "productId": null
+} {}
+
+{
+    "categoryId": null,
+    "productId": {
+        "ALBEDOcodigo": "qqqqqqqq",
+        "ALBEDOtitulo": "qqwwwwwwww",
+        "ALBEDOprecio": "123 +IVA",
+        "ALBEDOcuerpo": "adsadsdaffcvxv",
+        "ALBEDOstock_minimo": "4",
+        "ALBEDOstock": "3",
+        "imagen": "/images/ADFSSM100/imagen.png",
+        "imagen.small": "/images/ADFSSM100/imagen.small.png",
+        "ALBEDOplazo_entrega": "8"
+    }
+} {}

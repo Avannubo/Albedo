@@ -1,4 +1,4 @@
-{
+{ 
     "categories": [
         {
             "id": "accesibilidad",
@@ -105,7 +105,8 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "products": []
         },
         {
             "id": "Gestion-Energética",
@@ -235,9 +236,11 @@
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    "products": []
                 }
-            ]
+            ],
+            "products": []
         },
         {
             "id": "Protectores",
@@ -330,7 +333,8 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "products": []
         },
         {
             "id": "Controladores",
@@ -404,7 +408,8 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "products": []
         },
         {
             "id": "automatismos",
@@ -691,7 +696,8 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "products": []
         },
         {
             "id": "dupline",
@@ -717,45 +723,7 @@
                         }
                     ]
                 }
-            ]
-        }
-    ],
-    "deletedContent": [
-        {
-            "id": "ngbvc",
-            "name": "ngbvc",
-            "ALBEDOcuerpo": "bvcncbv",
-            "subCategories": [],
-            "products": []
-        },
-        {
-            "id": "dsadsadsadsadsadsadsadsadsadsadsadsadsadsadsa",
-            "name": "dsadsadsadsadsadsadsadsadsadsadsadsadsadsadsa",
-            "ALBEDOcuerpo": "cxzcxzcxzcxzcxzcxzcxzcxzcxzcxzcxzcxzcxzcxzcxzcxzcxzcxzcxzcxz",
-            "subCategories": [
-                {
-                    "id": "nbvvvv",
-                    "name": "nbvvvv",
-                    "ALBEDOcuerpo": "",
-                    "subCategories": [
-                        {
-                            "id": "nbvvvvvvv",
-                            "name": "nbvvvvvvv",
-                            "ALBEDOcuerpo": "",
-                            "subCategories": [],
-                            "products": []
-                        }
-                    ],
-                    "products": []
-                }
             ],
-            "products": []
-        },
-        {
-            "id": "nbvnvbnvbn",
-            "name": "nbvnvbnvbn",
-            "ALBEDOcuerpo": "nbvnvbnvn",
-            "subCategories": [],
             "products": []
         },
         {
@@ -782,7 +750,9 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "products": []
         }
-    ]
+    ],
+    "deletedContent": []
 }

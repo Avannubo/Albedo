@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 
-const filePath = '/images/data.json';
+const filePath = './src/data.json';
 export async function requireContent() {
     const res = await fs.readFile(filePath, 'utf8')
 

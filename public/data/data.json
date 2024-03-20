@@ -1,4 +1,4 @@
-{
+{ 
     "categories": [
         {
             "id": "accesibilidad",
@@ -15,28 +15,6 @@
                     "imagen": "/images/ADFSSM100/imagen.png",
                     "imagen.small": "/images/ADFSSM100/imagen.small.png",
                     "ALBEDOplazo_entrega": "This is the delivery of the product1."
-                },
-                {
-                    "ALBEDOcodigo": "AB1234",
-                    "ALBEDOtitulo": "qwerty",
-                    "ALBEDOprecio": "123 +IVA",
-                    "ALBEDOcuerpo": "nfnfnvdfvfdv",
-                    "ALBEDOstock_minimo": "4",
-                    "ALBEDOstock": "3",
-                    "imagen": "/images/ADFSSM100/imagen.png",
-                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                    "ALBEDOplazo_entrega": "3"
-                },
-                {
-                    "ALBEDOcodigo": "AB9876",
-                    "ALBEDOtitulo": "qwesdf",
-                    "ALBEDOprecio": "123 +IVA",
-                    "ALBEDOcuerpo": "bcxzzbxbzzbx",
-                    "ALBEDOstock_minimo": "2",
-                    "ALBEDOstock": "2",
-                    "imagen": "/images/ADFSSM100/imagen.png",
-                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                    "ALBEDOplazo_entrega": "3"
                 }
             ]
         },
@@ -124,17 +102,6 @@
                             "imagen.small": "/images/imagen.small.png",
                             "ALBEDOplazo_entrega": "This is the delivery of the product1.",
                             "ALBEDOcategory": "Farolas"
-                        },
-                        {
-                            "ALBEDOcodigo": "qwerty",
-                            "ALBEDOtitulo": "qwerty",
-                            "ALBEDOprecio": "aqaqa +IVA",
-                            "ALBEDOcuerpo": "dededed",
-                            "ALBEDOstock_minimo": "2",
-                            "ALBEDOstock": "2",
-                            "imagen": "/images/ADFSSM100/imagen.png",
-                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                            "ALBEDOplazo_entrega": "4"
                         }
                     ]
                 }

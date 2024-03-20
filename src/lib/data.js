@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 
 export async function requireContent() {
-    const res = await fs.readFile('/data.json', 'utf8')
+    const res = await fs.readFile('/data/data.json', 'utf8')
 
     return JSON.parse(res)
 }
@@ -31,7 +31,7 @@ export async function getUsers() {
 
 export async function deleteCategory(categoryId) {
     try {
-        const data = await fs.readFile('/data.json', 'utf8');
+        const data = await fs.readFile('/data/data.json', 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
         const categoryToDeleteId = categoryId.categoryId.id;
 
@@ -44,7 +44,7 @@ export async function deleteCategory(categoryId) {
                     const deletedObject = categoryList.splice(i, 1)[0];
                     deletedContent.push(deletedObject);
                     // console.log("Writing updated data to file...");
-                    await fs.writeFile('/data.json', JSON.stringify({ categories, deletedContent }));
+                    await fs.writeFile('/data/data.json', JSON.stringify({ categories, deletedContent }));
                     // console.log("Data written successfully.");
                     revalidatePath('/admin/categories');
                     // console.log("Path revalidated.");
@@ -77,7 +77,7 @@ export async function addCategory(name, description) {
     console.log("New subcategory: " + name + " " + description);
 
     try {
-        const data = await readFile('/data.json', 'utf8');
+        const data = await readFile('/data/data.json', 'utf8');
         const jsonData = JSON.parse(data);
         const { categories } = jsonData;
 
@@ -91,7 +91,7 @@ export async function addCategory(name, description) {
 
         categories.push(newCategory);
 
-        await writeFile('/data.json', JSON.stringify(jsonData));
+        await writeFile('/data/data.json', JSON.stringify(jsonData));
         revalidatePath('/admin/categories');
 
         console.log("Subcategory added successfully.");
@@ -107,7 +107,7 @@ export async function addSubcategory(categoryId, newCategoryName) {
     console.log(" subcategory name " + newCategoryName);
 
     try {
-        const data = await fs.readFile('/data.json', 'utf8');
+        const data = await fs.readFile('/data/data.json', 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
         const categoryToModifyId = categoryId.categoryId.id;
         const addSubcategoryRecursive = async (categoryList) => {
@@ -129,7 +129,7 @@ export async function addSubcategory(categoryId, newCategoryName) {
                     category.subCategories.push(dataObj);
                     console.log("New subcategory added:", dataObj);
                     console.log("Writing updated data to file...");
-                    await fs.writeFile('/data.json', JSON.stringify({ categories, deletedContent }));
+                    await fs.writeFile('/data/data.json', JSON.stringify({ categories, deletedContent }));
                     console.log("Data written successfully.");
                     revalidatePath('/admin/categories');
                     console.log("Path revalidated.");
@@ -160,7 +160,7 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
     console.log("New product:" + categoryId.categoryId.id + " " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
 
     try {
-        const data = await fs.readFile('/data.json', 'utf8');
+        const data = await fs.readFile('/data/data.json', 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
         const categoryToModifyId = categoryId.categoryId.id;
         const addProductRecursive = async (categoryList) => {
@@ -185,7 +185,7 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
                     category.products.push(dataObj);
                     console.log("New product added:", dataObj);
                     console.log("Writing updated data to file...");
-                    await fs.writeFile('/data.json', JSON.stringify({ categories, deletedContent }));
+                    await fs.writeFile('/data/data.json', JSON.stringify({ categories, deletedContent }));
                     console.log("Data written successfully.");
                     revalidatePath('/admin/categories');
                     console.log("Path revalidated.");

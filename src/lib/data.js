@@ -115,12 +115,10 @@ export async function addSubcategory(categoryId, newCategoryName) {
                 const category = categoryList[i];
                 console.log("Checking category:", category);
                 if (category.id === categoryToModifyId) {
-                    console.log("Category found:", category);
-                    // Add the new subcategory
+                    console.log("Category found:", category); 
                     if (!category.subCategories) {
                         category.subCategories = [];
-                    }
-
+                    } 
                     const dataObj = {
                         "id": newCategoryName,
                         "name": newCategoryName,
@@ -158,8 +156,6 @@ export async function addSubcategory(categoryId, newCategoryName) {
         return false;
     }
 }
-
 export async function addproduct(categoryId, name, description) {
-    console.log("New subcategory: " + name + " " + description);
-
+    console.log("New product: "+categoryId+" " + name + " " + description);
 }

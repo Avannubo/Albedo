@@ -100,7 +100,7 @@ export async function addCategory(name, description) {
         console.error("Error adding subcategory:", error);
         return false;
     }
-} 
+}
 
 export async function addSubcategory(categoryId, newCategoryName) {
     console.log("Adding subcategory to " + categoryId.categoryId.id);
@@ -109,25 +109,25 @@ export async function addSubcategory(categoryId, newCategoryName) {
     try {
         const data = await fs.readFile(process.cwd() + '/src/data.json', 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        const categoryToModifyId = categoryId.categoryId.id; 
+        const categoryToModifyId = categoryId.categoryId.id;
         const addSubcategoryRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 console.log("Checking category:", category);
                 if (category.id === categoryToModifyId) {
-                    console.log("Category found:", category); 
+                    console.log("Category found:", category);
                     if (!category.subCategories) {
                         category.subCategories = [];
-                    } 
+                    }
                     const dataObj = {
                         "id": newCategoryName,
                         "name": newCategoryName,
                         "ALBEDOcuerpo": "",
                         "subCategories": [],
                         "products": []
-                    } 
+                    }
                     category.subCategories.push(dataObj);
-                    console.log("New subcategory added:", dataObj); 
+                    console.log("New subcategory added:", dataObj);
                     console.log("Writing updated data to file...");
                     await fs.writeFile(process.cwd() + '/src/data.json', JSON.stringify({ categories, deletedContent }));
                     console.log("Data written successfully.");
@@ -142,7 +142,7 @@ export async function addSubcategory(categoryId, newCategoryName) {
                 }
             }
             return false;
-        }; 
+        };
         console.log("Starting adding subcategory process...");
         const subcategoryAdded = await addSubcategoryRecursive(categories);
         if (!subcategoryAdded) {
@@ -156,6 +156,59 @@ export async function addSubcategory(categoryId, newCategoryName) {
         return false;
     }
 }
-export async function addproduct(categoryId, name, description) {
-    console.log("New product: "+categoryId+" " + name + " " + description);
+export async function addproduct(categoryId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
+    console.log("New product:" + categoryId.categoryId.id + " " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
+
+    try {
+        const data = await fs.readFile(process.cwd() + '/src/data.json', 'utf8');
+        const { categories, deletedContent } = JSON.parse(data);
+        const categoryToModifyId = categoryId.categoryId.id;
+        const addProductRecursive = async (categoryList) => {
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                if (category.id === categoryToModifyId) {
+                    console.log("Category found:", category);
+                    if (!category.products) {
+                        category.products = [];
+                    }
+                    const dataObj = {
+                        "ALBEDOcodigo": productCode,
+                        "ALBEDOtitulo": Name,
+                        "ALBEDOprecio": Price + " +IVA",
+                        "ALBEDOcuerpo": Body,
+                        "ALBEDOstock_minimo": MinStock,
+                        "ALBEDOstock": Stock,
+                        "imagen": "/images/ADFSSM100/imagen.png",
+                        "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                        "ALBEDOplazo_entrega": DeliveryTime
+                    }
+                    category.products.push(dataObj);
+                    console.log("New product added:", dataObj);
+                    console.log("Writing updated data to file...");
+                    await fs.writeFile(process.cwd() + '/src/data.json', JSON.stringify({ categories, deletedContent }));
+                    console.log("Data written successfully.");
+                    revalidatePath('/admin/categories');
+                    console.log("Path revalidated.");
+                    return true;
+                }
+                if (category.subCategories && category.subCategories.length > 0) {
+                    console.log("Checking products in subcategories of:", category.subCategories);
+                    const productAdded = await addProductRecursive(category.subCategories);
+                    if (productAdded) return true;
+                }
+            }
+            return false;
+        };
+        console.log("Starting adding product process...");
+        const productAdded = await addProductRecursive(categories);
+        if (!productAdded) {
+            console.log("Category not found.");
+            return false;
+        }
+        console.log("product added successfully.");
+        return true;
+    } catch (error) {
+        console.error("Error adding product:", error);
+        return false;
+    }
 }

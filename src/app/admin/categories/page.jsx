@@ -11,7 +11,7 @@ const Category = ({ category }) => (
     <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between mb-2">
       <p className="h-auto ">{category.name}</p>
       <div className="space-x-4 flex flex-row"> 
-        <AddNewProduct /> 
+        <AddNewProduct categoryId={category}/> 
         <AddSubCategory categoryId={category}/>
         <Link href={`/admin/categories/${category.id}`} className=" rounded-md hover:bg-yellow-300 cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

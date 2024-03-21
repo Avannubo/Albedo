@@ -8,7 +8,7 @@ import EditProduct from "@/components/admin/categories/product/edit";
 
 const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full"> 
-    <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between mb-2">
+    <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
       <p className="h-auto ">{category.name}</p>
       <div className="space-x-4 flex flex-row"> 
         <AddNewProduct categoryId={category}/> 
@@ -20,7 +20,7 @@ const Category = ({ category }) => (
     </div> 
     {category.products && category.products.length > 0 && (
       <div>
-        {category.products.map((product) => (
+        {category.products.reverse().map((product) => (
           <div key={product.ALBEDOcodigo} className="ml-14 flex flex-row justify-between bg-slate-200 rounded-lg p-2 mb-2">
             <p className="h-auto w-full  ">
               {product.ALBEDOcodigo} : {product.ALBEDOtitulo}
@@ -35,8 +35,8 @@ const Category = ({ category }) => (
     )}
     {category.subCategories &&
       category.subCategories.length > 0 &&
-      category.subCategories.map((subCategory) => (
-        <div key={subCategory.id} className="ml-14 ">
+      category.subCategories.reverse().map((subCategory) => (
+        <div key={subCategory.id} className="ml-14">
           <Category category={subCategory} />
         </div>
       ))} 
@@ -52,8 +52,10 @@ export default async function Page() {
         <AddNewCategoryModal />
       </div>
       
-      {data.map((category) => (
-        <Category key={category.id} category={category} />
+      {data.reverse().map((category) => (
+        <div key={category.id} className="mt-6">
+        <Category category={category} />
+        </div>
       ))}
       <Modal />
       

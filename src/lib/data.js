@@ -273,3 +273,60 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
         return false;
     }
 }
+
+export async function editproduct(productId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
+    console.log("New product data changes:" + productCode + " " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
+    console.log("product Id for change:"+ productId);
+    // try {
+    //     const data = await fs.readFile(filePath, 'utf8');
+    //     const { categories, deletedContent } = JSON.parse(data);
+    //     const categoryToModifyId = categoryId.categoryId.id;
+    //     const addProductRecursive = async (categoryList) => {
+    //         for (let i = 0; i < categoryList.length; i++) {
+    //             const category = categoryList[i];
+    //             if (category.id === categoryToModifyId) {
+    //                 console.log("Category found:", category);
+    //                 if (!category.products) {
+    //                     category.products = [];
+    //                 }
+    //                 const dataObj = {
+    //                     "ALBEDOcodigo": productCode,
+    //                     "ALBEDOtitulo": Name,
+    //                     "ALBEDOprecio": Price + " +IVA",
+    //                     "ALBEDOcuerpo": Body,
+    //                     "ALBEDOstock_minimo": MinStock,
+    //                     "ALBEDOstock": Stock,
+    //                     "imagen": "/images/ADFSSM100/imagen.png",
+    //                     "imagen.small": "/images/ADFSSM100/imagen.small.png",
+    //                     "ALBEDOplazo_entrega": DeliveryTime
+    //                 }
+    //                 category.products.push(dataObj);
+    //                 console.log("New product added:", dataObj);
+    //                 console.log("Writing updated data to file...");
+    //                 await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+    //                 console.log("Data written successfully.");
+    //                 revalidatePath('/admin/categories');
+    //                 console.log("Path revalidated.");
+    //                 return true;
+    //             }
+    //             if (category.subCategories && category.subCategories.length > 0) {
+    //                 console.log("Checking products in subcategories of:", category.subCategories);
+    //                 const productAdded = await addProductRecursive(category.subCategories);
+    //                 if (productAdded) return true;
+    //             }
+    //         }
+    //         return false;
+    //     };
+    //     console.log("Starting adding product process...");
+    //     const productAdded = await addProductRecursive(categories);
+    //     if (!productAdded) {
+    //         console.log("Category not found.");
+    //         return false;
+    //     }
+    //     console.log("product added successfully.");
+    //     return true;
+    // } catch (error) {
+    //     console.error("Error adding product:", error);
+    //     return false;
+    // }
+}

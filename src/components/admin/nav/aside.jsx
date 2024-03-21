@@ -20,9 +20,6 @@ export default function aside() {
                 <p className="flex justify-center font-semibold">Usuarios</p>
             </Link>
             <Link href="/admin/categories" className="cursor-pointer p-4 w-full hover:shadow-md bg-white rounded-lg ">
-                <p className="flex justify-center font-semibold">Categorias</p>
-            </Link>
-            <Link href="/admin/products" className="cursor-pointer p-4 w-full hover:shadow-md bg-white rounded-lg ">
                 <p className="flex justify-center font-semibold">Productos</p>
             </Link>
             <Link href="/admin/orders" className="cursor-pointer p-4 w-full hover:shadow-md bg-white rounded-lg ">

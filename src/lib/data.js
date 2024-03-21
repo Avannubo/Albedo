@@ -330,3 +330,7 @@ export async function editproduct(productId, productCode, Name, Price, Descripti
     //     return false;
     // }
 }
+
+export async function getProductData(){
+
+}

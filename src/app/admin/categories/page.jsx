@@ -48,7 +48,7 @@ export default async function Page() {
   return (
     <div className="">
       <div className="flex mb-8">
-        <h1 className="font-semibold text-4xl">Categorias</h1>
+        <h1 className="font-semibold text-4xl">Productos</h1>
         <AddNewCategoryModal />
       </div>
       

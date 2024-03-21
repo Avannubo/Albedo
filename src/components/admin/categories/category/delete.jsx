@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from 'react'; 
-import Modal from '@/components/admin/categories/deleteModal'; 
+import Modal from '@/components/admin/categories/category/deleteModal'; 
 
-export default function Delete(categoryId) {
+export default function Delete(category, product) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -27,7 +27,7 @@ export default function Delete(categoryId) {
                 </svg>
             </div>
             <h1>Eliminar</h1>
-            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId}/>
+            <Modal isOpen={isModalOpen} onClose={toggleModal} category={category} product={product} />
         </div>
     );
 }

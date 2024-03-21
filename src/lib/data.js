@@ -31,96 +31,59 @@ export async function getUsers() {
 
 export async function deleteElement(categoryId, productId) {
 
-    console.log(JSON.stringify(categoryId) +" "+ JSON.stringify(productId));
-    if(productId!==null){
-        const productToDelete =  categoryId.productId.ALBEDOcodigo;
-        console.log("product to delete: "+productToDelete); 
-        try {
-            const data = await fs.readFile(filePath, 'utf8');
-            const { categories, deletedContent } = JSON.parse(data);
-            const productToDeleteId = productToDelete;
-    
-            const deleteRecursive = async (categoryList) => {
-                for (let i = 0; i < categoryList.length; i++) {
-                    const category = categoryList[i];
-                    // console.log("Checking category:", category);
-                    if (category.id === productToDeleteId) {
-                        // console.log("Category found:", category);
-                        const deletedObject = categoryList.splice(i, 1)[0];
-                        deletedContent.push(deletedObject);
-                        // console.log("Writing updated data to file...");
-                        await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                        // console.log("Data written successfully.");
-                        revalidatePath('/admin/categories');
-                        // console.log("Path revalidated.");
-                        return true;
+    if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
+        if (categoryId.categoryId !== "none") {
+            console.log("cat info: " + JSON.stringify(categoryId));
+            try {
+                const data = await fs.readFile(filePath, 'utf8');
+                const { categories, deletedContent } = JSON.parse(data);
+                const categoryToDeleteId = categoryId.categoryId.id; 
+                const deleteRecursive = async (categoryList) => {
+                    for (let i = 0; i < categoryList.length; i++) {
+                        const category = categoryList[i];
+                        // console.log("Checking category:", category);
+                        if (category.id === categoryToDeleteId) {
+                            // console.log("Category found:", category);
+                            const deletedObject = categoryList.splice(i, 1)[0];
+                            deletedContent.push(deletedObject);
+                            // console.log("Writing updated data to file...");
+                            await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                            // console.log("Data written successfully.");
+                            revalidatePath('/admin/categories');
+                            // console.log("Path revalidated.");
+                            return true;
+                        }
+                        if (category.subCategories && category.subCategories.length > 0) {
+                            // console.log("Checking subcategories of:", category);
+                            const subcategoryDeleted = await deleteRecursive(category.subCategories);
+                            if (subcategoryDeleted) return true;
+                        }
                     }
-                    if (category.subCategories && category.subCategories.length > 0) {
-                        // console.log("Checking subcategories of:", category);
-                        const subcategoryDeleted = await deleteRecursive(category.subCategories);
-                        if (subcategoryDeleted) return true;
-                    }
+                    return false;
+                };
+                //console.log("Starting deletion process...");
+                const categoryDeleted = await deleteRecursive(categories);
+                if (!categoryDeleted) {
+                    // console.log("Category not found.");
+                    return false;
                 }
-                return false;
-            };
-            -
-                console.log("Starting deletion process...");
-            const categoryDeleted = await deleteRecursive(categories);
-            if (!categoryDeleted) {
-                console.log("Category not found.");
-                return false;
+                // console.log("Category deleted successfully.");
+                return true;
+            } catch (error) {
+                console.log("error");
+                // return false;
             }
-            // console.log("Category deleted successfully.");
-            return true;
-        } catch (error) { 
-            return false;
-        } 
+        }else{ 
+            console.log("\nproduct info:" + JSON.stringify(categoryId.productId));
+            const productToDelete = categoryId.productId.ALBEDOcodigo;
+            console.log("\nproduct to delete: " + productToDelete);
 
-     }
-     
-    if(categoryId!==null && productId==null){ 
-        try {
-        const data = await fs.readFile(filePath, 'utf8');
-        const { categories, deletedContent } = JSON.parse(data);
-        const categoryToDeleteId = categoryId.categoryId.id;
 
-        const deleteRecursive = async (categoryList) => {
-            for (let i = 0; i < categoryList.length; i++) {
-                const category = categoryList[i];
-                // console.log("Checking category:", category);
-                if (category.id === categoryToDeleteId) {
-                    // console.log("Category found:", category);
-                    const deletedObject = categoryList.splice(i, 1)[0];
-                    deletedContent.push(deletedObject);
-                    // console.log("Writing updated data to file...");
-                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    // console.log("Data written successfully.");
-                    revalidatePath('/admin/categories');
-                    // console.log("Path revalidated.");
-                    return true;
-                }
-                if (category.subCategories && category.subCategories.length > 0) {
-                    // console.log("Checking subcategories of:", category);
-                    const subcategoryDeleted = await deleteRecursive(category.subCategories);
-                    if (subcategoryDeleted) return true;
-                }
-            }
-            return false;
-        };
-        -
-            console.log("Starting deletion process...");
-        const categoryDeleted = await deleteRecursive(categories);
-        if (!categoryDeleted) {
-            console.log("Category not found.");
-            return false;
+            
+
         }
-        // console.log("Category deleted successfully.");
-        return true;
-    } catch (error) { 
-        return false;
     }
-    }
-} 
+}
 
 export async function addCategory(name, description) {
     console.log("New subcategory: " + name + " " + description);

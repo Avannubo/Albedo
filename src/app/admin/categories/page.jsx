@@ -1,11 +1,10 @@
 import { getCategories } from "@/lib/data";
-import Modal from '@/components/admin/categories/deleteModal'; 
-import Link from "next/link";
-import Delete from "@/components/admin/categories/delete";
-import AddSubCategory from "@/components/admin/categories/addsubcategory/add";
-import AddNewCategoryModal from '@/components/admin/categories/addnewcategory/add';
-import AddNewProduct from "@/components/admin/categories/addnewproduct/add";
-import EditProduct from "@/components/admin/categories/editData/edit";
+import Modal from '@/components/admin/categories/category/deleteModal'; 
+import Delete from "@/components/admin/categories/category/delete";
+import AddSubCategory from "@/components/admin/categories/subcategory/add";
+import AddNewCategoryModal from '@/components/admin/categories/category/add';
+import AddNewProduct from "@/components/admin/categories/product/add";
+import EditProduct from "@/components/admin/categories/product/edit";
 
 const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full"> 
@@ -14,10 +13,7 @@ const Category = ({ category }) => (
       <div className="space-x-4 flex flex-row"> 
         <AddNewProduct categoryId={category}/> 
         <AddSubCategory categoryId={category}/>
-        <EditProduct categoryId={category} productId={"none"}/>
-        {/* <Link href={`/admin/categories/${category.id}`} className=" rounded-md hover:bg-yellow-300 cursor-pointer">
-          
-        </Link> */}
+        <EditProduct categoryId={category} productId={"none"}/> 
         {/* delete svg */}
         <Delete categoryId={category} productId={"none"} /> 
       </div>

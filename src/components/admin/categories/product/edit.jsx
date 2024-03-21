@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import Modal from '@/components/admin/categories/addsubcategory/addModal';
+import Modal from '@/components/admin/categories/subcategory/addModal';
 
 export default function editCategory(categoryId) {
     const [isModalOpen, setIsModalOpen] = useState(false);

@@ -3,11 +3,11 @@
 import { promises as fs } from 'fs';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
-import { log } from 'console';
 
 const filePath = './src/data.json';
 export async function requireContent() {
     const res = await fs.readFile(filePath, 'utf8')
+
     return JSON.parse(res)
 }
 
@@ -19,6 +19,7 @@ export async function getCategories() {
 
     return categories
 }
+
 export async function getUsers() {
     const {
         users
@@ -29,109 +30,47 @@ export async function getUsers() {
 
 }
 
-export async function deleteElement(categoryId, productId) {
+export async function deleteCategory(categoryId) {
+    try {
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories, deletedContent } = JSON.parse(data);
+        const categoryToDeleteId = categoryId.categoryId.id;
 
-    if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
-        if (categoryId.categoryId !== "none") {
-            console.log("cat info: " + JSON.stringify(categoryId));
-            try {
-                const data = await fs.readFile(filePath, 'utf8');
-                const { categories, deletedContent } = JSON.parse(data);
-                const categoryToDeleteId = categoryId.categoryId.id;
-                const deleteRecursive = async (categoryList) => {
-                    for (let i = 0; i < categoryList.length; i++) {
-                        const category = categoryList[i];
-                        // console.log("Checking category:", category);
-                        if (category.id === categoryToDeleteId) {
-                            // console.log("Category found:", category);
-                            const deletedObject = categoryList.splice(i, 1)[0];
-                            deletedContent.push(deletedObject);
-                            // console.log("Writing updated data to file...");
-                            await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                            // console.log("Data written successfully.");
-                            revalidatePath('/admin/categories');
-                            // console.log("Path revalidated.");
-                            return true;
-                        }
-                        if (category.subCategories && category.subCategories.length > 0) {
-                            // console.log("Checking subcategories of:", category);
-                            const subcategoryDeleted = await deleteRecursive(category.subCategories);
-                            if (subcategoryDeleted) return true;
-                        }
-                    }
-                    return false;
-                };
-                //console.log("Starting deletion process...");
-                const categoryDeleted = await deleteRecursive(categories);
-                if (!categoryDeleted) {
-                    // console.log("Category not found.");
-                    return false;
+        const deleteRecursive = async (categoryList) => {
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                // console.log("Checking category:", category);
+                if (category.id === categoryToDeleteId) {
+                    // console.log("Category found:", category);
+                    const deletedObject = categoryList.splice(i, 1)[0];
+                    deletedContent.push(deletedObject);
+                    // console.log("Writing updated data to file...");
+                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                    // console.log("Data written successfully.");
+                    revalidatePath('/admin/categories');
+                    // console.log("Path revalidated.");
+                    return true;
                 }
-                // console.log("Category deleted successfully.");
-                return true;
-            } catch (error) {
-                console.log("error");
-                // return false;
-            }
-        } else {
-            console.log("\nproduct info:" + JSON.stringify(categoryId.productId));
-
-            try {
-                const data = await fs.readFile(filePath, 'utf8');
-                const { categories, deletedContent } = JSON.parse(data);
-                const productToDelete = categoryId.productId.ALBEDOcodigo;
-                console.log("\nproduct to delete: ", productToDelete);
-
-                const deleteRecursive = async (categoryList) => {
-                    for (let i = 0; i < categoryList.length; i++) {
-                        const category = categoryList[i];
-                        // console.log("Checking category:", category);
-                        for (let j = 0; j < category.products.length; j++) {
-                            const product = category.products[j];
-                            if (product.ALBEDOcodigo === productToDelete) {
-                                console.log("product found:", product);
-                                // const productIndex = product.findIndex(productdata => productdata.ALBEDOcodigo === productToDelete);
-                                // console.log(productIndex);
-                                // if (productIndex !== -1) {
-
-
-                                // }
-                                const deletedObject = category.products.splice(i, 1)[0];
-                                deletedContent.push(deletedObject);
-                                console.log("Writing updated data to file...");
-                                await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                                console.log("Data written successfully.");
-                                revalidatePath('/admin/categories');
-                                console.log("Path revalidated.");
-                                return true;
-                            }
-                        }
-
-                        if (category.subCategories && category.subCategories.length > 0) {
-                            console.log("Checking subcategories of:", category);
-                            const subcategoryDeleted = await deleteRecursive(category.subCategories);
-                            if (subcategoryDeleted) return true;
-                        }
-                    }
-                    return false;
-                };
-                console.log("Starting deletion process...");
-                const productDeleted = await deleteRecursive(categories);
-                if (!productDeleted) {
-                    console.log("product not found.");
-                    return false;
+                if (category.subCategories && category.subCategories.length > 0) {
+                    // console.log("Checking subcategories of:", category);
+                    const subcategoryDeleted = await deleteRecursive(category.subCategories);
+                    if (subcategoryDeleted) return true;
                 }
-                console.log("product deleted successfully.");
-                return true;
-            } catch (error) {
-                console.log("error");
-                // return false;
             }
-
-
-
-
+            return false;
+        };
+        -
+            console.log("Starting deletion process...");
+        const categoryDeleted = await deleteRecursive(categories);
+        if (!categoryDeleted) {
+            console.log("Category not found.");
+            return false;
         }
+        // console.log("Category deleted successfully.");
+        return true;
+    } catch (error) {
+        // console.error("Error deleting category:", error);
+        return false;
     }
 }
 
@@ -163,6 +102,7 @@ export async function addCategory(name, description) {
         return false;
     }
 }
+
 export async function addSubcategory(categoryId, newCategoryName) {
     console.log("Adding subcategory to " + categoryId.categoryId.id);
     console.log(" subcategory name " + newCategoryName);
@@ -272,61 +212,4 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
         console.error("Error adding product:", error);
         return false;
     }
-}
-
-export async function editproduct(productId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
-    console.log("New product data changes:" + productCode + " " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
-    console.log("product Id for change:"+ productId);
-    // try {
-    //     const data = await fs.readFile(filePath, 'utf8');
-    //     const { categories, deletedContent } = JSON.parse(data);
-    //     const categoryToModifyId = categoryId.categoryId.id;
-    //     const addProductRecursive = async (categoryList) => {
-    //         for (let i = 0; i < categoryList.length; i++) {
-    //             const category = categoryList[i];
-    //             if (category.id === categoryToModifyId) {
-    //                 console.log("Category found:", category);
-    //                 if (!category.products) {
-    //                     category.products = [];
-    //                 }
-    //                 const dataObj = {
-    //                     "ALBEDOcodigo": productCode,
-    //                     "ALBEDOtitulo": Name,
-    //                     "ALBEDOprecio": Price + " +IVA",
-    //                     "ALBEDOcuerpo": Body,
-    //                     "ALBEDOstock_minimo": MinStock,
-    //                     "ALBEDOstock": Stock,
-    //                     "imagen": "/images/ADFSSM100/imagen.png",
-    //                     "imagen.small": "/images/ADFSSM100/imagen.small.png",
-    //                     "ALBEDOplazo_entrega": DeliveryTime
-    //                 }
-    //                 category.products.push(dataObj);
-    //                 console.log("New product added:", dataObj);
-    //                 console.log("Writing updated data to file...");
-    //                 await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-    //                 console.log("Data written successfully.");
-    //                 revalidatePath('/admin/categories');
-    //                 console.log("Path revalidated.");
-    //                 return true;
-    //             }
-    //             if (category.subCategories && category.subCategories.length > 0) {
-    //                 console.log("Checking products in subcategories of:", category.subCategories);
-    //                 const productAdded = await addProductRecursive(category.subCategories);
-    //                 if (productAdded) return true;
-    //             }
-    //         }
-    //         return false;
-    //     };
-    //     console.log("Starting adding product process...");
-    //     const productAdded = await addProductRecursive(categories);
-    //     if (!productAdded) {
-    //         console.log("Category not found.");
-    //         return false;
-    //     }
-    //     console.log("product added successfully.");
-    //     return true;
-    // } catch (error) {
-    //     console.error("Error adding product:", error);
-    //     return false;
-    // }
 }

@@ -1,6 +1,6 @@
 "use client" 
 import React, { useState } from 'react';
-import Modal from '@/components/admin/categories/product/addModal';
+import Modal from '@/components/admin/categories/addnewproduct/addModal';
 
 export default function addproduct(categoryId) {
     const [isModalOpen, setIsModalOpen] = useState(false);

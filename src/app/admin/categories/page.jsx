@@ -5,6 +5,7 @@ import AddSubCategory from "@/components/admin/categories/subcategory/add";
 import AddNewCategoryModal from '@/components/admin/categories/category/add';
 import AddNewProduct from "@/components/admin/categories/product/add";
 import EditProduct from "@/components/admin/categories/product/edit";
+import EditCatedory from "@/components/admin/categories/category/edit";
 
 const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full"> 
@@ -16,7 +17,7 @@ const Category = ({ category }) => (
         {/* addSubCat svg */}
         <AddSubCategory categoryId={category}/>
         {/* edit svg */}
-        <EditProduct categoryId={category} productId={"none"}/> 
+        <EditCatedory categoryId={category} productId={"none"}/> 
         {/* delete svg */}
         <Delete categoryId={category} productId={"none"} /> 
       </div>

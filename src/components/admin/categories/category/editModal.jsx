@@ -1,49 +1,20 @@
 // addModal.js
 "use client";
-import React, { useState,useEffect  } from 'react';
+import React, { useState } from 'react';
 import { editproduct, getProductById } from '@/lib/data';
 
-export default function EditModal({ isOpen, onClose, productId }) {
-    //  console.log(productId);
-    //const productData = getProductById(productId);
-    //console.log(JSON.stringify(getProductById(productId)));
-
-
+export default function EditModal({ isOpen, onClose, categoryId, productId }) {
+    // const productData = getProductById(productId);
+    // console.log(JSON.stringify(productData));
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
-    const [newProductPrice, setNewProductPrice] = useState(0);
+    const [newProductPrice, setNewProductPrice] = useState('');
     const [newProductDescription, setNewProductDescription] = useState('');
     const [newProductBody, setNewProductBody] = useState('');
     const [newProductStock, setNewProductStock] = useState(0);
     const [newProductMinStock, setNewProductMinStock] = useState(0);
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(0);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getProductById(productId);
-                console.log("front: "+data);
-                // setProductData(data);
-                setNewProductName(data.ALBEDOtitulo);
-                setNewProductCode(data.ALBEDOcodigo);
-                setNewProductPrice(data.ALBEDOprecio);
-                setNewProductDescription(data.description);
-                setNewProductBody(data.ALBEDOcuerpo);
-                setNewProductStock(data.ALBEDOstock);
-                setNewProductMinStock(data.ALBEDOstock_minimo);
-                setNewProductDeliveryTime(data.ALBEDOplazo_entrega);
-            } catch (error) {
-                console.error('Error fetching product data:', error);
-            }
-        };
-
-        if (isOpen) {
-            fetchData();
-        }
-    }, [isOpen, productId]);
-
-
-     
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -66,12 +37,12 @@ export default function EditModal({ isOpen, onClose, productId }) {
         setNewProductMinStock(event.target.value);
     };
     const handleInputChangeDeliveryTime = (event) => {
-        setNewProductDeliveryTime(event.target.value); 
+        setNewProductDeliveryTime(event.target.value);
     };
     const handleAddProduct = () => {
-        editproduct(productId, newProductCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
+        editproduct(categoryId, newProductCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
         setNewProductName('');
-        setNewProductPrice(0);
+        setNewProductPrice('');
         setNewProductDescription('');
         setNewProductBody('');
         setNewProductStock(0);

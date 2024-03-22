@@ -276,61 +276,100 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
 
 export async function editproduct(productId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
     console.log("New product data changes:" + productCode + " " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
-    console.log("product Id for change:"+ productId);
+    console.log("product Id for change:" + JSON.stringify(productId));
     // try {
     //     const data = await fs.readFile(filePath, 'utf8');
     //     const { categories, deletedContent } = JSON.parse(data);
-    //     const categoryToModifyId = categoryId.categoryId.id;
-    //     const addProductRecursive = async (categoryList) => {
+    //     const productToEdit = productId.ALBEDOcodigo;
+    //     console.log("\nproduct to delete: ", productToDelete);
+
+    //     const deleteRecursive = async (categoryList) => {
     //         for (let i = 0; i < categoryList.length; i++) {
     //             const category = categoryList[i];
-    //             if (category.id === categoryToModifyId) {
-    //                 console.log("Category found:", category);
-    //                 if (!category.products) {
-    //                     category.products = [];
+    //             // console.log("Checking category:", category);
+    //             for (let j = 0; j < category.products.length; j++) {
+    //                 const product = category.products[j];
+    //                 if (product.ALBEDOcodigo === productToEdit) {
+    //                          console.log("product found:", product);
+
+    //                         product.ALBEDOtitulo = "",
+    //                         product.ALBEDOprecio = "",
+    //                         product.ALBEDOcuerpo = "",
+    //                         product.ALBEDOcuerpo2 = "",
+    //                         product.ALBEDOstock_minimo = "",
+    //                         product.ALBEDOstock = "",
+    //                         product.imagen = "",
+    //                         product.imagen.small = "",
+    //                         product.ALBEDOplazo_entrega = "",
+    //                         product.ALBEDOcategory = ""
+
+    //                     // const deletedObject = category.products.splice(i, 1)[0];
+    //                     // deletedContent.push(deletedObject);
+    //                     console.log("Writing updated data to file...");
+    //                     await fs.writeFile(filePath, JSON.stringify(categories, deletedContent));
+    //                     console.log("Data written successfully.");
+    //                     revalidatePath('/admin/categories');
+    //                     console.log("Path revalidated.");
+    //                     return true;
     //                 }
-    //                 const dataObj = {
-    //                     "ALBEDOcodigo": productCode,
-    //                     "ALBEDOtitulo": Name,
-    //                     "ALBEDOprecio": Price + " +IVA",
-    //                     "ALBEDOcuerpo": Body,
-    //                     "ALBEDOstock_minimo": MinStock,
-    //                     "ALBEDOstock": Stock,
-    //                     "imagen": "/images/ADFSSM100/imagen.png",
-    //                     "imagen.small": "/images/ADFSSM100/imagen.small.png",
-    //                     "ALBEDOplazo_entrega": DeliveryTime
-    //                 }
-    //                 category.products.push(dataObj);
-    //                 console.log("New product added:", dataObj);
-    //                 console.log("Writing updated data to file...");
-    //                 await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-    //                 console.log("Data written successfully.");
-    //                 revalidatePath('/admin/categories');
-    //                 console.log("Path revalidated.");
-    //                 return true;
     //             }
+
     //             if (category.subCategories && category.subCategories.length > 0) {
-    //                 console.log("Checking products in subcategories of:", category.subCategories);
-    //                 const productAdded = await addProductRecursive(category.subCategories);
-    //                 if (productAdded) return true;
+    //                 //console.log("Checking subcategories of:", category);
+    //                 const subcategoryDeleted = await deleteRecursive(category.subCategories);
+    //                 if (subcategoryDeleted) return true;
     //             }
     //         }
     //         return false;
     //     };
-    //     console.log("Starting adding product process...");
-    //     const productAdded = await addProductRecursive(categories);
-    //     if (!productAdded) {
-    //         console.log("Category not found.");
+    //     console.log("Starting saving process...");
+    //     const product = await deleteRecursive(categories);
+    //     if (!product) {
+    //         console.log("product not found.");
     //         return false;
     //     }
-    //     console.log("product added successfully.");
+    //     console.log("product saved successfully.");
     //     return true;
     // } catch (error) {
-    //     console.error("Error adding product:", error);
-    //     return false;
+    //     console.log("error");
+    //     // return false;
     // }
+} 
+export async function getProductById(productId) {
+    // console.log(productId);
+    try { // Provide correct file path
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories } = JSON.parse(data); // Destructure categories directly
+
+        const productToEdit = productId.productId;
+        // console.log(productToEdit);
+        const findProduct = async (categoryList) => {
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                for (let j = 0; j < category.products.length; j++) {
+                    const product = category.products[j];
+                    if (product.ALBEDOcodigo === productToEdit) {
+                        console.log("\nProduct found(back):",JSON.stringify(product));  
+                        return JSON.stringify(product); // Return product when found
+                    }
+                }
+                if (category.subCategories && category.subCategories.length > 0) {
+                    const foundProduct = await findProduct(category.subCategories);
+                    if (foundProduct) return foundProduct; // Return product when found
+                }
+            }
+            return null; // Return null if product not found
+        }; 
+
+        const product = await findProduct(categories);
+        if (!product) {
+            console.log("Product not found.");
+            return null; // Return null if product not found
+        } 
+        return product; // Return found product
+    } catch (error) {
+        console.log("Error:", error); // Log error
+        throw error; // Rethrow error
+    }
 }
 
-export async function getProductById(productId){
-    console.log(productId);
-}

@@ -1,14 +1,11 @@
 // addModal.js
 "use client";
-import React, { useState,useEffect  } from 'react';
+import React, { useState } from 'react';
 import { editproduct, getProductById } from '@/lib/data';
 
-export default function EditModal({ isOpen, onClose, productId }) {
-    //  console.log(productId);
-    //const productData = getProductById(productId);
-    //console.log(JSON.stringify(getProductById(productId)));
-
-
+export default function EditModal({ isOpen, onClose, categoryId, productId }) {
+    // const productData = getProductById(productId);
+    // console.log(JSON.stringify(productData));
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
     const [newProductPrice, setNewProductPrice] = useState('');
@@ -18,36 +15,6 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const [newProductMinStock, setNewProductMinStock] = useState(0);
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(0);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getProductById(productId);
-                console.log("front:", data);
-                if (data) {
-                    const product = JSON.parse(data); // Parse the JSON string
-                    setNewProductName(product.ALBEDOtitulo);
-                    setNewProductCode(product.ALBEDOcodigo);
-                    setNewProductPrice(product.ALBEDOprecio);
-                    setNewProductDescription(product.ALBEDOdescripcion);
-                    setNewProductBody(product.ALBEDOcuerpo);
-                    setNewProductStock(product.ALBEDOstock);
-                    setNewProductMinStock(product.ALBEDOstock_minimo);
-                    setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
-                } else {
-                    console.log("Product not found.");
-                }
-            } catch (error) {
-                console.error('Error fetching product data:', error);
-            }
-        };
-    
-        if (isOpen) {
-            fetchData();
-        }
-    }, [isOpen, productId]);
-    
-
-     
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -70,12 +37,12 @@ export default function EditModal({ isOpen, onClose, productId }) {
         setNewProductMinStock(event.target.value);
     };
     const handleInputChangeDeliveryTime = (event) => {
-        setNewProductDeliveryTime(event.target.value); 
+        setNewProductDeliveryTime(event.target.value);
     };
     const handleAddProduct = () => {
-        editproduct(productId, newProductCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
+        editproduct(categoryId, newProductCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
         setNewProductName('');
-        setNewProductPrice(0);
+        setNewProductPrice('');
         setNewProductDescription('');
         setNewProductBody('');
         setNewProductStock(0);
@@ -95,54 +62,49 @@ export default function EditModal({ isOpen, onClose, productId }) {
                 <div className="flex flex-col">
                     <div className="">
                     </div>
-                    <div className="w-full rounded-md p-10">
+                    <div className="w-full rounded-md mb-12 p-10">
                         <h1 className='font-bold text-xl mb-6'>Editar Producto</h1>
 
                         <div className='flex flex-col'>
                             <div className='flex flex-row justify-between space-x-4'>
 
                                 <div className="mb-4 flex-1">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} value={newProductCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Codigo" required />
                                 </div>
                                 <div className="mb-4 flex-1">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
                                     <input onChange={handleInputChangeProduct} value={newProductName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="product" required />
                                 </div>
                                 <div className="mb-4 flex-1">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
-                                    
-                                    <div className='flex flex-row justify-center space-x-1 self-center mr-2'>
-                                    <input onChange={handleInputChangePrice} value={newProductPrice} type="number" min="0" step="0.1" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Precio " required />
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 self-center whitespace-nowrap">€ +IVA</label>
-
-                                    </div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
+                                    <input onChange={handleInputChangePrice} value={newProductPrice} type="number" min="0" step="0.1" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Precio" required />
                                 </div>
                             </div>
 
                             <div className="mb-4">
-                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
                                 <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Descripción" required />
                             </div>
                             <div className="mb-4">
-                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
                                 <textarea onChange={handleInputChangeBody} value={newProductBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder='Cuerpo' />
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Stock</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Stock</label>
                                     <input onChange={handleInputChangeStock} value={newProductStock} type="number" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" min="0" placeholder="Stock" required />
                                 </div>
                                 <div className="flex-1 mb-4">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Min. Stock</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Min. Stock</label>
                                     <input onChange={handleInputChangeMinStock} value={newProductMinStock} type="number" min="0" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Min. Stock" required />
                                 </div>
                                 <div className="flex-1 mb-4">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Plazo de entrega</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Plazo de entrega</label>
                                     <input onChange={handleInputChangeDeliveryTime} value={newProductDeliveryTime} type="number" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" min="0" placeholder="Dias" required />
                                 </div>
                             </div>
-                            <div className='flex justify-center mt-6'>
+                            <div className='flex justify-center my-4'>
                                 <button onClick={handleAddProduct} type="submit" className="w-[150px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     Guardar
                                 </button>

@@ -17,7 +17,7 @@ const Category = ({ category }) => (
         {/* addSubCat svg */}
         <AddSubCategory categoryId={category}/>
         {/* edit svg */}
-        <EditCatedory categoryId={category} productId={"none"}/> 
+        <EditCatedory categoryId={category}/> 
         {/* delete svg */}
         <Delete categoryId={category} productId={"none"} />
       </div>
@@ -52,6 +52,7 @@ const Category = ({ category }) => (
 
 export default async function Page() {
   const data = await getCategories();
+  
   return (
     <div className="">
       <div className="flex mb-8">

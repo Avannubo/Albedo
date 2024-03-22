@@ -2,23 +2,47 @@
 
 import { promises as fs } from 'fs';
 import { revalidatePath } from 'next/cache';
-import { readFile, writeFile } from 'fs/promises';
-import { log } from 'console';
+import { readFile, writeFile } from 'fs/promises'; 
+
+let cachedData = null;
+let lastModifiedTime = null;
 
 const filePath = './src/data.json';
 export async function requireContent() {
-    const res = await fs.readFile(filePath, 'utf8')
-    return JSON.parse(res)
+    const stats = await fs.stat(filePath);
+    if (stats.mtimeMs !== lastModifiedTime) {
+        lastModifiedTime = stats.mtimeMs;
+        const res = await fs.readFile(filePath, 'utf8');
+        cachedData = JSON.parse(res);
+    }
+    return cachedData;
 }
 
 export async function getCategories() {
-    const {
-        categories,
-
-    } = await requireContent();
-
-    return categories
+    const content = await requireContent();
+    if (content) {
+        const { categories } = content;
+        return categories;
+    } else {
+        return []; // Return an empty array if categories don't exist
+    }
 }
+
+// (async () => {
+//     try {
+//         const categories = await getCategories();
+//         // console.log(categories); // Use categories in your page data
+
+//         // Example of how to use it in a loop to continually check for changes
+//         setInterval(async () => {
+//             const newCategories = await getCategories();
+//             // console.log(newCategories); // Updated categories
+//         }, 5000); 
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// })();
+
 export async function getUsers() {
     const {
         users
@@ -277,7 +301,6 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
 
 export async function editproduct(productId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
     console.log("\nNew product data changes:\n" + productCode + " \n" + Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
-    console.log("\nproduct Id for change:" + JSON.stringify(productId));
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -287,37 +310,32 @@ export async function editproduct(productId, productCode, Name, Price, Descripti
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
-                // console.log("Checking category:", category);
                 for (let j = 0; j < category.products.length; j++) {
                     const product = category.products[j];
                     if (product.ALBEDOcodigo === productToEdit) {
-                            console.log("product found:", product);
+                        console.log("product found:", product);
+                        product.ALBEDOcodigo = productCode;
+                        product.ALBEDOtitulo = Name;
+                        product.ALBEDOprecio = Price;
+                        product.ALBEDOdescripcion = Description;
+                        product.ALBEDOcuerpo = Body;
+                        product.ALBEDOstock_minimo = MinStock;
+                        product.ALBEDOstock = Stock;
+                        product.ALBEDOplazo_entrega = DeliveryTime; 
 
-                            product.ALBEDOcodigo = productCode,
-                            product.ALBEDOtitulo = Name,
-                            product.ALBEDOprecio = Price,
-                            product.ALBEDOdescripcion = Description,
-                            product.ALBEDOcuerpo = Body,
-                            product.ALBEDOstock_minimo = MinStock,
-                            product.ALBEDOstock = Stock,
-                            // product.imagen = "",
-                            // product.imagen.small = "",
-                            product.ALBEDOplazo_entrega = DeliveryTime, 
-
-                        // const deletedObject = category.products.splice(i, 1)[0];
-                        // deletedContent.push(deletedObject);
                         console.log("Writing updated data to file...");
-                        await fs.writeFile(filePath, JSON.stringify(categories, deletedContent));
+                        await fs.writeFile(filePath, JSON.stringify({categories, deletedContent}));
                         console.log("Data written successfully.");
-                        revalidatePath('/admin/categories');
-                        console.log("Path revalidated.");
+                        // Assuming revalidatePath is defined somewhere
+                        // window.location.reload();
+                        //  revalidatePath('/admin/categories');
+                        // console.log("Path revalidated.");
                         return true;
                     }
                 }
 
                 if (category.subCategories && category.subCategories.length > 0) {
-                    //console.log("Checking subcategories of:", category);
-                    const subcategoryDeleted = await deleteRecursive(category.subCategories);
+                    const subcategoryDeleted = await loopRecursive(category.subCategories);
                     if (subcategoryDeleted) return true;
                 }
             }
@@ -332,10 +350,11 @@ export async function editproduct(productId, productCode, Name, Price, Descripti
         console.log("product saved successfully.");
         return true;
     } catch (error) {
-        console.log("error");
-        // return false;
+        console.log("Error:", error);
+        return false;
     }
 }
+
 export async function getProductById(productId) {
     // console.log(productId);
     try { // Provide correct file path

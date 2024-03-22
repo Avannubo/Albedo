@@ -674,42 +674,8 @@
                         },
                         {
                             "ALBEDOcodigo": "GLS-PAL301-12",
-                            "ALBEDOtitulo": "GLS-PAL301-12",
+                            "ALBEDOtitulo": "GLS-PAL301-1221312313131",
                             "ALBEDOprecio": 59,
-                            "ALBEDOdescripcion": "ALBEDOdescripcion",
-                            "ALBEDOcuerpo": "<p>Módulo de monitorización de temperatura y control Ethernet para la automatización en entornos industriales de<strong> 14 entradas y 4 salidas. </strong></p>",
-                            "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
-                            "ALBEDOstock_minimo": 5,
-                            "ALBEDOstock": 10,
-                            "imagen": "/images/ADFSSM100/imagen.png",
-                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                            "ALBEDOplazo_entrega": 14
-                        }
-                    ]
-                },
-                {
-                    "id": "sirenas",
-                    "name": "Sirenas",
-                    "ALBEDOdescripcion": "ALBEDOdescripcion",
-                    "ALBEDOcuerpo": "",
-                    "products": [
-                        {
-                            "ALBEDOcodigo": "GLS-15-12",
-                            "ALBEDOtitulo": "GLS-15-12",
-                            "ALBEDOprecio": "11,50€",
-                            "ALBEDOdescripcion": "ALBEDOdescripcion",
-                            "ALBEDOcuerpo": "<p>Módulo de monitorización de temperatura y control Ethernet para la automatización en entornos industriales de<strong> 14 entradas y 4 salidas. </strong></p>",
-                            "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
-                            "ALBEDOstock_minimo": 5,
-                            "ALBEDOstock": 10,
-                            "imagen": "/images/ADFSSM100/imagen.png",
-                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                            "ALBEDOplazo_entrega": 14
-                        },
-                        {
-                            "ALBEDOcodigo": "GLS-100-12",
-                            "ALBEDOtitulo": "GLS-100-12",
-                            "ALBEDOprecio": "13,20€",
                             "ALBEDOdescripcion": "ALBEDOdescripcion",
                             "ALBEDOcuerpo": "<p>Módulo de monitorización de temperatura y control Ethernet para la automatización en entornos industriales de<strong> 14 entradas y 4 salidas. </strong></p>",
                             "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
@@ -807,6 +773,40 @@
             ],
             "products": []
         },
-        null
+        null,
+        {
+            "id": "sirenas",
+            "name": "Sirenas",
+            "ALBEDOdescripcion": "ALBEDOdescripcion",
+            "ALBEDOcuerpo": "",
+            "products": [
+                {
+                    "ALBEDOcodigo": "GLS-15-12",
+                    "ALBEDOtitulo": "GLS-15-12213123123",
+                    "ALBEDOprecio": "999999",
+                    "ALBEDOdescripcion": "ALBEDOdescripcion",
+                    "ALBEDOcuerpo": "<p>Módulo de monitorización de temperatura y control Ethernet para la automatización en entornos industriales de<strong> 14 entradas y 4 salidas. </strong></p>\n\n\n<h1>qwerty<h1/>",
+                    "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
+                    "ALBEDOstock_minimo": "6",
+                    "ALBEDOstock": "3",
+                    "imagen": "/images/ADFSSM100/imagen.png",
+                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                    "ALBEDOplazo_entrega": "8"
+                },
+                {
+                    "ALBEDOcodigo": "GLS-100-12",
+                    "ALBEDOtitulo": "0000",
+                    "ALBEDOprecio": "9999999999999",
+                    "ALBEDOdescripcion": "ALBEDOdescripcion",
+                    "ALBEDOcuerpo": "<p>Módulo de monitorización de temperatura y control Ethernet para la automatización en entornos industriales de<strong> 14 entradas y 4 salidas. </strong></p>",
+                    "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
+                    "ALBEDOstock_minimo": 5,
+                    "ALBEDOstock": 10,
+                    "imagen": "/images/ADFSSM100/imagen.png",
+                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                    "ALBEDOplazo_entrega": 14
+                }
+            ]
+        }
     ]
 }

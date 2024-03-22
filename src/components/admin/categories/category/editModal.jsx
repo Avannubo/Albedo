@@ -1,34 +1,62 @@
 // addModal.js
 "use client";
-import React, { useState } from 'react';
-import { editproduct, getProductById } from '@/lib/data';
+import React, { useState,useEffect } from 'react';
+import { editCategory, getCategoryById } from '@/lib/data'; 
 
-export default function EditModal({ isOpen, onClose, categoryId, productId }) {
+export default function EditModal({ isOpen, onClose, categoryId }) {
     // const productData = getProductById(productId);
     // console.log(JSON.stringify(productData));
-    const [newProductName, setNewProductName] = useState('');
-    const [newProductCode, setNewProductCode] = useState(''); 
-    const [newProductDescription, setNewProductDescription] = useState('');
-    const [newProductBody, setNewProductBody] = useState(''); 
+    const [newCategoryName, setNewCategoryName] = useState('');
+    const [newCategoryCode, setNewCategoryCode] = useState(''); 
+    const [newCategoryDescription, setNewCategoryDescription] = useState('');
+    const [newCategoryBody, setNewCategoryBody] = useState(''); 
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getCategoryById(categoryId);
+                console.log("front:", data);
+                if (data) {
+                    const category = JSON.parse(data); // Parse the JSON string
+                    setNewProductName(category.id);
+                    setNewProductCode(category.name); 
+                    setNewProductDescription(category.ALBEDOdescripcion);
+                    setNewProductBody(category.ALBEDOcuerpo); 
+                } else {
+                    console.log("category not found.");
+                }
+            } catch (error) {
+                console.error('Error fetching category data:', error);
+            }
+        };
+    
+        if (isOpen) {
+            fetchData();
+        }
+    }, [isOpen, categoryId]);
+
+    //change listeners  for inputs
     const handleInputChangeProduct = (event) => {
-        setNewProductName(event.target.value);
+        setNewCategoryName(event.target.value);
     };
     const handleInputChangeCode = (event) => {
-        setNewProductCode(event.target.value);
+        setNewCategoryCode(event.target.value);
     };  
     const handleInputChangeDescription = (event) => {
-        setNewProductDescription(event.target.value);
+        setNewCategoryDescription(event.target.value);
     };
     const handleInputChangeBody = (event) => {
-        setNewProductBody(event.target.value);
+        setNewCategoryBody(event.target.value);
     }; 
 
+
+    //server Action here
     const handleAddProduct = () => {
-        editproduct(categoryId, newProductCode, newProductName,  newProductDescription, newProductBody);
-        setNewProductName(''); 
-        setNewProductDescription('');
-        setNewProductBody(''); 
+        editCategory(newCategoryCode, newCategoryName,  newCategoryDescription, newCategoryBody);
+        setNewCategoryCode('');
+        setNewCategoryName(''); 
+        setNewCategoryDescription('');
+        setNewCategoryBody(''); 
         onClose();
 
     };
@@ -51,21 +79,21 @@ export default function EditModal({ isOpen, onClose, categoryId, productId }) {
 
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
-                                    <input onChange={handleInputChangeCode} value={newProductCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Codigo" required />
+                                    <input onChange={handleInputChangeCode} value={newCategoryCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Codigo" required />
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
-                                    <input onChange={handleInputChangeProduct} value={newProductName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="product" required />
+                                    <input onChange={handleInputChangeProduct} value={newCategoryName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="category" required />
                                 </div> 
                             </div>
 
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
-                                <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Descripción" required />
+                                <input onChange={handleInputChangeDescription} value={newCategoryDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Descripción" required />
                             </div>
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
-                                <textarea onChange={handleInputChangeBody} value={newProductBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder='Cuerpo' />
+                                <textarea onChange={handleInputChangeBody} value={newCategoryBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder='Cuerpo' />
                             </div> 
                             <div className='flex justify-center mt-6'>
                                 <button onClick={handleAddProduct} type="submit" className="w-[150px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

@@ -28,21 +28,6 @@ export async function getCategories() {
     }
 }
 
-// (async () => {
-//     try {
-//         const categories = await getCategories();
-//         // console.log(categories); // Use categories in your page data
-
-//         // Example of how to use it in a loop to continually check for changes
-//         setInterval(async () => {
-//             const newCategories = await getCategories();
-//             // console.log(newCategories); // Updated categories
-//         }, 5000); 
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// })();
-
 export async function getUsers() {
     const {
         users
@@ -299,7 +284,7 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
     }
 }
 
-export async function editproduct(productId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
+export async function editproduct(productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
     console.log("\nNew product data changes:\n" + productCode + " \n" + Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -391,5 +376,102 @@ export async function getProductById(productId) {
         console.log("Error:", error); // Log error
         throw error; // Rethrow error
     }
+}
+
+export async function editCategory(catCode, Name, Price, Description,) {
+    console.log("\nNew product data changes:\n" + catCode + " \n" + Name + " \n" + Price + " \n" + Description);
+    // try {
+    //     const data = await fs.readFile(filePath, 'utf8');
+    //     const { categories, deletedContent } = JSON.parse(data);
+    //     const productToEdit = productCode;
+    //     console.log("\nproduct to EDIT: ", productToEdit);
+
+    //     const loopRecursive = async (categoryList) => {
+    //         for (let i = 0; i < categoryList.length; i++) {
+    //             const category = categoryList[i];
+    //             for (let j = 0; j < category.products.length; j++) {
+    //                 const product = category.products[j];
+    //                 if (product.ALBEDOcodigo === productToEdit) {
+    //                     console.log("product found:", product);
+    //                     product.ALBEDOcodigo = productCode;
+    //                     product.ALBEDOtitulo = Name;
+    //                     product.ALBEDOprecio = Price;
+    //                     product.ALBEDOdescripcion = Description;
+    //                     product.ALBEDOcuerpo = Body; 
+
+    //                     console.log("Writing updated data to file...");
+    //                     await fs.writeFile(filePath, JSON.stringify({categories, deletedContent}));
+    //                     console.log("Data written successfully.");
+    //                     // Assuming revalidatePath is defined somewhere
+    //                     // window.location.reload();
+    //                     //  revalidatePath('/admin/categories');
+    //                     // console.log("Path revalidated.");
+    //                     return true;
+    //                 }
+    //             }
+
+    //             if (category.subCategories && category.subCategories.length > 0) {
+    //                 const subcategoryDeleted = await loopRecursive(category.subCategories);
+    //                 if (subcategoryDeleted) return true;
+    //             }
+    //         }
+    //         return false;
+    //     };
+    //     console.log("Starting saving process...");
+    //     const product = await loopRecursive(categories);
+    //     if (!product) {
+    //         console.log("product not found.");
+    //         return false;
+    //     }
+    //     console.log("product saved successfully.");
+    //     return true;
+    // } catch (error) {
+    //     console.log("Error:", error);
+    //     return false;
+    // }
+}
+
+export async function getCategoryById(categoryId) {
+     console.log(categoryId.categoryId.id);
+     return {
+        "id": "sirenas",
+        "name": "Sirenas",
+        "ALBEDOdescripcion": "ALBEDOdescripcion",
+        "ALBEDOcuerpo": "ALBEDOcuerpo"
+     }
+    // try { // Provide correct file path
+    //     const data = await fs.readFile(filePath, 'utf8');
+    //     const { categories } = JSON.parse(data); // Destructure categories directly
+
+    //     const productToEdit = productId.productId;
+    //     // console.log(productToEdit);
+    //     const findProduct = async (categoryList) => {
+    //         for (let i = 0; i < categoryList.length; i++) {
+    //             const category = categoryList[i];
+    //             for (let j = 0; j < category.products.length; j++) {
+    //                 const product = category.products[j];
+    //                 if (product.ALBEDOcodigo === productToEdit) {
+    //                     console.log("\nProduct found(back):", JSON.stringify(product));
+    //                     return JSON.stringify(product); // Return product when found
+    //                 }
+    //             }
+    //             if (category.subCategories && category.subCategories.length > 0) {
+    //                 const foundProduct = await findProduct(category.subCategories);
+    //                 if (foundProduct) return foundProduct; // Return product when found
+    //             }
+    //         }
+    //         return null; // Return null if product not found
+    //     };
+
+    //     const product = await findProduct(categories);
+    //     if (!product) {
+    //         console.log("Product not found.");
+    //         return null; // Return null if product not found
+    //     }
+    //     return product; // Return found product
+    // } catch (error) {
+    //     console.log("Error:", error); // Log error
+    //     throw error; // Rethrow error
+    // }
 }
 

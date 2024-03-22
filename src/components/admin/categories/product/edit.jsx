@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Modal from '@/components/admin/categories/product/editModal';
 
-export default function editCategory(categoryId) {
+export default function editCategory(productId) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -16,7 +16,7 @@ export default function editCategory(categoryId) {
           </svg>
                 <h1>Editar</h1>
             </div> 
-            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} />
+            <Modal isOpen={isModalOpen} onClose={toggleModal} productId={productId} />
         </div>
     )
 }

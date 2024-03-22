@@ -23,7 +23,7 @@ export default function DeleteModal({ isOpen, onClose, category, product }) {
         </div>
         <div className="flex flex-col space-y-2">
 
-        <button onClick={() => deleteElement(category,product)} className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-red-500 hover:bg-red-600 active:bg-red-500">Delete</button>
+          <button onClick={() => deleteElement(category, product)} className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-red-500 hover:bg-red-600 active:bg-red-500">Delete</button>
 
           <button onClick={onClose} className="px-6 py-2.5 rounded-md text-black text-sm font-semibold border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Cancel</button>
         </div>

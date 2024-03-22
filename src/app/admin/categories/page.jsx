@@ -11,8 +11,11 @@ const Category = ({ category }) => (
     <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
       <p className="h-auto ">{category.name}</p>
       <div className="space-x-4 flex flex-row"> 
+        {/* NewProduct svg */}
         <AddNewProduct categoryId={category}/> 
+        {/* addSubCat svg */}
         <AddSubCategory categoryId={category}/>
+        {/* edit svg */}
         <EditProduct categoryId={category} productId={"none"}/> 
         {/* delete svg */}
         <Delete categoryId={category} productId={"none"} /> 
@@ -26,7 +29,7 @@ const Category = ({ category }) => (
               {product.ALBEDOcodigo} : {product.ALBEDOtitulo}
             </p>
             <div className="space-x-4 flex flex-row">
-              <EditProduct categoryId={"none"} productId={category}/> 
+              <EditProduct productId={product.ALBEDOcodigo}/> 
               <Delete categoryId={"none"} productId={product} />  
             </div>
           </div>

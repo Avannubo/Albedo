@@ -331,6 +331,6 @@ export async function editproduct(productId, productCode, Name, Price, Descripti
     // }
 }
 
-export async function getProduct(productId){
+export async function getProductById(productId){
     console.log(productId);
 }

@@ -15,7 +15,7 @@ export default function AddModal({ isOpen, onClose }) {
         setNewCategoryDescription(event.target.value);
     };
 
-    const handleAddCategory = () => {
+    const handleAddCategory=() => {
         addCategory(newCategoryName, newCategoryDescription);
         onClose();
     };

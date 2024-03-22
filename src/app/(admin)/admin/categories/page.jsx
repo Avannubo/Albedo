@@ -5,15 +5,19 @@ import AddSubCategory from "@/components/admin/categories/subcategory/add";
 import AddNewCategoryModal from "@/components/admin/categories/category/add";
 import AddNewProduct from "@/components/admin/categories/product/add";
 import EditProduct from "@/components/admin/categories/product/edit";
+import EditCatedory from "@/components/admin/categories/category/edit";
 
 const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full">
     <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
       <p className="h-auto ">{category.name}</p>
-      <div className="space-x-4 flex flex-row">
-        <AddNewProduct categoryId={category} />
-        <AddSubCategory categoryId={category} />
-        <EditProduct categoryId={category} productId={"none"} />
+      <div className="space-x-4 flex flex-row"> 
+        {/* NewProduct svg */}
+        <AddNewProduct categoryId={category}/> 
+        {/* addSubCat svg */}
+        <AddSubCategory categoryId={category}/>
+        {/* edit svg */}
+        <EditCatedory categoryId={category} productId={"none"}/> 
         {/* delete svg */}
         <Delete categoryId={category} productId={"none"} />
       </div>
@@ -29,8 +33,8 @@ const Category = ({ category }) => (
               {product.ALBEDOcodigo} : {product.ALBEDOtitulo}
             </p>
             <div className="space-x-4 flex flex-row">
-              <EditProduct categoryId={"none"} productId={category} />
-              <Delete categoryId={"none"} productId={product} />
+              <EditProduct productId={product.ALBEDOcodigo}/> 
+              <Delete categoryId={"none"} productId={product} />  
             </div>
           </div>
         ))}

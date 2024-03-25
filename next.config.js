@@ -13,7 +13,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               publicPath: '/_next',
-              name: 'public/data/data.json'
+              name: '/public/data/data.json'
             }
           }
         ]

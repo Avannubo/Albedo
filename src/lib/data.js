@@ -7,7 +7,7 @@ import { readFile, writeFile } from 'fs/promises';
 let cachedData = null;
 let lastModifiedTime = null;
 
-const filePath = './public/data/data.json';
+const filePath = './data/data.json';
 export async function requireContent() {
     const stats = await fs.stat(filePath);
     if (stats.mtimeMs !== lastModifiedTime) {

@@ -3,12 +3,10 @@ import Footer from "@/components/footer";
 
 export default function layout({ children }) {
   return (
-    <section className="flex flex-col ">
-      <div className="">
-        <Header />
-        <div>{children}</div>
-        <Footer />
-      </div>
-    </section>
+    <div className="flex flex-col justify-center">
+      <Header />
+      <div>{children}</div>
+      <Footer />
+    </div>
   );
 }

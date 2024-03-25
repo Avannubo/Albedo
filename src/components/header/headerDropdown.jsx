@@ -1,11 +1,12 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState,useEffect  } from 'react'
 import { getCategories } from '@/lib/data';
 
 export default function Dropdown() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [categories, setCategories] = useState([]);
+    // const data = await getCategories();
 
+    const [categories, setCategories] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
         async function fetchData() {
             try {
@@ -26,80 +27,35 @@ export default function Dropdown() {
         setIsOpen(false);
     };
 
-    const SubCategory = ({ subCategory }) => {
-        return (
-            <li className="group relative">
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" onClick={closeDropdown}>
-                    {subCategory.name}
-                </a>
-                {subCategory.products && (
-                    <div className="absolute left-full top-0 mt-0 ml-4">
-                        <Products products={subCategory.products} closeDropdown={closeDropdown} />
-                    </div>
-                )}
-                {subCategory.subCategories && (
-                    <div className="absolute left-full top-0 mt-0 ml-4">
-                        <ul>
-                            {subCategory.subCategories.map((subSubCategory, index) => (
-                                <SubCategory key={index} subCategory={subSubCategory} />
-                            ))}
+    return (
+        <div className='w-full py-6 pb-8'>
+            <div className="relative inline-block">
+                <button
+                    type="button"
+                    className="px-4 py-2 text-white font-medium rounded-lg text-lg inline-flex items-center"
+                    onClick={toggleDropdown}
+                >
+                    Products <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+
+                {isOpen && (
+                    <div className="origin-top-right absolute left-0 mt-2 w-44 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                        <ul role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                            <li>
+                                <a
+                                    href="#"
+                                    className="block px-4 py-2 text-sm text-gray-700 hover"
+                                    onClick={closeDropdown}
+                                >
+                                    Option 1
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 )}
-            </li>
-        );
-    };
-    
-    const Products = ({ products }) => {
-        return (
-            <ul>
-                {products.map((product, index) => (
-                    <li key={index} className="group">
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" onClick={closeDropdown}>
-                            {product.ALBEDOtitulo}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        );
-    };
-    
-    const DropdownMenu = ({ categories }) => {
-        const renderCategories = (categories) => {
-            return (
-                <ul>
-                    {categories.map((category, index) => (
-                        <SubCategory key={index} subCategory={category} />
-                    ))}
-                </ul>
-            );
-        };
-    
-        return (
-            <div className="w-full py-6 pb-8">
-                <div className="relative inline-block">
-                    <button
-                        type="button"
-                        className="px-4 py-2 text-white font-medium rounded-lg text-sm inline-flex items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        onClick={toggleDropdown}
-                    >
-                        Products
-                        <svg className="w-3 h-3 ml-2" fill="none" viewBox="0 0 12 7" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1l5 5 5-5" />
-                        </svg>
-                    </button>
-    
-                    {isOpen && (
-                        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                            {renderCategories(categories)}
-                        </div>
-                    )}
-                </div>
             </div>
-        );
-    };
-
-    return (
-        <DropdownMenu categories={categories} />
-    );
-}
+        </div>
+    )
+} 

@@ -15,13 +15,12 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         const fetchData = async () => {
             try {
                 const data = await getCategoryById(categoryId);
-                console.log("front:", data);
-                if (data) {
-                    const category = JSON.parse(data); // Parse the JSON string
-                    setNewProductName(category.id);
-                    setNewProductCode(category.name); 
-                    setNewProductDescription(category.ALBEDOdescripcion);
-                    setNewProductBody(category.ALBEDOcuerpo); 
+                // console.log("front:", JSON.stringify(data));
+                if (data) { 
+                    setNewCategoryName(data.id);
+                    setNewCategoryCode(data.name); 
+                    setNewCategoryDescription(data.ALBEDOdescripcion);
+                    setNewCategoryBody(data.ALBEDOcuerpo); 
                 } else {
                     console.log("category not found.");
                 }

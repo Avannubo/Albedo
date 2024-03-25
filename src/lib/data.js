@@ -378,6 +378,49 @@ export async function getProductById(productId) {
     }
 }
 
+export async function getCategoryById(categoryId) { 
+     try {
+        if (!categoryId || !categoryId.categoryId || !categoryId.categoryId.id) {
+            throw new Error("Invalid categoryId");
+        }
+
+        console.log("Searching for category with ID:", categoryId.categoryId.id);
+        
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories } = JSON.parse(data);
+        const categoryToDeleteId = categoryId.categoryId.id;
+
+        const Recursive = async (categoryList) => {
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                if (category.id === categoryToDeleteId) {
+                    // revalidatePath('/admin/categories');
+                    // console.log("cat found in back: "+ JSON.stringify(category));
+                    return category ; // Return category and its data
+                }
+                if (category.subCategories && category.subCategories.length > 0) {
+                    const subcategory = await Recursive(category.subCategories);
+                    // console.log("subCat found in back: "+ JSON.stringify(category));
+                    if (subcategory) return subcategory;
+                }
+            }
+            return false;
+        };
+
+        const categoryFound = await Recursive(categories);
+        if (!categoryFound) {
+            console.log("Category not found.");
+            return false;
+        }
+
+        return categoryFound; // Return the found category along with its data
+    } catch (error) {
+        console.error("Error occurred:", error);
+        return false;
+    }
+}
+
+
 export async function editCategory(catCode, Name, Price, Description,) {
     console.log("\nNew product data changes:\n" + catCode + " \n" + Name + " \n" + Price + " \n" + Description);
     // try {
@@ -431,47 +474,4 @@ export async function editCategory(catCode, Name, Price, Description,) {
     // }
 }
 
-export async function getCategoryById(categoryId) {
-     console.log(categoryId.categoryId.id);
-     return {
-        "id": "sirenas",
-        "name": "Sirenas",
-        "ALBEDOdescripcion": "ALBEDOdescripcion",
-        "ALBEDOcuerpo": "ALBEDOcuerpo"
-     }
-    // try { // Provide correct file path
-    //     const data = await fs.readFile(filePath, 'utf8');
-    //     const { categories } = JSON.parse(data); // Destructure categories directly
-
-    //     const productToEdit = productId.productId;
-    //     // console.log(productToEdit);
-    //     const findProduct = async (categoryList) => {
-    //         for (let i = 0; i < categoryList.length; i++) {
-    //             const category = categoryList[i];
-    //             for (let j = 0; j < category.products.length; j++) {
-    //                 const product = category.products[j];
-    //                 if (product.ALBEDOcodigo === productToEdit) {
-    //                     console.log("\nProduct found(back):", JSON.stringify(product));
-    //                     return JSON.stringify(product); // Return product when found
-    //                 }
-    //             }
-    //             if (category.subCategories && category.subCategories.length > 0) {
-    //                 const foundProduct = await findProduct(category.subCategories);
-    //                 if (foundProduct) return foundProduct; // Return product when found
-    //             }
-    //         }
-    //         return null; // Return null if product not found
-    //     };
-
-    //     const product = await findProduct(categories);
-    //     if (!product) {
-    //         console.log("Product not found.");
-    //         return null; // Return null if product not found
-    //     }
-    //     return product; // Return found product
-    // } catch (error) {
-    //     console.log("Error:", error); // Log error
-    //     throw error; // Rethrow error
-    // }
-}
 

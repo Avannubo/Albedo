@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function aside() {
     return <div className="bg-slate-100 w-[270px] fixed left-0 top-0 h-[100vh] shadow-2xl z-40">
-        <div className='flex flex-col justify-center p-6'>
+        <Link href="/" className='flex flex-col justify-center p-6'>
         <Image src="/images/Logo_albedo.png"
                             alt="Vercel Logo"
                             className="self-center"
@@ -11,7 +11,7 @@ export default function aside() {
                             height={100}
                             priority
                         />
-        </div>
+        </Link>
         <div className="flex flex-col space-y-4 p-4 ">
             <Link href="/admin" className="cursor-pointer p-4 w-full hover:shadow-md bg-white rounded-lg ">
                 <p className="flex justify-center font-semibold">Escritorio</p>

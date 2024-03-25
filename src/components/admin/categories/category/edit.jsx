@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from 'react';
-import Modal from '@/components/admin/categories/product/editModal';
+import Modal from '@/components/admin/categories/category/editModal';
 
-export default function editCategory(productId) {
+export default function editCategory(categoryId) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -16,7 +16,7 @@ export default function editCategory(productId) {
           </svg>
                 <h1>Editar</h1>
             </div> 
-            <Modal isOpen={isModalOpen} onClose={toggleModal} productId={productId} />
+            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} />
         </div>
     )
 }

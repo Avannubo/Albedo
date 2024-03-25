@@ -3,12 +3,7 @@
 import React, { useState,useEffect  } from 'react';
 import { editproduct, getProductById } from '@/lib/data';
 
-export default function EditModal({ isOpen, onClose, productId }) {
-    //  console.log(productId);
-    //const productData = getProductById(productId);
-    //console.log(JSON.stringify(getProductById(productId)));
-
-
+export default function EditModal({ isOpen, onClose, productId }) { 
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
     const [newProductPrice, setNewProductPrice] = useState('');
@@ -45,8 +40,6 @@ export default function EditModal({ isOpen, onClose, productId }) {
             fetchData();
         }
     }, [isOpen, productId]);
-    
-
      
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);

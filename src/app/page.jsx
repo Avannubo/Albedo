@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer";
 export default function Home() {
@@ -42,7 +43,7 @@ export default function Home() {
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           <div className="flex flex-row space-x-6 my-4">
             {/* product 1 */}
-            <div className="flex flex-col w-[130px] ">
+            <Link href="/" className="flex flex-col w-[130px] ">
               <h2 className="text-[#304590] font-bold self-center">
                 IndoorNavBasic
               </h2>
@@ -61,9 +62,9 @@ export default function Home() {
                 Pack para crear y mantener su sisterma de guía accesible en su
                 museo o exposición. Con 20 balizas.
               </p>
-            </div>
+            </Link>
             {/* product 2 */}
-            <div className="flex flex-col w-[130px] ">
+            <Link href="/product/ADPDR2P63L" className="flex flex-col w-[130px] ">
               <h2 className="text-[#304590] font-bold self-center">
                 ADPDR2P63L
               </h2>
@@ -81,9 +82,9 @@ export default function Home() {
               <p className="text-[12px] text-justify">
                 Protector diferencial rearmable monofásico (2P), 63A, 30mA
               </p>
-            </div>
+            </Link>
             {/* product 3 */}
-            <div className="flex flex-col w-[130px] ">
+            <Link href="/" className="flex flex-col w-[130px] ">
               <h2 className="text-[#304590] font-bold self-center">
                 ADPI16W24V
               </h2>
@@ -102,9 +103,9 @@ export default function Home() {
                 Convertidor AC/DC, con aislamiento, entrada universal AC y DC y
                 salida 24V, 16W
               </p>
-            </div>
+            </Link>
             {/* product 4 */}
-            <div className="flex flex-col w-[130px] ">
+            <Link href="/" className="flex flex-col w-[130px] ">
               <h2 className="text-[#304590] font-bold self-center">
                 ADPI30W5V
               </h2>
@@ -123,7 +124,7 @@ export default function Home() {
                 Convertidor AC/DC, con aislamiento, entrada universal AC y DC y
                 salida 5V, 30W
               </p>
-            </div>
+            </Link>
             {/* product 5 */}
             <div className="flex flex-col w-[130px] ">
               <h2 className="text-[#304590] font-bold self-center">

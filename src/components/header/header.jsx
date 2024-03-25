@@ -6,16 +6,17 @@ import Dropdown from "@/components/header/headerDropdown"
 
 export default function header() {
     return (
-        <header className="fixed top-0 left-0 w-full">
+        <header className="fixed top-0 left-0 w-full z-50">
             <div className="flex flex-col items-center justify-center text-white bg-[#304590]">
-                <div className="flex flex-row h-[80px] w-[1100px] p-4 self-center">
+                <div className="flex flex-row h-[80px] w-[1100px] p-4 self-center"><Link href="/">
                     <Image src="/images/Logo_albedo_blanco.png"
                         alt="Vercel Logo"
                         className="h-[50px] self-center mr-4"
                         width={150}
                         height={100}
                         priority
-                    />
+                    /> 
+                </Link> 
                     <div className="flex grow justify-between self-center space-x-4">
                         <div className="flex justify-center space-x-6">
                             <Dropdown />

@@ -50,7 +50,7 @@ export async function deleteElement(categoryId, productId) {
                 const deleteRecursive = async (categoryList) => {
                     for (let i = 0; i < categoryList.length; i++) {
                         const category = categoryList[i];
-                        // console.log("Checking category:", category);
+                         console.log("Checking category:", category);
                         if (category.id === categoryToDeleteId) {
                             // console.log("Category found:", category);
                             const deletedObject = categoryList.splice(i, 1)[0];

@@ -35,7 +35,7 @@
                         {
                             "ALBEDOcodigo": "ADFSSM100",
                             "ALBEDOtitulo": "Farola solar LED",
-                            "ALBEDOprecio": "46.7",
+                            "ALBEDOprecio": 45,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
                             "ALBEDOcuerpo2": "Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.",
@@ -413,8 +413,8 @@
         {
             "id": "automatismos",
             "name": "Automatismos",
-            "ALBEDOdescripcion": " Una parte esencial en la domotización de una casa, oficina o tienda es la elección adecuada de los automatismos que controlarán los distintos elementos incluidos en el plan. Aquí encontrará clasificados los productos que le permitirán ese control que le proporcionará confort y seguridad. ",
-            "ALBEDOcuerpo": "ALBEDOdescripcion",
+            "ALBEDOdescripcion": "ALBEDOdescripcion",
+            "ALBEDOcuerpo": " Una parte esencial en la domotización de una casa, oficina o tienda es la elección adecuada de los automatismos que controlarán los distintos elementos incluidos en el plan. Aquí encontrará clasificados los productos que le permitirán ese control que le proporcionará confort y seguridad. ",
             "subCategories": [
                 {
                     "id": "medidores-de-energia",
@@ -477,10 +477,10 @@
                     ]
                 },
                 {
-                    "id": "Control de suministros ",
-                    "name": "control-de-suministros",
-                    "ALBEDOdescripcion": "1111111111111111111111111111111111",
-                    "ALBEDOcuerpo": "ALBEDOdescripcion",
+                    "id": "control-de-suministros",
+                    "name": "Control de suministros ",
+                    "ALBEDOdescripcion": "ALBEDOdescripcion",
+                    "ALBEDOcuerpo": "",
                     "products": [
                         {
                             "ALBEDOcodigo": "GLM-12-CI",
@@ -688,15 +688,15 @@
                     ]
                 },
                 {
-                    "id": "Sirenas",
-                    "name": "sirenas",
-                    "ALBEDOdescripcion": "qqqqqqq",
-                    "ALBEDOcuerpo": "ALBEDOdescripcion",
+                    "id": "sirenas",
+                    "name": "Sirenas",
+                    "ALBEDOdescripcion": "ALBEDOdescripcion",
+                    "ALBEDOcuerpo": "",
                     "products": [
                         {
                             "ALBEDOcodigo": "GLS-15-12",
                             "ALBEDOtitulo": "GLS-15-12",
-                            "ALBEDOprecio": "22.8",
+                            "ALBEDOprecio": "11,50€",
                             "ALBEDOdescripcion": "ALBEDOdescripcion",
                             "ALBEDOcuerpo": "<p>Módulo de monitorización de temperatura y control Ethernet para la automatización en entornos industriales de<strong> 14 entradas y 4 salidas. </strong></p>",
                             "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
@@ -709,41 +709,20 @@
                         {
                             "ALBEDOcodigo": "GLS-100-12",
                             "ALBEDOtitulo": "GLS-100-12",
-                            "ALBEDOprecio": "12.4",
+                            "ALBEDOprecio": "13,20€",
                             "ALBEDOdescripcion": "ALBEDOdescripcion",
                             "ALBEDOcuerpo": "<p>Módulo de monitorización de temperatura y control Ethernet para la automatización en entornos industriales de<strong> 14 entradas y 4 salidas. </strong></p>",
                             "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
                             "ALBEDOstock_minimo": 5,
-                            "ALBEDOstock": "15",
+                            "ALBEDOstock": 10,
                             "imagen": "/images/ADFSSM100/imagen.png",
                             "imagen.small": "/images/ADFSSM100/imagen.small.png",
                             "ALBEDOplazo_entrega": 14
                         }
                     ]
-                },
-                {
-                    "id": "eqweqweqw",
-                    "name": "eqweqweqw",
-                    "ALBEDOcuerpo": "qweqeeqwewqeqeqeqweqe",
-                    "subCategories": [],
-                    "products": [],
-                    "ALBEDOdescripcion": "qwerty"
                 }
             ],
-            "products": [
-                {
-                    "ALBEDOcodigo": "111111",
-                    "ALBEDOtitulo": "1122222222",
-                    "ALBEDOprecio": "",
-                    "ALBEDOdescripcion": "",
-                    "ALBEDOcuerpo": "",
-                    "ALBEDOstock_minimo": 0,
-                    "ALBEDOstock": 0,
-                    "imagen": "/images/ADFSSM100/imagen.png",
-                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                    "ALBEDOplazo_entrega": 0
-                }
-            ]
+            "products": []
         }
     ],
     "deletedContent": [
@@ -827,6 +806,7 @@
                 }
             ],
             "products": []
-        }
+        },
+        null
     ]
 }

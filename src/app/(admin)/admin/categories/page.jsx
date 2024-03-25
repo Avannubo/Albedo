@@ -52,7 +52,8 @@ const Category = ({ category }) => (
 
 export default async function Page() {
   const data = await getCategories();
-  
+  // data.reverse();
+  // console.log(data.reverse());
   return (
     <div className="">
       <div className="flex mb-8">

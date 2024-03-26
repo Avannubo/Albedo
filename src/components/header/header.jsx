@@ -7,7 +7,7 @@ import CartLength from "./cartLength";
 
 export default function header() {
   return (
-    <header className="fixed top-0 left-0 w-full">
+    <header className="fixed top-0 left-0 w-full z-50">
       <div className="flex flex-col items-center justify-center text-white bg-[#304590]">
         <div className="flex flex-row h-[80px] w-[1266px] py-4 self-center mr-[166px]">
           <Link href="/">

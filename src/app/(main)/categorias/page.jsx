@@ -21,7 +21,7 @@ export default function page() {
                 <div className='flex flex-row justify-between space-x-6 my-8'>
 
                     {/* cat1 */}
-                    <Link href="/categorias/iluminación" className="flex flex-col w-auto ">
+                    <Link href="/categorias" className="flex flex-col w-auto ">
                         <Image
                             src="/images/ADFSSM100/imagen.png"
                             alt="Vercel Logo"
@@ -129,7 +129,7 @@ export default function page() {
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
                 <div className="flex flex-row justify-evenly space-x-10 my-4">
                     {/* product 1 */}
-                    <Link href="/" className="flex flex-col w-auto ">
+                    <Link href="/productos/indoorNav" className="flex flex-col w-auto ">
                         <h2 className="text-[#304590] font-bold self-center">
                             IndoorNavBasic
                         </h2>
@@ -150,7 +150,7 @@ export default function page() {
                         </p>
                     </Link>
                     {/* product 2 */}
-                    <Link href="/product/ADPDR2P63L" className="flex flex-col w-auto ">
+                    <Link href="/productos/indoorNav" className="flex flex-col w-auto ">
                         <h2 className="text-[#304590] font-bold self-center">
                             ADPDR2P63L
                         </h2>
@@ -171,7 +171,7 @@ export default function page() {
                     </Link>
 
                     {/* product 4 */}
-                    <Link href="/" className="flex flex-col w-auto ">
+                    <Link href="/productos/indoorNav" className="flex flex-col w-auto ">
                         <h2 className="text-[#304590] font-bold self-center">
                             ADPI30W5V
                         </h2>
@@ -192,7 +192,7 @@ export default function page() {
                         </p>
                     </Link>
                     {/* product 5 */}
-                    <div className="flex flex-col w-auto ">
+                    <Link href="/productos/indoorNav" className="flex flex-col w-auto ">
                         <h2 className="text-[#304590] font-bold self-center">
                             ADFSSM100
                         </h2>
@@ -211,7 +211,7 @@ export default function page() {
                             <b className='font-bold'>Farola solar LED con sensor de movimiento.</b> Consume 100W y
                             produce un flujo luminoso de 2500 Lumens.
                         </p>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>

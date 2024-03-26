@@ -9,20 +9,23 @@ export default function header() {
   return (
     <header className="fixed top-0 left-0 w-full">
       <div className="flex flex-col items-center justify-center text-white bg-[#304590]">
-        <div className="flex flex-row h-[80px] w-[1100px] p-4 self-center">
-          <Image
-            src="/images/Logo_albedo_blanco.png"
-            alt="Vercel Logo"
-            className="h-[50px] self-center mr-4"
-            width={150}
-            height={100}
-            priority
-          />
-          <div className="flex grow justify-between self-center space-x-4">
-            <div className="flex justify-center space-x-6">
+        <div className="flex flex-row h-[80px] w-[1266px] py-4 self-center mr-[166px]">
+          <Link href="/">
+            <Image
+              src="/images/Logo_albedo_blanco.png"
+              alt="Vercel Logo"
+              className="h-[50px] self-center mr-4"
+              width={150}
+              height={100}
+              priority
+            />
+          </Link>
+          <div className="flex grow justify-between self-center">
+            <div className="flex justify-center">
               <Dropdown />
-              <div className="w-full py-6 pb-8">
+              <div className="w-full ml-4 py-6 pb-8 flex flex-row font-medium text-bold">
                 <div className="px-4 py-2 text-lg">Servicios</div>
+                <div className="px-4 py-2 text-lg">Contacto</div>
               </div>
             </div>
             <Link

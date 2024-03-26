@@ -31,23 +31,23 @@ export default function Dropdown() {
         setIsOpen(!isOpen);
     };
 
-    const closeDropdown = () => {
-        setIsOpen(false);
-    }; 
+    // const closeDropdown = () => {
+    //     setIsOpen(false);
+    // }; 
 
-    const renderProducts = (products) => {
-        return (
-            <ul>
-                {products.map((product, index) => (
-                    <li key={index} className="hover:bg-gray-100 rounded-lg"> 
-                        <a href="#" className="block px-4 py-2 text-md text-gray-700 hover" onClick={closeDropdown}>
-                            {product.ALBEDOtitulo}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        );
-    };
+    // const renderProducts = (products) => {
+    //     return (
+    //         <ul>
+    //             {products.map((product, index) => (
+    //                 <li key={index} className="hover:bg-gray-100 rounded-lg"> 
+    //                     <a href="#" className="block px-4 py-2 text-md text-gray-700 hover" onClick={closeDropdown}>
+    //                         {product.ALBEDOtitulo}
+    //                     </a>
+    //                 </li>
+    //             ))}
+    //         </ul>
+    //     );
+    // };
 
     return (
         <div className='w-full py-6 pb-8'>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 function header() {
   return (
-    <header className="fixed top-0 left-0 w-full z-40">
+    <header className="fixed top-0 left-0 w-full z-50">
       <div className="flex flex-col items-center justify-start text-white bg-[#304590]">
         <div className="flex flex-row h-[80px] w-[1266px] py-px-4 mr-[166px] self-center">
           <Image

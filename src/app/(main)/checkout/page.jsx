@@ -1,7 +1,15 @@
+'use client'
+ 
+import { useState, useEffect } from 'react'
+ 
+
+
+
+
 export default function Page() {
   return (
-    <div className="flex flex-row items-start w-[1100px] mb-32">
-      <div className="bg-gray-50 p-2 mr-2 sticky top-[96px]">
+    <div className="flex flex-row items-start w-[1100px] mb-32 z-0">
+      <div className="bg-gray-50 p-2 mr-2 ">
         <h1 className="mb-4 text-start text-2xl font-bold">Datos del pedido</h1>
         <form className="w-full max-w-lg">
           <div className="flex flex-wrap -mx-3 mb-4">

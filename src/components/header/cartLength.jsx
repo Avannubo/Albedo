@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 function cartLength() {
-  const [cartProducts, setCartProducts] = useState(0);
+  const [cartProducts, setCartProducts] = useState();
 
   useEffect(() => {
     setCartProducts(JSON.parse(localStorage.getItem("carrito")));

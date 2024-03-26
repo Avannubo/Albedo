@@ -1,15 +1,7 @@
-'use client'
- 
-import { useState, useEffect } from 'react'
- 
-
-
-
-
 export default function Page() {
   return (
-    <div className="flex flex-row items-start w-[1100px] mb-32 z-0">
-      <div className="bg-gray-50 p-2 mr-2 ">
+    <div className="flex flex-row items-start w-[1100px] mb-32">
+      <div className="bg-gray-50 p-2 mr-2">
         <h1 className="mb-4 text-start text-2xl font-bold">Datos del pedido</h1>
         <form className="w-full max-w-lg">
           <div className="flex flex-wrap -mx-3 mb-4">
@@ -312,8 +304,8 @@ export default function Page() {
                     <p className="text-sm text-gray-700">IVA incluido</p>
                   </div>
                 </div>
-                <button className="mt-6 w-full bg-[#304590] py-1.5 font-medium text-blue-50 hover:bg-blue-500">
-                  Realizar el pago
+                <button className="mt-6 w-full bg-[#304590] py-1.5 font-medium text-blue-50 hover:bg-[#475caa]">
+                  Proceder al pago
                 </button>
               </div>
             </div>

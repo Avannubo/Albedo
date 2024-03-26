@@ -867,7 +867,7 @@
                         {
                             "ALBEDOcodigo": "GLS-15-12",
                             "ALBEDOtitulo": "GLS-15-12",
-                            "ALBEDOprecio": "11,50€",
+                            "ALBEDOprecio": 11,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "FechadeModificacion": "26/03/2024",
                             "FeachadeCreacion": "20/03/2024 ",
@@ -883,7 +883,7 @@
                         {
                             "ALBEDOcodigo": "GLS-100-12",
                             "ALBEDOtitulo": "GLS-100-12",
-                            "ALBEDOprecio": "13,20€",
+                            "ALBEDOprecio": 13,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "FechadeModificacion": "26/03/2024",
                             "FeachadeCreacion": "20/03/2024 ",

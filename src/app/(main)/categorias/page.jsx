@@ -21,7 +21,7 @@ export default function page() {
                 <div className='flex flex-row justify-between space-x-6 my-8'>
 
                     {/* cat1 */}
-                    <Link href="/categorias/iluminación" className="flex flex-col w-auto ">
+                    <Link href="/categorias" className="flex flex-col w-auto ">
                         <Image
                             src="/images/ADFSSM100/imagen.png"
                             alt="Vercel Logo"

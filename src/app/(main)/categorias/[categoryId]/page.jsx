@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import useCategoryId from '@/components/main/useCategoryId';
 import { getCategories } from '@/lib/data';
 import Image from 'next/image';
+import Link from 'next/link';
+
+
 export default function PageContent() {
     const categoryId = useCategoryId();
     const [category, setCategory] = useState(null);
@@ -26,7 +29,7 @@ export default function PageContent() {
     }, [categoryId]);
 
     return (
-        <div>
+        <div className='min-h-[50vh]'>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
 
             {category && (
@@ -41,13 +44,13 @@ export default function PageContent() {
                             {category.ALBEDOdescripcion}
                         </h1>
                     </div>
-                    <div>
+                    <div className='flex justify-center'>
                         {category.ALBEDOcuerpo}
                     </div>
                     {category.subCategories && category.subCategories.length > 0 && (
-                        <div className='flex flex-row space-x-6'>
+                        <div className='flex flex-row justify-center space-x-6'>
                             {category.subCategories.map((subCat, index) => (
-                                <div key={index} className='flex flex-col justify-center'>
+                                <Link href="#" key={index} className='flex flex-col justify-center'>
                                     {/*  */}
                                     <Image
                                         src={subCat.urlImagen}
@@ -60,8 +63,34 @@ export default function PageContent() {
                                     <p className='self-center font-bold'>
                                         {subCat.name}</p>
 
-                                </div>
+                                </Link>
                             ))}
+
+
+                        </div>
+                    )}
+
+                    {category.products && category.products.length > 0 && (
+                        <div className='flex flex-row justify-center space-x-6'>
+                            {category.products.map((product, index) => (
+                                <Link href={`/productos/${product.ALBEDOcodigo}`}
+                                    key={index} className='flex flex-col justify-center'>
+                                    {/*  */}
+                                    <Image
+                                        src={product.imagen}
+                                        alt="Vercel Logo"
+                                        className="self-center w-[150px] h-[170px] object-contain"
+                                        width={100}
+                                        height={24}
+                                        priority
+                                    />
+                                    <p className='self-center font-bold'>
+                                        {product.ALBEDOtitulo}</p>
+
+                                </Link>
+                            ))}
+
+
                         </div>
                     )}
                 </div>

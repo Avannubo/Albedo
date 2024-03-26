@@ -12,7 +12,7 @@ const Category = ({ category }) => (
     <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
       <p className="h-auto ">{category.name}</p>
       <div className="space-x-4 flex flex-row"> 
-        {/* NewProduct svg */}
+        {/* NewProduct svg */} 
         <AddNewProduct categoryId={category}/> 
         {/* addSubCat svg */}
         <AddSubCategory categoryId={category}/>

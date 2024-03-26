@@ -46,52 +46,73 @@ export default function PageContent() {
                     </div>
                     <div className='flex justify-center'>
                         {category.ALBEDOcuerpo}
-                    </div>
+                    </div> 
                     {category.subCategories && category.subCategories.length > 0 && (
-                        <div className='flex flex-row justify-center space-x-6'>
-                            {category.subCategories.map((subCat, index) => (
-                                <Link href="#" key={index} className='flex flex-col justify-center'>
-                                    {/*  */}
-                                    <Image
-                                        src={subCat.urlImagen}
-                                        alt="Vercel Logo"
-                                        className="self-center w-[150px] h-[170px] object-contain"
-                                        width={100}
-                                        height={24}
-                                        priority
-                                    />
-                                    <p className='self-center font-bold'>
-                                        {subCat.name}</p>
+                        <div>
+                            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+                            <div className=' flex justify-center'>
+                                <p className='text-lg font-bold'>Sub-Categorias</p>
+                            </div>
+                            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
 
-                                </Link>
-                            ))}
+                            <div className='flex flex-row justify-center space-x-6'>
+
+                                {category.subCategories.map((subCat, index) => (
+                                    <Link href="#" key={index} className='flex flex-col justify-center'>
+                                        {/*  */}
+                                        <Image
+                                            src={subCat.urlImagen}
+                                            alt="Vercel Logo"
+                                            className="self-center w-[150px] h-[170px] object-contain"
+                                            width={100}
+                                            height={24}
+                                            priority
+                                        />
+                                        <p className='self-center font-bold'>
+                                            {subCat.name}</p>
+
+                                    </Link>
+                                ))}
 
 
+                            </div>
                         </div>
+
+
                     )}
 
                     {category.products && category.products.length > 0 && (
-                        <div className='flex flex-row justify-center space-x-6'>
-                            {category.products.map((product, index) => (
-                                <Link href={`/productos/${product.ALBEDOcodigo}`}
-                                    key={index} className='flex flex-col justify-center'>
-                                    {/*  */}
-                                    <Image
-                                        src={product.imagen}
-                                        alt="Vercel Logo"
-                                        className="self-center w-[150px] h-[170px] object-contain"
-                                        width={100}
-                                        height={24}
-                                        priority
-                                    />
-                                    <p className='self-center font-bold'>
-                                        {product.ALBEDOtitulo}</p>
+                        <div>
+                            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+                            <div className=' flex justify-center'>
+                                <p className='text-lg font-bold'>Productos</p>
+                            </div>
+                            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
 
-                                </Link>
-                            ))}
+                            <div className='flex flex-row justify-center space-x-6'>
+
+                                {category.products.map((product, index) => (
+                                    <Link href={`/productos/${product.ALBEDOcodigo}`}
+                                        key={index} className='flex flex-col justify-center'>
+                                        {/*  */}
+                                        <Image
+                                            src={product.imagen}
+                                            alt="Vercel Logo"
+                                            className="self-center w-[150px] h-[170px] object-contain"
+                                            width={100}
+                                            height={24}
+                                            priority
+                                        />
+                                        <p className='self-center font-bold'>
+                                            {product.ALBEDOtitulo}</p>
+
+                                    </Link>
+                                ))}
 
 
+                            </div>
                         </div>
+
                     )}
                 </div>
             )}

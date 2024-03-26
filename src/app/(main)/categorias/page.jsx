@@ -1,8 +1,14 @@
+"use client"
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+// import { useRouter } from 'next/router';
+
 export default function page() {
-    return (
+    // const router = useRouter();
+    // const { categoryId } = router.query;
+
+  return (
         <div>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
             <div className='flex justify-center my-4'>
@@ -15,7 +21,7 @@ export default function page() {
                 <div className='flex flex-row justify-between space-x-6 my-8'>
 
                     {/* cat1 */}
-                    <Link href="/" className="flex flex-col w-auto ">
+                    <Link href="/categorias/iluminación" className="flex flex-col w-auto ">
                         <Image
                             src="/images/ADFSSM100/imagen.png"
                             alt="Vercel Logo"
@@ -121,7 +127,7 @@ export default function page() {
                     <h1 className="text-lg font-bold my-2">Nuevos productos</h1>
                 </div>
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
-                <div className="flex flex-row justify-evenly space-x- my-4">
+                <div className="flex flex-row justify-evenly space-x-10 my-4">
                     {/* product 1 */}
                     <Link href="/" className="flex flex-col w-auto ">
                         <h2 className="text-[#304590] font-bold self-center">

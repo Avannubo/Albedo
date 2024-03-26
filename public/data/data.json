@@ -23,7 +23,7 @@
             ]
         },
         {
-            "id": "iluminación",
+            "id": "iluminacion",
             "name": "Iluminación",
             "ALBEDOdescripcion": "ALBEDOdescripcion",
             "FechadeModificacion": "26/03/2024",
@@ -90,16 +90,16 @@
             "products": []
         },
         {
-            "id": "Gestion-Energética",
-            "name": "Fuentes de alimentación: gestión energética",
-            "ALBEDOdescripcion": "ALBEDOdescripcion",
+            "id": "gestion-energetica",
+            "name": "Gestion Energética",
+            "ALBEDOdescripcion": "Fuentes de alimentación: gestión energética",
             "FechadeModificacion": "26/03/2024",
             "FeachadeCreacion": "20/03/2024 ",
             "ALBEDOcuerpo": "",
             "imagen": "",
             "subCategories": [
                 {
-                    "id": "Fuentes-de-alimentación",
+                    "id": "Fuentes-de-alimentacion",
                     "name": "Fuentes de alimentación",
                     "ALBEDOdescripcion": "ALBEDOdescripcion",
                     "FechadeModificacion": "26/03/2024",
@@ -260,7 +260,7 @@
             "products": []
         },
         {
-            "id": "Protectores",
+            "id": "protectores",
             "name": "Protectores contra sobretensiones, rayos, etc.",
             "ALBEDOdescripcion": "ALBEDOdescripcion",
             "FechadeModificacion": "26/03/2024",
@@ -381,7 +381,7 @@
             "products": []
         },
         {
-            "id": "Controladores",
+            "id": "controladores",
             "name": "Controladores",
             "ALBEDOdescripcion": "ALBEDOdescripcion",
             "FechadeModificacion": "26/03/2024",
@@ -841,6 +841,52 @@
                 }
             ],
             "products": []
+        },
+        {
+            "id": "dupline",
+            "name": "Dupline",
+            "ALBEDOdescripcion": "ALBEDOdescripcion",
+            "FechadeModificacion": "26/03/2024",
+            "FeachadeCreacion": "20/03/2024 ",
+            "ALBEDOcuerpo": " El bus Dupline, de Carlo Gavazzi, usado ya desde hace más de 20 años y probado en más de 100.000 sistemas a lo largo del mundo, es un estándar de facto, fácil de instalar, de usar, fiable y flexible. Sus áreas de aplicaciones son muy amplias: distribución de aguas, ferrocarriles, minería, aeropuertos, ascensores y montacargas y automatización de casas y edificios (domótica e inmótica). Para ir a la página web de Carlo Gavazzi sobre Dupline, pulse en este enlace (en una nueva ventana). ",
+            "subCategories": [
+                {
+                    "id": "generadores-de-canales",
+                    "name": "Generadores de canales",
+                    "ALBEDOdescripcion": "ALBEDOdescripcion",
+                    "FechadeModificacion": "26/03/2024",
+                    "FeachadeCreacion": "20/03/2024 ",
+                    "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "uiuyi",
+                            "ALBEDOtitulo": "tyuiyi",
+                            "ALBEDOprecio": 20,
+                            "ALBEDOdescripcion": "ALBEDOdescripcion",
+                            "FechadeModificacion": "26/03/2024",
+                            "FeachadeCreacion": "20/03/2024 ",
+                            "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
+                            "ALBEDOstock_minimo": 5,
+                            "ALBEDOstock": 10,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 14,
+                            "ALBEDOcategory": "Farolas"
+                        }
+                    ]
+                }
+            ],
+            "products": []
+        },
+        {
+            "id": "gama-enocean",
+            "name": "Gama Enocean",
+            "ALBEDOdescripcion": "ALBEDOdescripcion",
+            "FechadeModificacion": "26/03/2024",
+            "FeachadeCreacion": "20/03/2024 ",
+            "ALBEDOcuerpo": " El bus Dupline, de Carlo Gavazzi, usado ya desde hace más de 20 años y probado en más de 100.000 sistemas a lo largo del mundo, es un estándar de facto, fácil de instalar, de usar, fiable y flexible. Sus áreas de aplicaciones son muy amplias: distribución de aguas, ferrocarriles, minería, aeropuertos, ascensores y montacargas y automatización de casas y edificios (domótica e inmótica). Para ir a la página web de Carlo Gavazzi sobre Dupline, pulse en este enlace (en una nueva ventana). ",
+            "subCategories": [],
+            "products": []
         }
     ],
     "deletedContent": [
@@ -904,42 +950,6 @@
                     "ALBEDOplazo_entrega": 0
                 }
             ]
-        },
-        {
-            "id": "dupline",
-            "name": "Dupline",
-            "ALBEDOdescripcion": "ALBEDOdescripcion",
-            "FechadeModificacion": "26/03/2024",
-            "FeachadeCreacion": "20/03/2024 ",
-            "ALBEDOcuerpo": " El bus Dupline, de Carlo Gavazzi, usado ya desde hace más de 20 años y probado en más de 100.000 sistemas a lo largo del mundo, es un estándar de facto, fácil de instalar, de usar, fiable y flexible. Sus áreas de aplicaciones son muy amplias: distribución de aguas, ferrocarriles, minería, aeropuertos, ascensores y montacargas y automatización de casas y edificios (domótica e inmótica). Para ir a la página web de Carlo Gavazzi sobre Dupline, pulse en este enlace (en una nueva ventana). ",
-            "subCategories": [
-                {
-                    "id": "generadores-de-canales",
-                    "name": "Generadores de canales",
-                    "ALBEDOdescripcion": "ALBEDOdescripcion",
-                    "FechadeModificacion": "26/03/2024",
-                    "FeachadeCreacion": "20/03/2024 ",
-                    "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
-                    "products": [
-                        {
-                            "ALBEDOcodigo": "uiuyi",
-                            "ALBEDOtitulo": "tyuiyi",
-                            "ALBEDOprecio": 20,
-                            "ALBEDOdescripcion": "ALBEDOdescripcion",
-                            "FechadeModificacion": "26/03/2024",
-                            "FeachadeCreacion": "20/03/2024 ",
-                            "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
-                            "ALBEDOstock_minimo": 5,
-                            "ALBEDOstock": 10,
-                            "imagen": "/images/ADFSSM100/imagen.png",
-                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                            "ALBEDOplazo_entrega": 14,
-                            "ALBEDOcategory": "Farolas"
-                        }
-                    ]
-                }
-            ],
-            "products": []
         },
         null
     ]

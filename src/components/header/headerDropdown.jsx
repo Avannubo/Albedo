@@ -53,7 +53,7 @@ export default function Dropdown() {
             <div className="relative inline-block">
                 <button
                     type="button"
-                    className="px-4 py-2 text-white font-medium rounded-lg text-lg inline-flex items-center"
+                    className="px-4 py-2 text-white font-medium rounded-lg text-sm inline-flex items-center"
                     onClick={toggleDropdown}
                 >
                     Products <svg className="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -66,14 +66,14 @@ export default function Dropdown() {
                     <ul>
                         {categories.map((category, index) => (
                             <li key={index} className="relative">
-                                <Link
-                                    href=""
+                                <a
+                                    href="#"
                                     className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 rounded-lg"
                                     onMouseEnter={() => handleCategoryHover(index)}
                                     onMouseLeave={handleCategoryLeave}
                                 >
                                     {category.name}
-                                </Link>
+                                </a>
                                 {activeCategory === index && category.subcategories && (
                                     <div className="absolute top-full left-0 mt-2 w-44 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                         <ul>

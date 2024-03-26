@@ -7,7 +7,9 @@ export default function cartItem() {
   //Borrar elemento del carrito
 
   const deleteCartProduct = (id) => {
-    const nuevoCarrito = cartItems.filter((producto) => producto.id !== id);
+    const nuevoCarrito = cartItems.filter(
+      (product) => product.ALBEDOcodigo !== id
+    );
     localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
 
     window.location.reload();
@@ -17,16 +19,16 @@ export default function cartItem() {
     <div>
       {cartItems && cartItems.length > 0 ? (
         <div>
-          {cartItems.map((producto) => (
+          {cartItems.map((product) => (
             <div className="rounded-lg mb-2">
               <div className="flex flex-row justify-between  border bg-white py-4 px-8 w-full">
                 <img
-                  src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                  src={product.imagen}
                   alt="product-image"
-                  className="w-[160px] h-[100px] object-cover"
+                  className="w-[160px] h-[100px] object-contain"
                 />
                 <div className="flex flex-col justify-between items-end ">
-                  <h1 className="font-bold w-full">NOMBRE DEL PRODUCTO</h1>
+                  <h1 className="font-bold w-full">{product.ALBEDOtitulo}</h1>
                   <div className="flex flex-row justify-center items-center space-x-4 ">
                     <div className="flex items-center border-gray-100">
                       <span className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
@@ -38,6 +40,7 @@ export default function cartItem() {
                         type="number"
                         value="1"
                         min="1"
+                        max="8"
                       />
                       <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
                         {" "}
@@ -45,7 +48,7 @@ export default function cartItem() {
                       </span>
                     </div>
                     <svg
-                      onClick={() => deleteCartProduct(producto.id)}
+                      onClick={() => deleteCartProduct(product.ALBEDOcodigo)}
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -60,7 +63,7 @@ export default function cartItem() {
                       />
                     </svg>
                   </div>
-                  <h1>250€</h1>
+                  <h1>{product.ALBEDOprecio} €</h1>
                 </div>
               </div>
             </div>

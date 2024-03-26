@@ -22,7 +22,7 @@ export default async function Home() {
   }
 
   const products = GetProducts(data);
-  const last6 = products.slice(0, 6);
+  const last6 = products.slice(0, 4);
 
   return (
     <main>
@@ -61,10 +61,10 @@ export default async function Home() {
           <div className="flex justify-center">
             <h1 className="text-xl font-bold my-2">Nuevos productos</h1>
           </div>
-          <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" /> 
-          <div className="flex flex-row space-x-4 mt-4 mb-8">
+          <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
+          <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
             {last6.map((product) => (
-              <ProductItem key={product.ALBEDOcodigo} />
+              <ProductItem key={product.ALBEDOcodigo} product={product} />
             ))}
           </div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />

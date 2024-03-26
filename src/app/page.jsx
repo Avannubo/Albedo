@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer";
 import { getCategories } from "@/lib/data";

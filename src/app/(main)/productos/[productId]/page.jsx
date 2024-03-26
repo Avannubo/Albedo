@@ -5,8 +5,10 @@ import useProductId from '@/components/hooks/useProductId';
 import { getCategories } from '@/lib/data';
 import Image from 'next/image';
 import Link from 'next/link';
+import AddToCart from '@/components/products/addToCart'
 
 export default function Page() {
+
   const productId = useProductId();
   const [product, setProduct] = useState(null);
 
@@ -66,6 +68,9 @@ export default function Page() {
               </p>
             </div>
             <p className='text-xl font-medium'>Precio: {product.ALBEDOprecio}€</p>
+            <div className='mt-4 w-[250px]'>
+              <AddToCart producto={product} />
+            </div>
           </div>
         </div>
       )}

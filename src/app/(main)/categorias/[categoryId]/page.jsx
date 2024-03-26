@@ -44,13 +44,13 @@ export default function PageContent() {
                             {category.ALBEDOdescripcion}
                         </h1>
                     </div>
-                    <div className='flex justify-center'>
+                    <div className='flex justify-center my-2'>
                         {category.ALBEDOcuerpo}
                     </div> 
                     {category.subCategories && category.subCategories.length > 0 && (
                         <div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-                            <div className=' flex justify-center'>
+                            <div className=' flex justify-center my-2'>
                                 <p className='text-lg font-bold'>Sub-Categorias</p>
                             </div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
@@ -84,7 +84,7 @@ export default function PageContent() {
                     {category.products && category.products.length > 0 && (
                         <div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-                            <div className=' flex justify-center'>
+                            <div className=' flex justify-center my-2'>
                                 <p className='text-lg font-bold'>Productos</p>
                             </div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />

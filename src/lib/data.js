@@ -39,110 +39,74 @@ export async function getUsers() {
 }
 
 export async function deleteElement(categoryId, productId) {
-
     if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
-        if (categoryId.categoryId !== "none") {
-            console.log("cat info: " + JSON.stringify(categoryId));
-            try {
-                const data = await fs.readFile(filePath, 'utf8');
-                const { categories, deletedContent } = JSON.parse(data);
+        try {
+            const data = await fs.readFile(filePath, 'utf8');
+            const { categories, deletedContent } = JSON.parse(data);
+
+            if (categoryId.categoryId !== "none") {
                 const categoryToDeleteId = categoryId.categoryId.id;
                 const deleteRecursive = async (categoryList) => {
                     for (let i = 0; i < categoryList.length; i++) {
                         const category = categoryList[i];
-                         console.log("Checking category:", category);
                         if (category.id === categoryToDeleteId) {
-                            // console.log("Category found:", category);
                             const deletedObject = categoryList.splice(i, 1)[0];
                             deletedContent.push(deletedObject);
-                            // console.log("Writing updated data to file...");
                             await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                            // console.log("Data written successfully.");
                             revalidatePath('/admin/categories');
-                            // console.log("Path revalidated.");
                             return true;
                         }
                         if (category.subCategories && category.subCategories.length > 0) {
-                            // console.log("Checking subcategories of:", category);
                             const subcategoryDeleted = await deleteRecursive(category.subCategories);
                             if (subcategoryDeleted) return true;
                         }
                     }
                     return false;
                 };
-                //console.log("Starting deletion process...");
                 const categoryDeleted = await deleteRecursive(categories);
                 if (!categoryDeleted) {
-                    // console.log("Category not found.");
+                    console.log("Category not found.");
                     return false;
                 }
-                // console.log("Category deleted successfully.");
+                console.log("Category deleted successfully.");
                 return true;
-            } catch (error) {
-                console.log("error");
-                // return false;
-            }
-        } else {
-            console.log("\nproduct info:" + JSON.stringify(categoryId.productId));
-
-            try {
-                const data = await fs.readFile(filePath, 'utf8');
-                const { categories, deletedContent } = JSON.parse(data);
+            } else {
                 const productToDelete = categoryId.productId.ALBEDOcodigo;
-                console.log("\nproduct to delete: ", productToDelete);
-
                 const deleteRecursive = async (categoryList) => {
                     for (let i = 0; i < categoryList.length; i++) {
                         const category = categoryList[i];
-                        // console.log("Checking category:", category);
                         for (let j = 0; j < category.products.length; j++) {
                             const product = category.products[j];
                             if (product.ALBEDOcodigo === productToDelete) {
-                                console.log("product found:", product);
-                                // const productIndex = product.findIndex(productdata => productdata.ALBEDOcodigo === productToDelete);
-                                // console.log(productIndex);
-                                // if (productIndex !== -1) {
-
-
-                                // }
-                                const deletedObject = category.products.splice(i, 1)[0];
+                                const deletedObject = category.products.splice(j, 1)[0];
                                 deletedContent.push(deletedObject);
-                                console.log("Writing updated data to file...");
                                 await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                                console.log("Data written successfully.");
                                 revalidatePath('/admin/categories');
-                                console.log("Path revalidated.");
                                 return true;
                             }
                         }
-
                         if (category.subCategories && category.subCategories.length > 0) {
-                            console.log("Checking subcategories of:", category);
                             const subcategoryDeleted = await deleteRecursive(category.subCategories);
                             if (subcategoryDeleted) return true;
                         }
                     }
                     return false;
                 };
-                console.log("Starting deletion process...");
                 const productDeleted = await deleteRecursive(categories);
                 if (!productDeleted) {
-                    console.log("product not found.");
+                    console.log("Product not found.");
                     return false;
                 }
-                console.log("product deleted successfully.");
+                console.log("Product deleted successfully.");
                 return true;
-            } catch (error) {
-                console.log("error");
-                // return false;
             }
-
-
-
-
+        } catch (error) {
+            console.error("An error occurred:", error);
+            return false;
         }
     }
 }
+
 
 export async function addCategory(name, description) {
     console.log("New subcategory: " + name + " " + description);

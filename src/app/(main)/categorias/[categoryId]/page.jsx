@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import useCategoryId from '@/components/hooks/useCategoryId';
+import useCategoryId from '@/hooks/useCategoryId';
 import { getCategories } from '@/lib/data';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -46,7 +46,7 @@ export default function PageContent() {
                     </div>
                     <div className='flex justify-center my-2'>
                         {category.ALBEDOcuerpo}
-                    </div> 
+                    </div>
                     {category.subCategories && category.subCategories.length > 0 && (
                         <div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />

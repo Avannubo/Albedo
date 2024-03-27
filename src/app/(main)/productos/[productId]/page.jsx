@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import useProductId from '@/components/hooks/useProductId';
+import useProductId from '@/hooks/useProductId';
 import { getCategories } from '@/lib/data';
 import Image from 'next/image';
 import Link from 'next/link';

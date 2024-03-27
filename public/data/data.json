@@ -2,6 +2,7 @@
     "categories": [
         {
             "id": "accesibilidad",
+            "url_Id": "025",
             "name": "Accesibilidad para museos y exposiciones",
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
             "FechadeModificacion": "26/03/2024",
@@ -11,6 +12,7 @@
             "products": [
                 {
                     "ALBEDOcodigo": "indoorNav",
+                    "url_Id": "001",
                     "ALBEDOtitulo": "IndoorNav Basic",
                     "ALBEDOprecio": 20,
                     "ALBEDOdescripcion": "Sistema de guía accesible en su museo o exposición.",
@@ -25,6 +27,7 @@
         },
         {
             "id": "iluminacion",
+            "url_Id": "020",
             "name": "Iluminación",
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
             "FechadeModificacion": "26/03/2024",
@@ -34,6 +37,7 @@
             "subCategories": [
                 {
                     "id": "farolas",
+                    "url_Id": "007",
                     "name": "Farolas LED",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                     "FechadeModificacion": "26/03/2024",
@@ -43,6 +47,7 @@
                     "products": [
                         {
                             "ALBEDOcodigo": "ADFSSM100",
+                            "url_Id": "005",
                             "ALBEDOtitulo": "Farola solar LED",
                             "ALBEDOprecio": 45,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -57,6 +62,7 @@
                         },
                         {
                             "ALBEDOcodigo": "ADFSSM200",
+                            "url_Id": "006",
                             "ALBEDOtitulo": "Farola solar LED",
                             "ALBEDOprecio": 45,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -74,8 +80,9 @@
                         },
                         {
                             "ALBEDOcodigo": "ADFSSM300",
+                            "url_Id": "007",
                             "ALBEDOtitulo": "Farola solar LED",
-                            "ALBEDOprecio": "91,00€",
+                            "ALBEDOprecio": 91,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "FechadeModificacion": "26/03/2024",
                             "FeachadeCreacion": "20/03/2024 ",
@@ -96,6 +103,7 @@
         },
         {
             "id": "gestion-energetica",
+            "url_Id": "017",
             "name": "Gestion Energética",
             "ALBEDOdescripcion": "Fuentes de alimentación: gestión energética",
             "FechadeModificacion": "26/03/2024",
@@ -106,6 +114,7 @@
             "subCategories": [
                 {
                     "id": "Fuentes-de-alimentacion",
+                    "url_Id": "001",
                     "name": "Fuentes de alimentación",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                     "FechadeModificacion": "26/03/2024",
@@ -116,6 +125,7 @@
                     "subCategories": [
                         {
                             "id": "Carril-DIN",
+                            "url_Id": "001",
                             "name": "Carril DIN",
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "FechadeModificacion": "26/03/2024",
@@ -125,7 +135,42 @@
                             "imagen": "",
                             "products": [
                                 {
+                                    "ALBEDOcodigo": "ADPI16W24V",
+                                    "url_Id": "025",
+                                    "ALBEDOtitulo": "Convertidor AC/DC",
+                                    "ALBEDOprecio": 39,
+                                    "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
+                                    "FechadeModificacion": "26/03/2024",
+                                    "FeachadeCreacion": "20/03/2024 ",
+                                    "urlImagen": "/images/ADFSSM100/imagen.png",
+                                    "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
+                                    "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
+                                    "ALBEDOstock_minimo": 5,
+                                    "ALBEDOstock": 10,
+                                    "imagen": "/images/ADFSSM100/imagen.png",
+                                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                                    "ALBEDOplazo_entrega": 14
+                                },
+                                {
+                                    "ALBEDOcodigo": "ADPI30W24V",
+                                    "url_Id": "026",
+                                    "ALBEDOtitulo": "Convertidor AC/DC",
+                                    "ALBEDOprecio": "54,00€",
+                                    "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
+                                    "FechadeModificacion": "26/03/2024",
+                                    "FeachadeCreacion": "20/03/2024 ",
+                                    "urlImagen": "/images/ADFSSM100/imagen.png",
+                                    "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong>, con aislamiento, entrada universal AC y DC y salida 24V, 30W </p>",
+                                    "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
+                                    "ALBEDOstock_minimo": 5,
+                                    "ALBEDOstock": 10,
+                                    "imagen": "/images/ADFSSM100/imagen.png",
+                                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                                    "ALBEDOplazo_entrega": 14
+                                },
+                                {
                                     "ALBEDOcodigo": "ADPI30W5V",
+                                    "url_Id": "027",
                                     "ALBEDOtitulo": "Convertidor AC/DC",
                                     "ALBEDOprecio": "54,00€",
                                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -142,6 +187,7 @@
                                 },
                                 {
                                     "ALBEDOcodigo": "ADPI30W12V",
+                                    "url_Id": "028",
                                     "ALBEDOtitulo": "Convertidor AC/DC",
                                     "ALBEDOprecio": "54,00€",
                                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -158,6 +204,7 @@
                                 },
                                 {
                                     "ALBEDOcodigo": "ADPI60W24V",
+                                    "url_Id": "029",
                                     "ALBEDOtitulo": "Convertidor AC/DC",
                                     "ALBEDOprecio": "54,00€",
                                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -174,6 +221,7 @@
                                 },
                                 {
                                     "ALBEDOcodigo": "ADPI60W12V",
+                                    "url_Id": "030",
                                     "ALBEDOtitulo": "Convertidor AC/DC",
                                     "ALBEDOprecio": "54,00€",
                                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -190,6 +238,7 @@
                                 },
                                 {
                                     "ALBEDOcodigo": "ADPI90W24V",
+                                    "url_Id": "031",
                                     "ALBEDOtitulo": "Convertidor AC/DC",
                                     "ALBEDOprecio": "54,00€",
                                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -206,6 +255,7 @@
                                 },
                                 {
                                     "ALBEDOcodigo": "ADPI96W24V",
+                                    "url_Id": "032",
                                     "ALBEDOtitulo": "Convertidor AC/DC",
                                     "ALBEDOprecio": "54,00€",
                                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -222,6 +272,7 @@
                                 },
                                 {
                                     "ALBEDOcodigo": "ADPI96W48V",
+                                    "url_Id": "033",
                                     "ALBEDOtitulo": "Convertidor AC/DC",
                                     "ALBEDOprecio": "54,00€",
                                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -240,12 +291,143 @@
                         }
                     ],
                     "products": []
+                },
+                {
+                    "id": "Accesorios",
+                    "url_Id": "004",
+                    "name": "Accesorios",
+                    "ALBEDOdescripcion": "",
+                    "FechadeModificacion": "27/03/2024",
+                    "FeachadeCreacion": "27/03/2024 ",
+                    "urlImagen": "/images/ADFSSM100/imagen.png",
+                    "ALBEDOcuerpo": "",
+                    "imagen": "",
+                    "subCategories": [
+                        {
+                            "id": "Protectores-de-bateria",
+                            "url_Id": "001",
+                            "name": "Protectores de batería",
+                            "ALBEDOdescripcion": "",
+                            "FechadeModificacion": "27/03/2024",
+                            "FeachadeCreacion": "27/03/2024 ",
+                            "urlImagen": "/images/ADFSSM100/imagen.png",
+                            "ALBEDOcuerpo": "",
+                            "imagen": "",
+                            "subCategories": [],
+                            "products": [
+                                {
+                                    "ALBEDOcodigo": "SPS4590",
+                                    "url_Id": "001",
+                                    "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
+                                    "ALBEDOprecio": 90,
+                                    "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
+                                    "FechadeModificacion": "26/03/2024",
+                                    "FeachadeCreacion": "20/03/2024 ",
+                                    "urlImagen": "/images/ADFSSM100/imagen.png",
+                                    "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
+                                    "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
+                                    "ALBEDOstock_minimo": 5,
+                                    "ALBEDOstock": 10,
+                                    "imagen": "/images/ADFSSM100/imagen.png",
+                                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                                    "ALBEDOplazo_entrega": 14
+                                },
+                                {
+                                    "ALBEDOcodigo": "SPS4700",
+                                    "url_Id": "002",
+                                    "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
+                                    "ALBEDOprecio": 90,
+                                    "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
+                                    "FechadeModificacion": "26/03/2024",
+                                    "FeachadeCreacion": "20/03/2024 ",
+                                    "urlImagen": "/images/ADFSSM100/imagen.png",
+                                    "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
+                                    "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
+                                    "ALBEDOstock_minimo": 5,
+                                    "ALBEDOstock": 10,
+                                    "imagen": "/images/ADFSSM100/imagen.png",
+                                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                                    "ALBEDOplazo_entrega": 14
+                                },
+                                {
+                                    "ALBEDOcodigo": "SPS4710",
+                                    "url_Id": "003",
+                                    "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
+                                    "ALBEDOprecio": 90,
+                                    "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
+                                    "FechadeModificacion": "26/03/2024",
+                                    "FeachadeCreacion": "20/03/2024 ",
+                                    "urlImagen": "/images/ADFSSM100/imagen.png",
+                                    "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
+                                    "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
+                                    "ALBEDOstock_minimo": 5,
+                                    "ALBEDOstock": 10,
+                                    "imagen": "/images/ADFSSM100/imagen.png",
+                                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                                    "ALBEDOplazo_entrega": 14
+                                },
+                                {
+                                    "ALBEDOcodigo": "SPS7512",
+                                    "url_Id": "004",
+                                    "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
+                                    "ALBEDOprecio": 90,
+                                    "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
+                                    "FechadeModificacion": "26/03/2024",
+                                    "FeachadeCreacion": "20/03/2024 ",
+                                    "urlImagen": "/images/ADFSSM100/imagen.png",
+                                    "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
+                                    "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
+                                    "ALBEDOstock_minimo": 5,
+                                    "ALBEDOstock": 10,
+                                    "imagen": "/images/ADFSSM100/imagen.png",
+                                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                                    "ALBEDOplazo_entrega": 14
+                                },
+                                {
+                                    "ALBEDOcodigo": "SPS7514",
+                                    "url_Id": "005",
+                                    "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
+                                    "ALBEDOprecio": 90,
+                                    "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
+                                    "FechadeModificacion": "26/03/2024",
+                                    "FeachadeCreacion": "20/03/2024 ",
+                                    "urlImagen": "/images/ADFSSM100/imagen.png",
+                                    "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
+                                    "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
+                                    "ALBEDOstock_minimo": 5,
+                                    "ALBEDOstock": 10,
+                                    "imagen": "/images/ADFSSM100/imagen.png",
+                                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                                    "ALBEDOplazo_entrega": 14
+                                },
+                                {
+                                    "ALBEDOcodigo": "SPS7510",
+                                    "url_Id": "006",
+                                    "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
+                                    "ALBEDOprecio": 90,
+                                    "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
+                                    "FechadeModificacion": "26/03/2024",
+                                    "FeachadeCreacion": "20/03/2024 ",
+                                    "urlImagen": "/images/ADFSSM100/imagen.png",
+                                    "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
+                                    "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
+                                    "ALBEDOstock_minimo": 5,
+                                    "ALBEDOstock": 10,
+                                    "imagen": "/images/ADFSSM100/imagen.png",
+                                    "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                                    "ALBEDOplazo_entrega": 14
+                                }
+                            ]
+                        }
+                    ],
+                    "products": []
                 }
             ],
             "products": []
         },
         {
             "id": "protectores",
+            "url_Id": "006",
             "name": "Protectores contra sobretensiones, rayos, etc.",
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
             "FechadeModificacion": "26/03/2024",
@@ -255,6 +437,7 @@
             "subCategories": [
                 {
                     "id": "eléctrica",
+                    "url_Id": "001",
                     "name": "Protectores para red eléctrica",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                     "FechadeModificacion": "26/03/2024",
@@ -264,8 +447,9 @@
                     "products": [
                         {
                             "ALBEDOcodigo": "ADPDR2P63L",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
-                            "ALBEDOprecio": "39,00€",
+                            "ALBEDOprecio": 39,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "FechadeModificacion": "26/03/2024",
                             "FeachadeCreacion": "20/03/2024 ",
@@ -280,8 +464,9 @@
                         },
                         {
                             "ALBEDOcodigo": "CS2-15/230",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
-                            "ALBEDOprecio": "39,00€",
+                            "ALBEDOprecio": 39,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "FechadeModificacion": "26/03/2024",
                             "FeachadeCreacion": "20/03/2024 ",
@@ -296,8 +481,9 @@
                         },
                         {
                             "ALBEDOcodigo": "CS2-40/230",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
-                            "ALBEDOprecio": "39,00€",
+                            "ALBEDOprecio": 39,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "FechadeModificacion": "26/03/2024",
                             "FeachadeCreacion": "20/03/2024 ",
@@ -312,8 +498,9 @@
                         },
                         {
                             "ALBEDOcodigo": "CS4-15/400",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
-                            "ALBEDOprecio": "39,00€",
+                            "ALBEDOprecio": 39,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "FechadeModificacion": "26/03/2024",
                             "FeachadeCreacion": "20/03/2024 ",
@@ -328,8 +515,9 @@
                         },
                         {
                             "ALBEDOcodigo": "CS4-40/400",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Protector diferencial rearmable monofásico",
-                            "ALBEDOprecio": "39,00€",
+                            "ALBEDOprecio": 39,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "FechadeModificacion": "26/03/2024",
                             "FeachadeCreacion": "20/03/2024 ",
@@ -346,6 +534,7 @@
                 },
                 {
                     "id": "telefonica",
+                    "url_Id": "002",
                     "name": "Para línea telefónica",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                     "FechadeModificacion": "26/03/2024",
@@ -355,6 +544,7 @@
                     "products": [
                         {
                             "ALBEDOcodigo": "ADMCH-ADSL",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Sobretensiones transitorias en lineas telefónicas ",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -376,6 +566,7 @@
         },
         {
             "id": "controladores",
+            "url_Id": "",
             "name": "Controladores",
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
             "FechadeModificacion": "26/03/2024",
@@ -385,6 +576,7 @@
             "subCategories": [
                 {
                     "id": "Controladores-IP",
+                    "url_Id": "",
                     "name": "Controladores IP",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                     "FechadeModificacion": "26/03/2024",
@@ -394,6 +586,7 @@
                     "products": [
                         {
                             "ALBEDOcodigo": "XIKRA-261",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Sobretensiones transitorias en lineas telefónicas ",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -410,6 +603,7 @@
                         },
                         {
                             "ALBEDOcodigo": "XIKRA-200",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Sobretensiones transitorias en lineas telefónicas ",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -426,6 +620,7 @@
                         },
                         {
                             "ALBEDOcodigo": "XIKRA-210",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Sobretensiones transitorias en lineas telefónicas ",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -442,6 +637,7 @@
                         },
                         {
                             "ALBEDOcodigo": "SKM-ACIN-U",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Sobretensiones transitorias en lineas telefónicas ",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -458,6 +654,7 @@
                         },
                         {
                             "ALBEDOcodigo": "SKM-OPDRY-1CH",
+                            "url_Id": "",
                             "ALBEDOtitulo": "Sobretensiones transitorias en lineas telefónicas ",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -479,6 +676,7 @@
         },
         {
             "id": "automatismos",
+            "url_Id": "",
             "name": "Automatismos",
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
             "FechadeModificacion": "26/03/2024",
@@ -488,6 +686,7 @@
             "subCategories": [
                 {
                     "id": "medidores-de-energia",
+                    "url_Id": "",
                     "name": "Medidores de energía",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                     "FechadeModificacion": "26/03/2024",
@@ -497,6 +696,7 @@
                     "products": [
                         {
                             "ALBEDOcodigo": "EM24-DINAV-93XDPX",
+                            "url_Id": "",
                             "ALBEDOtitulo": "EM24 DINAV 93XDPX",
                             "ALBEDOprecio": 390,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -513,6 +713,7 @@
                         },
                         {
                             "ALBEDOcodigo": "EM24-DINAV-93XO2X",
+                            "url_Id": "",
                             "ALBEDOtitulo": "EM24 DINAV 93XO2X",
                             "ALBEDOprecio": 279,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -529,6 +730,7 @@
                         },
                         {
                             "ALBEDOcodigo": "EM110-DINAV-81XO1X",
+                            "url_Id": "",
                             "ALBEDOtitulo": "EM110 DINAV 81XO1X",
                             "ALBEDOprecio": 149,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -545,6 +747,7 @@
                         },
                         {
                             "ALBEDOcodigo": "EM110-DINAV81XOPFB",
+                            "url_Id": "",
                             "ALBEDOtitulo": "EM110 DINAV81XOPFB",
                             "ALBEDOprecio": 103,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -563,6 +766,7 @@
                 },
                 {
                     "id": "control-de-suministros",
+                    "url_Id": "",
                     "name": "Control de suministros ",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                     "FechadeModificacion": "26/03/2024",
@@ -572,6 +776,7 @@
                     "products": [
                         {
                             "ALBEDOcodigo": "GLM-12-CI",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLM-12-CI",
                             "ALBEDOprecio": 69,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -590,6 +795,7 @@
                 },
                 {
                     "id": "detectores",
+                    "url_Id": "",
                     "name": "Detectores",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                     "FechadeModificacion": "26/03/2024",
@@ -599,6 +805,7 @@
                     "products": [
                         {
                             "ALBEDOcodigo": "GL-38B",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GL-33B",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -615,6 +822,7 @@
                         },
                         {
                             "ALBEDOcodigo": "GL-33B",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GL-33B ",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -631,6 +839,7 @@
                         },
                         {
                             "ALBEDOcodigo": "GLD-360S-12",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLD-360S-12",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -647,6 +856,7 @@
                         },
                         {
                             "ALBEDOcodigo": "GLH-965-9V",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLD-360S-12",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -663,6 +873,7 @@
                         },
                         {
                             "ALBEDOcodigo": "GLH-965-10V",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLH-965-10V",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -679,6 +890,7 @@
                         },
                         {
                             "ALBEDOcodigo": "GLT-228R-9V",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLT-228R-9V",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -695,6 +907,7 @@
                         },
                         {
                             "ALBEDOcodigo": "GLG-965R-12",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLG-965R-12",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -711,6 +924,7 @@
                         },
                         {
                             "ALBEDOcodigo": "GLG-965R-220",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLG-965R-220",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -727,6 +941,7 @@
                         },
                         {
                             "ALBEDOcodigo": "GLT-228R-24",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLT-228R-24",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -743,6 +958,7 @@
                         },
                         {
                             "ALBEDOcodigo": "GLI-712-IR-NA",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLI-712-IR-NA",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -759,6 +975,7 @@
                         },
                         {
                             "ALBEDOcodigo": "LUNA-131-DDC",
+                            "url_Id": "",
                             "ALBEDOtitulo": "LUNA-131-DDC",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -775,6 +992,7 @@
                         },
                         {
                             "ALBEDOcodigo": "GLS-PAL301-12",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLS-PAL301-12",
                             "ALBEDOprecio": 59,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -793,6 +1011,7 @@
                 },
                 {
                     "id": "sirenas",
+                    "url_Id": "",
                     "name": "Sirenas",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                     "FechadeModificacion": "26/03/2024",
@@ -802,6 +1021,7 @@
                     "products": [
                         {
                             "ALBEDOcodigo": "GLS-100-12",
+                            "url_Id": "",
                             "ALBEDOtitulo": "GLS-100-12",
                             "ALBEDOprecio": 13,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -823,6 +1043,7 @@
         },
         {
             "id": "dupline",
+            "url_Id": "",
             "name": "Dupline",
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
             "FechadeModificacion": "26/03/2024",
@@ -832,6 +1053,7 @@
             "subCategories": [
                 {
                     "id": "generadores-de-canales",
+                    "url_Id": "",
                     "name": "Generadores de canales",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                     "FechadeModificacion": "26/03/2024",
@@ -845,6 +1067,7 @@
         },
         {
             "id": "gama-enocean",
+            "url_Id": "",
             "name": "Gama Enocean",
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
             "FechadeModificacion": "26/03/2024",
@@ -858,6 +1081,7 @@
     "deletedContent": [
         {
             "ALBEDOcodigo": "uiuyi",
+            "url_Id": "",
             "ALBEDOtitulo": "tyuiyi",
             "ALBEDOprecio": 20,
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -874,6 +1098,7 @@
         },
         {
             "ALBEDOcodigo": "sdafadsf",
+            "url_Id": "",
             "ALBEDOtitulo": "adsfasdf",
             "ALBEDOprecio": "55",
             "ALBEDOdescripcion": "asdfdwfasdf",
@@ -888,12 +1113,14 @@
         null,
         {
             "id": "Prueba",
+            "url_Id": "",
             "name": "Prueba",
             "ALBEDOcuerpo": "ersdfsdfd",
             "subCategories": [],
             "products": [
                 {
                     "ALBEDOcodigo": "Prueba",
+                    "url_Id": "",
                     "ALBEDOtitulo": "sdfdsfds",
                     "ALBEDOprecio": "",
                     "ALBEDOdescripcion": "sdfdsfsdf",
@@ -908,6 +1135,7 @@
         },
         {
             "ALBEDOcodigo": "GLM-12A-CI",
+            "url_Id": "",
             "ALBEDOtitulo": "GLM-12A-CI",
             "ALBEDOprecio": 49,
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -926,6 +1154,7 @@
         null,
         {
             "ALBEDOcodigo": "GLD-235-12",
+            "url_Id": "",
             "ALBEDOtitulo": "GLD-235-12",
             "ALBEDOprecio": 59,
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
@@ -940,42 +1169,11 @@
             "imagen.small": "/images/ADFSSM100/imagen.small.png",
             "ALBEDOplazo_entrega": 14
         },
-        {
-            "ALBEDOcodigo": "ADPI16W24V",
-            "ALBEDOtitulo": "Convertidor AC/DC",
-            "ALBEDOprecio": "39,00€",
-            "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-            "FechadeModificacion": "26/03/2024",
-            "FeachadeCreacion": "20/03/2024 ",
-            "urlImagen": "/images/ADFSSM100/imagen.png",
-            "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
-            "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
-            "ALBEDOstock_minimo": 5,
-            "ALBEDOstock": 10,
-            "imagen": "/images/ADFSSM100/imagen.png",
-            "imagen.small": "/images/ADFSSM100/imagen.small.png",
-            "ALBEDOplazo_entrega": 14
-        },
-        {
-            "ALBEDOcodigo": "ADPI30W24V",
-            "ALBEDOtitulo": "Convertidor AC/DC",
-            "ALBEDOprecio": "54,00€",
-            "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-            "FechadeModificacion": "26/03/2024",
-            "FeachadeCreacion": "20/03/2024 ",
-            "urlImagen": "/images/ADFSSM100/imagen.png",
-            "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong>, con aislamiento, entrada universal AC y DC y salida 24V, 30W </p>",
-            "ALBEDOcuerpo2": "Especificaciones Tensión nominal entrada AC:   110…240 Vac Tensión nominal entrada DC:   120…340 Vdc Tensión salida nominal:    24 Vdc ± 1 % Intensidad de salida, max.:0,7 A Frecuencia AC:45…65 Hz Temperatura servicio:-25 °C…70 °C Dimensiones:60,0x90,5x22,5 mm Peso neto:82 gr ",
-            "ALBEDOstock_minimo": 5,
-            "ALBEDOstock": 10,
-            "imagen": "/images/ADFSSM100/imagen.png",
-            "imagen.small": "/images/ADFSSM100/imagen.small.png",
-            "ALBEDOplazo_entrega": 14
-        },
         null,
         null,
         {
             "ALBEDOcodigo": "rrewrer",
+            "url_Id": "",
             "ALBEDOtitulo": "werewrewr",
             "ALBEDOprecio": "",
             "ALBEDOdescripcion": "",
@@ -986,9 +1184,9 @@
             "imagen.small": "/images/ADFSSM100/imagen.small.png",
             "ALBEDOplazo_entrega": 0
         },
-        
         {
             "ALBEDOcodigo": "GLS-15-12",
+            "url_Id": "",
             "ALBEDOtitulo": "GLS-15-12",
             "ALBEDOprecio": 11,
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",

@@ -9,26 +9,33 @@ function footer() {
           <Image
             src="/images/Logo_albedo.png"
             alt="Vercel Logo"
-            className="w-1/3"
+            className="w-1/3 object-contain"
             width={300}
             height={24}
             priority
           />
-          <div className="text-center w-auto">
-            <h1 className="font-bold text-xl ">Política</h1>
-            <p className="cursor-pointer hover:text-[#304590]">Política de privacidad</p>
-            <p className="cursor-pointer hover:text-[#304590]">Política de cookies</p>
-            <p className="cursor-pointer hover:text-[#304590]">Términos y Condiciones</p>
+          <div className="text-left w-auto flex flex-col justify-between">
+            <h1 className="font-bold text-xl ">Textos Legales</h1>
+            <p className="cursor-pointer hover:text-[#304590]">
+              Política de privacidad
+            </p>
+            <p className="cursor-pointer hover:text-[#304590]">
+              Política de cookies
+            </p>
+            <p className="cursor-pointer hover:text-[#304590]">
+              Términos y Condiciones
+            </p>
             <p className="cursor-pointer hover:text-[#304590]">Accesibilidad</p>
             <p className="cursor-pointer hover:text-[#304590]">Aviso legal</p>
           </div>
           <div className="w-1/3 space-y-4">
             <h1 className="font-bold text-xl ">Contacta con nosotros</h1>
-            <p className="mb-2">Si tienes preguntas, quieres obtener más información, no dudes en ponerte en contacto con nosotros.</p>
+            <p className="mb-2">
+              Si tienes preguntas, quieres obtener más información, no dudes en
+              ponerte en contacto con nosotros.
+            </p>
             <div className="flex justify-center cursor-pointer self-center text-white w-[130px] p-1.5 rounded-md bg-[#304590] hover:bg-[#475caa]">
-              <p>
-                Contacto
-              </p>
+              <p>Contacto</p>
             </div>
           </div>
         </div>

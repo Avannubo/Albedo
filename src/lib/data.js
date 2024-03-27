@@ -106,8 +106,6 @@ export async function deleteElement(categoryId, productId) {
         }
     }
 }
-
-
 export async function addCategory(name, description) {
     console.log("New subcategory: " + name + " " + description);
 
@@ -136,6 +134,7 @@ export async function addCategory(name, description) {
         return false;
     }
 }
+
 /**
  * Función para agregar una nueva subcategoría con un nombre y descripción dados.
  *
@@ -197,6 +196,7 @@ export async function addSubcategory(categoryId, newCategoryName) {
         return false;
     }
 }
+
 export async function addproduct(categoryId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
     console.log("New product:" + categoryId.categoryId.id + " " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
 
@@ -396,7 +396,6 @@ export async function getCategoryById(categoryId) {
         return false;
     }
 }
-
 
 // Exported async function to edit a category with the given parameters
 export async function editCategory(categoryId, Code, Name,Description, Body ) {

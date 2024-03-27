@@ -16,16 +16,20 @@ function footer() {
           />
           <div className="text-center w-auto">
             <h1 className="font-bold text-xl ">Política</h1>
-            <p>Política de privacidad</p>
-            <p>Política de cookies</p>
-            <p>Términos y Condiciones</p>
-            <p>Accesibilidad</p>
-            <p>Aviso legal</p>
+            <p className="cursor-pointer hover:text-[#304590]">Política de privacidad</p>
+            <p className="cursor-pointer hover:text-[#304590]">Política de cookies</p>
+            <p className="cursor-pointer hover:text-[#304590]">Términos y Condiciones</p>
+            <p className="cursor-pointer hover:text-[#304590]">Accesibilidad</p>
+            <p className="cursor-pointer hover:text-[#304590]">Aviso legal</p>
           </div>
-          <div className="w-1/3">
+          <div className="w-1/3 space-y-4">
             <h1 className="font-bold text-xl ">Contacta con nosotros</h1>
-            <p>Si tienes preguntas, quieres obtener más información, no dudes en ponerte en contacto con nosotros.</p>
-            <Link href="/contact" className="">Contacto</Link>
+            <p className="mb-2">Si tienes preguntas, quieres obtener más información, no dudes en ponerte en contacto con nosotros.</p>
+            <div className="flex justify-center cursor-pointer self-center text-white w-[130px] p-1.5 rounded-md bg-[#304590] hover:bg-[#475caa]">
+              <p>
+                Contacto
+              </p>
+            </div>
           </div>
         </div>
       </div>

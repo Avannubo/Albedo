@@ -6,7 +6,7 @@ import { addproduct } from '@/lib/data';
 export default function AddModal({ isOpen, onClose, categoryId }) {
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
-    const [newProductPrice, setNewProductPrice] = useState('');
+    const [newProductPrice, setNewProductPrice] = useState(0);
     const [newProductDescription, setNewProductDescription] = useState('');
     const [newProductBody, setNewProductBody] = useState('');
     const [newProductStock, setNewProductStock] = useState(0);
@@ -50,6 +50,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
         //     deliveryTime: newProductDeliveryTime
         // }  
         addproduct(categoryId, newProductCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
+        setNewProductCode('');
         setNewProductName('');
         setNewProductPrice('');
         setNewProductDescription('');

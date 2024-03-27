@@ -215,6 +215,7 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
                     const dataObj = {
                         "ALBEDOcodigo": productCode,
                         "ALBEDOtitulo": Name,
+                        "url_Id": "",
                         "ALBEDOprecio": Price,
                         "ALBEDOdescripcion": Description,
                         "ALBEDOcuerpo": Body,

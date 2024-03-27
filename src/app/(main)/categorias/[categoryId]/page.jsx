@@ -51,7 +51,7 @@ export default function PageContent() {
                         <div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                             <div className=' flex justify-center my-2'>
-                                <p className='text-lg font-bold'>Sub-Categorias</p>
+                                <p className='text-lg font-bold'>Sub-Gamas</p>
                             </div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
 

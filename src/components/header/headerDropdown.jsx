@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 import { getCategories } from "@/lib/data";
 import Link from "next/link";
 
@@ -7,6 +8,7 @@ export default function Dropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
+  const dropdownRef = useRef(null);
 
   const handleCategoryHover = (index) => {
     setActiveCategory(index);
@@ -15,6 +17,7 @@ export default function Dropdown() {
   const handleCategoryLeave = () => {
     setActiveCategory(null);
   };
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -27,31 +30,26 @@ export default function Dropdown() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  // const closeDropdown = () => {
-  //     setIsOpen(false);
-  // };
-
-  // const renderProducts = (products) => {
-  //     return (
-  //         <ul>
-  //             {products.map((product, index) => (
-  //                 <li key={index} className="hover:bg-gray-100 rounded-lg">
-  //                     <a href="#" className="block px-4 py-2 text-md text-gray-700 hover" onClick={closeDropdown}>
-  //                         {product.ALBEDOtitulo}
-  //                     </a>
-  //                 </li>
-  //             ))}
-  //         </ul>
-  //     );
-  // };
-
   return (
     <div className="w-full py-6 pb-8 z-[999]">
-      <div className="relative inline-block">
+      <div className="relative inline-block" ref={dropdownRef}>
         <button
           type="button"
           className=" py-2 text-white font-medium rounded-lg text-lg inline-flex items-center"

@@ -1396,12 +1396,13 @@
                 {
                     "id": "Contadores",
                     "name": "Contadores",
+                    "url_Id": "005",
                     "ALBEDOcuerpo": "",
                     "subCategories": [],
                     "products": [
                         {
                             "ALBEDOcodigo": "G4420-7401-230",
-                            "url_Id": "",
+                            "url_Id": "001",
                             "ALBEDOtitulo": "G4420-7401-230",
                             "ALBEDOprecio": 237.8,
                             "ALBEDOdescripcion": "Contador con cuatro entradas individuales. Dos modos de funcionamiento: contaje de pulsos o acumulación de tiempo activado. Alimentación 230VAC. Para montaje en carril DIN. ",
@@ -1591,6 +1592,358 @@
                             "ALBEDOplazo_entrega": 0
                         }
                     ]
+                },
+                {
+                    "id": "Receptores",
+                    "name": "Receptores",
+                    "url_Id": "007",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "G8830-1143",
+                            "ALBEDOtitulo": "G8830-1143",
+                            "url_Id": "001",
+                            "ALBEDOprecio": "106.8",
+                            "ALBEDOdescripcion": " Módulo receptor descentralizado Dupline que incorpora un relé SPST para controlar una carga de hasta 13A a 250VCA. Alimentación por Dupline. Para montaje en cajetín de empotrar o en falso techo. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G3430-1149-230",
+                            "ALBEDOtitulo": "G3430-1149-230",
+                            "url_Id": "002",
+                            "ALBEDOprecio": "174",
+                            "ALBEDOdescripcion": "Módulo receptor Dupline de 1 canal que incorpora un relé SPDT para controlar una carga de hasta 10A a 250VCA. Alimentación a 230VAC. Para montaje en carril DIN. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G3430-2249-230",
+                            "ALBEDOtitulo": "G3430-2249-230",
+                            "url_Id": "003",
+                            "ALBEDOprecio": "217.1",
+                            "ALBEDOdescripcion": "Módulo receptor Dupline de 2 canales que incorpora relés SPDT para controlar cargas de hasta 10A a 250VCA. Alimentación a 230VAC. Para montaje en carril DIN. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G3430-4443-230",
+                            "ALBEDOtitulo": "G3430-4443-230",
+                            "url_Id": "004",
+                            "ALBEDOprecio": "339.3",
+                            "ALBEDOdescripcion": "Módulo receptor Dupline de 4 canales que incorpora relés SPST para controlar cargas de hasta 5A a 250VCA. Alimentación a 230VAC. Para montaje en carril DIN. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G3430-5511-230",
+                            "ALBEDOtitulo": "G3430-5511-230",
+                            "url_Id": "005",
+                            "ALBEDOprecio": "243.8",
+                            "ALBEDOdescripcion": "Módulo receptor Dupline de 8 canales con salidas de transistor NPN optoaisladas. Carga máxima 0,7A a 60VCC por salida. Alimentación a 230VAC. Para montaje en carril DIN. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G3430-5521-230",
+                            "ALBEDOtitulo": "G3430-5521-230",
+                            "url_Id": "006",
+                            "ALBEDOprecio": "268.1",
+                            "ALBEDOdescripcion": "Módulo receptor Dupline de 8 canales con salidas de transistor PNP optoaisladas. Carga máxima 0,7A a 60VCC por salida. Alimentación a 230VAC. Para montaje en carril DIN. ",
+                            "ALBEDOcuerpo": "\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G3430-5545-230",
+                            "ALBEDOtitulo": "G3430-5545-230",
+                            "url_Id": "007",
+                            "ALBEDOprecio": "369.1",
+                            "ALBEDOdescripcion": "Módulo receptor Dupline de 8 canales con salidas a relé SPST galvánicamente separadas. Carga máxima por relé 16A, por grupo de relés 16A, por módulo 32A. Alimentación a 230VAC. Para montaje en carril DIN. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G3439-6470-230",
+                            "ALBEDOtitulo": "G3439-6470-230",
+                            "url_Id": "008",
+                            "ALBEDOprecio": "460.9",
+                            "ALBEDOdescripcion": "Módulo receptor Dupline de 4 canales con salidas analógicas, configurables de forma independiente para 0-20mA, 4-20mA y 0-10VCC. Resolución seleccionable. Alimentación a 230VAC. Para montaje en carril DIN. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "control-de-riego",
+                    "name": "Control de riego",
+                    "url_Id": "010",
+                    "ALBEDOcuerpo": "Los sistemas de riego tradicionales se caracterizan por sus cableados caros y complicados. Cada válvula necesita un hilo común y un hilo independiente desde el controlador de riego, que puede encontrarse a kilómetros de distancia. Las ampliaciones son también problemáticas debido a su alto coste y a la imposibilidad de obtener hilos extra para las válvulas que deben añadirse al sistema.\n\nEl bus de riego Dupline reduce los costes de instalación y aumenta la flexibilidad de los sistemas de riego agrícola en los que las válvulas normalmente se distribuyen en grandes áreas. Al unificar la alimentación, las señales de control de las válvulas y los pulsos de los caudalímetros en un único cable de dos hilos, Dupline reduce el cableado y sus costes considerablemente, facilitando las ampliaciones y modificaciones. Cualquier tipo de controlador de riego, sea un controlador dedicado, PLC o PC, puede usar Dupline como sistema remoto de E/S. ",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "GH3440-4412",
+                            "ALBEDOtitulo": "GH3440-4412",
+                            "url_Id": "001",
+                            "ALBEDOprecio": "323.5",
+                            "ALBEDOdescripcion": " Módulo de válvula Dupline. Permite controlar válvulas tipo \"latch\" de 3 hilos. Tiene dos salidas para abrir/cerrar la válvula y dos entradas para usar, por ejemplo, caudalímetro, señal antisabotaje, etc. Alimentado por Dupline \"Hi-Line\". Para montaje en carril DIN. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "GH6440-4412",
+                            "ALBEDOtitulo": "GH6440-4412",
+                            "url_Id": "002",
+                            "ALBEDOprecio": "244",
+                            "ALBEDOdescripcion": " Módulo de válvula Dupline. Permite controlar válvulas tipo \"latch\" de 3 hilos. Tiene dos salidas para abrir/cerrar la válvula y dos entradas para usar, por ejemplo, caudalímetro, señal antisabotaje, etc. Alimentado por Dupline \"Hi-Line\". Para montaje enterrado a pie de válvula. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "GH3485-0000-724",
+                            "ALBEDOtitulo": "GH3485-0000-724",
+                            "url_Id": "003",
+                            "ALBEDOprecio": "278.9",
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": " Módulo convertidor para el control de riego Dupline. Convierte una señal Dupline estándar a una señal de 28V \"Hi-Line\" que puede alimentar y controlar hasta 64 válvulas a través de módulos como el G6440-4412. El cable \"Hi-Line\" puede ser de hasta 7Km de longitud. Alimentación de 20 a 30VCC. Para montaje en carril DIN. ",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Pasarelas ",
+                    "name": "Pasarelas (Gateways)",
+                    "url_Id": "011",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "G3496-0005-700",
+                            "ALBEDOtitulo": "G3496-0005-700",
+                            "url_Id": "004",
+                            "ALBEDOprecio": "347.8",
+                            "ALBEDOdescripcion": "Pasarela (gateway) de Dupline a Modbus-RTU.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G3891-0021-230",
+                            "ALBEDOtitulo": "G3891-0021-230",
+                            "url_Id": "001",
+                            "ALBEDOprecio": "988.7",
+                            "ALBEDOdescripcion": " Pasarela (gateway) de Dupline a PROFIBUS-DP.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G3891-0051-230",
+                            "ALBEDOtitulo": "G3891-0051-230",
+                            "url_Id": "002",
+                            "ALBEDOprecio": "2199.8",
+                            "ALBEDOdescripcion": "Pasarela (gateway) de Dupline a Lonworks.",
+                            "ALBEDOcuerpo": "\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G3891-0052-230",
+                            "ALBEDOtitulo": "G3891-0052-230",
+                            "url_Id": "003",
+                            "ALBEDOprecio": "2344.5",
+                            "ALBEDOdescripcion": "Pasarela (gateway) de Dupline a Ethernet Modbus/TCP. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "control-remoto",
+                    "name": "Control remoto",
+                    "url_Id": "012",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "G4085-5562",
+                            "ALBEDOtitulo": "G4085-5562",
+                            "url_Id": "001",
+                            "ALBEDOprecio": "217.6",
+                            "ALBEDOdescripcion": "Controlador remoto de infrarrojos Dupline. Puede controlar hasta 64 canales usando varios receptores IR Dupline. Su alcance es de 15m. Alimentado por dos pilas de 1,5V formato AA. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "G4185-5531",
+                            "ALBEDOtitulo": "G4185-5531",
+                            "url_Id": "002",
+                            "ALBEDOprecio": "257.9",
+                            "ALBEDOdescripcion": "Receptor de infrarrojos Dupline. Transmisor Dupline de 8 canales. Alimentado por bus Dupline. Montaje en superficie o empotrado en caja de interruptores. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Parkings",
+                    "name": "Parkings",
+                    "url_Id": "013",
+                    "ALBEDOcuerpo": " El novedoso sistema de guiado de coches en parkings de Carlo Gavazzi permite diseñar la señalización de un parking antiguo o de nueva creación de la forma más profesional. Con el bus a 3 hilos la tarea es sencilla.\n\nDe elevada capacidad, es extensible en el futuro. Sus elementos son robustos y adecuados para el entorno de montaje. ",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "GP6520-2201",
+                            "ALBEDOtitulo": "GP6520-2201",
+                            "ALBEDOprecio": "137.2",
+                            "ALBEDOdescripcion": "001",
+                            "ALBEDOcuerpo": "Sensor ultrasónico para la detección de coches Dupline. De bajo consumo. Indicador con LED verde/rojo. Sistema de 3 hilos para comunicación y alimentación por separado. Construcción robusta contra polvo y humedad. ",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "GP6520-2202",
+                            "ALBEDOtitulo": "GP6520-2202",
+                            "url_Id": "002",
+                            "ALBEDOprecio": "137.2",
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Sensor ultrasónico para la detección de coches Dupline. De bajo consumo. Indicador con LED azul/rojo. Sistema de 3 hilos para comunicación y alimentación por separado. Construcción robusta contra polvo y humedad. ",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "GP6565-0201",
+                            "ALBEDOtitulo": "GP6565-0201",
+                            "url_Id": "003",
+                            "ALBEDOprecio": "395",
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Indicador de dirección para parking Dupline. De bajo consumo. Indicadores con LED verde/rojo. Sistema de 3 hilos para comunicación y alimentación por separado. Construcción robusta contra polvo y humedad. ",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "GP6763-0104",
+                            "ALBEDOtitulo": "GP6763-0104",
+                            "url_Id": "004",
+                            "ALBEDOprecio": "833",
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Visualizador del número de plazas de parking libres Dupline. De bajo consumo. Cuatro dígitos formados por LEDs verdes. Comunicación por RS-485. Alimentación 24 a 30VDC. ",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "GP6763-0105",
+                            "ALBEDOtitulo": "GP6763-0105",
+                            "url_Id": "005",
+                            "ALBEDOprecio": "",
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Visualizador del número de plazas de parking libres Dupline. Indica también la dirección. De bajo consumo. Tres dígitos y flecha de dirección formados por LEDs rojos y verdes. Comunicación por RS-485. Alimentación 85 a 264VAC.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Herramientas",
+                    "name": "Herramientas",
+                    "url_Id": "015",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "GAP-1605",
+                            "ALBEDOtitulo": "GAP-1605",
+                            "url_Id": "001",
+                            "ALBEDOprecio": "186.3",
+                            "ALBEDOdescripcion": "Herramienta para la programación de equipos Dupline serie G equipados con ASIC. Alimentación por pila de 9V.",
+                            "ALBEDOcuerpo": "\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
                 }
             ],
             "products": []
@@ -1604,7 +1957,109 @@
             "FeachadeCreacion": "20/03/2024 ",
             "urlImagen": "/images/ADFSSM100/imagen.png",
             "ALBEDOcuerpo": " El bus Dupline, de Carlo Gavazzi, usado ya desde hace más de 20 años y probado en más de 100.000 sistemas a lo largo del mundo, es un estándar de facto, fácil de instalar, de usar, fiable y flexible. Sus áreas de aplicaciones son muy amplias: distribución de aguas, ferrocarriles, minería, aeropuertos, ascensores y montacargas y automatización de casas y edificios (domótica e inmótica). Para ir a la página web de Carlo Gavazzi sobre Dupline, pulse en este enlace (en una nueva ventana). ",
-            "subCategories": [],
+            "subCategories": [
+                {
+                    "id": "Transmisores",
+                    "name": "Transmisores",
+                    "url_Id": "001",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "SR65DI",
+                            "ALBEDOtitulo": "SR65DI",
+                            "url_Id": "005",
+                            "ALBEDOprecio": "168",
+                            "ALBEDOdescripcion": "Transmisor binario, alimentado por pila. Transmite un telegrama al abrirse o cerrarse un contacto. Es compatible con cualquier equipo basado en telegramas radio de EnOcean.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Sensores",
+                    "name": "Sensores",
+                    "url_Id": "005",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "SR65",
+                            "ALBEDOtitulo": "SR65",
+                            "url_Id": "004",
+                            "ALBEDOprecio": "168",
+                            "ALBEDOdescripcion": "Sensor de temperatura para exteriores inalámbrico, alimentado por una pequeña celula solar. No requiere mantenimiento. Es compatible con cualquier equipo basado en telegramas radio de EnOcean. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Receptores",
+                    "name": "Receptores",
+                    "url_Id": "002",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "SRC-Ethernet",
+                            "ALBEDOtitulo": "SRC-Ethernet",
+                            "url_Id": "004",
+                            "ALBEDOprecio": 168,
+                            "ALBEDOdescripcion": "Receptor que sirve de pasarela (gateway) entre equipos radio basados en la tecnología EnOcean y los equipos de control con interfaz Ethernet. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Transceptores",
+                    "name": "Transceptores",
+                    "url_Id": "003",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "STC-Ethernet",
+                            "ALBEDOtitulo": "STC-Ethernet",
+                            "url_Id": "011",
+                            "ALBEDOprecio": 472,
+                            "ALBEDOdescripcion": "Transmisor binario, alimentado por pila. Transmite un telegrama al abrirse o cerrarse un contacto. Es compatible con cualquier equipo basado en telegramas radio de EnOcean.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "SRE-Repeater",
+                            "ALBEDOtitulo": "SRE-Repeater",
+                            "url_Id": "004",
+                            "ALBEDOprecio": 264,
+                            "ALBEDOdescripcion": "Repetidor de telegramas de radio entre sensores y receptores de EnOcean. Permite ampliar el rango de una instalación basada en la tecnología de EnOcean. ",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                }
+            ],
             "products": []
         }
     ],

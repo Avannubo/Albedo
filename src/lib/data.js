@@ -106,7 +106,7 @@ export async function deleteElement(categoryId, productId) {
         }
     }
 }
-export async function addCategory(name, description) {
+export async function addCategory(Code, Url_Id, name, description, body) {
     console.log("New subcategory: " + name + " " + description);
 
     try {
@@ -115,10 +115,11 @@ export async function addCategory(name, description) {
         const { categories } = jsonData;
 
         const newCategory = {
-            "id": name,
+            "id": Code,
+            "url_Id": Url_Id,
             "name": name,
-            "url_Id": "",
-            "ALBEDOcuerpo": description,
+            "ALBEDOdescripcion": description,
+            "ALBEDOcuerpo": body,
             "subCategories": [],
             "products": []
         };
@@ -143,7 +144,7 @@ export async function addCategory(name, description) {
  * @param {string} description - La descripción de la nueva subcategoría.
  * @returns {boolean} Un valor booleano que indica si la subcategoría se agregó correctamente.
  */
-export async function addSubcategory(categoryId, newCategoryName) {
+export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body,) {
     console.log("Adding subcategory to " + categoryId.categoryId.id);
     console.log(" subcategory name " + newCategoryName);
 
@@ -161,9 +162,11 @@ export async function addSubcategory(categoryId, newCategoryName) {
                         category.subCategories = [];
                     }
                     const dataObj = {
-                        "id": newCategoryName,
+                        "id": Code,
+                        "url_Id": Url_Id,
                         "name": newCategoryName,
-                        "ALBEDOcuerpo": "",
+                        "description": Description,
+                        "ALBEDOcuerpo": Body,
                         "subCategories": [],
                         "products": []
                     }
@@ -198,9 +201,8 @@ export async function addSubcategory(categoryId, newCategoryName) {
     }
 }
 
-export async function addproduct(categoryId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
-    console.log("New product:" + categoryId.categoryId.id + " " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
-
+export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
+    console.log("New product:" + categoryId.categoryId.id + " " + productCode + " " + Url_Id + "  " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -215,9 +217,9 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
                     }
                     const dataObj = {
                         "ALBEDOcodigo": productCode,
+                        "url_Id": Url_Id,
                         "ALBEDOtitulo": Name,
-                        "url_Id": "",
-                        "ALBEDOprecio": Price,
+                        "ALBEDOprecio": parseFloat(Price), 
                         "ALBEDOdescripcion": Description,
                         "ALBEDOcuerpo": Body,
                         "ALBEDOstock_minimo": MinStock,
@@ -275,7 +277,7 @@ export async function editproduct(productId, productCode, Name, Price, Descripti
                         console.log("product found:", product);
                         product.ALBEDOcodigo = productCode;
                         product.ALBEDOtitulo = Name;
-                        product.ALBEDOprecio = Price;
+                        product.ALBEDOprecio = parseFloat(Price);
                         product.ALBEDOdescripcion = Description;
                         product.ALBEDOcuerpo = Body;
                         product.ALBEDOstock_minimo = MinStock;

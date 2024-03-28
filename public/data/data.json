@@ -23,7 +23,8 @@
                     "imagen.small": "/images/ADFSSM100/imagen.small.png",
                     "ALBEDOplazo_entrega": 4
                 }
-            ]
+            ],
+            "subCategories": []
         },
         {
             "id": "iluminacion",
@@ -436,22 +437,6 @@
                             "ALBEDOtitulo": "ADPDR2P63L",
                             "ALBEDOprecio": 39,
                             "ALBEDOdescripcion": "Protector diferencial rearmable monofásico (2P), 63A, 30mA",
-                            "FechadeModificacion": "26/03/2024",
-                            "FeachadeCreacion": "20/03/2024 ",
-                            "urlImagen": "/images/ADFSSM100/imagen.png",
-                            "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
-                            "ALBEDOstock_minimo": 5,
-                            "ALBEDOstock": 10,
-                            "imagen": "/images/ADFSSM100/imagen.png",
-                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                            "ALBEDOplazo_entrega": 14
-                        },
-                        {
-                            "ALBEDOcodigo": "ADID2P40300AC",
-                            "url_Id": "014",
-                            "ALBEDOtitulo": "ADID2P40300AC",
-                            "ALBEDOprecio": 39,
-                            "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
                             "FechadeModificacion": "26/03/2024",
                             "FeachadeCreacion": "20/03/2024 ",
                             "urlImagen": "/images/ADFSSM100/imagen.png",
@@ -1860,7 +1845,8 @@
                         {
                             "ALBEDOcodigo": "GP6520-2201",
                             "ALBEDOtitulo": "GP6520-2201",
-                            "ALBEDOprecio": "137.2",
+                            "url_Id": "001",
+                            "ALBEDOprecio": 137.2,
                             "ALBEDOdescripcion": "001",
                             "ALBEDOcuerpo": "Sensor ultrasónico para la detección de coches Dupline. De bajo consumo. Indicador con LED verde/rojo. Sistema de 3 hilos para comunicación y alimentación por separado. Construcción robusta contra polvo y humedad. ",
                             "ALBEDOstock_minimo": 0,
@@ -1873,7 +1859,7 @@
                             "ALBEDOcodigo": "GP6520-2202",
                             "ALBEDOtitulo": "GP6520-2202",
                             "url_Id": "002",
-                            "ALBEDOprecio": "137.2",
+                            "ALBEDOprecio": 137.2,
                             "ALBEDOdescripcion": "",
                             "ALBEDOcuerpo": "Sensor ultrasónico para la detección de coches Dupline. De bajo consumo. Indicador con LED azul/rojo. Sistema de 3 hilos para comunicación y alimentación por separado. Construcción robusta contra polvo y humedad. ",
                             "ALBEDOstock_minimo": 0,
@@ -1886,7 +1872,7 @@
                             "ALBEDOcodigo": "GP6565-0201",
                             "ALBEDOtitulo": "GP6565-0201",
                             "url_Id": "003",
-                            "ALBEDOprecio": "395",
+                            "ALBEDOprecio": 395,
                             "ALBEDOdescripcion": "",
                             "ALBEDOcuerpo": "Indicador de dirección para parking Dupline. De bajo consumo. Indicadores con LED verde/rojo. Sistema de 3 hilos para comunicación y alimentación por separado. Construcción robusta contra polvo y humedad. ",
                             "ALBEDOstock_minimo": 0,
@@ -1899,7 +1885,7 @@
                             "ALBEDOcodigo": "GP6763-0104",
                             "ALBEDOtitulo": "GP6763-0104",
                             "url_Id": "004",
-                            "ALBEDOprecio": "833",
+                            "ALBEDOprecio": 833,
                             "ALBEDOdescripcion": "",
                             "ALBEDOcuerpo": "Visualizador del número de plazas de parking libres Dupline. De bajo consumo. Cuatro dígitos formados por LEDs verdes. Comunicación por RS-485. Alimentación 24 a 30VDC. ",
                             "ALBEDOstock_minimo": 0,
@@ -1934,7 +1920,7 @@
                             "ALBEDOcodigo": "GAP-1605",
                             "ALBEDOtitulo": "GAP-1605",
                             "url_Id": "001",
-                            "ALBEDOprecio": "186.3",
+                            "ALBEDOprecio": 186.3,
                             "ALBEDOdescripcion": "Herramienta para la programación de equipos Dupline serie G equipados con ASIC. Alimentación por pila de 9V.",
                             "ALBEDOcuerpo": "\n",
                             "ALBEDOstock_minimo": 0,
@@ -1969,7 +1955,7 @@
                             "ALBEDOcodigo": "SR65DI",
                             "ALBEDOtitulo": "SR65DI",
                             "url_Id": "005",
-                            "ALBEDOprecio": "168",
+                            "ALBEDOprecio": 168,
                             "ALBEDOdescripcion": "Transmisor binario, alimentado por pila. Transmite un telegrama al abrirse o cerrarse un contacto. Es compatible con cualquier equipo basado en telegramas radio de EnOcean.",
                             "ALBEDOcuerpo": "",
                             "ALBEDOstock_minimo": 0,
@@ -1991,7 +1977,7 @@
                             "ALBEDOcodigo": "SR65",
                             "ALBEDOtitulo": "SR65",
                             "url_Id": "004",
-                            "ALBEDOprecio": "168",
+                            "ALBEDOprecio": 168,
                             "ALBEDOdescripcion": "Sensor de temperatura para exteriores inalámbrico, alimentado por una pequeña celula solar. No requiere mantenimiento. Es compatible con cualquier equipo basado en telegramas radio de EnOcean. ",
                             "ALBEDOcuerpo": "",
                             "ALBEDOstock_minimo": 0,
@@ -2051,11 +2037,11 @@
                             "ALBEDOprecio": 264,
                             "ALBEDOdescripcion": "Repetidor de telegramas de radio entre sensores y receptores de EnOcean. Permite ampliar el rango de una instalación basada en la tecnología de EnOcean. ",
                             "ALBEDOcuerpo": "",
-                            "ALBEDOstock_minimo": 0,
-                            "ALBEDOstock": 0,
+                            "ALBEDOstock_minimo": "4",
+                            "ALBEDOstock": "3",
                             "imagen": "/images/ADFSSM100/imagen.png",
                             "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                            "ALBEDOplazo_entrega": 0
+                            "ALBEDOplazo_entrega": "9"
                         }
                     ]
                 }

@@ -115,11 +115,12 @@ export async function addCategory(name, description) {
         const { categories } = jsonData;
 
         const newCategory = {
-            id: name,
-            name: name,
-            ALBEDOcuerpo: description,
-            subCategories: [],
-            products: []
+            "id": name,
+            "name": name,
+            "url_Id": "",
+            "ALBEDOcuerpo": description,
+            "subCategories": [],
+            "products": []
         };
 
         categories.push(newCategory);
@@ -399,7 +400,7 @@ export async function getCategoryById(categoryId) {
 }
 
 // Exported async function to edit a category with the given parameters
-export async function editCategory(categoryId, Code, Name,Description, Body ) {
+export async function editCategory(categoryId, Code, Name, Description, Body) {
     try {
         // Read the contents of the file as a string
         const data = await fs.readFile(filePath, 'utf8');

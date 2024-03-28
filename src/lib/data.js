@@ -259,8 +259,8 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
     }
 }
 
-export async function editproduct(productId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
-    console.log("\nNew product data changes:\n" + productCode + " \n" + Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
+export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
+    console.log("\nNew product data changes:\n" + productCode + " \n" +url_Id+" "+  Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -276,6 +276,7 @@ export async function editproduct(productId, productCode, Name, Price, Descripti
                     if (product.ALBEDOcodigo === productId.productId) {
                         console.log("product found:", product);
                         product.ALBEDOcodigo = productCode;
+                        product.url_Id = url_Id;
                         product.ALBEDOtitulo = Name;
                         product.ALBEDOprecio = parseFloat(Price);
                         product.ALBEDOdescripcion = Description;

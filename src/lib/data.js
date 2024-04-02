@@ -115,7 +115,7 @@ export async function addCategory(Code, Url_Id, name, description, body) {
         const { categories } = jsonData;
 
         const newCategory = {
-            "id": Code,
+            "id": Code.replace(/ /g, "-"),
             "url_Id": Url_Id,
             "name": name,
             "ALBEDOdescripcion": description,
@@ -162,7 +162,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         category.subCategories = [];
                     }
                     const dataObj = {
-                        "id": Code,
+                        "id": Code.replace(/ /g, "-"),
                         "url_Id": Url_Id,
                         "name": newCategoryName,
                         "description": Description,
@@ -216,10 +216,10 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
                         category.products = [];
                     }
                     const dataObj = {
-                        "ALBEDOcodigo": productCode,
+                        "ALBEDOcodigo": productCode.replace(/ /g, "-"),
                         "url_Id": Url_Id,
                         "ALBEDOtitulo": Name,
-                        "ALBEDOprecio": parseFloat(Price), 
+                        "ALBEDOprecio": parseFloat(Price),
                         "ALBEDOdescripcion": Description,
                         "ALBEDOcuerpo": Body,
                         "ALBEDOstock_minimo": MinStock,
@@ -260,7 +260,7 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
 }
 
 export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
-    console.log("\nNew product data changes:\n" + productCode + " \n" +url_Id+" "+  Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
+    console.log("\nNew product data changes:\n" + productCode + " \n" + url_Id + " " + Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -275,7 +275,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                     // console.log(productId.productId);
                     if (product.ALBEDOcodigo === productId.productId) {
                         console.log("product found:", product);
-                        product.ALBEDOcodigo = productCode;
+                        product.ALBEDOcodigo = productCode.replace(/ /g, "-");
                         product.url_Id = url_Id;
                         product.ALBEDOtitulo = Name;
                         product.ALBEDOprecio = parseFloat(Price);

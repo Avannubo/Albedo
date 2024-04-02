@@ -3647,6 +3647,764 @@
                 }
             ],
             "products": []
+        },
+        {
+            "id": "mini-ITX",
+            "url_Id": "008",
+            "name": "Mini-ITX",
+            "ALBEDOdescripcion": "Esta sección contiene productos relacionados con el formato de placas de PC mini-ITX. ",
+            "ALBEDOcuerpo": "Las placas mini-ITX son ultra-compactas, de un tamaño de 17cm X 17cm. Son compatibles Las placas base son la que dan nombre a la gama, aunque en general un producto acabado y listo para su uso suele estar compuesto por una placa, una fuente, una caja, memoria RAM y un dispositivo de almacenamiento como una memoria CF o un disco.\n\n\n",
+            "subCategories": [
+                {
+                    "id": "Placas-mini-ITX",
+                    "url_Id": "001",
+                    "name": "Placas mini-ITX",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "EPIA-M10000",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "EPIA-M10000",
+                            "ALBEDOprecio": 153.99,
+                            "ALBEDOdescripcion": "La placa EPIA-M10000 está equipada con la CPU VIA EPIA C3 Nehemiah a 1GHz. Lleva ventilador. Admite un máximo de 1GB de DDR266/333 RAM. En el panel posterior tiene los conectores VGA, S-Vídeo, RCA (SPDIF o salida TV), 2 x USB2.0, LAN, paralelo,  serie, teclado y ratón PS2 y 3 jacks de audio. Internamente, tiene un conector USB2.0, 2 x Firewire, 2 x IDE UltraDMA, serie, FDD y una ranura PCI.",
+                            "ALBEDOcuerpo": "El chipset VIA Apollo CLE266 incluye un acelerador MPEG-2 integrado para conseguir una reproducción de DVD perfecta, así como unos gráficos 2D/3D integrados que permiten una óptima ejecución de archivos multimedia. La memoria DDR266 SDRAM y las altas velocidades de transferencia del bus ATA/133, permiten alcanzar a las placas EPIA M un alto nivel de prestaciones, adecuado para las más duras aplicaciones multimedia. Además, las placas incluyen sonido envolvente 5.1, usando un codec VIA VT1616 de 6 canales AC'97.\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "EPIA-ML8000A",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "EPIA-ML8000A",
+                            "ALBEDOprecio": 113.99,
+                            "ALBEDOdescripcion": "La placa EPIA-ML8000A está equipada con la CPU VIA EPIA C3 Nehemiah a 800MHz. Lleva  ventilador. Admite un máximo de 1GB de DDR266/333 RAM. En el panel posterior tiene  los conectores VGA, 2 x USB2.0, LAN, paralelo, serie, teclado y ratón PS2 y 3 jacks  de audio. Internamente, tiene un conector USB2.0, 2 x IDE UltraDMA y una ranura PCI.",
+                            "ALBEDOcuerpo": "El chipset VIA Apollo CLE266 incluye un acelerador MPEG-2 integrado para conseguir una reproducción de DVD perfecta, así como unos gráficos 2D/3D integrados que permiten una óptima ejecución de archivos multimedia. La memoria DDR266 SDRAM y las \naltas velocidades de transferencia del bus ATA/133, permiten alcanzar a las placas EPIA M un alto nivel de prestaciones, adecuado para las más duras aplicaciones multimedia. Además, las placas incluyen sonido envolvente 5.1, usando un codec VIA VT1616 de 6 canales AC'97.\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "EPIA-ML6000EA",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "EPIA-ML6000EA",
+                            "ALBEDOprecio": 113.99,
+                            "ALBEDOdescripcion": "La placa EPIA-ML6000EA está equipada con la CPU VIA EPIA C3 Eden a 600MHz. <b>Sin  ventilador</b>. Admite un máximo de 1GB de DDR266/333 RAM. En el panel posterior tiene  los conectores VGA, 2 x USB2.0, LAN, paralelo, serie, teclado y ratón PS2 y 3 jacks  de audio. Internamente, tiene un conector USB2.0, 2 x IDE UltraDMA y una ranura PCI.",
+                            "ALBEDOcuerpo": "El chipset VIA Apollo CLE266 incluye un acelerador MPEG-2 integrado para conseguir una reproducción de DVD perfecta, así como unos gráficos 2D/3D integrados que permiten una óptima ejecución de archivos multimedia. La memoria DDR266 SDRAM y las \naltas velocidades de transferencia del bus ATA/133, permiten alcanzar a las placas EPIA M un alto nivel de prestaciones, adecuado para las más duras aplicaciones multimedia. Además, las placas incluyen sonido envolvente 5.1, usando un codec VIA VT1616 de 6 canales AC'97.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "EPIA-SP8000E",
+                            "url_Id": "004",
+                            "ALBEDOtitulo": "EPIA-SP8000E",
+                            "ALBEDOprecio": 228.99,
+                            "ALBEDOdescripcion": "La placa EPIA-SP8000E está equipada con la CPU VIA EPIA C3 Eden a 800MHz. <b>Sin  ventilador</b>. Admite un máximo de 1GB de DDR266/333/400 RAM. En el panel posterior  tiene los conectores VGA, S-Vídeo, RCA (SPDIF o salida TV), 2 x USB2.0, LAN, paralelo,  serie, teclado y ratón PS2 y 3 jacks de audio. Internamente, tiene los conectores  serie, 3 x USB2.0, Firewire, 2 x IDE UltraDMA, 2 x SATA y una ranura PCI.",
+                            "ALBEDOcuerpo": "Se introduce en esta placa el chipset VIA CN400 Digital Media con lo que se extienden las características de las placas mini-ITX para incluir soporte para las memorias RAM DDR266/333/400 y también se obtienen mucho mejores prestaciones en el procesado de medios digitales en dispositivos como PVRs (grabadoras digitales de video), set top boxes y media centers. El Chromotion CE Video Display Engine del nucleo gráfico S3 Graphics UniChrome Pro IGP incluye un acelerador MPEG-2 y MPEG-4 integrados para conseguir una reproducción de ficheros divx y DVD perfecta,La conectividad de gran ancho de banda está cubierta por las conexiones Serial-ATA, IEEE-1394 (Firewire), USB 2.0 y Ethernet 10/100. Se incluye soporte para varios paneles LCD con LVDS y, por último, incluye una ranura PCI para expansiones.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "EPIA-PD10000",
+                            "url_Id": "005",
+                            "ALBEDOtitulo": "EPIA-PD10000",
+                            "ALBEDOprecio": 167.99,
+                            "ALBEDOdescripcion": "La placa EPIA-PD10000 está equipada con la CPU VIA EPIA C3 Nehemiah a 1GHz. Lleva  ventilador. Admite un máximo de 1GB de DDR266/333 RAM. En el panel posterior tiene  los conectores VGA, 4 x USB2.0, 2 x LAN, paralelo, serie, teclado y ratón PS2 y 3  jacks de audio. Internamente, tiene un conector USB2.0, LVDS, 2 x IDE UltraDMA,  3 x serie y una ranura PCI.",
+                            "ALBEDOcuerpo": "El chipset VIA Apollo CLE266 incluye un acelerador MPEG-2 integrado para conseguir una reproducción de DVD perfecta, así como unos gráficos 2D/3D integrados que permiten una óptima ejecución de archivos multimedia. La memoria DDR266 SDRAM y las altas velocidades de transferencia del bus ATA/133, permiten alcanzar a las placas EPIA M un alto nivel de prestaciones, adecuado para las más duras aplicaciones multimedia.\n\nLa conectividad de gran ancho de banda está cubierta por 6 conexiones USB 2.0 y 2 Ethernet 10/100.  También se incluye soporte para paneles LCD a través de la conexión LVDS. Por último, incluye una ranura PCI para expansiones.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Fuentes-de-alimentacion-para-mini-ITX",
+                    "url_Id": "002",
+                    "name": "Fuentes de alimentación para mini-ITX",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "EPIA-DC80W",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "EPIA-DC80W",
+                            "ALBEDOprecio": 52.99,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "La fuente de alimentación EPIA-DC80W se conecta directamente a las placas  EPIA-M y EPIA-ML. Su rango de tensión de entrada le permite usar directamente  una batería de 12V.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "EPIA-120WDCC",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "EPIA-120WDCC",
+                            "ALBEDOprecio": 52.99,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "La fuente de alimentación EPIA-120WDCC está diseñada para montaje en chasis. Es adecuada para su uso en vehículos comerciales. Su rango de tensión de entrada le permite usar directamente una batería de 24V.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "M1-ATX",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "M1-ATX",
+                            "ALBEDOprecio": 90.99,
+                            "ALBEDOdescripcion": "La fuente de alimentación M1-ATX está diseñada para su uso en vehículos. Su  potencia máxima son 90W y su amplio rango de tensión de entrada le permite  usar directamente una batería de 12V.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "PW-200M",
+                            "url_Id": "004",
+                            "ALBEDOtitulo": "PW-200M",
+                            "ALBEDOprecio": 58.99,
+                            "ALBEDOdescripcion": "La fuente de alimentación PW-200M tiene una potencia máxima de salida  de 200W. Es adecuada para las placas Epia-M. Requiere una entrada de 12V  regulada. Es compatible con la caja PACBOX.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "PW-200V",
+                            "url_Id": "005",
+                            "ALBEDOtitulo": "PW-200V",
+                            "ALBEDOprecio": 58.99,
+                            "ALBEDOdescripcion": "La fuente de alimentación PW-200M tiene una potencia máxima de salida  de 200W. Es adecuada para las placas Epia-PD. Requiere una entrada de 12V  regulada. Es compatible con la caja PACBOX.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Cajas-para-mini-ITX",
+                    "url_Id": "003",
+                    "name": "Cajas para mini-ITX",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "PACBOX",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "PACBOX",
+                            "ALBEDOprecio": 83.99,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Caja para montaje en pared de placas mini-ITX. Es compacta, de dimensiones  190 x 195 x 83 mm. Incluye una ranura de expansión para una placa PCI y los elementos de montaje  para un disco de 2'5\".",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Accesorios-para-mini-ITX",
+                    "url_Id": "004",
+                    "name": "Accesorios para mini-ITX",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "CF200",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "CF200",
+                            "ALBEDOprecio": 24.99,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "<b>CF200</b> es un adaptador de IDE a Compact Flash (CF) que permite a los OEMs  reemplazar el disco duro por tarjetas CF. Proporciona un interfaz conveniente  que permite usar CFs en cualquier sistema que incluya un conector IDE de 40 pins  estándar. \n\n Al arrancar el sistema con el adaptador y la tarjeta CF, se ve este conjunto como  un disco duro estándar. En este caso, no se requiere de drivers especiales para  que esta solución funcione. La tarjeta CF puede ser el dispositivo desde el que se  arranca (boot device) y contener el Sistema Operativo y la aplicación.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                }
+            ],
+            "products": []
+        },
+        {
+            "id": "Gama-Bluetooth",
+            "url_Id": "009",
+            "name": "Gama Bluetooth",
+            "ALBEDOdescripcion": "",
+            "ALBEDOcuerpo": "",
+            "subCategories": [
+                {
+                    "id": "Módulos-Gama-Bluetooth",
+                    "url_Id": "001",
+                    "name": "Módulos",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "AD-LinkMatik",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "AD-LinkMatik",
+                            "ALBEDOprecio": 103.99,
+                            "ALBEDOdescripcion": "Módulo que proporciona un enlace transparente entre una interfaz serie y Bluetooth.",
+                            "ALBEDOcuerpo": "Permite a los diseñadores añadir rápidamente la característica de un puerto Bluetooth a sus productos sin necesidad de ser experto en el diseño RF ni de antenas.\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-BlueMatik",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "AD-BlueMatik",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "Módulo Bluetooth de bajo coste y propósito general.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-ToothPick",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "AD-ToothPick",
+                            "ALBEDOprecio": 177.99,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Es la combinación de un microcontrolador PIC y un módulo radio AD-BlueMatik, precargado con un firmware con <b>Servicios ToothPick</b>, el cual proporciona un servidor de interfaces de usuario Flexipanel y programación en campo vía radio.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Controladores-Gama-Bluetooth",
+                    "url_Id": "002",
+                    "name": "Controladores",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "AD-BlueControl",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "AD-BlueControl",
+                            "ALBEDOprecio": 267,
+                            "ALBEDOdescripcion": "AD-BlueControl le permite controlar hasta cuatro relés a través de un enlace Bluetooth  desde un PC con Windows, una PDA con Pocket PC y algunos teléfonos moviles de gama alta.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-BlueLock",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "AD-BlueLock",
+                            "ALBEDOprecio": 310.99,
+                            "ALBEDOdescripcion": "AD-BlueLock detecta los dispositivos Bluetooth a su alrededor en un rango de 10m.  Si detecta un dispositivo que reconoce, actúa sobre un relé.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-BFF01-0",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "AD-BFF01-0",
+                            "ALBEDOprecio": 972.4,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Control remoto universal basado en el estándar Bluetooth. Traslada de forma transparente el contenido de entradas y salidas digitales y analógicas junto a un canal serie bidireccional desde el lado del transmisor al lado del receptor. De largo alcance (250 metros con visión directa). <b>Incluye la pareja transmisor y receptor</b>.\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-BFF02-0",
+                            "url_Id": "004",
+                            "ALBEDOtitulo": "AD-BFF02-0",
+                            "ALBEDOprecio": 997.7,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Control remoto universal basado en el estándar Bluetooth. Traslada de forma  transparente el contenido de entradas y salidas digitales y analógicas junto  a un canal serie bidireccional desde el lado del transmisor al lado del  receptor. De largo alcance (hasta 250 metros con visión directa). Con este  equipo es sencillísimo hacer una aplicación de control remoto. Incluye la pareja  transmisor y receptor. En formato para <b>carril DIN</b>.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Kits-Gama-Bluetooth",
+                    "url_Id": "003",
+                    "name": "Kits",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "AD-BTEVAL",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "AD-BTEVAL",
+                            "ALBEDOprecio": 182,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Placa de evaluación para los módulos Bluetooth <b>AD-LinkMatik</b>,  <b>AD-BlueMatik</b> y <b>AD-ToothPick</b>.  Nota: los módulos no están incluidos, por lo que debe adquirir por  separado los que le interese probar.\n\nLa placa tiene zócalos para todos los tipos de módulos, e incluye:\n<ul>\n<li>Regulador de tensión, interruptor y LED, con entrada 5 a 12V contínua.\n<li>Preselectores para la configuración de la placa.\n<li>Puerto serie RS232 y un convertidor TTL a RS232\n<li>El zócalo de programación para el AD-ToothPick con un ICD2\n<li>Un chip de memoria conectado vía I2C, de tipo 24C256\n<li>Las teclas, LEDs, preselectores e interruptores necesarios para \nejecutar los tutoriales incluidos en las hojas de producto de cada uno \nde los módulos soportados.\n</ul>\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Enlaces-de-datos",
+                    "url_Id": "004",
+                    "name": "Enlaces de datos",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "AD-BFM01-0",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "AD-BFM01-0",
+                            "ALBEDOprecio": 99.34,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Enlace de datos inalámbrico basado en el estándar Bluetooth. De largo alcance  (hasta 250 metros con visión directa). Ideal para conexión punto a punto y  punto a multipunto. Con caja metálica.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-BFM02-00",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "AD-BFM02-00",
+                            "ALBEDOprecio": 192.4,
+                            "ALBEDOdescripcion": "Enlace de datos inalámbrico basado en el estándar Bluetooth. De largo alcance  (hasta 200 metros con visión directa). Ideal para conexión punto a punto y  punto a multipunto. Módulo sin caja.",
+                            "ALBEDOcuerpo": "<h3>Especificaciones técnicas</h3>\n<table border=\"0\">\n<tbody>\n<tr valign=\"top\"><td width=\"200\">Tecnología</td><td width=\"415\">Bluetooth Clase I (+17dBm/50mW), Cal. 2.0<br>79 canales, 1600 hops/seg</td></tr>\n<tr valign=\"top\"><td>Rango de frecuencia</td><td>2,402 ... 2,480 GHz, banda ISM</td></tr>\n<tr valign=\"top\"><td>Rango operativo</td><td>hasta 200 metros (visión directa)</td></tr>\n<tr valign=\"top\"><td>Interfaz</td><td>RS-232 (otros interfaces disponibles, consúltenos)</td></tr>\n<tr valign=\"top\"><td>Tasas de transferencia</td><td>De 300 a 460.800 Baudios</td></tr>\n<tr valign=\"top\"><td>Multipunto</td><td>hasta 7 suscriptores</td></tr>\n<tr valign=\"top\"><td>Consumo</td><td>800mW máximo</td></tr>\n<tr valign=\"top\"><td>Tensión de alimentación</td><td>7 a 30 VDC</td></tr>\n<tr valign=\"top\"><td>Dimensiones</td><td>60 x 60 x 17 mm</td></tr>\n<tr valign=\"top\"><td>Peso</td><td>35 g</td>\n<tr valign=\"top\"><td>Conformidades</td><td>CE, EN 300 328-2, EMC: EN 301 489</td></tr>\n<tr valign=\"top\"><td>Aprobaciones</td><td>ETS 300 328, ETS 300 826<br>FCC ID: PVH 070201</td></tr>\n</tr></tbody></table>\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-BFM02-10",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "AD-BFM02-10",
+                            "ALBEDOprecio": 219.7,
+                            "ALBEDOdescripcion": "Enlace de datos inalámbrico basado en el estándar Bluetooth. De largo alcance  (hasta 200 metros con visión directa). Ideal para conexión punto a punto y  punto a multipunto. Con caja de policarbonato, grado de protección IP56.",
+                            "ALBEDOcuerpo": "<h3>Especificaciones técnicas</h3>\n<table border=\"0\">\n<tbody>\n<tr valign=\"top\"><td width=\"200\">Tecnología</td><td width=\"415\">Bluetooth Clase I (+17dBm/50mW), Cal. 2.0<br>79 canales, 1600 hops/seg</td></tr>\n<tr valign=\"top\"><td>Rango de frecuencia</td><td>2,402 ... 2,480 GHz, banda ISM</td></tr>\n<tr valign=\"top\"><td>Rango operativo</td><td>hasta 200 metros (visión directa)</td></tr>\n<tr valign=\"top\"><td>Interfaz</td><td>RS-232 (otros interfaces disponibles, consúltenos)</td></tr>\n<tr valign=\"top\"><td>Tasas de transferencia</td><td>De 300 a 460.800 Baudios</td></tr>\n<tr valign=\"top\"><td>Multipunto</td><td>hasta 7 suscriptores</td></tr>\n<tr valign=\"top\"><td>Consumo</td><td>800mW máximo</td></tr>\n<tr valign=\"top\"><td>Tensión de alimentación</td><td>7 a 30 VDC</td></tr>\n<tr valign=\"top\"><td>Dimensiones</td><td>141 x 91 x 42 mm</td></tr>\n<tr valign=\"top\"><td>Peso</td><td>180 g</td>\n<tr valign=\"top\"><td>Conformidades</td><td>CE, EN 300 328-2, EMC: EN 301 489</td></tr>\n<tr valign=\"top\"><td>Aprobaciones</td><td>ETS 300 328, ETS 300 826<br>FCC ID: PVH 070201</td></tr>\n</tr></tbody></table>\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                }
+            ],
+            "products": []
+        },
+        {
+            "id": "Gama-ZigBee",
+            "url_Id": "010",
+            "name": "Gama ZigBee",
+            "ALBEDOdescripcion": "",
+            "ALBEDOcuerpo": "",
+            "subCategories": [
+                {
+                    "id": "Módulos-Gama-ZigBee",
+                    "url_Id": "001",
+                    "name": "Módulos",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "AD-EasyBee",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "AD-EasyBee",
+                            "ALBEDOprecio": 36.99,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Módulo transceptor de RF a 2,4GHz que cumple la norma IEEE 802.15.4. Permite a los  diseñadores incorporar de forma muy sencilla las capacidades IEEE 802.15.4 / ZigBee  a sus productos sin necesidad de ser expertos en Radio Frecuencia (RF) o en diseño  de antenas.\n \nEl módulo contiene toda la circuitería RF, incluyendo la antena integrada y el \ncontrolador en un <b>formato DIL</b>. El interfaz con el microprocesador se efectúa a \ntraves de un enlace digital a 4 hilos.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-EasyBee-SO",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "AD-EasyBee SO",
+                            "ALBEDOprecio": 27.99,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Módulo transceptor de RF a 2,4GHz que cumple la norma IEEE 802.15.4. Permite a  los diseñadores incorporar de forma muy sencilla las capacidades IEEE 802.15.4 /  ZigBee a sus productos sin necesidad de ser expertos en Radio Frecuencia (RF) o  en diseño de antenas.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-Pixie",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "AD-Pixie",
+                            "ALBEDOprecio": 63.99,
+                            "ALBEDOdescripcion": "<b>AD-Pixie</b> es un módulo que combina un microcontrolador PIC y un transceptor  de RF a 2,4GHz que cumple la norma IEEE 802.15.4. Físicamente tiene <b>formato DIL</b>.",
+                            "ALBEDOcuerpo": "Es totalmente compatible con el kit de desarrollo PicDem-Z y el stack ZigBee gratuito de \n<a href=\"http://www.microchip.com/\">Microchip Technology</a>. Permite una rapidísima \nmigración desde el prototipo al producto final sin verse involucrado en diseños de \nRadio frecuencia (RF). \n<h2>Kit de desarrollo</h2> \nAD-Pixie es virtualmente idéntico a la placa del kit de evaluación PicDem-Z de \n<a href=\"http://www.microchip.com/\">Microchip Technology</a>. Usted puede empezar \nel desarrollo usando ese kit, sabiendo que después dispone de una versión OEM \nprofesional disponible.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-Pixie-SO",
+                            "url_Id": "004",
+                            "ALBEDOtitulo": "AD-Pixie SO",
+                            "ALBEDOprecio": 55.99,
+                            "ALBEDOdescripcion": "<b>AD-Pixie SO</b> es un módulo que combina un microcontrolador PIC y un transceptor  de RF a 2,4GHz que cumple la norma IEEE 802.15.4. Físicamente tiene <b>formato SMD</b>.",
+                            "ALBEDOcuerpo": "Es totalmente compatible con el kit de desarrollo PicDem-Z y el stack ZigBee gratuito de <a href=\"http://www.microchip.com/\">Microchip Technology</a>. Permite una rapidísima migración desde el prototipo al producto final sin verse involucrado en diseños de Radio frecuencia (RF). <h2>Kit de desarrollo</h2> AD-Pixie es virtualmente idéntico a la placa del kit de evaluación PicDem-Z de <a href=\"http://www.microchip.com/\">Microchip Technology</a>. Usted puede empezar el desarrollo usando ese kit, sabiendo que después dispone de una versión OEM profesional disponible.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-UZBee",
+                            "url_Id": "005",
+                            "ALBEDOtitulo": "AD-UZBee",
+                            "ALBEDOprecio": 74,
+                            "ALBEDOdescripcion": "<b>AD-UZBee</b> es un AD-EasyBee, módulo transceptor de RF a 2,4GHz que cumple la norma  IEEE 802.15.4. junto con un interfaz USB, en formato de llave USB. ",
+                            "ALBEDOcuerpo": "El módulo esta contenido en una pequeña caja de plastico y dispone de un LED de estado y un pequeño pulsador retraido. Cumple con la normativa CE y FCC.\n\nEl especial diseño de la antena, hace que el efecto de la mano sobre la llave sea mínimo.\n<h3>Firmware disponible</h3>\n\nHay un conjunto de programas didponible para su uso como firmware del AD-UZBee. Estos son:\n<ul>\n<li>MACdongle: capa MAC del protocolo IEEE 802.15.4\n<li>Zongle: capa RFD de ZigBee\n<li>COMdongle: puerto serie transparente (futuro)\n</ul>\n\nEste módulo usa la tecnología USBoot de Flexipanel. Esto permite el cambio del firmware vía el puerto USB sin necesidad de usar ningún equipo especializado.\n\nLos OEMs que deseen adaptar este módulo según sus propias necesidades, pueden programar el microcontrolador de la placa, el PIC18LF4550. El stack ZigBee gratuito de Microchip esta disponible para su uso con este producto, con la única salvedad de que el stack correspondiente a la funcionalidad completa no cabe en la memoria del microcontrolador.\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-UZBee-plus",
+                            "url_Id": "006",
+                            "ALBEDOtitulo": "AD-UZBee plus",
+                            "ALBEDOprecio": 92,
+                            "ALBEDOdescripcion": "<b>AD-UZBee plus</b> es un interfaz USB a ZigBee, en formato de llave USB. La versión  Plus se programa con un TEAclipper y es compatible MAC y Linux. ",
+                            "ALBEDOcuerpo": "El módulo esta contenido en una pequeña caja de plastico y dispone de un LED de estado y un pequeño pulsador retraido. Cumple con la normativa CE y FCC.\n\nEl especial diseño de la antena, hace que el efecto de la mano sobre la llave sea mínimo.\n\n<h3>Firmware disponible</h3>\nHay un conjunto de programas didponible para su uso como firmware del AD-UZBee. Estos son:\n\n<ul>\n<li>MACdongle: capa MAC del protocolo IEEE 802.15.4\n<li>Zongle: capa RFD de ZigBee\n<li>COMdongle: puerto serie transparente (futuro)\n</ul>\n\nEste módulo usa la tecnología TEAclipper de Flexipanel para su programación. Esto permite el cambio del firmware de forma rápida.\n\nLos OEMs que deseen adaptar este módulo según sus propias necesidades, pueden programar el microcontrolador de la placa, el PIC18LF4550. El stack ZigBee gratuito de Microchip esta disponible para su uso con este producto, con la única salvedad de que el stack correspondiente a la funcionalidad completa no cabe en la memoria del microcontrolador.Se diferencia del AD-UZBee en su compatibilidad con MAC y Linux y su capacidad para ejecutar el mismo software que el AD-Pixie, incluyendo coordinadores.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Programas-Gama-ZigBee",
+                    "url_Id": "002",
+                    "name": "Programas",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "AD-Pixie-Sniffer",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "AD-Pixie Sniffer",
+                            "ALBEDOprecio": 0,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Programa para PC (bajo Windows) cuya función es monitorizar el espectro de  frecuencias centrado en los 2,4GHz, detectando y mostrando las tramas presentes  que cumplan con el estándar IEEE 802.15.4. Su ayuda es inestimable durante el  desarrollo de aplicaciones ZigBee.\n<b>NOTA importante</b>: este programa es gratuito en tanto sea usado con una placa AD-Pixie  o con el kit de desarrollo PICDEM-Z. ",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-Pixie-Switcher",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "AD-Pixie Switcher",
+                            "ALBEDOprecio": 0,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Firmware <b>gratuito</b> para los módulos <b>AD-Pixie</b>. Usa el perfil Control  de Hogar - Iluminación (HC-L) y proporciona hasta 8 entradas (interruptores de  control) o salidas (controladores de carga). Cada uno de ellos puede emparejarse a  cualquier otro dispositivo homólogo en una red ZigBee. Por ejemplo, un AD-Pixie  Switcher puede configurarse como 8 entradas, 8 salidas o 4 de cada.\n\n<b>AD-Pixie Switcher</b> requiere sólo unos pocos componentes adicionales para proporcionar un sistema inalámbrico de conmutación completo. Permite una rapidísima migración desde el prototipo a un producto de mercado sin necesidad de involucrarse en diseños RF.\nEstá disponible como firmware o precargado en <b>AD-Pixie</b>. Es gratuito sólo si se utiliza en productos como el AD-Pixie.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-Pixie-Gateway",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "AD-Pixie Gateway",
+                            "ALBEDOprecio": 0,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Firmware <b>gratuito</b> para los módulos <b>AD-Pixie</b>. Proporciona una interfaz  serie al perfil \"MailBox\" para constituir redes en malla de baja velocidad. Es ideal  para OEMs que quieran añadir comunicaciones serie genéricas para sus redes ZigBee.\nEste firmware permite obtener una pasarela, orientada a comandos entre una red  ZigBee y un PC.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-Pixie-DARC",
+                            "url_Id": "004",
+                            "ALBEDOtitulo": "AD-Pixie DARC",
+                            "ALBEDOprecio": 0,
+                            "ALBEDOdescripcion": "Firmware <b>gratuito</b> para los módulos <b>AD-Pixie</b>. Proporciona funciones de  adquisición de datos y control remoto. Es compatible con todos los productos que  usen el perfil Mailbox de ZigBee.",
+                            "ALBEDOcuerpo": "<h2>Características Firmware</h2>\n<ul>\n<li>Incorpora la pila de protocolos ZigBee y el perfil Mailbox.\n<li>Habilita una entrada para permitir la unión a una red y el borrado de los datos de red.\n<li>Tiene una salida para indicar el estado de la conexión y permitir unirse a una red.\n<li>Si se configura como coordinador o enrutador tiene las siguientes características:\n<ul>\n<li>Hasta 12 entradas digitales\n<li>Hasta 12 salidas digitales\n<li>Hasta 7 entradas analógicas convertidas a digital de 10 bits\n</ul>\n<li>Si se configura como dispositivo terminal de red tiene las siguientes características:\n<ul>\n<li>Hasta 9 entradas digitales\n<li>Hasta 9 salidas digitales\n<li>Hasta 4 entradas analógicas convertidas a digital de 10 bits\n</ul>\n</ul>\n<h2>Características Hardware</h2>\nLas características hardware son las del módulo <a href=\"/products/010/001/003\">\n<b>AD-Pixie</b></a>.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-Mailbox-API",
+                            "url_Id": "005",
+                            "ALBEDOtitulo": "AD-Mailbox-API",
+                            "ALBEDOprecio": 0,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Firmware <b>gratuito</b> para los módulos <b>AD-Pixie</b>. El API Mailbox está  diseñado para ser un interfaz de programación muy simple para los desarrolladores  de aplicaciones ZigBee. Por ello, permite el desarrollo de aplicaciones para ZigBee  sin conocer practicamente dicho protocolo o incluso las radio-comunicaciones.\n<h2>Características</h2>\n<ul>\n<li>Incorpora la pila de protocolos ZigBee de Microchip.\n<li>Envio de datos como carga útil en secuencias de aproximadamente 19.2 Kbit/s.\n<li>Mensajería con dirección o con amplia difusión (broadcast).\n<li>Gestión de reconocimiento de entrega de los datos y de fallos.\n<li>La red entera puede entrar en estados de bajo consumo (dormidos) y salir de ellos (despertar).\n</ul>\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Kits-Gama-ZigBee",
+                    "url_Id": "003",
+                    "name": "Kits",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "AD-PIXIE-EVAL",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "AD-PIXIE-EVAL",
+                            "ALBEDOprecio": 477.9,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Kit de evaluación de la tecnología ZigBee. Incluye dos placas, un módulo  <b>AD-Pixie</b> y un módulo <b>AD-Pixie Lite</b>. \n\nLos módulos vienen precargados con el firmware AD-Pixie Switcher (perfil HC-L).",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "AD-PIXIE-Config",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "AD-PIXIE-Config",
+                            "ALBEDOprecio": 84,
+                            "ALBEDOdescripcion": "Cable de programación del AD-Pixie.",
+                            "ALBEDOcuerpo": "Cable de programación del AD-Pixie. Se conecta a un puerto USB y proporciona los  pins de conexión al AD-Pixie para programarlo.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Sensinet-Gama-ZigBee",
+                    "url_Id": "004",
+                    "name": "Sensinet",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "Bridge-Ethernet",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "Bridge Ethernet",
+                            "ALBEDOprecio": 885,
+                            "ALBEDOdescripcion": "Pasarela Sensinet a Ethernet y USB.",
+                            "ALBEDOcuerpo": "El <b>Bridge Ethernet</b> es un componente de la red de sensores inalámbricos Sensicast  A2400. Es un dispositivo RF a 2,4GHz con función de pasarela para extender la  red de sensores a redes tradicionales cableadas a través de Ethernet o USB. \n\nEl <b>Bridge Ethernet</b> también sirve para configurar y mantener automáticamente las  red A2400 de sensores desde su arranque inicial. Tiene una batería de respaldo  para guardar la configuración de la red y un puerto USB que le permite la  conexión directa a un servidor.\n\nDebe usarse en conjunto con el programa SensiMesh de Sensicast para permitir \nla completa integración, control y mantenimiento de la red de sensores. Dicho \nprograma permite el uso de multiples pasarelas en la misma red.\n<h3>Características</h3>\n<ul>\n<li>Extiende la red de sensores hasta redes tradicionales cableadas\n<li>Permite conexión Ethernet o USB\n<li>Batería de respaldo con duración de 72 horas\n<li>Permite el uso simultáneo de múltiples pasarelas para disponer de una \nredundancia total\n<li>Soporta reconocimiento de mensajes y enrutamiento redundante a efectos \nde obtener una conectividad inalámbrica totalmente fiable\n<li>Capaz de soportar hasta 256 nodos MESH A2400 Sensicast\n</ul>\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "MESH1020",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "MESH1020",
+                            "ALBEDOprecio": 520,
+                            "ALBEDOdescripcion": "Módulo repetidor de una red Sensinet.",
+                            "ALBEDOcuerpo": "El <b>MESH1020</b> es un componente de la red de sensores inalámbricos Sensicast  A2400. Es un nodo de red en malla, funcionando con RF a 2,4GHz que utiliza  algoritmos de gestión de energía y servicios de enrutado eficientes para  redirigir de forma rápida los mensajes a través de una red de sensores.\nUna vez en marcha, el <b>MESH1020</b> se configura él mismo dentro de la red,  a través de una conexión primaria y una secundaria redundante. No precisa de  cableado de datos y sirve para extender el alcance de la red al completo.\n\nPuede ser montado donde se quiera y permite construir una red de sensores totalmente inalámbrica con autoconfiguración, autocurado y con gestión de energía.\n<h3>Características</h3>\n<ul>\n<li>No precisa cableado de datos\n<li>Redirige mensajes a traves de la red en malla a uno o varios dispositivos, asegurando una total redundancia\n<li>Alimentado con DC o AC (hasta 24Vac)\n<li>Soporta reconocimiento de mensajes y enrutamiento redundante a efectos de obtener una conectividad inalámbrica totalmente fiable\n<li>Se une a la red automáticamente; no requiere configuración\n<li>El usuario puede definir la supervisión del nodo desde la propia red\n</ul>\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "CURR1022",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "CURR1022",
+                            "ALBEDOprecio": 520,
+                            "ALBEDOdescripcion": "Nodo sensor para corriente analógica de entrada de 4-20mA para una red Sensinet.",
+                            "ALBEDOcuerpo": "El <b>CUR1022</b> es un nodo de la red de sensores inalámbricos Sensicast A2400. Funciona con RF a 2,4GHz. Se usa como nodo de transmisión de datos de sensores a través de una corriente analógica de entrada de 4 a 20mA.\n\nEl <b>CUR1022</b> es un dispositivo de dos canales que puede ser alimentado a través de una fuente cableada local o a través de una batería externa. Es totalmente configurable a través de la propia red inalámbrica, a través de la cual el usuario puede ajustar dinámicamente el periodo de transmisión.\n\n<h3>Características</h3>\n<ul>\n<li>2 canales de entrada de 4-20mA\n<li>Radio amplificada hasta 15dBm para mayor robustez de red\n<li>Soporta el protocolo Sensinet para conectar de forma ultra-fiable \nen entornos duros de RF.\n<li>Es soportado por el programa SensiMesh\n<li>Alcance hasta 212 metros en campo abierto\n<li>Periodo de transmisión definible por el usuario \n<li>Soporta reconocimiento de mensajes y enrutamiento redundante a efectos de obtener una conectividad inalámbrica totalmente fiable\n<li>Se une a la red automáticamente; no requiere configuración\n<li>Puede actualizarse a través de la propia red\n<li>LED indicador de estado\n<li>Caja IP30\n<li>Se auto-calibra para eliminar efectos de derivas\n</ul>\n\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "TEHU1121",
+                            "url_Id": "004",
+                            "ALBEDOtitulo": "TEHU1121",
+                            "ALBEDOprecio": 520,
+                            "ALBEDOdescripcion": "Nodo sensor para temperatura y humedad para una red Sensinet.",
+                            "ALBEDOcuerpo": "El <b>TEHU1121</b> es un nodo de la red de sensores inalámbricos Sensicast A2400. Funciona con RF a 2,4GHz. Se usa como nodo de transmisión de datos de temperatura y humedad a una aplicación de gestión centralizada.\n\nEl <b>TEHU1121</b> es totalmente configurable a través de la propia red inalámbrica, a través de la cual el usuario puede ajustar el periodo de transmisión. Con un periodo de 2 minutos, la duración de las pilas es de 3 años.\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "TEMP1124",
+                            "url_Id": "005",
+                            "ALBEDOtitulo": "TEMP1124",
+                            "ALBEDOprecio": 730,
+                            "ALBEDOdescripcion": "Nodo sensor de RTD para una red Sensinet.",
+                            "ALBEDOcuerpo": "El <b>TEMP1124</b> es un nodo de la red de sensores inalámbricos Sensicast A2400. Funciona con RF a 2,4GHz. Se usa como nodo de transmisión de datos obtenidos de sondas de temperatura del tipo RTD.\n\nEl <b>TEMP1124</b> es totalmente configurable a través de la propia red inalámbrica, a través de la cual el usuario puede ajustar el periodo de transmisión. Con un periodo de 2 minutos, la duración de las pilas es de 1,5 años.\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "TEMP1022",
+                            "url_Id": "006",
+                            "ALBEDOtitulo": "TEMP1022",
+                            "ALBEDOprecio": 520,
+                            "ALBEDOdescripcion": "Nodo sensor de RTD para una red Sensinet.",
+                            "ALBEDOcuerpo": "El <b>TEMP1022</b> es un nodo de la red de sensores inalámbricos Sensicast A2400. Funciona con RF a 2,4GHz. Se usa como nodo de transmisión de datos obtenidos de sondas de temperatura del tipo RTD.\n\nEl <b>TEMP1022</b> es totalmente configurable a través de la propia red inalámbrica, a través de la cual el usuario puede ajustar el periodo de transmisión. Con un periodo de 2 minutos, la duración de las pilas es de 2 años.\n<h3>Características</h3>\n<ul>\n<li>2 canales de entrada para sondas RTD\n<li>Tipos soportados de sondas RTD:\n<ul>\n<li>2, 3 y 4 hilos\n<li>10 Ohms a 25ºC, RTD de cobre\n<li>100 Ohms a 0ºC, RTD de platino\n</ul>\n<li>Soportado por el programa de gestión EMS que permite alertas en tiempo \nreal y capacidad de análisis histórico\n<li>Compatible con el servidor OPS\n<li>Totalmente inalámbrico. No precisa ningún tipo de cableado.\n<li>Alcance hasta 212 metros en campo abierto\n<li>Periodo de transmisión definible por el usuario \n<li>Soporta reconocimiento de mensajes y enrutamiento redundante a efectos de obtener una conectividad inalámbrica totalmente fiable\n<li>Se une a la red automáticamente; no requiere configuración\n<li>Puede actualizarse a través de la propia red\n<li>Opcionalmente admite una entrada de 10 a 30 Vdc a través de un terminal enchufable\n</ul>\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "VOLT1022",
+                            "url_Id": "007",
+                            "ALBEDOtitulo": "VOLT1022",
+                            "ALBEDOprecio": 520,
+                            "ALBEDOdescripcion": "Nodo sensor para tensión de entrada de 0-10V para una red Sensinet.",
+                            "ALBEDOcuerpo": "El <b>VOLT1022</b> es un nodo de la red de sensores inalámbricos Sensicast A2400. Funciona con RF a 2,4GHz. Se usa como nodo de transmisión de datos de sensores a través de una tensión de entrada de 0 a 10V.\n\nEl <b>CUR1022</b> es un dispositivo de dos canales que puede ser alimentado a través de una fuente cableada local o a través de una batería externa. Es totalmente configurable a través de la propia red inalámbrica, a través de la cual el usuario puede ajustar dinámicamente el periodo de transmisión.\n\n<h3>Características</h3>\n<ul>\n<li>2 canales de entrada de &plusmn; 0-10V\n<li>Radio amplificada hasta 15dBm para mayor robustez de red\n<li>Soporta el protocolo Sensinet para conectar de forma ultra-fiable \nen entornos duros de RF.\n<li>Es soportado por el programa SensiMesh\n<li>Alcance hasta 212 metros en campo abierto\n<li>Periodo de transmisión definible por el usuario \n<li>Soporta reconocimiento de mensajes y enrutamiento redundante a efectos \nde obtener una conectividad inalámbrica totalmente fiable\n<li>Se une a la red automáticamente; no requiere configuración\n<li>Puede actualizarse a través de la propia red\n<li>LED indicador de estado\n<li>Caja IP30\n<li>Se auto-calibra para eliminar efectos de derivas\n</ul>\n\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Cirronet-Gama-ZigBee",
+                    "url_Id": "005",
+                    "name": "Cirronet",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "ZN2401",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "ZN2401",
+                            "ALBEDOprecio": 390,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "<b>Sensor ZigBee de 100mW</b> con 2 salidas y 4 entradas de 4-20mA, una entrada \nRTD y dos lineas de entrada/salida. Preparado para funcionar en un rango extendido \nde temperatura. Se alimenta de 9 a 24VDC. Montaje en carril DIN.\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "ZG2400E",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "ZG2400E",
+                            "ALBEDOprecio": 430,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "<b>Sensor ZigBee de 100mW</b> con 2 salidas y 4 entradas de 4-20mA, una entrada  RTD y dos lineas de entrada/salida. Preparado para funcionar en un rango extendido  de temperatura. Se alimenta de 9 a 24VDC. Montaje en carril DIN.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "ZG2400M",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "ZG2400M",
+                            "ALBEDOprecio": 430,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "<b>Pasarela (gateway) ZigBee a ModBus</b>. Funciona como coordinador de red y  permite crear sofisticadas redes en malla de sensores distribuidos, las cuales se  crean y se regeneran automáticamente. Conexión a la red ModBus por RS232 o RS485.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                }
+            ],
+            "products": []
         }
     ],
     "deletedContent": []

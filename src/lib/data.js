@@ -6,6 +6,29 @@ import { readFile, writeFile } from 'fs/promises';
 
 let cachedData = null;
 let lastModifiedTime = null;
+/// Get the current date and time
+const currentDate = new Date();
+
+// Get the timezone offset for the EU timezone (e.g., Central European Time - CET)
+const euTimezoneOffset = -60; // Offset in minutes (UTC+1 for CET)
+
+// Calculate the current time in the EU timezone
+const euTime = new Date(currentDate.getTime() + euTimezoneOffset * 60000); // Convert minutes to milliseconds
+
+// Format the date and time for the EU timezone
+const euDateTimeFormat = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Europe/Paris', // You can change 'Europe/Paris' to any other European city as needed
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric'
+});
+
+// Convert the EU date and time to a string
+const euFormattedDateTime = euDateTimeFormat.format(euTime);
+
 
 const filePath = './public/data/data.json';
 export async function requireContent() {
@@ -28,15 +51,15 @@ export async function getCategories() {
     }
 }
 
-export async function getUsers() {
-    const {
-        users
+// export async function getUsers() {//para usuarios
+//     const {
+//         users
 
-    } = await requireContent();
+//     } = await requireContent();
 
-    return users
+//     return users
 
-}
+// }
 
 export async function deleteElement(categoryId, productId) {
     if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
@@ -120,6 +143,9 @@ export async function addCategory(Code, Url_Id, name, description, body) {
             "name": name,
             "ALBEDOdescripcion": description,
             "ALBEDOcuerpo": body,
+            "isPublished": false,
+            "FeachaDeCreacion": euFormattedDateTime ,
+            "FechaDeModificacion": euFormattedDateTime ,
             "subCategories": [],
             "products": []
         };
@@ -167,6 +193,9 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         "name": newCategoryName,
                         "description": Description,
                         "ALBEDOcuerpo": Body,
+                        "isPublished": false,
+                        "FeachaDeCreacion": new Date().toISOString(),
+                        "FechaDeModificacion": new Date().toISOString(),
                         "subCategories": [],
                         "products": []
                     }
@@ -224,6 +253,9 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
                         "ALBEDOcuerpo": Body,
                         "ALBEDOstock_minimo": MinStock,
                         "ALBEDOstock": Stock,
+                        "isPublished": false,
+                        "FeachaDeCreacion": new Date().toISOString(),
+                        "FechaDeModificacion": new Date().toISOString(),
                         "imagen": "/images/ADFSSM100/imagen.png",
                         "imagen.small": "/images/ADFSSM100/imagen.small.png",
                         "ALBEDOplazo_entrega": DeliveryTime
@@ -283,6 +315,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         product.ALBEDOcuerpo = Body;
                         product.ALBEDOstock_minimo = MinStock;
                         product.ALBEDOstock = Stock;
+                        product.FechaDeModificacion = new Date().toISOString();
                         product.ALBEDOplazo_entrega = DeliveryTime;
 
                         console.log("Writing updated data to file...");
@@ -316,6 +349,71 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
         return false;
     }
 }
+
+
+// Exported async function to edit a category with the given parameters
+export async function editCategory(categoryId, Code, Name, Description, Body) {
+    try {
+        // Read the contents of the file as a string
+        const data = await fs.readFile(filePath, 'utf8');
+        // Parse the JSON data into an object containing categories and deleted content
+        const { categories, deletedContent } = JSON.parse(data);
+        // Recursive function to traverse through categories and update the specified category
+        const loopRecursive = async (categoryList) => {
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                // Log the current category id and the id of the category to be updated
+                console.log("Checking category:", category.id, "not equal to:", categoryId);
+                // Check if the current category is the one to be updated
+                if (category.id === categoryId.categoryId.id) {
+                    console.log("Category found:", category);
+                    // Update the category properties
+                    category.id = Code;
+                    category.name = Name;
+                    category.ALBEDOdescripcion = Description;
+                    category.ALBEDOcuerpo = Body;
+                    category.FechaDeModificacion = new Date().toISOString();
+
+                    // Log that the updated data is being written to the file
+                    console.log("Writing updated data to file...");
+                    // Write the updated JSON data to the file
+                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                    // Log that the data was written successfully
+                    console.log("Data written successfully.");
+                    // Log that the path has been revalidated
+                    console.log("Path revalidated.");
+                    // Return true to indicate that the category was updated
+                    return true;
+                }
+                // If the category has subcategories, recursively check them
+                if (category.subCategories && category.subCategories.length > 0) {
+                    console.log("Checking subcategories for category:", category.id);
+                    const subcategorySaved = await loopRecursive(category.subCategories);
+                    // If the subcategory was updated, return true
+                    if (subcategorySaved) return true;
+                }
+            }
+            // Return false if the category was not found
+            return false;
+        };
+
+        // Log that the saving process is starting
+        console.log("Starting saving process...");
+        // Call the recursive function to save the category
+        const categorySaved = await loopRecursive(categories);
+
+        // If the category was not found, log that fact and return false
+        if (!categorySaved) {
+            console.log("Category not found.");
+            return false;
+        }
+    } catch (error) {
+        // Handle any errors that occur during the process
+        console.log("Error editing category:", error);
+        return false;
+    }
+}
+
 
 export async function getProductById(productId) {
     // console.log(productId);
@@ -398,67 +496,6 @@ export async function getCategoryById(categoryId) {
         return categoryFound; // Return the found category along with its data
     } catch (error) {
         console.error("Error occurred:", error);
-        return false;
-    }
-}
-
-// Exported async function to edit a category with the given parameters
-export async function editCategory(categoryId, Code, Name, Description, Body) {
-    try {
-        // Read the contents of the file as a string
-        const data = await fs.readFile(filePath, 'utf8');
-        // Parse the JSON data into an object containing categories and deleted content
-        const { categories, deletedContent } = JSON.parse(data);
-        // Recursive function to traverse through categories and update the specified category
-        const loopRecursive = async (categoryList) => {
-            for (let i = 0; i < categoryList.length; i++) {
-                const category = categoryList[i];
-                // Log the current category id and the id of the category to be updated
-                console.log("Checking category:", category.id, "not equal to:", categoryId);
-                // Check if the current category is the one to be updated
-                if (category.id === categoryId.categoryId.id) {
-                    console.log("Category found:", category);
-                    // Update the category properties
-                    category.id = Code;
-                    category.name = Name;
-                    category.ALBEDOdescripcion = Description;
-                    category.ALBEDOcuerpo = Body;
-                    // Log that the updated data is being written to the file
-                    console.log("Writing updated data to file...");
-                    // Write the updated JSON data to the file
-                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    // Log that the data was written successfully
-                    console.log("Data written successfully.");
-                    // Log that the path has been revalidated
-                    console.log("Path revalidated.");
-                    // Return true to indicate that the category was updated
-                    return true;
-                }
-                // If the category has subcategories, recursively check them
-                if (category.subCategories && category.subCategories.length > 0) {
-                    console.log("Checking subcategories for category:", category.id);
-                    const subcategorySaved = await loopRecursive(category.subCategories);
-                    // If the subcategory was updated, return true
-                    if (subcategorySaved) return true;
-                }
-            }
-            // Return false if the category was not found
-            return false;
-        };
-
-        // Log that the saving process is starting
-        console.log("Starting saving process...");
-        // Call the recursive function to save the category
-        const categorySaved = await loopRecursive(categories);
-
-        // If the category was not found, log that fact and return false
-        if (!categorySaved) {
-            console.log("Category not found.");
-            return false;
-        }
-    } catch (error) {
-        // Handle any errors that occur during the process
-        console.log("Error editing category:", error);
         return false;
     }
 }

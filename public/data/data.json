@@ -3138,6 +3138,515 @@
                 }
             ],
             "products": []
+        },
+        {
+            "id": "Camaras",
+            "url_Id": "007",
+            "name": "Cámaras",
+            "ALBEDOdescripcion": "",
+            "ALBEDOcuerpo": "",
+            "subCategories": [
+                {
+                    "id": "Camaras-IP",
+                    "url_Id": "001",
+                    "name": "Cámaras IP",
+                    "description": "",
+                    "ALBEDOcuerpo": "Mejore la seguridad en su hogar o negocio instalando cámaras IP. En exteriores o en el interior. \nTanto si decide usar camaras fijas como orientables, con o sin zoom, encontrará aquí el modelo adecuado.\nEn el caso de que no encuentre aquí el modelo adecuado a su aplicación, <b>consúltenos</b>. Disponemos \nademás de los modelos aquí incluidos de la gama completa de cámaras y accesorios de <b>AXIS</b> a su disposición. \n<b>A precios muy interesantes</b>.\n<img src=\"/images/camaras_ani.gif\" />",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "IP3135",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "IP3135",
+                            "ALBEDOprecio": 170.99,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "IP3136",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "IP3136",
+                            "ALBEDOprecio": 238.99,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "PT3122",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "PT3122",
+                            "ALBEDOprecio": 318.66,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "PT3124",
+                            "url_Id": "004",
+                            "ALBEDOtitulo": "PT3124",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "PZ6122",
+                            "url_Id": "005",
+                            "ALBEDOtitulo": "PZ6122",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "PZ6124",
+                            "url_Id": "006",
+                            "ALBEDOtitulo": "PZ6124",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "PT3127",
+                            "url_Id": "007",
+                            "ALBEDOtitulo": "PT3127",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "PZ6127",
+                            "url_Id": "008",
+                            "ALBEDOtitulo": "PZ6127",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "FD6121",
+                            "url_Id": "009",
+                            "ALBEDOtitulo": "FD6121",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "FD6122",
+                            "url_Id": "010",
+                            "ALBEDOtitulo": "FD6122",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "IP7131",
+                            "url_Id": "011",
+                            "ALBEDOtitulo": "IP7131",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "IP7132",
+                            "url_Id": "012",
+                            "ALBEDOtitulo": "IP7132",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "IP220V",
+                            "url_Id": "013",
+                            "ALBEDOtitulo": "IP220V",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "IP510",
+                            "url_Id": "014",
+                            "ALBEDOtitulo": "IP510",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "IP7251",
+                            "url_Id": "015",
+                            "ALBEDOtitulo": "IP7251",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "SD7151",
+                            "url_Id": "016",
+                            "ALBEDOtitulo": "SD7151",
+                            "ALBEDOprecio": null,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Servidores-IP",
+                    "url_Id": "002",
+                    "name": "Servidores IP",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "VS3100",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "VS3100",
+                            "ALBEDOprecio": 213.34,
+                            "ALBEDOdescripcion": "Servidor Web de vídeo-vigilancia profesional ultra compacto, que permite la transmisión de señales de Audio y Vídeo en formato MPEG4, procedentes cualquier  cámara de Vídeo, a través de Red Local, o Red Local e Internet mediante línea  ADSL, o simplemente conectada directamente a un Router ADSL.",
+                            "ALBEDOcuerpo": "<p>\nIncluye software de visualización, grabación y control de hasta cuatro cámaras.\n<h3>Características destacadas:</h3>\n<p>\nEntrada de Vídeo Compuesto y entrada de Audio para conexión de cámara externa.\n<p>\nTransmisión de Vídeo y Audio mediante protocolo UDP en formato MPEG 4\ncon una tasa de 25 Fps, última técnica de compresión y transmisión en\ntiempo real de imágenes, superior en calidad a MPGEG2, Wavelet, JPEG, y\nMJPEG.\n<p>\nPosibilidad de observaçción y grabación desde el PC mediante el\nSoftware suministrado, de hasta 4 cámaras ubicadas en 4 lugares\ndistintos, todo ello de forma simultanea y en tiempo real. Posibilidad\nde observación y acceso a configuración desde Internet Explorer 5.x, a\ntres niveles &#8220;Administrador&#8221;, &#8220;Usuario&#8221; y &#8220;Demo&#8221;\n<p>\nDispone de salida RJ45 para conexión a Router/LAN.  \n<p>\nDispone de entrada para detector físico de alarmas (PIR externo)   \n<p>\nDispone de salida digital ON/OFF (Por ejemplo: Para encendido de luces en el área vigilada).\n<p>\nSoporta direcciones IP fijas y dinámicas a través de LAN\n<p>\nEl software cliente se puede configurar para la grabación de imágenes\npor detección de movimiento, o por sucesos programados, permite\nsnapshots, y dispone de reproductor de grabaciones con exportación de\nvídeos a formato AVI.\n\n<h3>Aplicaciones.</h3>\n<p>\nEl servidor de vídeo-vigilancia IP esta diseñado para trabajar con la señal de\nvídeo compuesto y de audio de una cámara de vigilancia tradicional. El motivo \nde la utilización de cámaras de vigilancia separadas, puede deberse a que se \ntrate de una instalación tradicional existente, o bien por que la utilización \nde Cámaras IP integradas no sea posible debido a condiciones difíciles de \niluminación, a motivos de camuflaje de las cámaras, o bien a la necesidad \ninexcusable de utilización de cámaras dotadas de características especiales.\n<p>\nEn todos estos casos el servidor de Vídeo IP VS3100 es el complemento ideal, \npermitiendo obtener las mismas prestaciones de compresión MPEG4, y transmisión de\nimagen que con las cámaras IP de la Serie 3000. Como aplicaciones especiales del \nVS3100, cabe destacar la posibilidad del envío de Audio por Internet, sin \nnecesidad del envío de vídeo.\n\n<h3>Especificaciones:</h3>\t\n<b><u>Gestión remota: </u></b>  <br>\t\nConfiguración y acceso vía I.E: 5.x y aplicación FTP remota  <br>\n<b><u>Modos de red:</u> </b> <br>\t\nProtocolos TCP/IP, http, SMTP, FTP, Telnet, NTP, DNS, DHCP  <br>\nEthernet 10 baseT o 100 baseT Fast Ethernet  <br>\n<b><u>Vídeo: </u></b>  <br>\t\nAlgoritmo soportado MPEG4 (Short header)<br>\n\nTamaño de imagen, calidad, velocidad de transferencia, ajustables   <br> \nHora y texto sobreimpresionados en imagen   <br> \nHasta 3 ventanas de detección de movimiento  <br> \n<b><u>Resolución de vídeo:</u> </b>  <br>\t\nHasta 25 imágenes en 176 x 144   <br>\nHasta 25 imágenes en 352 x 288  <br>\nHasta 10 imágenes en 704x480     <br>\n<b><u>Sistema de visualización requerido:  </u> </b> <br>   \t\nInternet Explorer 5.x ó superior  <br>\n<b><u>Audio: </u></b>  <br>\t\n24 Kbps y 8 Kbps (Opcional)  <br>\n<b><u>Seguridad:</u> </b>  <br>\t\nProtegido por Administrador y grupo de usuarios <br>   \nAutenticación por clave de 15 dígitos  <br>\n<b><u>Especificaciones de la Cámara a conectar</u></b>:  <br>\t\nVídeo Compuesto  <br>\n<b><u>Indicadores LED: </u></b>  <br> \t\nIndicador de estado y alimentación   <br>  \nConexión de red e indicación de la velocidad   <br> \n<b><u>Sensores y alarma: </u></b>  <br>\t\n1 entrada de sensor, 1 salida de alarma  <br>\n<b><u>Alimentación:</u> </b>  <br>\t\n12 V CC.  1,5 A  (fuente de alimentación externa.)  <br> \n<b><u>Dimensiones</u></b>:  <br>  116 x 80 x 35 mm  <br>\n<b><u>Peso</u></b>:   <br> 339 Gr.  <br>\n<b><u>Kit de desarrollo:</u> </b>  <br>\t\nControl Open ActiveX  <br>\n<b><u>Homologaciones: </u></b>  <br>\t\nCE, FCC Clase B, y BSMI\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "VS7100",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "VS7100",
+                            "ALBEDOprecio": 206,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Accesorios-camaras",
+                    "url_Id": "003",
+                    "name": "Accesorios",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "RF2800",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "RF2800",
+                            "ALBEDOprecio": 21,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Modulador de Radio Frecuencia (RF) que convierte las señales de Audio y Vídeo  compuesto de cuaquier fuente multimedia en una señal RF de televisión (canales  UHF del 29 al 46).",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "RF3000",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "RF3000",
+                            "ALBEDOprecio": 38.2,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Modulador de Radio Frecuencia (RF) que convierte las señales de Audio y Vídeo  compuesto de cuaquier fuente multimedia en una señal RF de televisión (canales  21 a 60).",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "RFA2",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "RFA2",
+                            "ALBEDOprecio": 69.4,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Modulador de Radio Frecuencia (RF) que convierte las señales de Audio estéreo y Vídeo compuesto de cuaquier fuente multimedia en una señal RF de televisión (canales 21 a 69).\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "MV55",
+                            "url_Id": "004",
+                            "ALBEDOtitulo": "MV55",
+                            "ALBEDOprecio": 122.7,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "Modulador de Radio Frecuencia (RF) que convierte las señales de Audio estéreo y  Vídeo compuesto de cualquier fuente multimedia en una señal RF de televisión (canales  21 a 69). Incluye sistema de control remoto de infrarrojos a través del cable de  antena.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "FR9041",
+                            "url_Id": "005",
+                            "ALBEDOtitulo": "FR9041",
+                            "ALBEDOprecio": 110.1,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "<b>Foco de infrarrojos (IR)</b> formado por 24 LEDs. La longitud de onda de la luz es de 850nm. Ilumina un ángulo de 35º y alcanza una distancia de 15m. Protección IP67.\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "TD7312",
+                            "url_Id": "006",
+                            "ALBEDOtitulo": "TD7312",
+                            "ALBEDOprecio": 750,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "<b>Cónsola para control de domos</b>. Se puede controlar un máximo de 256 periféricos remotos. Máximo 5 controladores y 15 grupos. La máxima distancia al elemento más lejano es de 1200m aprox. Comunicación vía RS-485. Alimentación a 12VDC o 24VDC.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Cámaras-GSM/GPRS/3G",
+                    "url_Id": "004",
+                    "name": "Cámaras GSM/GPRS/3G",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "Cámara-GSM",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "Cámara-GSM",
+                            "ALBEDOprecio": 310,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "<b>Cámara compacta</b> para la transmisión de imágenes estáticas de alta resolución a través de la red GPRS/EDGE. Podrá tener acceso a sus fotos desde un ordenador o un dispositivo portátil (por email, ftp, servidor Web).\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "Cámara-EDGE",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "Cámara-EDGE",
+                            "ALBEDOprecio": 299,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "<b>Cámara</b> para la transmisión de video e imágenes estáticas de alta resolución a través de la red GPRS/EDGE, incluso en lugares donde no haya disponible una conexión Internet. Puede tener acceso a la información <b>desde un PC o un teléfono móvil</b>, y también puede ser transmitida por email o por ftp.",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Cables-y-conectores",
+                    "url_Id": "005",
+                    "name": "Cables y conectores",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "RG59-100",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "RG59-100",
+                            "ALBEDOprecio": 80,
+                            "ALBEDOdescripcion": "<b>Cable RG59</b> en rollo de 100m. Adecuado para la transmisión de vídeo. El  precio indicado es para el rollo entero.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "RG174-100",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "RG174-100",
+                            "ALBEDOprecio": 85,
+                            "ALBEDOdescripcion": "<b>Cable RG59</b> en rollo de 100m. Adecuado para la transmisión de vídeo. El  precio indicado es para el rollo entero.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "RG21-100",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "RG21-100",
+                            "ALBEDOprecio": 170,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "<b>Cable RG21</b> en rollo de 100m. Adecuado para la transmisión de vídeo y \nalimentación. Está formado por un cable RG174 y un para de hilos de sección \n0,75mm2. El precio indicado es para el rollo entero.\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Kits-camaras",
+                    "url_Id": "006",
+                    "name": "Kits",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "K-DVR-IP+4C",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "K-DVR-IP+4C",
+                            "ALBEDOprecio": 390,
+                            "ALBEDOdescripcion": "",
+                            "ALBEDOcuerpo": "<b>Cámara compacta</b> para la transmisión de imágenes estáticas de alta resolución \na través de la red GPRS/EDGE. Podrá tener acceso a sus fotos desde un ordenador o \nun dispositivo portátil (por email, ftp, servidor Web).\n",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "Microscopios-digitales",
+                    "url_Id": "007",
+                    "name": "Microscopios digitales",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "subCategories": [],
+                    "products": [
+                        {
+                            "ALBEDOcodigo": "MD-Basic",
+                            "url_Id": "001",
+                            "ALBEDOtitulo": "MD-Basic",
+                            "ALBEDOprecio": 99.34,
+                            "ALBEDOdescripcion": "Cámara microscopio de hasta 200 aumentos. Incluye el software Dino capture, compatible con windows 98SE/ME/2000/XP/Vista Especialmente diseñado para aplicaciones en el hogar y centros de enseñanza y también para hobbies y coleccionismo.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "MD-Pro",
+                            "url_Id": "002",
+                            "ALBEDOtitulo": "MD-Pro",
+                            "ALBEDOprecio": 298,
+                            "ALBEDOdescripcion": "Cámara microscopio profesional de 1,3Mpixel y 200 aumentos. Incluye el software Dino capture, compatible con windows 98SE/ME/2000/XP/Vista",
+                            "ALBEDOcuerpo": "Se conecta al ordenador vía USB, y por medio de la aplicación Dino-Capture incluida, se pueden guardar y tratar las imágenes o vídeos que ha captado. Con un simple click del ratón, la imagen queda guardada para su posterior tratamiento (añadir textos, modificar valores, enviar por e-mail, etc.)",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        },
+                        {
+                            "ALBEDOcodigo": "MDS-BC",
+                            "url_Id": "003",
+                            "ALBEDOtitulo": "MDS-BC",
+                            "ALBEDOprecio": 110,
+                            "ALBEDOdescripcion": "Base metálica cuadrada con columna, compatible con todos los microscopios digitales. Es muy estable.",
+                            "ALBEDOcuerpo": "",
+                            "ALBEDOstock_minimo": 0,
+                            "ALBEDOstock": 0,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 0
+                        }
+                    ]
+                }
+            ],
+            "products": []
         }
     ],
     "deletedContent": []

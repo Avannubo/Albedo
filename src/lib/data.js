@@ -4,6 +4,15 @@ import { promises as fs } from 'fs';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 
+import path from 'path';
+
+const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
+
+const filePath = isLocal ? path.resolve('public/data/data.json') : '/data/data.json';
+
+// const filePath = 'public/data/data.json';
+
+
 let cachedData = null;
 let lastModifiedTime = null;
 /// Get the current date and time
@@ -30,7 +39,6 @@ const euDateTimeFormat = new Intl.DateTimeFormat('en-US', {
 const euFormattedDateTime = euDateTimeFormat.format(euTime);
 
 
-const filePath = './public/data/data.json';
 export async function requireContent() {
     const stats = await fs.stat(filePath);
     if (stats.mtimeMs !== lastModifiedTime) {

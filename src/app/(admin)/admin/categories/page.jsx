@@ -10,7 +10,7 @@ import EditCatedory from "@/components/admin/categories/category/edit";
 const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full">
     <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
-      <p className="h-auto ">{category.name}</p>
+      <p className="h-auto ">{category.url_Id} : {category.name}</p>
       <div className="space-x-4 flex flex-row"> 
         {/* NewProduct svg */} 
         <AddNewProduct categoryId={category}/> 
@@ -30,7 +30,7 @@ const Category = ({ category }) => (
             className="ml-14 flex flex-row justify-between bg-slate-200 rounded-lg p-2 mb-2"
           >
             <p className="h-auto w-full  ">
-              {product.ALBEDOcodigo} : {product.ALBEDOtitulo}
+              {product.url_Id} : {product.ALBEDOtitulo}
             </p>
             <div className="space-x-4 flex flex-row">
               <EditProduct productId={product.ALBEDOcodigo}/> 

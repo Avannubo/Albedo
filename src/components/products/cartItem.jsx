@@ -2,22 +2,22 @@
 import React from "react";
 
 export default function cartItem() {
-  const cartItems = JSON.parse(localStorage.getItem("carrito")) || [];
-  console.log(cartItems);
+  // const cartItems = JSON.parse(localStorage.getItem("carrito")) || [];
+  // console.log(cartItems);
   //Borrar elemento del carrito
 
-  const deleteCartProduct = (id) => {
-    const nuevoCarrito = cartItems.filter(
-      (product) => product.ALBEDOcodigo !== id
-    );
-    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+  // const deleteCartProduct = (id) => {
+  //   const nuevoCarrito = cartItems.filter(
+  //     (product) => product.ALBEDOcodigo !== id
+  //   );
+  //   localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
 
-    window.location.reload();
-  };
+  //   window.location.reload();
+  // };
 
   return (
     <div>
-      {cartItems && cartItems.length > 0 ? (
+      {/* {cartItems && cartItems.length > 0 ? (
         <div>
           {cartItems.map((product) => (
             <div className="rounded-lg mb-2">
@@ -71,7 +71,7 @@ export default function cartItem() {
         </div>
       ) : (
         <h1 className="">No hay productos en el carrito</h1>
-      )}
+      )} */}
     </div>
   );
 }

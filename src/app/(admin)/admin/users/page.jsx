@@ -1,7 +1,7 @@
-import { getUsers } from "@/lib/data";
+// import { getUsers } from "@/lib/data";
 
 export default async function page() {
-  const data = await getUsers();
+  // const data = await getUsers();
 
   return (
     <section className="">

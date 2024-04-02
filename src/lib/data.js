@@ -4,10 +4,41 @@ import { promises as fs } from 'fs';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 
+import path from 'path';
+
+const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
+
+const filePath = isLocal ? path.resolve('public/data/data.json') : '/data/data.json';
+
+// const filePath = 'public/data/data.json';
+
+
 let cachedData = null;
 let lastModifiedTime = null;
+/// Get the current date and time
+const currentDate = new Date();
 
-const filePath = './public/data/data.json';
+// Get the timezone offset for the EU timezone (e.g., Central European Time - CET)
+const euTimezoneOffset = -60; // Offset in minutes (UTC+1 for CET)
+
+// Calculate the current time in the EU timezone
+const euTime = new Date(currentDate.getTime() + euTimezoneOffset * 60000); // Convert minutes to milliseconds
+
+// Format the date and time for the EU timezone
+const euDateTimeFormat = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Europe/Paris', // You can change 'Europe/Paris' to any other European city as needed
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric'
+});
+
+// Convert the EU date and time to a string
+const euFormattedDateTime = euDateTimeFormat.format(euTime);
+
+
 export async function requireContent() {
     const stats = await fs.stat(filePath);
     if (stats.mtimeMs !== lastModifiedTime) {
@@ -28,15 +59,15 @@ export async function getCategories() {
     }
 }
 
-export async function getUsers() {
-    const {
-        users
+// export async function getUsers() {//para usuarios
+//     const {
+//         users
 
-    } = await requireContent();
+//     } = await requireContent();
 
-    return users
+//     return users
 
-}
+// }
 
 export async function deleteElement(categoryId, productId) {
     if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
@@ -106,9 +137,7 @@ export async function deleteElement(categoryId, productId) {
         }
     }
 }
-
-
-export async function addCategory(name, description) {
+export async function addCategory(Code, Url_Id, name, description, body) {
     console.log("New subcategory: " + name + " " + description);
 
     try {
@@ -117,11 +146,16 @@ export async function addCategory(name, description) {
         const { categories } = jsonData;
 
         const newCategory = {
-            id: name,
-            name: name,
-            ALBEDOcuerpo: description,
-            subCategories: [],
-            products: []
+            "id": Code.replace(/ /g, "-"),
+            "url_Id": Url_Id,
+            "name": name,
+            "ALBEDOdescripcion": description,
+            "ALBEDOcuerpo": body,
+            "isPublished": false,
+            "FeachaDeCreacion": euFormattedDateTime ,
+            "FechaDeModificacion": euFormattedDateTime ,
+            "subCategories": [],
+            "products": []
         };
 
         categories.push(newCategory);
@@ -136,6 +170,7 @@ export async function addCategory(name, description) {
         return false;
     }
 }
+
 /**
  * Función para agregar una nueva subcategoría con un nombre y descripción dados.
  *
@@ -143,7 +178,7 @@ export async function addCategory(name, description) {
  * @param {string} description - La descripción de la nueva subcategoría.
  * @returns {boolean} Un valor booleano que indica si la subcategoría se agregó correctamente.
  */
-export async function addSubcategory(categoryId, newCategoryName) {
+export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body,) {
     console.log("Adding subcategory to " + categoryId.categoryId.id);
     console.log(" subcategory name " + newCategoryName);
 
@@ -161,9 +196,14 @@ export async function addSubcategory(categoryId, newCategoryName) {
                         category.subCategories = [];
                     }
                     const dataObj = {
-                        "id": newCategoryName,
+                        "id": Code.replace(/ /g, "-"),
+                        "url_Id": Url_Id,
                         "name": newCategoryName,
-                        "ALBEDOcuerpo": "",
+                        "description": Description,
+                        "ALBEDOcuerpo": Body,
+                        "isPublished": false,
+                        "FeachaDeCreacion": new Date().toISOString(),
+                        "FechaDeModificacion": new Date().toISOString(),
                         "subCategories": [],
                         "products": []
                     }
@@ -197,9 +237,9 @@ export async function addSubcategory(categoryId, newCategoryName) {
         return false;
     }
 }
-export async function addproduct(categoryId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
-    console.log("New product:" + categoryId.categoryId.id + " " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
 
+export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
+    console.log("New product:" + categoryId.categoryId.id + " " + productCode + " " + Url_Id + "  " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -213,13 +253,17 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
                         category.products = [];
                     }
                     const dataObj = {
-                        "ALBEDOcodigo": productCode,
+                        "ALBEDOcodigo": productCode.replace(/ /g, "-"),
+                        "url_Id": Url_Id,
                         "ALBEDOtitulo": Name,
-                        "ALBEDOprecio": Price,
+                        "ALBEDOprecio": parseFloat(Price),
                         "ALBEDOdescripcion": Description,
                         "ALBEDOcuerpo": Body,
                         "ALBEDOstock_minimo": MinStock,
                         "ALBEDOstock": Stock,
+                        "isPublished": false,
+                        "FeachaDeCreacion": new Date().toISOString(),
+                        "FechaDeModificacion": new Date().toISOString(),
                         "imagen": "/images/ADFSSM100/imagen.png",
                         "imagen.small": "/images/ADFSSM100/imagen.small.png",
                         "ALBEDOplazo_entrega": DeliveryTime
@@ -255,8 +299,8 @@ export async function addproduct(categoryId, productCode, Name, Price, Descripti
     }
 }
 
-export async function editproduct(productId, productCode, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
-    console.log("\nNew product data changes:\n" + productCode + " \n" + Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
+export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
+    console.log("\nNew product data changes:\n" + productCode + " \n" + url_Id + " " + Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -271,13 +315,15 @@ export async function editproduct(productId, productCode, Name, Price, Descripti
                     // console.log(productId.productId);
                     if (product.ALBEDOcodigo === productId.productId) {
                         console.log("product found:", product);
-                        product.ALBEDOcodigo = productCode;
+                        product.ALBEDOcodigo = productCode.replace(/ /g, "-");
+                        product.url_Id = url_Id;
                         product.ALBEDOtitulo = Name;
-                        product.ALBEDOprecio = Price;
+                        product.ALBEDOprecio = parseFloat(Price);
                         product.ALBEDOdescripcion = Description;
                         product.ALBEDOcuerpo = Body;
                         product.ALBEDOstock_minimo = MinStock;
                         product.ALBEDOstock = Stock;
+                        product.FechaDeModificacion = new Date().toISOString();
                         product.ALBEDOplazo_entrega = DeliveryTime;
 
                         console.log("Writing updated data to file...");
@@ -311,6 +357,71 @@ export async function editproduct(productId, productCode, Name, Price, Descripti
         return false;
     }
 }
+
+
+// Exported async function to edit a category with the given parameters
+export async function editCategory(categoryId, Code, Name, Description, Body) {
+    try {
+        // Read the contents of the file as a string
+        const data = await fs.readFile(filePath, 'utf8');
+        // Parse the JSON data into an object containing categories and deleted content
+        const { categories, deletedContent } = JSON.parse(data);
+        // Recursive function to traverse through categories and update the specified category
+        const loopRecursive = async (categoryList) => {
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                // Log the current category id and the id of the category to be updated
+                console.log("Checking category:", category.id, "not equal to:", categoryId);
+                // Check if the current category is the one to be updated
+                if (category.id === categoryId.categoryId.id) {
+                    console.log("Category found:", category);
+                    // Update the category properties
+                    category.id = Code;
+                    category.name = Name;
+                    category.ALBEDOdescripcion = Description;
+                    category.ALBEDOcuerpo = Body;
+                    category.FechaDeModificacion = new Date().toISOString();
+
+                    // Log that the updated data is being written to the file
+                    console.log("Writing updated data to file...");
+                    // Write the updated JSON data to the file
+                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                    // Log that the data was written successfully
+                    console.log("Data written successfully.");
+                    // Log that the path has been revalidated
+                    console.log("Path revalidated.");
+                    // Return true to indicate that the category was updated
+                    return true;
+                }
+                // If the category has subcategories, recursively check them
+                if (category.subCategories && category.subCategories.length > 0) {
+                    console.log("Checking subcategories for category:", category.id);
+                    const subcategorySaved = await loopRecursive(category.subCategories);
+                    // If the subcategory was updated, return true
+                    if (subcategorySaved) return true;
+                }
+            }
+            // Return false if the category was not found
+            return false;
+        };
+
+        // Log that the saving process is starting
+        console.log("Starting saving process...");
+        // Call the recursive function to save the category
+        const categorySaved = await loopRecursive(categories);
+
+        // If the category was not found, log that fact and return false
+        if (!categorySaved) {
+            console.log("Category not found.");
+            return false;
+        }
+    } catch (error) {
+        // Handle any errors that occur during the process
+        console.log("Error editing category:", error);
+        return false;
+    }
+}
+
 
 export async function getProductById(productId) {
     // console.log(productId);
@@ -393,68 +504,6 @@ export async function getCategoryById(categoryId) {
         return categoryFound; // Return the found category along with its data
     } catch (error) {
         console.error("Error occurred:", error);
-        return false;
-    }
-}
-
-
-// Exported async function to edit a category with the given parameters
-export async function editCategory(categoryId, Code, Name,Description, Body ) {
-    try {
-        // Read the contents of the file as a string
-        const data = await fs.readFile(filePath, 'utf8');
-        // Parse the JSON data into an object containing categories and deleted content
-        const { categories, deletedContent } = JSON.parse(data);
-        // Recursive function to traverse through categories and update the specified category
-        const loopRecursive = async (categoryList) => {
-            for (let i = 0; i < categoryList.length; i++) {
-                const category = categoryList[i];
-                // Log the current category id and the id of the category to be updated
-                console.log("Checking category:", category.id, "not equal to:", categoryId);
-                // Check if the current category is the one to be updated
-                if (category.id === categoryId.categoryId.id) {
-                    console.log("Category found:", category);
-                    // Update the category properties
-                    category.id = Code;
-                    category.name = Name;
-                    category.ALBEDOdescripcion = Description;
-                    category.ALBEDOcuerpo = Body;
-                    // Log that the updated data is being written to the file
-                    console.log("Writing updated data to file...");
-                    // Write the updated JSON data to the file
-                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    // Log that the data was written successfully
-                    console.log("Data written successfully.");
-                    // Log that the path has been revalidated
-                    console.log("Path revalidated.");
-                    // Return true to indicate that the category was updated
-                    return true;
-                }
-                // If the category has subcategories, recursively check them
-                if (category.subCategories && category.subCategories.length > 0) {
-                    console.log("Checking subcategories for category:", category.id);
-                    const subcategorySaved = await loopRecursive(category.subCategories);
-                    // If the subcategory was updated, return true
-                    if (subcategorySaved) return true;
-                }
-            }
-            // Return false if the category was not found
-            return false;
-        };
-
-        // Log that the saving process is starting
-        console.log("Starting saving process...");
-        // Call the recursive function to save the category
-        const categorySaved = await loopRecursive(categories);
-
-        // If the category was not found, log that fact and return false
-        if (!categorySaved) {
-            console.log("Category not found.");
-            return false;
-        }
-    } catch (error) {
-        // Handle any errors that occur during the process
-        console.log("Error editing category:", error);
         return false;
     }
 }

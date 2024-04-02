@@ -6,6 +6,7 @@ import { editproduct, getProductById } from '@/lib/data';
 export default function EditModal({ isOpen, onClose, productId }) { 
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
+    const [newProductUrlCode, setNewProductUrlCode] = useState('');
     const [newProductPrice, setNewProductPrice] = useState('');
     const [newProductDescription, setNewProductDescription] = useState('');
     const [newProductBody, setNewProductBody] = useState('');
@@ -22,6 +23,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
                     const product = JSON.parse(data); // Parse the JSON string
                     setNewProductName(product.ALBEDOtitulo);
                     setNewProductCode(product.ALBEDOcodigo);
+                    setNewProductUrlCode(product.url_Id);
                     setNewProductPrice(product.ALBEDOprecio);
                     setNewProductDescription(product.ALBEDOdescripcion);
                     setNewProductBody(product.ALBEDOcuerpo);
@@ -47,6 +49,9 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const handleInputChangeCode = (event) => {
         setNewProductCode(event.target.value);
     };
+    const handleInputChangeUrlCode = (event) => {
+        setNewProductUrlCode(event.target.value);
+    };
     const handleInputChangePrice = (event) => {
         setNewProductPrice(event.target.value);
     };
@@ -66,8 +71,10 @@ export default function EditModal({ isOpen, onClose, productId }) {
         setNewProductDeliveryTime(event.target.value); 
     };
     const handleAddProduct = () => {
-        editproduct(productId, newProductCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
+        editproduct(productId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
         setNewProductName('');
+        setNewProductCode('');
+        setNewProductUrlCode('');
         setNewProductPrice(0);
         setNewProductDescription('');
         setNewProductBody('');
@@ -86,18 +93,23 @@ export default function EditModal({ isOpen, onClose, productId }) {
                     <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z" data-original="#000000"></path>
                 </svg>
                 <div className="flex flex-col">
-                    <div className="">
-                    </div>
                     <div className="w-full rounded-md p-10">
                         <h1 className='font-bold text-xl mb-6'>Editar Producto</h1>
 
                         <div className='flex flex-col'>
-                            <div className='flex flex-row justify-between space-x-4'>
-
-                                <div className="mb-4 flex-1">
+                        <div className='flex flex-row justify-between space-x-4'>
+                        <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} value={newProductCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Codigo" required />
                                 </div>
+                                <div className="mb-4 flex-1">
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
+                                    <input onChange={handleInputChangeUrlCode} value={newProductUrlCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Codigo" required />
+                                </div>
+                        </div>
+                            <div className='flex flex-row justify-between space-x-4'>
+
+                                
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
                                     <input onChange={handleInputChangeProduct} value={newProductName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="product" required />

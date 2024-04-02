@@ -2,7 +2,7 @@
 "use client";
 import { useState } from 'react';
 import { addproduct } from '@/lib/data';
-
+// import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar } from '@syncfusion/ej2-react-richtexteditor';
 export default function AddModal({ isOpen, onClose, categoryId }) {
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
@@ -97,6 +97,9 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
                                 <textarea onChange={handleInputChangeBody} value={newProductBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                                {/* <RichTextEditorComponent> 
+                                    <Inject services={[Toolbar, Image, Link, HtmlEditor, QuickToolbar]} />
+                                </RichTextEditorComponent> */}
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">

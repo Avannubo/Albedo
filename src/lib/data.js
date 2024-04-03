@@ -16,27 +16,26 @@ const filePath = isLocal ? path.resolve('public/data/data.json') : '/data/data.j
 let cachedData = null;
 let lastModifiedTime = null;
 /// Get the current date and time
-const currentDate = new Date();
+const currentdate = new Date();
 
-// Get the timezone offset for the EU timezone (e.g., Central European Time - CET)
-const euTimezoneOffset = -60; // Offset in minutes (UTC+1 for CET)
+// Get the timezone offset for the EU timezone
+// const euTimezoneOffset = new Date().getTimezoneOffset(); // This will give the offset in minutes, considering daylight saving time
 
-// Calculate the current time in the EU timezone
-const euTime = new Date(currentDate.getTime() + euTimezoneOffset * 60000); // Convert minutes to milliseconds
+// // Calculate the current time in the EU timezone
+// const euTime = new Date(currentDate.getTime() - (euTimezoneOffset * 60000)); // Convert minutes to milliseconds
 
 // Format the date and time for the EU timezone
-const euDateTimeFormat = new Intl.DateTimeFormat('en-US', {
-  timeZone: 'Europe/Paris', // You can change 'Europe/Paris' to any other European city as needed
-  year: 'numeric',
-  month: 'numeric',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric',
-  second: 'numeric'
-});
+const euFormattedDateTime =  currentdate.getDate() + "/"
+    + (currentdate.getMonth() + 1) + "/"
+    + currentdate.getFullYear() + "   "
+    + (currentdate.getHours() + 2)+":"
+    + currentdate.getMinutes() + ":"
+    + currentdate.getSeconds();
 
 // Convert the EU date and time to a string
-const euFormattedDateTime = euDateTimeFormat.format(euTime);
+// const euFormattedDateTime = euDateTimeFormat.format(euTime);
+
+// console.log(euFormattedDateTime); // Output the current time in the EU timezone
 
 
 export async function requireContent() {
@@ -152,8 +151,8 @@ export async function addCategory(Code, Url_Id, name, description, body) {
             "ALBEDOdescripcion": description,
             "ALBEDOcuerpo": body,
             "isPublished": false,
-            "FeachaDeCreacion": euFormattedDateTime ,
-            "FechaDeModificacion": euFormattedDateTime ,
+            "FeachaDeCreacion": euFormattedDateTime,
+            "FechaDeModificacion": euFormattedDateTime,
             "subCategories": [],
             "products": []
         };

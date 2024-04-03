@@ -41,7 +41,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const handleInputChangeDeliveryTime = (event) => {
         setNewProductDeliveryTime(event.target.value);
     };
-    const handleAddProduct = () => { 
+    const handleAddProduct = () => {
         console.log(categoryId, newProductCode, setNewProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
         addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
         setNewProductCode('');
@@ -77,14 +77,14 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
-                                    <input onChange={handleInputChangeUrlCode}min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Codigo URL ej. 001" required />
+                                    <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Codigo URL ej. 001" required />
                                 </div>
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
-                                    <input onChange={handleInputChangeProduct}type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="product" required />
-                                </div> 
+                                    <input onChange={handleInputChangeProduct} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="product" required />
+                                </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
                                     <input onChange={handleInputChangePrice} type="number" min="0" step="0.1" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Precio" required />
@@ -92,7 +92,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
-                                <input onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Descripción" required />
+                                <textarea onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Descripción" required />
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
@@ -108,11 +108,21 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                                 </div>
                                 <div className="flex-1 mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Min. Stock</label>
-                                    <input onChange={handleInputChangeMinStock}  type="number" min="0" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Min. Stock" required />
+                                    <input onChange={handleInputChangeMinStock} type="number" min="0" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Min. Stock" required />
                                 </div>
                                 <div className="flex-1 mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Plazo de entrega</label>
-                                    <input onChange={handleInputChangeDeliveryTime}  type="number" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" min="0" placeholder="Dias" required />
+                                    <input onChange={handleInputChangeDeliveryTime} type="number" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" min="0" placeholder="Dias" required />
+                                </div>
+                            </div>
+                            <div className='flex flex-row justify-between space-x-4'>
+                                <div className="flex-1 mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
+                                    <input type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+                                </div>
+                                <div className="flex-1 mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">PDFs</label>
+                                    <input  type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
                                 </div>
                             </div>
                             <div className='flex justify-center mt-4'>

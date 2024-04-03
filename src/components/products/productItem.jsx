@@ -17,7 +17,7 @@ export default function productItem({ product }) {
           <img
             src={product.imagen}
             alt="Vercel Logo"
-            className="self-center h-[100px]"
+            className="self-center "
             priority
           />
           <p className="text-md text-justify">

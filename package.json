@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@syncfusion/ej2-react-richtexteditor": "^25.1.38",
+    "axios": "^1.6.8",
+    "js-cookie": "^3.0.5",
+    "next": "14.1.0",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.1.0"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

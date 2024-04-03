@@ -3,7 +3,7 @@ import Header from "@/components/header/header";
 import Footer from "@/components/footer";
 import { getCategories } from "@/lib/data";
 import ProductItem from "@/components/products/productItem";
-
+// import { RichTextEditorComponent } from '@syncfusion/ej2-react-richtexteditor';
 export default async function Home() {
   const data = await getCategories();
 

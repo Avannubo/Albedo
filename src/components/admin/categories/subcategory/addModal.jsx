@@ -92,7 +92,16 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cuerpo de Subcategoría </label>
                                 <textarea onChange={handleInputChangeBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cuerpo" />
                             </div>
-                            
+                            <div className='flex flex-row justify-between space-x-4'>
+                                <div className="flex-1 mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes</label>
+                                    <input type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+                                </div>
+                                <div className="flex-1 mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">PDFs</label>
+                                    <input  type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+                                </div>
+                            </div>
                             <div className='flex justify-center mt-4'>
                                 <button onClick={handleAddCategory} type="submit" className="w-[150px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     Guardar

@@ -495,23 +495,6 @@
                             "ALBEDOplazo_entrega": 14
                         },
                         {
-                            "ALBEDOcodigo": "ADIAM2P25C",
-                            "url_Id": "016",
-                            "ALBEDOtitulo": "ADIAM2P25C",
-                            "ALBEDOprecio": 39,
-                            "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-                            "FechaDeModificacion": "26/03/2024",
-                            "FeachaDeCreacion": "20/03/2024 ",
-                            "urlImagen": "/images/ADFSSM100/imagen.png",
-                            "isPublished": false,
-                            "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
-                            "ALBEDOstock_minimo": 5,
-                            "ALBEDOstock": 10,
-                            "imagen": "/images/ADFSSM100/imagen.png",
-                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                            "ALBEDOplazo_entrega": 14
-                        },
-                        {
                             "ALBEDOcodigo": "ADID2P4030ASI",
                             "url_Id": "018",
                             "ALBEDOtitulo": "ADID2P4030ASI",
@@ -755,6 +738,23 @@
                         },
                         {
                             "ALBEDOcodigo": "ADIAM2P25C",
+                            "url_Id": "016",
+                            "ALBEDOtitulo": "ADIAM2P25C",
+                            "ALBEDOprecio": 39,
+                            "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
+                            "FechaDeModificacion": "26/03/2024",
+                            "FeachaDeCreacion": "20/03/2024 ",
+                            "urlImagen": "/images/ADFSSM100/imagen.png",
+                            "isPublished": false,
+                            "ALBEDOcuerpo": "<p><strong>Convertidor AC/DC</strong> con aislamiento, entrada universal AC y DC y salida 24V, 16W </p>",
+                            "ALBEDOstock_minimo": 5,
+                            "ALBEDOstock": 10,
+                            "imagen": "/images/ADFSSM100/imagen.png",
+                            "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                            "ALBEDOplazo_entrega": 14
+                        },
+                        {
+                            "ALBEDOcodigo": "ADIAM2P25-C",
                             "url_Id": "018",
                             "ALBEDOtitulo": "ADIAM2P25C",
                             "ALBEDOprecio": null,
@@ -7569,7 +7569,32 @@
             "isPublished": false,
             "FeachaDeCreacion": "4/2/2024, 3:56:08 PM",
             "FechaDeModificacion": "4/2/2024, 3:56:08 PM",
-            "subCategories": [],
+            "subCategories": [
+                {
+                    "id": "Fuentes-de-alimentación-Fuentes",
+                    "url_Id": "001",
+                    "name": "Fuentes",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "isPublished": false,
+                    "FeachaDeCreacion": "2024-04-03T13:38:28.292Z",
+                    "FechaDeModificacion": "2024-04-03T13:38:28.295Z",
+                    "subCategories": [],
+                    "products": []
+                },
+                {
+                    "id": "Fuentes-de-alimentación-Accesorios",
+                    "url_Id": "004",
+                    "name": "Accesorios",
+                    "description": "",
+                    "ALBEDOcuerpo": "",
+                    "isPublished": false,
+                    "FeachaDeCreacion": "2024-04-03T14:02:55.647Z",
+                    "FechaDeModificacion": "2024-04-03T14:02:55.647Z",
+                    "subCategories": [],
+                    "products": []
+                }
+            ],
             "products": []
         },
         {

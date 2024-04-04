@@ -20,13 +20,30 @@ export default function header() {
               priority
             />
           </Link>
+      <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
           <div className="flex grow justify-between self-center">
             <div className="flex justify-center mt-2">
               <Dropdown />
               <div className="w-full ml-4 py-6 pb-8 flex flex-row font-medium text-bold">
-                <Link href="/services" className="px-4 py-2 text-lg cursor-pointer">
+                <button className="px-4 py-2 text-lg cursor-pointer" data-dropdown-toggle="dropdown">
                   Servicios
-                </Link>
+                </button>
+                <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown"> 
+                  <ul class="py-1" aria-labelledby="dropdown">
+                    <li>
+                      <Link href="/services" class="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Le oferecemos</Link>
+                    </li>
+                    <li>
+                      <Link href="/services/design/" class="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Diseño</Link>
+                    </li>
+                    <li>
+                      <Link href="/services/manufacturing/" class="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Fabricación</Link>
+                    </li> 
+                  </ul>
+                </div>
+                <Link href="https://www.albedo.biz/blog/" className="px-4 py-2 text-lg cursor-pointer">Blog</Link>
+
+
                 <Link href="/contacto" className="px-4 py-2 text-lg cursor-pointer">Contacto</Link>
                 <Link href="/aboutus" className="px-4 py-2 text-lg text-nowrap cursor-pointer">
                   Sobre Nosotros

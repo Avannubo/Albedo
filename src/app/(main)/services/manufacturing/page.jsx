@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export default function page() {
@@ -58,12 +59,12 @@ export default function page() {
                     <p className='my-2'>
                         Nuestras instalaciones:
                     </p>
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col my-6'>
                         <div className='flex flex-row justify-center'>
                             <Image
                                 src="/images/100000910.jpg"
                                 alt="Vercel Logo"
-                                className="float-left rounded-lg m-2"
+                                className="float-left rounded-lg m-2 w-[550px] object-cover"
                                 width="350"
                                 height="200"
                                 priority
@@ -71,7 +72,7 @@ export default function page() {
                             <Image
                                 src="/images/100000911.jpg"
                                 alt="Vercel Logo"
-                                className="float-left rounded-lg m-2"
+                                className="float-left rounded-lg m-2 w-[550px] object-cover"
                                 width="350"
                                 height="200"
                                 priority
@@ -80,7 +81,7 @@ export default function page() {
                         <div className='flex flex-row justify-center'><Image
                             src="/images/100000912.jpg"
                             alt="Vercel Logo"
-                            className="float-left rounded-lg m-2"
+                            className="float-left rounded-lg m-2 w-[550px] object-cover"
                             width="350"
                             height="200"
                             priority
@@ -88,11 +89,64 @@ export default function page() {
                             <Image
                                 src="/images/100000913.jpg"
                                 alt="Vercel Logo"
-                                className="float-left rounded-lg m-2"
+                                className="float-left rounded-lg m-2 w-[550px] object-cover"
                                 width="350"
                                 height="200"
                                 priority
-                            /></div>
+                            />
+                           
+                           </div>
+                    </div>
+                    <div className='flex justify-center  '>
+                        <video autoPlay loop muted className='w-[1100px] rounded-lg'>
+                            <source src="/assets/videos/VIDEO-SMD-1.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+                    <div className='flex flex-col my-6'>
+                        <div className='flex flex-row justify-center'>
+                            <Image
+                                src="/assets/images/100000914.jpg"
+                                alt="Vercel Logo"
+                                className="float-left rounded-lg m-2 w-[550px] object-cover"
+                                width="350"
+                                height="200"
+                                priority
+                            />
+                            <Image
+                                src="/assets/images/100000915.jpg"
+                                alt="Vercel Logo"
+                                className="float-left rounded-lg m-2 w-[550px] object-cover"
+                                width="350"
+                                height="200"
+                                priority
+                            />
+                        </div>
+                        <div className='flex flex-row justify-center'>
+                            <Image
+                            src="/assets/images/100000916.jpg"
+                            alt="Vercel Logo"
+                            className="float-left rounded-lg m-2 w-[550px] object-cover"
+                            width="350"
+                            height="200"
+                            priority
+                        />
+                           <Image
+                            src="/assets/images/100000917.jpg"
+                            alt="Vercel Logo"
+                            className="float-left rounded-lg m-2 w-[550px] object-cover"
+                            width="350"
+                            height="200"
+                            priority
+                        />
+                           
+                           
+                           </div>
+                    </div>
+                    <p className='myb-4'>Para ampliar información sobre estos servicios contacte con <Link href="mailto:produccion@albedo.biz" className="text-[#304590]">produccion@albedo.biz</Link> </p>
+                    <div className='flex justify-center'>
+                        <video autoPlay loop muted className='w-[1100px] rounded-lg'>
+                            <source src="/assets/videos/VIDEO-SMD-2.mp4" type="video/mp4" />
+                        </video>
                     </div>
                 </div>
 

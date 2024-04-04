@@ -24,13 +24,13 @@ export default function header() {
             <div className="flex justify-center mt-2">
               <Dropdown />
               <div className="w-full ml-4 py-6 pb-8 flex flex-row font-medium text-bold">
-                <div className="px-4 py-2 text-lg cursor-pointer">
+                <Link href="/servicios" className="px-4 py-2 text-lg cursor-pointer">
                   Servicios
-                </div>
-                <div className="px-4 py-2 text-lg cursor-pointer">Contacto</div>
-                <div className="px-4 py-2 text-lg text-nowrap cursor-pointer">
+                </Link>
+                <Link href="/contacto" className="px-4 py-2 text-lg cursor-pointer">Contacto</Link>
+                <Link href="/aboutus" className="px-4 py-2 text-lg text-nowrap cursor-pointer">
                   Sobre Nosotros
-                </div>
+                </Link>
               </div>
             </div>
             <Link

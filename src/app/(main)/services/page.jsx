@@ -30,7 +30,7 @@ export default function page() {
             <div className="flex justify-center my-4 mt-2">
                 <h1 className="text-xl font-bold">Fabricación de prototipos, preseries y series</h1>
             </div>
-            <Link href='/services' className='flex justify-center my-5'>
+            <Link href='/services/manufacturing/' className='flex justify-center my-5'>
             <Image
                     src="/images/servicio_fabricacion_01.jpg"
                     alt="Vercel Logo"

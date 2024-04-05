@@ -69,7 +69,7 @@ export default async function Page() {
         <AddNewCategoryModal />
       </div>
 
-      {data.reverse().map((category) => (
+      {data.map((category) => (//.reverse()
         <div key={category.id} className="mt-6">
           <Category category={category} />
         </div>

@@ -5,38 +5,21 @@ import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 
 import path from 'path';
-
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
-
 const filePath = isLocal ? path.resolve('public/data/data.json') : '/data/data.json';
-
-// const filePath = 'public/data/data.json';
-
-
 let cachedData = null;
 let lastModifiedTime = null;
-/// Get the current date and time
 const currentdate = new Date();
-
-// Get the timezone offset for the EU timezone
-// const euTimezoneOffset = new Date().getTimezoneOffset(); // This will give the offset in minutes, considering daylight saving time
-
-// // Calculate the current time in the EU timezone
-// const euTime = new Date(currentDate.getTime() - (euTimezoneOffset * 60000)); // Convert minutes to milliseconds
-
-// Format the date and time for the EU timezone
-const euFormattedDateTime =  currentdate.getDate() + "/"
+const euFormattedDateTime = currentdate.getDate() + "/"
     + (currentdate.getMonth() + 1) + "/"
     + currentdate.getFullYear() + "   "
-    + (currentdate.getHours())+":"
+    + (currentdate.getHours()) + ":"
     + currentdate.getMinutes() + ":"
     + currentdate.getSeconds();
 
 // Convert the EU date and time to a string
 // const euFormattedDateTime = euDateTimeFormat.format(euTime);
-
 // // console.log(euFormattedDateTime); // Output the current time in the EU timezone
-
 
 export async function requireContent() {
     const stats = await fs.stat(filePath);
@@ -61,21 +44,18 @@ export async function getCategories() {
 // export async function getUsers() {//para usuarios
 //     const {
 //         users
-
 //     } = await requireContent();
-
 //     return users
-
 // }
 
 export async function deleteElement(categoryId, productId) {
     if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
         try {
-            const data = await fs.readFile(filePath, 'utf8');
-            const { categories, deletedContent } = JSON.parse(data);
+            const data = await fs.readFile(filePath, 'utf8');//call file
+            const { categories, deletedContent } = JSON.parse(data);//get object  from json 
 
-            if (categoryId.categoryId !== "none") {
-                const categoryToDeleteId = categoryId.categoryId.id;
+            if (categoryId.categoryId !== "none") {// if there is no cat Id the code will exit and return false
+                const categoryToDeleteId = categoryId.categoryId.id; //save the catId in a var
                 const deleteRecursive = async (categoryList) => {
                     for (let i = 0; i < categoryList.length; i++) {
                         const category = categoryList[i];
@@ -137,7 +117,7 @@ export async function deleteElement(categoryId, productId) {
     }
 }
 export async function addCategory(Code, Url_Id, name, description, body, isPublished) {
-     console.log("New subcategory: " + isPublished);
+    console.log("New subcategory: " + isPublished);
     try {
         const data = await readFile(filePath, 'utf8');
         const jsonData = JSON.parse(data);
@@ -379,8 +359,8 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
                     category.name = Name;
                     category.ALBEDOdescripcion = Description;
                     category.ALBEDOcuerpo = Body;
-                    category.isPublished = isPublished, 
-                    category.FechaDeModificacion = new Date().toISOString();
+                    category.isPublished = isPublished,
+                        category.FechaDeModificacion = new Date().toISOString();
 
                     // Log that the updated data is being written to the file
                     // console.log("Writing updated data to file...");

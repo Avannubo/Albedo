@@ -28,7 +28,7 @@ const currentdate = new Date();
 const euFormattedDateTime =  currentdate.getDate() + "/"
     + (currentdate.getMonth() + 1) + "/"
     + currentdate.getFullYear() + "   "
-    + (currentdate.getHours() + 2)+":"
+    + (currentdate.getHours())+":"
     + currentdate.getMinutes() + ":"
     + currentdate.getSeconds();
 
@@ -136,9 +136,8 @@ export async function deleteElement(categoryId, productId) {
         }
     }
 }
-export async function addCategory(Code, Url_Id, name, description, body) {
-    // // console.log("New subcategory: " + name + " " + description);
-
+export async function addCategory(Code, Url_Id, name, description, body, isPublished) {
+     console.log("New subcategory: " + isPublished);
     try {
         const data = await readFile(filePath, 'utf8');
         const jsonData = JSON.parse(data);
@@ -150,7 +149,7 @@ export async function addCategory(Code, Url_Id, name, description, body) {
             "name": name,
             "ALBEDOdescripcion": description,
             "ALBEDOcuerpo": body,
-            "isPublished": false,
+            "isPublished": isPublished,
             "FeachaDeCreacion": euFormattedDateTime,
             "FechaDeModificacion": euFormattedDateTime,
             "subCategories": [],
@@ -177,7 +176,7 @@ export async function addCategory(Code, Url_Id, name, description, body) {
  * @param {string} description - La descripción de la nueva subcategoría.
  * @returns {boolean} Un valor booleano que indica si la subcategoría se agregó correctamente.
  */
-export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body,) {
+export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body, isPublished) {
     // // console.log("Adding subcategory to " + categoryId.categoryId.id);
     // // console.log(" subcategory name " + newCategoryName);
 
@@ -200,7 +199,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         "name": newCategoryName,
                         "description": Description,
                         "ALBEDOcuerpo": Body,
-                        "isPublished": false,
+                        "isPublished": isPublished,
                         "FeachaDeCreacion": new Date().toISOString(),
                         "FechaDeModificacion": new Date().toISOString(),
                         "subCategories": [],
@@ -237,7 +236,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
     }
 }
 
-export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
+export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished) {
     // console.log("New product:" + categoryId.categoryId.id + " " + productCode + " " + Url_Id + "  " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -260,7 +259,7 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
                         "ALBEDOcuerpo": Body,
                         "ALBEDOstock_minimo": MinStock,
                         "ALBEDOstock": Stock,
-                        "isPublished": false,
+                        "isPublished": isPublished,
                         "FeachaDeCreacion": new Date().toISOString(),
                         "FechaDeModificacion": new Date().toISOString(),
                         "imagen": "/images/ADFSSM100/imagen.png",
@@ -298,7 +297,7 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
     }
 }
 
-export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
+export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished) {
     // console.log("\nNew product data changes:\n" + productCode + " \n" + url_Id + " " + Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -324,6 +323,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         product.ALBEDOstock = Stock;
                         product.FechaDeModificacion = new Date().toISOString();
                         product.ALBEDOplazo_entrega = DeliveryTime;
+                        product.isPublished = isPublished;
 
                         // console.log("Writing updated data to file...");
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
@@ -359,7 +359,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
 
 
 // Exported async function to edit a category with the given parameters
-export async function editCategory(categoryId, Code, Name, Description, Body) {
+export async function editCategory(categoryId, Code, Name, Description, Body, isPublished) {
     try {
         // Read the contents of the file as a string
         const data = await fs.readFile(filePath, 'utf8');
@@ -379,6 +379,7 @@ export async function editCategory(categoryId, Code, Name, Description, Body) {
                     category.name = Name;
                     category.ALBEDOdescripcion = Description;
                     category.ALBEDOcuerpo = Body;
+                    category.isPublished = isPublished, 
                     category.FechaDeModificacion = new Date().toISOString();
 
                     // Log that the updated data is being written to the file

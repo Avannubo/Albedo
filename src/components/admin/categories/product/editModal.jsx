@@ -13,6 +13,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const [newProductStock, setNewProductStock] = useState(0);
     const [newProductMinStock, setNewProductMinStock] = useState(0);
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(0);
+    const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,6 +29,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
                     setNewProductDescription(product.ALBEDOdescripcion);
                     setNewProductBody(product.ALBEDOcuerpo);
                     setNewProductStock(product.ALBEDOstock);
+                    setNewCategoryIsPublished(product.isPublished);
                     setNewProductMinStock(product.ALBEDOstock_minimo);
                     setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
                 } else {
@@ -61,6 +63,9 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const handleInputChangeBody = (event) => {
         setNewProductBody(event.target.value);
     };
+    const handleInputChangeIsPublished = (event) => {
+        setNewCategoryIsPublished(event.target.checked);
+    };
     const handleInputChangeStock = (event) => {
         setNewProductStock(event.target.value);
     };
@@ -71,7 +76,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
         setNewProductDeliveryTime(event.target.value); 
     };
     const handleAddProduct = () => {
-        editproduct(productId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
+        editproduct(productId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime,newCategoryIsPublished);
         setNewProductName('');
         setNewProductCode('');
         setNewProductUrlCode('');
@@ -81,6 +86,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
         setNewProductStock(0);
         setNewProductMinStock(0);
         setNewProductDeliveryTime(0);
+        setNewCategoryIsPublished(newCategoryIsPublished);
         onClose();
 
     };
@@ -93,9 +99,20 @@ export default function EditModal({ isOpen, onClose, productId }) {
                     <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z" data-original="#000000"></path>
                 </svg>
                 <div className="flex flex-col">
-                    <div className="w-full rounded-md p-10">
-                        <h1 className='font-bold text-xl mb-6'>Editar Producto</h1>
+                    <div className="w-full rounded-md p-10"> 
+                        <div className='flex space-x-6 mb-4'>
+                            <h1 className='font-bold text-xl'>Editar Producto</h1>
 
+                            <div className='flex justify-start '>
+                                <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
+                                {/* <span class="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input onChange={handleInputChangeIsPublished} type="checkbox" checked={newCategoryIsPublished} class="sr-only peer" />
+                                    <div class="self-center relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                </label>
+                                <span class="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Publicado</span>
+                            </div>
+                        </div>
                         <div className='flex flex-col'>
                         <div className='flex flex-row justify-between space-x-4'>
                         <div className="mb-4 flex-1">

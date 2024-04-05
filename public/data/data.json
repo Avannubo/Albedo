@@ -5,10 +5,10 @@
             "url_Id": "025",
             "name": "Accesibilidad para museos y exposiciones",
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-            "FechaDeModificacion": "26/03/2024",
+            "FechaDeModificacion": "2024-04-05T12:05:47.899Z",
             "FeachaDeCreacion": "20/03/2024 ",
             "urlImagen": "/assets/images/ADFSSM100/imagen.png",
-            "isPublished": false,
+            "isPublished": true,
             "ALBEDOcuerpo": "",
             "products": [
                 {
@@ -17,13 +17,14 @@
                     "ALBEDOtitulo": "IndoorNav Basic",
                     "ALBEDOprecio": 20,
                     "ALBEDOdescripcion": "Sistema de guía accesible en su museo o exposición.",
-                    "isPublished": false,
+                    "isPublished": true,
                     "ALBEDOcuerpo": "<h1>Sistema de comunicación accesible</h1><p>El Sistema se compone de:</p><ul><li>Un subsistema de gestión de contenidos (CMS por sus siglas en inglés).</li><li>Balizas Bluetooth, beacons, para identificar ubicaciones y objetos. Pueden funcionar en el exterior, por su nivel de estanqueidad.</li><li>Una aplicación web para a la gestión de balizas y usuarios.</li><li>Una aplicación móvil de usuario en iOS y Android (audioguía).</li></ul> <p>El Servicio Básico comprende:</p><ul><li>20 balizas Bluetooth con una garantía de dos años.</li><li>Almacenamiento en la nube durante el primer año de servicio.</li><li>Mantenimiento correctivo y adaptativo durante el primer año de servicio.</li><li>Manual de instalación y uso.</li></ul><p>El sistema de gestión de contenidos puede almacenar la información en diferentes idiomas, con lenguaje comprensivo según formación, edad y capacidades cognitivas, con audio descripción para personas con discapacidad visual, vídeo en lengua de signos y realidad aumentada. Cada entidad decide el nivel al que quiere llegar en función de los recursos dedicados a la creación del itinerario. Por supuesto, los contenidos siempre pueden ser actualizados.</p><p>La aplicación móvil se descarga de Google Play o de Apple Store. La interfaz se adapta a las capacidades del usuario. Proporciona información de todos los elementos de la exposición con el formato más adecuado para el usuario. Da indicaciones de navegación de la visita y recomienda los posibles itinerarios.</p><p>Nota: en el mantenimiento no se incluye el cambio de pilas de las balizas.</p>",
                     "ALBEDOstock_minimo": 4,
                     "ALBEDOstock": 25,
                     "imagen": "/images/indoornav.jpg",
                     "imagen.small": "/assets/images/ADFSSM100/imagen.small.png",
-                    "ALBEDOplazo_entrega": 4
+                    "ALBEDOplazo_entrega": 4,
+                    "FechaDeModificacion": "2024-04-05T11:34:10.511Z"
                 }
             ],
             "subCategories": []
@@ -33,10 +34,10 @@
             "url_Id": "020",
             "name": "Iluminación",
             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-            "FechaDeModificacion": "26/03/2024",
+            "FechaDeModificacion": "2024-04-05T12:07:04.771Z",
             "FeachaDeCreacion": "20/03/2024 ",
             "urlImagen": "/assets/images/ADFSSM100/imagen.png",
-            "isPublished": false,
+            "isPublished": true,
             "ALBEDOcuerpo": "",
             "subCategories": [
                 {
@@ -44,10 +45,10 @@
                     "url_Id": "007",
                     "name": "Farolas LED",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-                    "FechaDeModificacion": "26/03/2024",
+                    "FechaDeModificacion": "2024-04-05T12:07:10.669Z",
                     "FeachaDeCreacion": "20/03/2024 ",
                     "urlImagen": "/assets/images/ADFSSM100/imagen.png",
-                    "isPublished": false,
+                    "isPublished": true,
                     "ALBEDOcuerpo": "",
                     "products": [
                         {
@@ -56,7 +57,7 @@
                             "ALBEDOtitulo": "Farola solar LED",
                             "ALBEDOprecio": 45,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-                            "isPublished": false,
+                            "isPublished": true,
                             "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
                             "ALBEDOcuerpo2": "Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.",
                             "ALBEDOstock_minimo": 5,
@@ -64,7 +65,8 @@
                             "imagen": "/assets/images/ADFSSM100/imagen.png",
                             "imagen.small": "/assets/images/ADFSSM100/imagen.small.png",
                             "ALBEDOplazo_entrega": 14,
-                            "ALBEDOcategory": "Farolas"
+                            "ALBEDOcategory": "Farolas",
+                            "FechaDeModificacion": "2024-04-05T12:07:15.114Z"
                         },
                         {
                             "ALBEDOcodigo": "ADFSSM200",
@@ -72,10 +74,10 @@
                             "ALBEDOtitulo": "Farola solar LED",
                             "ALBEDOprecio": 45,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-                            "FechaDeModificacion": "26/03/2024",
+                            "FechaDeModificacion": "2024-04-05T12:07:17.895Z",
                             "FeachaDeCreacion": "20/03/2024 ",
                             "urlImagen": "/assets/images/ADFSSM100/imagen.png",
-                            "isPublished": false,
+                            "isPublished": true,
                             "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.",
                             "ALBEDOcuerpo2": "Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.",
                             "ALBEDOstock_minimo": 5,
@@ -91,10 +93,10 @@
                             "ALBEDOtitulo": "Farola solar LED",
                             "ALBEDOprecio": 91,
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-                            "FechaDeModificacion": "26/03/2024",
+                            "FechaDeModificacion": "2024-04-05T12:07:20.662Z",
                             "FeachaDeCreacion": "20/03/2024 ",
                             "urlImagen": "/assets/images/ADFSSM100/imagen.png",
-                            "isPublished": false,
+                            "isPublished": true,
                             "ALBEDOcuerpo": "Farola solar LED con sensor de movimiento. Consume 300W y produce un flujo luminoso de 4000 Lumens.",
                             "ALBEDOcuerpo2": "Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.",
                             "ALBEDOstock_minimo": 5,
@@ -114,10 +116,10 @@
             "url_Id": "017",
             "name": "Gestion Energética",
             "ALBEDOdescripcion": "Fuentes de alimentación: gestión energética",
-            "FechaDeModificacion": "26/03/2024",
+            "FechaDeModificacion": "2024-04-05T12:07:23.408Z",
             "FeachaDeCreacion": "20/03/2024 ",
             "urlImagen": "/assets/images/ADFSSM100/imagen.png",
-            "isPublished": false,
+            "isPublished": true,
             "ALBEDOcuerpo": "",
             "imagen": "",
             "subCategories": [
@@ -126,10 +128,10 @@
                     "url_Id": "001",
                     "name": "Fuentes de alimentación",
                     "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-                    "FechaDeModificacion": "2024-04-02T16:22:07.144Z",
+                    "FechaDeModificacion": "2024-04-05T12:07:26.118Z",
                     "FeachaDeCreacion": "20/03/2024 ",
                     "urlImagen": "/assets/images/ADFSSM100/imagen.png",
-                    "isPublished": false,
+                    "isPublished": true,
                     "ALBEDOcuerpo": "",
                     "imagen": "",
                     "subCategories": [
@@ -138,10 +140,10 @@
                             "url_Id": "001",
                             "name": "Carril DIN",
                             "ALBEDOdescripcion": "Farola solar LED con sensor de movimiento",
-                            "FechaDeModificacion": "26/03/2024",
+                            "FechaDeModificacion": "2024-04-05T12:07:28.571Z",
                             "FeachaDeCreacion": "20/03/2024 ",
                             "urlImagen": "/assets/images/ADFSSM100/imagen.png",
-                            "isPublished": false,
+                            "isPublished": true,
                             "ALBEDOcuerpo": "",
                             "imagen": "",
                             "products": [
@@ -8590,9 +8592,9 @@
             "name": "GPS",
             "ALBEDOdescripcion": "",
             "ALBEDOcuerpo": "",
-            "isPublished": false,
+            "isPublished": true,
             "FeachaDeCreacion": "4/2/2024, 3:56:08 PM",
-            "FechaDeModificacion": "2024-04-05T11:01:53.787Z",
+            "FechaDeModificacion": "2024-04-05T12:09:48.497Z",
             "subCategories": [
                 {
                     "id": "Outdoor",
@@ -8693,9 +8695,9 @@
             "name": "Programas",
             "ALBEDOdescripcion": "",
             "ALBEDOcuerpo": "",
-            "isPublished": false,
+            "isPublished": true,
             "FeachaDeCreacion": "3/4/2024   19:14:41",
-            "FechaDeModificacion": "2024-04-05T11:02:07.764Z",
+            "FechaDeModificacion": "2024-04-05T11:34:16.120Z",
             "subCategories": [
                 {
                     "id": "Multidomo",
@@ -8703,9 +8705,9 @@
                     "name": "Multidomo",
                     "description": "",
                     "ALBEDOcuerpo": "",
-                    "isPublished": false,
+                    "isPublished": true,
                     "FeachaDeCreacion": "2024-04-03T15:29:51.865Z",
-                    "FechaDeModificacion": "2024-04-05T11:02:05.109Z",
+                    "FechaDeModificacion": "2024-04-05T11:34:19.876Z",
                     "subCategories": [],
                     "products": [
                         {
@@ -8717,9 +8719,9 @@
                             "ALBEDOcuerpo": "",
                             "ALBEDOstock_minimo": 0,
                             "ALBEDOstock": 0,
-                            "isPublished": false,
+                            "isPublished": true,
                             "FeachaDeCreacion": "2024-04-03T15:30:07.618Z",
-                            "FechaDeModificacion": "2024-04-05T11:02:01.967Z",
+                            "FechaDeModificacion": "2024-04-05T11:34:44.767Z",
                             "imagen": "/assets/images/ADFSSM100/imagen.png",
                             "imagen.small": "/assets/images/ADFSSM100/imagen.small.png",
                             "ALBEDOplazo_entrega": 0

@@ -20,16 +20,50 @@ export default function header() {
               priority
             />
           </Link>
+          <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
           <div className="flex grow justify-between self-center">
             <div className="flex justify-center mt-2">
               <Dropdown />
               <div className="w-full ml-4 py-6 pb-8 flex flex-row font-medium text-bold">
-                <div className="px-4 py-2 text-lg cursor-pointer">
-                  Servicios
+                <div className="flex justify-center flex-row flex-nowrap px-4 py-2 text-lg cursor-pointer whitespace-nowrap">
+                  <button className="" data-dropdown-toggle="dropdown">
+                    Servicios</button>
+                    <svg className="w-2.5 h-2.5 ml-2.5 self-center" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"></path></svg>
                 </div>
-                <div className="px-4 py-2 text-lg cursor-pointer">Contacto</div>
-                <div className="px-4 py-2 text-lg text-nowrap cursor-pointer">
-                  Sobre Nosotros
+
+                <div className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
+                  <ul className="py-1" aria-labelledby="dropdown">
+                    <li>
+                      <Link href="/services" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Le oferecemos</Link>
+                    </li>
+                    <li>
+                      <Link href="/services/design/" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Diseño</Link>
+                    </li>
+                    <li>
+                      <Link href="/services/manufacturing/" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Fabricación</Link>
+                    </li>
+                  </ul>
+                </div>
+                <Link href="https://www.albedo.biz/blog/" className="px-4 py-2 text-lg cursor-pointer">Blog</Link> 
+                {/* <Link href="/contacto" className="px-4 py-2 text-lg cursor-pointer">Contacto</Link> */}
+                 
+                <div className="flex justify-center flex-row flex-nowrap px-4 py-2 text-lg cursor-pointer whitespace-nowrap">
+                  <button className="" data-dropdown-toggle="dropdown">
+                  Sobre Nosotros</button>
+                    <svg className="w-2.5 h-2.5 ml-2.5 self-center" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"></path></svg>
+                </div>
+                <div className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
+                  <ul className="py-1" aria-labelledby="dropdown">
+                    <li>
+                      <Link href="/about/historia" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Quienes somos</Link>
+                    </li>
+                    <li>
+                      <Link href="/about/contacto" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Contacto</Link>
+                    </li>
+                    <li>
+                      <Link href="/about/faq" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">FAQ</Link>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

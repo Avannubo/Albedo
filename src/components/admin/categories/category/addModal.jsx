@@ -1,8 +1,7 @@
-// addModal.js
 "use client";
 import React, { useState } from 'react';
 import { addCategory } from '@/lib/data';
-import Dropzone from '@/components/admin/categories/Dropzone'
+// import Dropzone from '@/components/admin/categories/Dropzone'
 
 export default function AddModal({ isOpen, onClose }) {
     const [newCategoryName, setNewCategoryName] = useState('');
@@ -11,8 +10,8 @@ export default function AddModal({ isOpen, onClose }) {
     const [newCategoryCode, setNewCategoryCode] = useState('');
     const [newCategoryUrlCode, setNewCategoryUrlCode] = useState('');
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
-    const [imageFile, setImageFile] = useState(null);
-    const [pdfFile, setPdfFile] = useState(null);
+    // const [imageFile, setImageFile] = useState(null);
+    // const [pdfFile, setPdfFile] = useState(null);
 
     const handleInputChangeCode = (event) => {
         setNewCategoryCode(event.target.value);
@@ -33,13 +32,13 @@ export default function AddModal({ isOpen, onClose }) {
     const handleInputChangeBody = (event) => {
         setNewCategoryBody(event.target.value);
     };
-    const handleImageChange = (event) => {
-        setImageFile(event.target.files[0]);
-    };
+    // const handleImageChange = (event) => {
+    //     setImageFile(event.target.files[0]);
+    // };
 
-    const handlePdfChange = (event) => {
-        setPdfFile(event.target.files[0]);
-    };
+    // const handlePdfChange = (event) => {
+    //     setPdfFile(event.target.files[0]);
+    // };
 
     const handleAddCategory = () => {
         addCategory(newCategoryCode, newCategoryUrlCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished);
@@ -49,8 +48,8 @@ export default function AddModal({ isOpen, onClose }) {
         setNewCategoryCode('');
         setNewCategoryUrlCode('');
         setNewCategoryIsPublished(false);
-        setImageFile(null);
-        setPdfFile(null);
+        // setImageFile(null);
+        // setPdfFile(null);
         onClose();
 
     };
@@ -112,7 +111,7 @@ export default function AddModal({ isOpen, onClose }) {
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">PDF</label>
                                     <input type="file" onChange={handlePdfChange} className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
                                 </div> */}
-                                <Dropzone className='mt-10 border border-neutral-200 p-20' />
+                                {/* <Dropzone className='mt-10 border border-neutral-200 p-20' /> */}
 
                             </div>
                             <div className='flex justify-center mt-4'>

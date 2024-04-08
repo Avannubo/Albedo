@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone' 
-import { saveToAssets } from '@/lib/data';
+// import { saveToAssets } from '@/lib/data';
 
 
 export default function Dropzone(){

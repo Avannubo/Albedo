@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getCategories } from "@/lib/data";
-import ProductItem from "@/components/products/productItem";
+import ProductItem from "@/components/products/productItem"; 
 
 export default async function page() {
     const data = await getCategories();
@@ -32,7 +32,7 @@ export default async function page() {
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                 <div className="flex flex-row justify-between space-x-6 my-8">
                     {/* cat1 */}
-                    <Link href="/categorias/iluminacion" className="flex flex-col w-auto ">
+                    <Link href="/categorias/020" className="flex flex-col w-auto ">
                         <Image
                             src="/images/ADFSSM100/imagen.png"
                             alt="Vercel Logo"

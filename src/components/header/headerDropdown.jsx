@@ -48,7 +48,7 @@ export default function Dropdown() {
   };
 
   return (
-    <div className="w-full py-6 pb-8 z-[999]">
+    <div className="w-full py-6 pb-8 z-[999] ">
       <div className="relative inline-block" ref={dropdownRef}>
         <button
           type="button"
@@ -74,7 +74,7 @@ export default function Dropdown() {
         </button>
 
         {isOpen && (
-          <div className="origin-top-left absolute left-0 mt-2 w-44 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+          <div className="origin-top-left absolute left-0 mt-2 w-44 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 h-[500px] overflow-y-scroll no-scrollbar">
             <ul>
               <li className="px-4 py-2 text-md text-gray-700 hover:bg-gray-100 rounded-lg">
                 <Link href="/categorias">Gama de productos</Link>
@@ -82,7 +82,7 @@ export default function Dropdown() {
               {categories.map((category, index) => (
                 <li key={index} className="relative">
                   <Link
-                    href={`/categorias/${category.id}`}
+                    href={`/categorias/${category.url_Id}`}
                     className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 rounded-lg"
                     onMouseEnter={() => handleCategoryHover(index)}
                     onMouseLeave={handleCategoryLeave}

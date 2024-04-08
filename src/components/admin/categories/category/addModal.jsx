@@ -2,6 +2,7 @@
 "use client";
 import React, { useState } from 'react';
 import { addCategory } from '@/lib/data';
+import Dropzone from '@/components/admin/categories/Dropzone'
 
 export default function AddModal({ isOpen, onClose }) {
     const [newCategoryName, setNewCategoryName] = useState('');
@@ -10,6 +11,8 @@ export default function AddModal({ isOpen, onClose }) {
     const [newCategoryCode, setNewCategoryCode] = useState('');
     const [newCategoryUrlCode, setNewCategoryUrlCode] = useState('');
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
+    const [imageFile, setImageFile] = useState(null);
+    const [pdfFile, setPdfFile] = useState(null);
 
     const handleInputChangeCode = (event) => {
         setNewCategoryCode(event.target.value);
@@ -30,6 +33,13 @@ export default function AddModal({ isOpen, onClose }) {
     const handleInputChangeBody = (event) => {
         setNewCategoryBody(event.target.value);
     };
+    const handleImageChange = (event) => {
+        setImageFile(event.target.files[0]);
+    };
+
+    const handlePdfChange = (event) => {
+        setPdfFile(event.target.files[0]);
+    };
 
     const handleAddCategory = () => {
         addCategory(newCategoryCode, newCategoryUrlCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished);
@@ -39,6 +49,8 @@ export default function AddModal({ isOpen, onClose }) {
         setNewCategoryCode('');
         setNewCategoryUrlCode('');
         setNewCategoryIsPublished(false);
+        setImageFile(null);
+        setPdfFile(null);
         onClose();
 
     };
@@ -54,12 +66,12 @@ export default function AddModal({ isOpen, onClose }) {
                     <h1 className='font-bold text-xl'>Añadir Nueva Categoria</h1>
                     <div className='flex justify-start '>
                         <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
-                        {/* <span class="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input onChange={handleInputChangeIsPublished} type="checkbox" value="false" class="sr-only peer" />
-                            <div class="self-center relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        {/* <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}
+                        <label className="inline-flex items-center cursor-pointer">
+                            <input onChange={handleInputChangeIsPublished} type="checkbox" value="false" className="sr-only peer" />
+                            <div className="self-center relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </label>
-                        <span class="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Publicado</span>
+                        <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Publicado</span>
                     </div>
                 </div>
                 <div className="flex flex-col">
@@ -92,14 +104,16 @@ export default function AddModal({ isOpen, onClose }) {
                                 <textarea onChange={handleInputChangeBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cuerpo" />
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
-                                <div className="flex-1 mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
-                                    <input type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+                                {/* <div className="flex-1 mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Imagen</label>
+                                    <input type="file" onChange={handleImageChange} className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
                                 </div>
                                 <div className="flex-1 mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">PDFs</label>
-                                    <input type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
-                                </div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">PDF</label>
+                                    <input type="file" onChange={handlePdfChange} className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+                                </div> */}
+                                <Dropzone className='mt-10 border border-neutral-200 p-20' />
+
                             </div>
                             <div className='flex justify-center mt-4'>
                                 <button onClick={handleAddCategory} type="submit" className="w-[150px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

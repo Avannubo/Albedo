@@ -116,12 +116,15 @@ export async function deleteElement(categoryId, productId) {
         }
     }
 }
-export async function addCategory(Code, Url_Id, name, description, body, isPublished) {
-    console.log("New subcategory: " + isPublished);
+export async function addCategory(Code, Url_Id, name, description, body, isPublished, imageFile, pdfFile) {
+    console.log("New subcategory: " + imageFile, pdfFile);
     try {
         const data = await readFile(filePath, 'utf8');
         const jsonData = JSON.parse(data);
         const { categories } = jsonData;
+        // Save image and pdf files to assets directory
+        const savedImageFilePath = await saveFileToAssets(imageFile, name + '_' + Url_Id + '_' + getFileIdNumber(100000,10000000) +'.jpg');
+        const savedPdfFilePath = await saveFileToAssets(pdfFile, name + '_' + Url_Id +'.pdf');
 
         const newCategory = {
             "id": Code.replace(/ /g, "-"),
@@ -133,7 +136,9 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
             "FeachaDeCreacion": euFormattedDateTime,
             "FechaDeModificacion": euFormattedDateTime,
             "subCategories": [],
-            "products": []
+            "products": [],
+            "imageFilePath": savedImageFilePath, // Store the path to the saved image file
+            "pdfFilePath": savedPdfFilePath // Store the path to the saved pdf file
         };
 
         categories.push(newCategory);
@@ -148,7 +153,9 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
         return false;
     }
 }
-
+function getFileIdNumber(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 /**
  * Función para agregar una nueva subcategoría con un nombre y descripción dados.
  *
@@ -486,4 +493,36 @@ export async function getCategoryById(categoryId) {
         console.error("Error occurred:", error);
         return false;
     }
+}
+
+function saveFileToAssets(file, fileName) {
+    const uploadDir = path.join(__dirname, '../public/assets/');
+    let destDir;
+
+    // Determine the destination directory based on file extension
+    const fileExtension = path.extname(fileName).toLowerCase();
+    if (fileExtension === '.pdf') {
+        destDir = path.join(uploadDir, 'pdf/');
+    } else if (fileExtension === '.png' || fileExtension === '.jpg' || fileExtension === '.jpeg') {
+        destDir = path.join(uploadDir, 'images/');
+    } else {
+        // Handle other file types (optional)
+        destDir = uploadDir;
+    }
+
+    // Ensure the destination directory exists
+    fs.mkdirSync(destDir, { recursive: true });
+
+    // Construct the full file path
+    const filePath = path.join(destDir, fileName);
+
+    return new Promise((resolve, reject) => {
+        file.mv(filePath, (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(filePath);
+            }
+        });
+    });
 }

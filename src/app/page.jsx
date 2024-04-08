@@ -53,6 +53,7 @@ export default async function Home() {
             width={400}
             height={24}
             priority
+            
           />
         </div>
         <div>

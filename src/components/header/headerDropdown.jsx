@@ -77,12 +77,12 @@ export default function Dropdown() {
           <div className="origin-top-left absolute left-0 mt-2 w-44 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 h-[500px] overflow-y-scroll no-scrollbar">
             <ul>
               <li className="px-4 py-2 text-md text-gray-700 hover:bg-gray-100 rounded-lg">
-                <Link href="/categorias">Gama de productos</Link>
+                <Link href="/products">Gama de productos</Link>
               </li>
               {categories.map((category, index) => (
                 <li key={index} className="relative">
                   <Link
-                    href={`/categorias/${category.url_Id}`}
+                    href={`/products/${category.url_Id}`}
                     className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 rounded-lg"
                     onMouseEnter={() => handleCategoryHover(index)}
                     onMouseLeave={handleCategoryLeave}

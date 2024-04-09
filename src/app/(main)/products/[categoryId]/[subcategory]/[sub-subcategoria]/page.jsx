@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import useCategoryId from '@/hooks/useCategoryId';
 import { getCategories } from '@/lib/data';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from 'next/link'; 
 
-export default function PageContent() {
+export default function PageContent() { 
 
 
     const categoryId = useCategoryId();
@@ -56,12 +56,12 @@ export default function PageContent() {
                             </div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
 
-                            <div className='flex flex-row flex-wrap justify-center '>
+                            <div className='flex flex-row justify-center space-x-6'>
 
                                 {category.subCategories.map((subCat, index) => (
-                                    <Link href={`/productos/`} key={index} className=''>
-                                        <div className='w-[250px] flex flex-col justify-center'>
-                                            <Image
+                                    <Link href="#" key={index} className='flex flex-col justify-center'>
+                                        {/*  */}
+                                        <Image
                                             src={subCat.urlImagen}
                                             alt="Vercel Logo"
                                             className="self-center w-[150px] h-[170px] object-contain"
@@ -71,12 +71,17 @@ export default function PageContent() {
                                         />
                                         <p className='self-center font-bold'>
                                             {subCat.name}</p>
-                                        </div>  
+
                                     </Link>
                                 ))}
+
+
                             </div>
                         </div>
+
+
                     )}
+
                     {category.products && category.products.length > 0 && (
                         <div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
@@ -84,7 +89,9 @@ export default function PageContent() {
                                 <p className='text-lg font-bold'>Productos</p>
                             </div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+
                             <div className='flex flex-row justify-center space-x-6'>
+
                                 {category.products.map((product, index) => (
                                     <Link href={`/productos/${product.ALBEDOcodigo}`}
                                         key={index} className='flex flex-col justify-center'>
@@ -99,10 +106,14 @@ export default function PageContent() {
                                         />
                                         <p className='self-center font-bold'>
                                             {product.ALBEDOtitulo}</p>
+
                                     </Link>
                                 ))}
+
+
                             </div>
                         </div>
+
                     )}
                 </div>
             )}

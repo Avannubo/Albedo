@@ -32,7 +32,7 @@ export default async function page() {
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                 <div className="flex flex-row justify-between space-x-6 my-8">
                     {/* cat1 */}
-                    <Link href="/categorias/020" className="flex flex-col w-auto ">
+                    <Link href="/products/020" className="flex flex-col w-auto ">
                         <Image
                             src="/images/ADFSSM100/imagen.png"
                             alt="Vercel Logo"
@@ -47,7 +47,7 @@ export default async function page() {
                     </Link>
 
                     {/* cat1 */}
-                    <Link href="/categorias/automatismos" className="flex flex-col w-auto ">
+                    <Link href="/products/automatismos" className="flex flex-col w-auto ">
                         <Image
                             src="/images/automatismos.jpg"
                             alt="Vercel Logo"
@@ -61,7 +61,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/categorias/controladores" className="flex flex-col w-auto ">
+                    <Link href="/products/controladores" className="flex flex-col w-auto ">
                         <Image
                             src="/images/controladores.jpg"
                             alt="Vercel Logo"
@@ -75,7 +75,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/categorias/dupline" className="flex flex-col w-auto ">
+                    <Link href="/products/dupline" className="flex flex-col w-auto ">
                         <Image
                             src="/images/dupline.jpg"
                             alt="Vercel Logo"
@@ -89,7 +89,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/categorias/gama-enocean" className="flex flex-col w-auto ">
+                    <Link href="/products/gama-enocean" className="flex flex-col w-auto ">
                         <Image
                             src="/images/gama_enocean.jpg"
                             alt="Vercel Logo"
@@ -103,7 +103,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/categorias/gestion-energetica" className="flex flex-col w-auto ">
+                    <Link href="/products/gestion-energetica" className="flex flex-col w-auto ">
                         <Image
                             src="/images/energia.jpg"
                             alt="Vercel Logo"
@@ -117,7 +117,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/categorias/protectores" className="flex flex-col w-auto ">
+                    <Link href="/products/protectores" className="flex flex-col w-auto ">
                         <Image
                             src="/images/protectores.jpg"
                             alt="Vercel Logo"

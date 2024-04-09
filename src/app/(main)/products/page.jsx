@@ -1,12 +1,12 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getCategories } from "@/lib/data";
-import ProductItem from "@/components/products/productItem"; 
+import ProductItem from "@/components/products/productItem";  
 
-export default async function page() {
+export default async function page() { 
     const data = await getCategories();
-
     function GetProducts(categories) {
         let products = [];
         categories.forEach((category) => {
@@ -19,7 +19,6 @@ export default async function page() {
         });
         return products;
     }
-
     const products = GetProducts(data);
     const last6 = products.slice(0, 4);
     return (
@@ -45,7 +44,6 @@ export default async function page() {
                             Iluminación
                         </h2>
                     </Link>
-
                     {/* cat1 */}
                     <Link href="/products/automatismos" className="flex flex-col w-auto ">
                         <Image

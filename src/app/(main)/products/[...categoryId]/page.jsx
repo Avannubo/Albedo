@@ -3,36 +3,43 @@ import React, { useState, useEffect } from 'react';
 import useCategoryId from '@/hooks/useCategoryId';
 import { getCategories } from '@/lib/data';
 import Image from 'next/image';
-import Link from 'next/link'; 
+import Link from 'next/link';
+// import { useRouter } from 'next/router';
 
-export default function PageContent() { 
-
+export default function PageContent() {
+    // const router = useRouter();
+    // const { slug } = router.query;
+    // console.log(slug);
 
     const categoryId = useCategoryId();
-    const [category, setCategory] = useState(null);
-
+    const [category, setCategory] = useState(null); 
     useEffect(() => {
         async function fetchData() {
             try {
                 const data = await getCategories();
-                const foundCategory = data.find(cat => cat.url_Id === categoryId.toString());
-                if (foundCategory) {
-                    setCategory(foundCategory);
-                    console.log(JSON.stringify(foundCategory))
-                } else {
-                    console.error("Category not found for id:", categoryId);
-                }
+                console.log(categoryId); 
+
+
+
+                    const foundCategory = data.find(cat => cat.url_Id === categoryId[0].toString());
+                    if (foundCategory) {
+                        const subcatIds = foundCategory.subCategories[0].url_Id;
+                        console.log(subcatIds);
+                        setCategory(foundCategory);
+                } 
+                
+
+
+
             } catch (error) {
-                console.error("Error fetching categories:", error);
+                console.error("Error fetching data:", error);
             }
         }
         fetchData();
     }, [categoryId]);
-
     return (
         <div className='min-h-[50vh]'>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-
             {category && (
                 <div className='py-4'>
                     <div className='flex justify-center my-4'>
@@ -55,33 +62,26 @@ export default function PageContent() {
                                 <p className='text-lg font-bold'>Sub-Gamas</p>
                             </div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-
-                            <div className='flex flex-row justify-center space-x-6'>
-
+                            <div className='flex flex-row flex-wrap justify-center '>
                                 {category.subCategories.map((subCat, index) => (
-                                    <Link href="#" key={index} className='flex flex-col justify-center'>
-                                        {/*  */}
-                                        <Image
-                                            src={subCat.urlImagen}
-                                            alt="Vercel Logo"
-                                            className="self-center w-[150px] h-[170px] object-contain"
-                                            width={100}
-                                            height={24}
-                                            priority
-                                        />
-                                        <p className='self-center font-bold'>
-                                            {subCat.name}</p>
-
+                                    <Link href={`/products/${categoryId}/${subCat.url_Id}`} key={index} className=''>
+                                        <div className='w-[250px] flex flex-col justify-center'>
+                                            <Image
+                                                src={subCat.urlImagen}
+                                                alt="Vercel Logo"
+                                                className="self-center w-[150px] h-[170px] object-contain"
+                                                width={100}
+                                                height={24}
+                                                priority
+                                            />
+                                            <p className='self-center font-bold'>
+                                                {subCat.name}</p>
+                                        </div>
                                     </Link>
                                 ))}
-
-
                             </div>
                         </div>
-
-
                     )}
-
                     {category.products && category.products.length > 0 && (
                         <div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
@@ -89,13 +89,10 @@ export default function PageContent() {
                                 <p className='text-lg font-bold'>Productos</p>
                             </div>
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-
                             <div className='flex flex-row justify-center space-x-6'>
-
                                 {category.products.map((product, index) => (
-                                    <Link href={`/productos/${product.ALBEDOcodigo}`}
+                                    <Link href={`/products/${categoryId}/${product.url_Id}`}
                                         key={index} className='flex flex-col justify-center'>
-                                        {/*  */}
                                         <Image
                                             src={product.imagen}
                                             alt="Vercel Logo"
@@ -106,14 +103,10 @@ export default function PageContent() {
                                         />
                                         <p className='self-center font-bold'>
                                             {product.ALBEDOtitulo}</p>
-
                                     </Link>
                                 ))}
-
-
                             </div>
                         </div>
-
                     )}
                 </div>
             )}

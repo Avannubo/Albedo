@@ -126,6 +126,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
             "isPublished": isPublished,
             "FeachaDeCreacion": euFormattedDateTime,
             "FechaDeModificacion": euFormattedDateTime,
+            "imagen": "/assets/images/200000066.jpg",
             "subCategories": [],
             "products": [],
             "imageFilePath": savedImageFilePath, // Store the path to the saved image file
@@ -176,6 +177,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         "isPublished": isPublished,
                         "FeachaDeCreacion": new Date().toISOString(),
                         "FechaDeModificacion": new Date().toISOString(),
+                        "imagen": "/assets/images/200000066.jpg",
                         "subCategories": [],
                         "products": []
                     }
@@ -235,8 +237,7 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
                         "isPublished": isPublished,
                         "FeachaDeCreacion": new Date().toISOString(),
                         "FechaDeModificacion": new Date().toISOString(),
-                        "imagen": "/images/ADFSSM100/imagen.png",
-                        "imagen.small": "/images/ADFSSM100/imagen.small.png",
+                        "imagen": "/assets/images/200000066.jpg", 
                         "ALBEDOplazo_entrega": DeliveryTime
                     }
                     category.products.push(dataObj);

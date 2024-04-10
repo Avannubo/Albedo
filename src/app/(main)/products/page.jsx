@@ -1,4 +1,3 @@
-"use client"
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -45,7 +44,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/products/automatismos" className="flex flex-col w-auto ">
+                    <Link href="/products/011" className="flex flex-col w-auto ">
                         <Image
                             src="/images/automatismos.jpg"
                             alt="Vercel Logo"
@@ -59,7 +58,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/products/controladores" className="flex flex-col w-auto ">
+                    <Link href="/products/001" className="flex flex-col w-auto ">
                         <Image
                             src="/images/controladores.jpg"
                             alt="Vercel Logo"
@@ -73,7 +72,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/products/dupline" className="flex flex-col w-auto ">
+                    <Link href="/products/021" className="flex flex-col w-auto ">
                         <Image
                             src="/images/dupline.jpg"
                             alt="Vercel Logo"
@@ -87,7 +86,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/products/gama-enocean" className="flex flex-col w-auto ">
+                    <Link href="/products/012" className="flex flex-col w-auto ">
                         <Image
                             src="/images/gama_enocean.jpg"
                             alt="Vercel Logo"
@@ -101,7 +100,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/products/gestion-energetica" className="flex flex-col w-auto ">
+                    <Link href="/products/017" className="flex flex-col w-auto ">
                         <Image
                             src="/images/energia.jpg"
                             alt="Vercel Logo"
@@ -115,7 +114,7 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/products/protectores" className="flex flex-col w-auto ">
+                    <Link href="/products/006" className="flex flex-col w-auto ">
                         <Image
                             src="/images/protectores.jpg"
                             alt="Vercel Logo"

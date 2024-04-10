@@ -631,47 +631,4 @@ export async function getDataByUrlId(slugIds) {
         console.error("Error occurred:", error);
         return false;
     }
-    
-    // try {
-    //     // Read the JSON file
-    //     const data = await fs.readFile(filePath, 'utf8');
-    //     const { categories } = JSON.parse(data);
-
-    //     // Check if slugIds is provided and is a valid array
-    //     if (!Array.isArray(slugIds) || slugIds.length === 0) {
-    //         throw new Error("Invalid slugIds");
-    //     }
-
-    //     let currentData = categories; // Start from the top level of categories
-
-    //     // Iterate through each ID in the slugIds
-    //     for (let i = 0; i < slugIds.length; i++) {
-    //         const id = slugIds[i];
-    //         // Find the category with the current ID in the currentData
-    //         const category = currentData.find(cat => cat.url_Id === id);
-
-    //         if (!category) {
-    //             throw new Error(`Category with ID ${id} not found`);
-    //         }
-
-    //         // If the category has subcategories, update currentData to the subcategories
-    //         if (category.subCategories && category.subCategories.length > 0) {
-    //             currentData = category.subCategories;
-    //         } else {
-    //             // If there are no subcategories, check if it's the last element of slugIds
-    //             if (i === slugIds.length - 1 && currentData.products) {
-    //                 // If it's the last element and it's a product category, find and return the product data
-    //                 const product = currentData.products.find(prod => prod.url_Id === id);
-    //                 if (product) {
-    //                     return product;
-    //                 }
-    //             }
-    //             // If it's not the last element or it's not a product category, return the category data
-    //             return category;
-    //         }
-    //     }
-    // } catch (error) {
-    //     console.error("Error occurred:", error);
-    //     return false;
-    // }
 }

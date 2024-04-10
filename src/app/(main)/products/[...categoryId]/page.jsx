@@ -4,26 +4,22 @@ import useCategoryId from '@/hooks/useCategoryId';
 import { getDataByUrlId } from '@/lib/data';
 import Image from 'next/image';
 import Link from 'next/link';
-import AddToCart from '@/components/products/addToCart'
-import ProductItem from "@/components/products/productItem";
-// import { useRouter } from 'next/router';
-export default function PageContent() {
-    // const router = useRouter();
-    // const { slug } = router.query;
-    // console.log(slug); 
+import AddToCart from '@/components/products/addToCart';
+import ProductItem from "@/components/products/productItem"; 
+export default function PageContent() { 
     const slugArrayHook = useCategoryId();
     const [pageData, setPageData] = useState(null);
     const [productData, setproductData] = useState(null);
     function formateSlugArray(slugArrayHook) {
         if (!Array.isArray(slugArrayHook) || slugArrayHook.length === 0) {
-            return ""; // Return empty string if slugArrayHook is not valid
-        }
-        // Join the slugArrayHook elements into a string with '/' as the delimiter
+            return "";
+        } 
         return slugArrayHook.join("/");
     }
     useEffect(() => {
         async function fetchData() {
             try {
+                if (slugArrayHook && slugArrayHook.length > 0) {
                 const productId = slugArrayHook[slugArrayHook.length - 1];
                 const data = await getDataByUrlId(slugArrayHook);
                 // console.log(JSON.stringify(data.products[0].ALBEDOprecio));
@@ -37,15 +33,13 @@ export default function PageContent() {
                     }
                 }
                 setPageData(data);
-                // } 
+                } 
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         }
         fetchData();
     }, [slugArrayHook]);
-
-
     if (pageData && !productData) {
         return <div className='min-h-[50vh]'>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
@@ -115,7 +109,6 @@ export default function PageContent() {
     else if (productData) {
         return <div className='min-h-[50vh]'>
             {productData && (
-
                 <div className='flex flex-row justify-between my-10'>
                     <div className='w-1/3'>
                         <Image src={productData.imagen} alt={productData.ALBEDOtitulo} width={300} height={350} />
@@ -127,25 +120,18 @@ export default function PageContent() {
                             {/* {productData.ALBEDOcuerpo} */}
                             <p>
                                 Sistema de comunicación accesible que proporciona información sobre la localización del usuario, los objetos próximos y sus características, el espacio donde se ubican y los posibles recorridos a realizar.
-
                                 El Sistema se compone de: <br />
-
                                 • Un subsistema de gestión de contenidos (CMS por sus siglas en inglés).<br />
                                 • Balizas Bluetooth, beacons, para identificar ubicaciones y objetos. Pueden funcionar en el exterior, or su nivel de estanqueidad.<br />
                                 • Una aplicación web para a la gestión de balizas y usuarios.<br />
                                 • Una aplicación móvil de usuario en iOS y Android (audioguía).<br /><br />
-
                                 El Servicio Básico comprende:<br /><br />
-
                                 • 20 balizas Bluetooth con una garantía de dos años.<br />
                                 • Almacenamiento en la nube durante el primer año de servicio.<br />
                                 • Mantenimiento correctivo y adaptativo durante el primer año de servicio.<br />
                                 • Manual de instalación y uso.<br />
-
                                 El sistema de gestión de contenidos puede almacenar la información en diferentes idiomas, con lenguaje comprensivo según formación, edad y capacidades cognitivas, con audio descripción para personas con discapacidad visual, vídeo en lengua de signos y realidad aumentada. Cada entidad decide el nivel al que quiere llegar en función de los recursos dedicados a la creación del itinerario. Por supuesto, los contenidos siempre pueden ser actualizados.<br /><br />
-
                                 La aplicación móvil se descarga de Google Play o de Apple Store. La interfaz se adapta a las capacidades del usuario. Proporciona información de todos los elementos de la exposición con el formato más adecuado para el usuario. Da indicaciones de navegación de la visita y recomienda los posibles itinerarios.<br /><br />
-
                                 Nota: en el mantenimiento no se incluye el cambio de pilas de las balizas.<br /><br />
                             </p>
                         </div>

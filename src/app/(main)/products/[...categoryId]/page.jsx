@@ -28,12 +28,22 @@ export default function PageContent() {
                     // console.log(JSON.stringify(data.products[0].ALBEDOprecio));
                     if (data.products) {
                         // If the data contains products, find the product with the matching URL ID
+                        console.log("------------------------------");
+
+                        for (let i = 0; i < data.products.length; i++) {
+                            const element = data.products[i];
+                            console.log(element.ALBEDOcodigo,element.url_Id);
+                            
+                        }
+                        console.log("------------------------------");
                         const foundProduct = data.products.find(prod => prod.url_Id === productId.toString());
                         if (foundProduct) {
                             // If the product is found, update the product data
                             console.log(foundProduct.ALBEDOcodigo);
                             setproductData(foundProduct);
                         }
+                        setPageData(data.products);
+
                     }
                     setPageData(data);
                 }

@@ -626,7 +626,7 @@ export async function getDataByUrlId(slugIds) {
         if (!lastCategory) {
             throw new Error(`Category with ID ${lastId} not found`);
         }
-        console.log(JSON.stringify(lastCategory));
+        // console.log(JSON.stringify(lastCategory));
         return lastCategory;
     } catch (error) {
         console.error("Error occurred:", error);

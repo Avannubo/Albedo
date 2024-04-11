@@ -626,6 +626,15 @@ export async function getDataByUrlId(slugIds) {
         if (!lastCategory) {
             throw new Error(`Category with ID ${lastId} not found`);
         }
+
+        // Check if the last category has products
+        if (lastCategory.products && lastCategory.products.length > 0) {
+            // Return the last subcategory and its products
+            return { subCategory: lastCategory, products: lastCategory.products };
+        } else {
+            // Return only the last subcategory
+            return { subCategory: lastCategory };
+        }
         // console.log(JSON.stringify(lastCategory));
         return lastCategory;
     } catch (error) {

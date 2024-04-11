@@ -6,9 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AddToCart from '@/components/products/addToCart';
 import ProductItem from "@/components/products/productItem";
-
-
-
 export default function PageContent() {
     const slugArrayHook = useCategoryId();
     const [pageData, setPageData] = useState(null);
@@ -25,27 +22,17 @@ export default function PageContent() {
                 if (slugArrayHook && slugArrayHook.length > 0) {
                     const productId = slugArrayHook[slugArrayHook.length - 1];
                     const data = await getDataByUrlId(slugArrayHook);
-                    // console.log(JSON.stringify(data.products[0].ALBEDOprecio));
-                    if (data.products) {
-                        // If the data contains products, find the product with the matching URL ID
-                        console.log("------------------------------");
-
-                        for (let i = 0; i < data.products.length; i++) {
-                            const element = data.products[i];
-                            console.log(element.ALBEDOcodigo,element.url_Id);
-                            
-                        }
-                        console.log("------------------------------");
+                    if (data.subCategory) {
+                        // If the data contains a subcategory, set the page data to the subcategory
+                        setPageData(data.subCategory);
+                    }
+                    if (data.products && !data.subCategory) {
+                        // If the data contains products, find and set the product data
                         const foundProduct = data.products.find(prod => prod.url_Id === productId.toString());
                         if (foundProduct) {
-                            // If the product is found, update the product data
-                            console.log(foundProduct.ALBEDOcodigo);
                             setproductData(foundProduct);
                         }
-                        setPageData(data.products);
-
                     }
-                    setPageData(data);
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -53,10 +40,6 @@ export default function PageContent() {
         }
         fetchData();
     }, [slugArrayHook]);
-
-
-
-
     if (pageData && !productData) {
         return <div className='min-h-[50vh]'>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
@@ -135,7 +118,6 @@ export default function PageContent() {
                         <p className='text-md'>{productData.ALBEDOdescripcion}</p>
                         <div>
                             <p>{productData.ALBEDOcuerpo}</p>
-
                             {/* <p>
                                 Sistema de comunicación accesible que proporciona información sobre la localización del usuario, los objetos próximos y sus características, el espacio donde se ubican y los posibles recorridos a realizar.
                                 El Sistema se compone de: <br />

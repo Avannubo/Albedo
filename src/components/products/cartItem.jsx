@@ -36,17 +36,17 @@ export default function CartItem() {
   return (
     <div className="">
       {cartItems && cartItems.length > 0 ? (
-        <div className="">
+        <div className="space-y-2 p-2">
           {cartItems.map((product) => (
-            <div key={product.ALBEDOcodigo} className="rounded-lg mb-2">
-              <div className="flex flex-row justify-between  border bg-white py-4 px-8 w-full">
+            <div key={product.ALBEDOcodigo} className="rounded-lg ">
+              <div className="flex flex-row border-b  justify-between py-4 px-8  border-gray-300">
                 <img
                   src={product.imagen}
                   alt="product-image"
-                  className="w-[160px] h-[100px] object-contain"
+                  className="w-[160px] h-[100px] object-contain "
                 />
                 <div className="flex flex-col justify-between items-end ">
-                  <h1 className="font-bold w-full">{product.ALBEDOtitulo}</h1>
+                  <h1 className="font-bold w-full">{product.ALBEDOtitulo} ({product.ALBEDOcodigo})</h1>
                   <div className="flex flex-row justify-center items-center space-x-4 ">
                     <div className="flex items-center border-gray-100">
                       <span
@@ -86,9 +86,15 @@ export default function CartItem() {
                       />
                     </svg>
                   </div>
-                  <h1>{product.ALBEDOprecio * product.quantity} €</h1>
+                  <div className="flex flex-row space-x-2">
+                    <p> 
+                      Total por producto:
+                    </p>
+                    <h1 className="font-semibold">{product.ALBEDOprecio * product.quantity} €</h1>
+
+                  </div>
                 </div>
-              </div>
+              </div> 
             </div>
           ))}
         </div>

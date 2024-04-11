@@ -14,12 +14,13 @@ function CartLength() {
     // Clear the interval on component unmount to prevent memory leaks
     return () => clearInterval(intervalId);
   }, []);
+  const totalQuantity = cartProducts ? cartProducts.reduce((total, product) => total + product.quantity, 0) : 0;
 
   return (
     <>
       {cartProducts && cartProducts.length > 0 && (
-        <p className="bg-red-600 text-white text-center text-xs font-extrabold rounded-full h-4 w-4 -ml-3">
-          {cartProducts.length}
+        <p className="bg-red-600 text-white text-center text-[10px] font-bold rounded-full h-4 w-4 -ml-3">
+          {totalQuantity}
         </p>
       )}
     </>

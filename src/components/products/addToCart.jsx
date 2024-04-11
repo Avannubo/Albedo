@@ -4,14 +4,31 @@ import React from "react";
 function AddToCart({ producto }) {
   const handleClick = () => {
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    let foundDuplicate = false;
 
-    carrito.push(producto);
+    console.log("Current Cart:", carrito);
 
-    // Guardar el carrito actualizado en el localStorage
+    // Check if the product already exists in the cart
+    carrito.forEach(item => {
+      if (item.ALBEDOcodigo === producto.ALBEDOcodigo) {
+        console.log("Found Duplicate:", item);
+        item.quantity += 1;
+        foundDuplicate = true;
+      }
+    });
+
+    // If not found, add the product to the cart
+    if (!foundDuplicate) {
+      console.log("Adding New Product:", producto);
+      carrito.push({ ...producto, quantity: 1 });
+    }
+
+    // Update the cart in localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem("carrito", JSON.stringify(carrito));
     }
-    console.log("carrito", JSON.stringify(carrito));
+
+    console.log("Updated Cart:", carrito);
     // window.location.reload();
   };
 

@@ -6,7 +6,9 @@ function CartLength() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCartProducts(JSON.parse(localStorage.getItem("carrito")));
+      if (typeof window !== 'undefined') {
+        setCartProducts(JSON.parse(localStorage.getItem("carrito")));
+      }
     }, 500);
 
     // Clear the interval on component unmount to prevent memory leaks

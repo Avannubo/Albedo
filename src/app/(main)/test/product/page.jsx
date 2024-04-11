@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import useCategoryId from '@/hooks/useCategoryId';
 import { getCategories } from '@/lib/data';
 import Image from 'next/image';
-import Link from 'next/link'; 
+import Link from 'next/link';
 
-export default function PageContent() { 
+export default function PageContent() {
 
 
     const categoryId = useCategoryId();
@@ -62,7 +62,7 @@ export default function PageContent() {
                                     <Link href="#" key={index} className='flex flex-col justify-center'>
                                         {/*  */}
                                         <Image
-                                            src={subCat.urlImagen}
+                                            src={subCat.imagen}
                                             alt="Vercel Logo"
                                             className="self-center w-[150px] h-[170px] object-contain"
                                             width={100}

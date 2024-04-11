@@ -3,6 +3,8 @@ import Header from "@/components/header/header";
 import Footer from "@/components/footer";
 import { getCategories } from "@/lib/data";
 import ProductItem from "@/components/products/productItem";
+
+import AddToCart from '@/components/products/addToCart';
 // import { RichTextEditorComponent } from '@syncfusion/ej2-react-richtexteditor';
 export default async function Home() {
   const data = await getCategories();
@@ -64,7 +66,12 @@ export default async function Home() {
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
             {last6.map((product) => (
-              <ProductItem key={product.ALBEDOcodigo} product={product} />
+              <div key={product.ALBEDOcodigo}>
+                <ProductItem  product={product} />
+                <AddToCart producto={product} />
+              </div>
+              
+
             ))}
           </div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />

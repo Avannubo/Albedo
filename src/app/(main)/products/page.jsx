@@ -2,11 +2,11 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getCategories } from "@/lib/data";
-import ProductItem from "@/components/products/productItem"; 
+import ProductItem from "@/components/products/productItem";
+import AddToCart from '@/components/products/addToCart';
 
 export default async function page() {
     const data = await getCategories();
-
     function GetProducts(categories) {
         let products = [];
         categories.forEach((category) => {
@@ -19,7 +19,6 @@ export default async function page() {
         });
         return products;
     }
-
     const products = GetProducts(data);
     const last6 = products.slice(0, 4);
     return (
@@ -32,9 +31,9 @@ export default async function page() {
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                 <div className="flex flex-row justify-between space-x-6 my-8">
                     {/* cat1 */}
-                    <Link href="/categorias/020" className="flex flex-col w-auto ">
+                    <Link href="/products/020" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/ADFSSM100/imagen.png"
+                            src="/assets/images/ADFSSM100/imagen.png"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -45,11 +44,10 @@ export default async function page() {
                             Iluminación
                         </h2>
                     </Link>
-
                     {/* cat1 */}
-                    <Link href="/categorias/automatismos" className="flex flex-col w-auto ">
+                    <Link href="/products/011" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/automatismos.jpg"
+                            src="/assets/images/automatismos.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -61,9 +59,9 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/categorias/controladores" className="flex flex-col w-auto ">
+                    <Link href="/products/001" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/controladores.jpg"
+                            src="/assets/images/controladores.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -75,9 +73,9 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/categorias/dupline" className="flex flex-col w-auto ">
+                    <Link href="/products/021" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/dupline.jpg"
+                            src="/assets/images/dupline.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -89,9 +87,9 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/categorias/gama-enocean" className="flex flex-col w-auto ">
+                    <Link href="/products/012" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/gama_enocean.jpg"
+                            src="/assets/images/gama_enocean.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -103,9 +101,9 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/categorias/gestion-energetica" className="flex flex-col w-auto ">
+                    <Link href="/products/017" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/energia.jpg"
+                            src="/assets/images/energia.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -117,9 +115,9 @@ export default async function page() {
                         </h2>
                     </Link>
                     {/* cat1 */}
-                    <Link href="/categorias/protectores" className="flex flex-col w-auto ">
+                    <Link href="/products/006" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/protectores.jpg"
+                            src="/assets/images/protectores.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -140,7 +138,10 @@ export default async function page() {
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
                 <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
                     {last6.map((product) => (
-                        <ProductItem key={product.ALBEDOcodigo} product={product} />
+                        <div key={product.ALBEDOcodigo}>
+                            <ProductItem product={product} />
+                            <AddToCart producto={product} />
+                        </div>
                     ))}
                 </div>
             </div>

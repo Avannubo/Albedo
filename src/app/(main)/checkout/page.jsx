@@ -188,7 +188,7 @@ export default function Page() {
             </h1>
             <div className="justify-center p-4 space-y-3">
               <div className="max-h-[350px] overflow-y-scroll">
-                <CartItem />
+                {/* <CartItem /> */}
               </div>
               <div className="h-full   border bg-white p-6 mt-8 ">
                 <div className="mb-2 flex justify-between">

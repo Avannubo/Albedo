@@ -4,9 +4,9 @@ import React, { useState, useEffect } from "react";
 function cartLength() {
   const [cartProducts, setCartProducts] = useState();
 
-  useEffect(() => {
-    setCartProducts(JSON.parse(localStorage.getItem("carrito")));
-  }, []);
+  // useEffect(() => {
+  //   setCartProducts(JSON.parse(localStorage.getItem("carrito")));
+  // }, []);
 
   return (
     <>

@@ -32,7 +32,7 @@ export default async function page() {
                     {/* cat1 */}
                     <Link href="/products/020" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/ADFSSM100/imagen.png"
+                            src="/assets/images/ADFSSM100/imagen.png"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -46,7 +46,7 @@ export default async function page() {
                     {/* cat1 */}
                     <Link href="/products/011" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/automatismos.jpg"
+                            src="/assets/images/automatismos.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -60,7 +60,7 @@ export default async function page() {
                     {/* cat1 */}
                     <Link href="/products/001" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/controladores.jpg"
+                            src="/assets/images/controladores.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -74,7 +74,7 @@ export default async function page() {
                     {/* cat1 */}
                     <Link href="/products/021" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/dupline.jpg"
+                            src="/assets/images/dupline.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -88,7 +88,7 @@ export default async function page() {
                     {/* cat1 */}
                     <Link href="/products/012" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/gama_enocean.jpg"
+                            src="/assets/images/gama_enocean.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -102,7 +102,7 @@ export default async function page() {
                     {/* cat1 */}
                     <Link href="/products/017" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/energia.jpg"
+                            src="/assets/images/energia.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}
@@ -116,7 +116,7 @@ export default async function page() {
                     {/* cat1 */}
                     <Link href="/products/006" className="flex flex-col w-auto ">
                         <Image
-                            src="/images/protectores.jpg"
+                            src="/assets/images/protectores.jpg"
                             alt="Vercel Logo"
                             className="self-center w-[110px] h-[130px] object-contain"
                             width={100}

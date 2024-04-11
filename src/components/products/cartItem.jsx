@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 export default function CartItem() {
   const [cartItems, setCartItems] = useState(
+    
     JSON.parse(localStorage.getItem("carrito")) || []
   );
 
@@ -18,15 +19,19 @@ export default function CartItem() {
       return product;
     });
     setCartItems(updatedCartItems);
-    localStorage.setItem("carrito", JSON.stringify(updatedCartItems));
-  };
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("carrito", JSON.stringify(updatedCartItems));
+    }
+};
 
   const deleteCartProduct = (id) => {
     const newCartItems = cartItems.filter(
       (product) => product.ALBEDOcodigo !== id
     );
     setCartItems(newCartItems);
-    localStorage.setItem("carrito", JSON.stringify(newCartItems));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("carrito", JSON.stringify(newCartItems));
+    }
   };
 
   return (

@@ -2,9 +2,10 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getCategories } from "@/lib/data";
-import ProductItem from "@/components/products/productItem";  
+import ProductItem from "@/components/products/productItem";
+import AddToCart from '@/components/products/addToCart';
 
-export default async function page() { 
+export default async function page() {
     const data = await getCategories();
     function GetProducts(categories) {
         let products = [];
@@ -137,7 +138,10 @@ export default async function page() {
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
                 <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
                     {last6.map((product) => (
-                        <ProductItem key={product.ALBEDOcodigo} product={product} />
+                        <div key={product.ALBEDOcodigo}>
+                            <ProductItem product={product} />
+                            <AddToCart producto={product} />
+                        </div>
                     ))}
                 </div>
             </div>

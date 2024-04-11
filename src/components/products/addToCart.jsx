@@ -9,7 +9,8 @@ function AddToCart({ producto }) {
 
     // Guardar el carrito actualizado en el localStorage
     localStorage.setItem("carrito", JSON.stringify(carrito));
-    window.location.reload();
+    console.log("carrito", JSON.stringify(carrito));
+    // window.location.reload();
   };
 
   return (

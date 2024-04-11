@@ -94,10 +94,13 @@ export default function PageContent() {
                             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                             <div className='flex flex-row flex-wrap justify-center space-x-4'>
                                 {pageData.products.map((product) => (
-                                    <Link href={`/products/${formateSlugArray(slugArrayHook)}/${product.url_Id}`}
-                                        key={product.ALBEDOcodigo} className='flex flex-col justify-center m-4'>
-                                        <ProductItem product={product} />
-                                    </Link>
+                                    <div>
+                                        <Link href={`/products/${formateSlugArray(slugArrayHook)}/${product.url_Id}`}
+                                            key={product.ALBEDOcodigo} className='flex flex-col justify-center m-4'>
+                                            <ProductItem product={product} />
+                                        </Link>
+                                        <AddToCart producto={product} />
+                                    </div>
                                 ))}
                             </div>
                         </div>

@@ -2,7 +2,7 @@ import CartItem from "@/components/products/cartItem";
 
 export default function Page() {
   return (
-    <div className="flex flex-row items-start w-[1100px] mb-32">
+    <div className="flex flex-row items-start w-[1100px] mt-6 mb-32">
       <div className="bg-gray-50 p-2 mr-2">
         <h1 className="mb-4 text-start text-2xl font-bold">Datos del pedido</h1>
         <form className="w-full max-w-lg">
@@ -10,7 +10,7 @@ export default function Page() {
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-first-name"
+                htmlFor="grid-first-name"
               >
                 Nombre:
               </label>
@@ -24,7 +24,7 @@ export default function Page() {
             <div className="w-full md:w-1/2 px-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-last-name"
+                htmlFor="grid-last-name"
               >
                 Apellidos:
               </label>
@@ -39,7 +39,7 @@ export default function Page() {
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-password"
+                htmlFor="grid-password"
               >
                 DNI:
               </label>
@@ -51,7 +51,7 @@ export default function Page() {
             <div className="w-full md:w-1/2 px-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-last-name"
+                htmlFor="grid-last-name"
               >
                 Fecha de nacimiento:
               </label>
@@ -66,7 +66,7 @@ export default function Page() {
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-password"
+                htmlFor="grid-password"
               >
                 Empresa (Opcional):
               </label>
@@ -78,7 +78,7 @@ export default function Page() {
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-password"
+                htmlFor="grid-password"
               >
                 CIF (Opcional):
               </label>
@@ -93,7 +93,7 @@ export default function Page() {
             <div className="w-full px-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-password"
+                htmlFor="grid-password"
               >
                 Número de teléfono:
               </label>
@@ -107,7 +107,7 @@ export default function Page() {
             <div className="w-full px-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-password"
+                htmlFor="grid-password"
               >
                 Dirección de envío:
               </label>
@@ -121,7 +121,7 @@ export default function Page() {
             <div className="w-full md:w-1/3 px-3 mb-6">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-city"
+                htmlFor="grid-city"
               >
                 Ciudad:
               </label>
@@ -134,7 +134,7 @@ export default function Page() {
             <div className="w-full md:w-1/3 px-3 mb-6">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-city"
+                htmlFor="grid-city"
               >
                 Provincia:
               </label>
@@ -148,7 +148,7 @@ export default function Page() {
             <div className="w-full md:w-1/3 px-3 mb-6">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-zip"
+                htmlFor="grid-zip"
               >
                 Código Postal
               </label>
@@ -187,9 +187,12 @@ export default function Page() {
               Productos en el carrito:
             </h1>
             <div className="justify-center p-4 space-y-3">
-              <div className="max-h-[350px] overflow-y-scroll">
-                {/* <CartItem /> */}
+              <div className="border bg-white py-4 px-8 w-full">
+                <div className="max-h-[350px] overflow-y-scroll">
+                <CartItem />
               </div>
+              </div>
+              
               <div className="h-full   border bg-white p-6 mt-8 ">
                 <div className="mb-2 flex justify-between">
                   <p className="text-gray-700">Subtotal</p>

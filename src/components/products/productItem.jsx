@@ -1,9 +1,9 @@
 "use client";
+import Link from "next/link";
 
 import AddToCart from "./addToCart";
 
 export default function productItem({ product }) {
-  // console.log(product);
   return (
     <div className="w-[250px] mt-6 h-auto flex flex-col justify-between">
       <div className="cursor-pointer flex flex-col items-start justify-center space-y-2 p-1 mb-4 ">
@@ -23,7 +23,6 @@ export default function productItem({ product }) {
           {product.ALBEDOdescripcion}
         </p>
       </div>
-      <AddToCart producto={product} />
     </div>
   );
 }

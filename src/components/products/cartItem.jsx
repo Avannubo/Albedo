@@ -1,11 +1,14 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function CartItem() {
-  const [cartItems, setCartItems] = useState(
-    
-    JSON.parse(localStorage.getItem("carrito")) || []
-  );
+  const [cartItems, setCartItems] = useState([]);
+  useEffect(() => {
+    const storedCartItems = JSON.parse(localStorage.getItem("carrito"));
+    if (storedCartItems) {
+      setCartItems(storedCartItems);
+    }
+  }, []);
 
   const updateCartItem = (id, action) => {
     const updatedCartItems = cartItems.map((product) => {
@@ -19,19 +22,15 @@ export default function CartItem() {
       return product;
     });
     setCartItems(updatedCartItems);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem("carrito", JSON.stringify(updatedCartItems));
-    }
-};
+    localStorage.setItem("carrito", JSON.stringify(updatedCartItems));
+  };
 
   const deleteCartProduct = (id) => {
     const newCartItems = cartItems.filter(
       (product) => product.ALBEDOcodigo !== id
     );
     setCartItems(newCartItems);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem("carrito", JSON.stringify(newCartItems));
-    }
+    localStorage.setItem("carrito", JSON.stringify(newCartItems));
   };
 
   return (
@@ -61,7 +60,7 @@ export default function CartItem() {
                         className="h-8 w-8 border bg-white text-center text-xs outline-none"
                         type="number"
                         value={product.quantity}
-                        min="1" 
+                        min="1"
                       />
                       <span
                         onClick={() => updateCartItem(product.ALBEDOcodigo, "increment")}

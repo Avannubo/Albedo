@@ -13,6 +13,7 @@ export default function Page() {
     company: '',
     cif: '',
     phoneNumber: '',
+    email: '',
     address: '',
     city: '',
     province: '',
@@ -46,6 +47,9 @@ export default function Page() {
     // }
     if (!userInfo.dni.trim()) {
       errors.dni = "El DNI es obligatorio.";
+    }
+    if (!userInfo.email.trim()) {
+      errors.email = "El Email es obligatorio.";
     }
     // if (!userInfo.company.trim()) {
     //   errors.company = "El DNI es obligatorio.";
@@ -223,6 +227,23 @@ export default function Page() {
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
+                Email:
+              </label>
+              <input
+                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                type="email"
+                name="email"
+                value={userInfo.email}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <div className="flex flex-wrap -mx-3 mb-4">
+            <div className="w-full px-3">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
                 Dirección de envío:
               </label>
               <input
@@ -305,13 +326,13 @@ export default function Page() {
             </h1>
             <div className="flex flex-row justify-start space-x-2 text-sm">
               <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedShipping === 'Envío Ibérica' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`} onClick={() => handleShippingSelect('Envío Ibérica')}>
-                Envío Ibérica
+                Península 4,99€
               </div>
               <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedShipping === 'Envío Baleares' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`} onClick={() => handleShippingSelect('Envío Baleares')}>
-                Envío Baleares
+                Baleares 8,99€
               </div>
               <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedShipping === 'Recogida' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`} onClick={() => handleShippingSelect('Recogida')}>
-                Recogida
+                Recogida en tienda
               </div>
             </div>
           </div>

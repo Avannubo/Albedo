@@ -19,7 +19,7 @@ const Category = ({ category }) => (
         <AddSubCategory categoryId={category} />
         {/* edit svg */}
         <EditCatedory categoryId={category} />
-        {/* delete svg */}
+        {/* delete svg */} 
         <Delete categoryId={category} productId={"none"} />
         <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-600' : 'select-none font-medium text-red-600'}`}>
           {category.isPublished ? "Publicado" : "Oculto"}

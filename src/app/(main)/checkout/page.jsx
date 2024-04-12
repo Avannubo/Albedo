@@ -1,8 +1,9 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import CartItem from "@/components/products/cartItem";
+import ModalTransference from "@/components/checkout/modalTransference";
 export default function Page() {
-  const [selectedShipping, setSelectedShipping] = useState(null);
+  const [selectedShipping, setSelectedShipping] = useState({ method: null, price: null });
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [cartProducts, setCartProducts] = useState([]);
   const [userInfo, setUserInfo] = useState({
@@ -19,9 +20,19 @@ export default function Page() {
     province: '',
     zipCode: ''
   });
-  const handleShippingSelect = (shippingOption) => {
-    setSelectedShipping(shippingOption);
-    console.log("Selected shipping option:", shippingOption);
+  const [errors, setErrors] = useState({}); // Define errors state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [orderData, setOrderData] = useState({});
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+  const handleShippingSelect = (shippingOption, shipingPrice) => {
+    setSelectedShipping({ method: shippingOption, price: shipingPrice });
+    console.log("Selected shipping option:", shippingOption, shipingPrice);
+  };
+  const handlePaymentSelect = (paymentMethod) => {
+    setSelectedPayment(paymentMethod);
+    console.log("Selected payment method:", paymentMethod);
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,66 +40,6 @@ export default function Page() {
       ...prevState,
       [name]: value
     }));
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errors = {};
-    if (!userInfo.firstName.trim()) {
-      errors.firstName = "El nombre es obligatorio.";
-    }
-    if (!userInfo.lastName.trim()) {
-      errors.lastName = "Los apellidos son obligatorios.";
-    }
-    if (!userInfo.dni.trim()) {
-      errors.dni = "El DNI es obligatorio.";
-    }
-    // if (!userInfo.dateOfBirth.trim()) {
-    //   errors.dateOfBirth = "El DNI es obligatorio.";
-    // }
-    if (!userInfo.dni.trim()) {
-      errors.dni = "El DNI es obligatorio.";
-    }
-    if (!userInfo.email.trim()) {
-      errors.email = "El Email es obligatorio.";
-    }
-    // if (!userInfo.company.trim()) {
-    //   errors.company = "El DNI es obligatorio.";
-    // }
-    // if (!userInfo.cif.trim()) {
-    //   errors.cif = "El CIF es obligatorio.";
-    // }
-    if (!userInfo.phoneNumber.trim()) {
-      errors.phoneNumber = "El Número de teléfono es obligatorio.";
-    }
-    if (!userInfo.address.trim()) {
-      errors.address = "El Dirección de envío es obligatorio.";
-    } 
-    if (!userInfo.city.trim()) {
-      errors.city = "El Cuidad es obligatorio.";
-    }
-    if (!userInfo.province.trim()) {
-      errors.province = "El province es obligatorio.";
-    }
-    if (!userInfo.zipCode.trim()) {
-      errors.zipCode = "El zipCode es obligatorio.";
-    }
-    // Add validation for other required fields...
-    // If there are errors, display them and prevent form submission
-    if (Object.keys(errors).length > 0) {
-      console.log(errors);
-      return;
-    }
-    const orderData = {
-      userInfo,
-      selectedShipping,
-      selectedPayment,
-      cartProducts
-    };
-    console.log(orderData);
-  };
-  const handlePaymentSelect = (paymentMethod) => {
-    setSelectedPayment(paymentMethod);
-    console.log("Selected payment method:", paymentMethod);
   };
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -99,6 +50,53 @@ export default function Page() {
     return () => clearInterval(intervalId);
   }, []);
   const subTotal = cartProducts.reduce((total, product) => total + (product.quantity * product.ALBEDOprecio), 0);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = {};
+    if (!userInfo.firstName.trim()) {
+      newErrors.firstName = "El nombre es obligatorio.";
+    }
+    if (!userInfo.lastName.trim()) {
+      newErrors.lastName = "Los apellidos son obligatorios.";
+    }
+    if (!userInfo.dni.trim()) {
+      newErrors.dni = "El DNI es obligatorio.";
+    }
+    if (!userInfo.email.trim()) {
+      newErrors.email = "El Email es obligatorio.";
+    }
+    if (!userInfo.phoneNumber.trim()) {
+      newErrors.phoneNumber = "El Número de teléfono es obligatorio.";
+    }
+    if (!userInfo.address.trim()) {
+      newErrors.address = "El Dirección de envío es obligatorio.";
+    }
+    if (!userInfo.city.trim()) {
+      newErrors.city = "El Cuidad es obligatorio.";
+    }
+    if (!userInfo.province.trim()) {
+      newErrors.province = "El province es obligatorio.";
+    }
+    if (!userInfo.zipCode.trim()) {
+      newErrors.zipCode = "El zipCode es obligatorio.";
+    }
+    setErrors(newErrors);
+    // If there are errors, prevent form submission
+    if (Object.keys(newErrors).length > 0) {
+      console.log(newErrors);
+      return;
+    }
+    setOrderData({
+      userInfo,
+      cartProducts,
+      selectedShipping,
+      selectedPayment
+    });
+    console.log(orderData);
+    if (selectedPayment === 'Transferencia') {
+      toggleModal();
+    }
+  };
   return (
     <div className="flex flex-row items-start h-[85vh] w-[1100px] mt-6 mb-8">
       <div className="bg-gray-50 p-2 mr-2 grow w-[45%]">
@@ -113,13 +111,16 @@ export default function Page() {
                 Nombre:
               </label>
               <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
                 name="firstName"
                 value={userInfo.firstName}
                 onChange={handleInputChange}
               />
+              {errors.firstName && (
+                <p className="text-red-500 text-xs italic">{errors.firstName}</p>
+              )}
               {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
             </div>
             <div className="w-full md:w-1/2 px-3">
@@ -137,6 +138,9 @@ export default function Page() {
                 value={userInfo.lastName}
                 onChange={handleInputChange}
               />
+              {errors.lastName && (
+                <p className="text-red-500 text-xs italic">{errors.lastName}</p>
+              )}
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-4">
@@ -148,12 +152,15 @@ export default function Page() {
                 DNI:
               </label>
               <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="text"
                 name="dni"
                 value={userInfo.dni}
                 onChange={handleInputChange}
               />
+              {errors.dni && (
+                <p className="text-red-500 text-xs italic">{errors.dni}</p>
+              )}
             </div>
             <div className="w-full md:w-1/2 px-3">
               <label
@@ -170,6 +177,9 @@ export default function Page() {
                 value={userInfo.dateOfBirth}
                 onChange={handleInputChange}
               />
+              {errors.dateOfBirth && (
+                <p className="text-red-500 text-xs italic">{errors.dateOfBirth}</p>
+              )}
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-4">
@@ -181,12 +191,15 @@ export default function Page() {
                 Empresa (Opcional):
               </label>
               <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="text"
                 name="company"
                 value={userInfo.company}
                 onChange={handleInputChange}
               />
+              {errors.company && (
+                <p className="text-red-500 text-xs italic">{errors.company}</p>
+              )}
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label
@@ -196,16 +209,19 @@ export default function Page() {
                 CIF (Opcional):
               </label>
               <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="text"
                 name="cif"
                 value={userInfo.cif}
                 onChange={handleInputChange}
               />
+              {errors.cif && (
+                <p className="text-red-500 text-xs italic">{errors.cif}</p>
+              )}
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-4">
-            <div className="w-full px-3">
+            <div className="w-full md:w-1/2 px-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 htmlFor="grid-password"
@@ -213,16 +229,16 @@ export default function Page() {
                 Número de teléfono:
               </label>
               <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="telephone"
                 name="phoneNumber"
                 value={userInfo.phoneNumber}
                 onChange={handleInputChange}
               />
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-4">
-            <div className="w-full px-3">
+              {errors.phoneNumber && (
+                <p className="text-red-500 text-xs italic">{errors.phoneNumber}</p>
+              )}
+            </div> <div className="w-full md:w-1/2 px-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 htmlFor="grid-password"
@@ -230,12 +246,15 @@ export default function Page() {
                 Email:
               </label>
               <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="email"
                 name="email"
                 value={userInfo.email}
                 onChange={handleInputChange}
               />
+              {errors.email && (
+                <p className="text-red-500 text-xs italic">{errors.email}</p>
+              )}
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-4">
@@ -247,12 +266,15 @@ export default function Page() {
                 Dirección de envío:
               </label>
               <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="text"
                 name="address"
                 value={userInfo.address}
                 onChange={handleInputChange}
               />
+              {errors.address && (
+                <p className="text-red-500 text-xs italic">{errors.address}</p>
+              )}
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-2">
@@ -271,6 +293,9 @@ export default function Page() {
                 value={userInfo.city}
                 onChange={handleInputChange}
               />
+              {errors.city && (
+                <p className="text-red-500 text-xs italic">{errors.city}</p>
+              )}
             </div>
             <div className="w-full md:w-1/3 px-3 mb-6">
               <label
@@ -287,6 +312,9 @@ export default function Page() {
                 value={userInfo.province}
                 onChange={handleInputChange}
               />
+              {errors.province && (
+                <p className="text-red-500 text-xs italic">{errors.province}</p>
+              )}
             </div>
             <div className="w-full md:w-1/3 px-3 mb-6">
               <label
@@ -303,6 +331,9 @@ export default function Page() {
                 value={userInfo.zipCode}
                 onChange={handleInputChange}
               />
+              {errors.zipCode && (
+                <p className="text-red-500 text-xs italic">{errors.zipCode}</p>
+              )}
             </div>
           </div>
         </form>
@@ -325,13 +356,19 @@ export default function Page() {
               Envío:
             </h1>
             <div className="flex flex-row justify-start space-x-2 text-sm">
-              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedShipping === 'Envío Ibérica' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`} onClick={() => handleShippingSelect('Envío Ibérica')}>
+              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+              ${selectedShipping && selectedShipping.method === 'Envío Ibérica' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
+                onClick={() => handleShippingSelect('Envío Ibérica', 4.99)}>
                 Península 4,99€
               </div>
-              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedShipping === 'Envío Baleares' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`} onClick={() => handleShippingSelect('Envío Baleares')}>
+              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+              ${selectedShipping && selectedShipping.method === 'Envío Baleares' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
+                onClick={() => handleShippingSelect('Envío Baleares', 8.99)}>
                 Baleares 8,99€
               </div>
-              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedShipping === 'Recogida' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`} onClick={() => handleShippingSelect('Recogida')}>
+              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+              ${selectedShipping && selectedShipping.method === 'Recogida' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
+                onClick={() => handleShippingSelect('Recogida', 0.0)}>
                 Recogida en tienda
               </div>
             </div>
@@ -365,21 +402,23 @@ export default function Page() {
                 </div>
                 <div className="flex justify-between">
                   <p className="text-gray-700">Envío</p>
-                  <p className="text-gray-700">4.99€</p>
+                  <p className="text-gray-700">{selectedShipping.price}€</p>
                 </div>
                 <hr className="my-2" />
                 <div className="flex justify-between">
                   <p className="text-lg font-bold">Total</p>
                   <div className="">
-                    <p className="mb-1 text-lg font-bold text-right">{subTotal + 4.99}€</p>
+                    <p className="mb-1 text-lg font-bold text-right">{subTotal + selectedShipping.price}€</p>
                     <p className="text-sm text-gray-700">*IVA incluido</p>
                   </div>
                 </div>
                 <form onSubmit={handleSubmit}>
+                  {/* if transfrence is selected i want to toggle the modal  */}
                   <button type="submit" className="mt-2 w-full rounded-md bg-[#304590] py-1.5 font-medium text-blue-50 hover:bg-[#475caa]">
                     Proceder al pago
                   </button>
-                </form>
+                </form> <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} />
+                {/* orderData={orderData}  */}
               </div>
             </div>
           </div>

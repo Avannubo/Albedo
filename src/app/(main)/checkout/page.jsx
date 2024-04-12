@@ -23,11 +23,14 @@ export default function Page() {
   const [errors, setErrors] = useState({}); // Define errors state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [orderData, setOrderData] = useState({});
+  const [totalPedido, setTotalPedido] = useState();
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
   const handleShippingSelect = (shippingOption, shipingPrice) => {
     setSelectedShipping({ method: shippingOption, price: shipingPrice });
+    const total = shipingPrice + subTotal;
+    setTotalPedido(total)
     console.log("Selected shipping option:", shippingOption, shipingPrice);
   };
   const handlePaymentSelect = (paymentMethod) => {
@@ -68,6 +71,7 @@ export default function Page() {
     if (!userInfo.phoneNumber.trim()) {
       newErrors.phoneNumber = "El Número de teléfono es obligatorio.";
     }
+    
     if (!userInfo.address.trim()) {
       newErrors.address = "El Dirección de envío es obligatorio.";
     }
@@ -90,7 +94,8 @@ export default function Page() {
       userInfo,
       cartProducts,
       selectedShipping,
-      selectedPayment
+      selectedPayment,
+      totalPedido
     });
     console.log(orderData);
     if (selectedPayment === 'Transferencia') {
@@ -149,7 +154,7 @@ export default function Page() {
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
-                DNI:
+                DNI/CIF:
               </label>
               <input
                 className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -162,27 +167,6 @@ export default function Page() {
                 <p className="text-red-500 text-xs italic">{errors.dni}</p>
               )}
             </div>
-            <div className="w-full md:w-1/2 px-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-last-name"
-              >
-                Fecha de nacimiento (Opcional):
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-last-name"
-                type="date"
-                name="dateOfBirth"
-                value={userInfo.dateOfBirth}
-                onChange={handleInputChange}
-              />
-              {errors.dateOfBirth && (
-                <p className="text-red-500 text-xs italic">{errors.dateOfBirth}</p>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-4">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -201,25 +185,7 @@ export default function Page() {
                 <p className="text-red-500 text-xs italic">{errors.company}</p>
               )}
             </div>
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                CIF (Opcional):
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="text"
-                name="cif"
-                value={userInfo.cif}
-                onChange={handleInputChange}
-              />
-              {errors.cif && (
-                <p className="text-red-500 text-xs italic">{errors.cif}</p>
-              )}
-            </div>
-          </div>
+          </div> 
           <div className="flex flex-wrap -mx-3 mb-4">
             <div className="w-full md:w-1/2 px-3">
               <label
@@ -334,6 +300,16 @@ export default function Page() {
               {errors.zipCode && (
                 <p className="text-red-500 text-xs italic">{errors.zipCode}</p>
               )}
+            </div>
+          </div>
+          <div className="flex flex-wrap p-3 text-lg space-y-2 mb-2">
+            <div className="space-x-2">
+              <input type="checkbox" name="invoice" id="" />
+              <label htmlFor=""> Quiero recibir una factura digital</label>
+            </div>
+            <div className="space-x-2">
+              <input type="checkbox" name="terms" id="" />
+              <label htmlFor="">*Acepto los Términos y Condiciones</label>
             </div>
           </div>
         </form>

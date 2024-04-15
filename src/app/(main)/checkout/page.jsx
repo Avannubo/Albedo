@@ -20,7 +20,9 @@ export default function Page() {
     province: '',
     zipCode: '',
     acceptedTerms: false,
-    invoice: false
+    invoice: false,
+    payment: '',
+    shipping: ''
   });
   const [errors, setErrors] = useState({}); // Define errors state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,11 +49,7 @@ export default function Page() {
     }));
   };
   const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    // setUserInfo(prevUserInfo => ({
-    //   ...prevUserInfo,
-    //   [name]: checked
-    // }));
+    const { name, checked } = e.target; 
     if (name === 'terms') {
       setUserInfo(prevUserInfo => ({
         ...prevUserInfo,
@@ -77,78 +75,63 @@ export default function Page() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
-    if (!userInfo.firstName.trim()) {
-      newErrors.firstName = "El nombre es obligatorio.";
-    }
-    if (!userInfo.lastName.trim()) {
-      newErrors.lastName = "Los apellidos son obligatorios.";
-    }
-
-
-    const dniRegex = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
-    if (!userInfo.dni.trim()) {
-      newErrors.dni = "El DNI es obligatorio.";
-    } else if (!dniRegex.test(userInfo.dni)) {
-      newErrors.dni = "Por favor, introduce un DNI español válido.";
-    }
-
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
-    if (!userInfo.email.trim()) {
-      newErrors.email = "El Email es obligatorio.";
-    } else if (!emailRegex.test(userInfo.email)) {
-      newErrors.email = "Por favor, introduce una dirección de correo electrónico válida.";
-    }
-    if (!userInfo.phoneNumber.trim()) {
-  newErrors.phoneNumber = "El Número de teléfono es obligatorio.";
-} else if (!/^\d{9}$/.test(userInfo.phoneNumber)) {
-  newErrors.phoneNumber = "El Número de teléfono debe tener 9 dígitos.";
-} else if (!/[679]/.test(userInfo.phoneNumber.charAt(0))) {
-  newErrors.phoneNumber = "El Número de teléfono debe comenzar con 6, 7 o 9.";
-}
-
-
-//    const validProvinces = [
-//   "Álava", "Albacete", "Alicante", "Almería", "Asturias", "Ávila", "Badajoz", "Barcelona", "Burgos", "Cáceres",
-//   "Cádiz", "Cantabria", "Castellón", "Ceuta", "Ciudad Real", "Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara",
-//   "Guipúzcoa", "Huelva", "Huesca", "Islas Baleares", "Jaén", "La Coruña", "La Rioja", "Las Palmas", "León", "Lérida",
-//   "Lugo", "Madrid", "Málaga", "Melilla", "Murcia", "Navarra", "Orense", "Palencia", "Pontevedra", "Salamanca",
-//   "Santa Cruz de Tenerife", "Segovia", "Sevilla", "Soria", "Tarragona", "Teruel", "Toledo", "Valencia", "Valladolid",
-//   "Vizcaya", "Zamora", "Zaragoza"
-// ];
-if (!userInfo.address.trim()) {
-  newErrors.address = "La dirección de envío es obligatoria.";
-}
-if (!userInfo.city.trim()) {
-  newErrors.city = "La ciudad es obligatoria.";
-}
-if (!userInfo.province.trim()) {
-  newErrors.province = "La provincia es obligatoria.";
-} 
-// else if (!validProvinces.includes(userInfo.province.trim())) {
-//   newErrors.province = "Por favor, introduce una provincia válida en España.";
-// }
-
-
-    if (!userInfo.zipCode.trim()) {
-      newErrors.zipCode = "El zipCode es obligatorio.";
-    }else if (isNaN(userInfo.zipCode)) {
-  newErrors.zipCode = "El zipCode debe ser un número.";
-}else if (userInfo.zipCode.length !== 6) {
-  newErrors.zipCode = "El zipCode debe tener 6 dígitos.";
-}
-
-
-    if (!userInfo.acceptedTerms) {
-      newErrors.terms = "Debe aceptar los Términos y Condiciones.";
-    }
+      if (!userInfo.firstName.trim()) {
+        newErrors.firstName = "El nombre es obligatorio.";
+      }
+      if (!userInfo.lastName.trim()) {
+        newErrors.lastName = "Los apellidos son obligatorios.";
+      }
+      const dniRegex = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
+      if (!userInfo.dni.trim()) {
+        newErrors.dni = "El DNI es obligatorio.";
+      } else if (!dniRegex.test(userInfo.dni)) {
+        newErrors.dni = "Por favor, introduce un DNI español válido.";
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!userInfo.email.trim()) {
+        newErrors.email = "El Email es obligatorio.";
+      } else if (!emailRegex.test(userInfo.email)) {
+        newErrors.email = "Por favor, introduce una dirección de correo electrónico válida.";
+      }
+      if (!userInfo.phoneNumber.trim()) {
+        newErrors.phoneNumber = "El Número de teléfono es obligatorio.";
+      } else if (!/^\d{9}$/.test(userInfo.phoneNumber)) {
+        newErrors.phoneNumber = "El Número de teléfono debe tener 9 dígitos.";
+      } else if (!/[679]/.test(userInfo.phoneNumber.charAt(0))) {
+        newErrors.phoneNumber = "El Número de teléfono debe comenzar con 6, 7 o 9.";
+      } 
+      if (!userInfo.address.trim()) {
+        newErrors.address = "La dirección de envío es obligatoria.";
+      }
+      if (!userInfo.city.trim()) {
+        newErrors.city = "La ciudad es obligatoria.";
+      }
+      if (!userInfo.province.trim()) {
+        newErrors.province = "La provincia es obligatoria.";
+      } 
+      if (!userInfo.zipCode.trim()) {
+        newErrors.zipCode = "El código postal es obligatorio.";
+      } else if (isNaN(userInfo.zipCode)) {
+        newErrors.zipCode = "El código postal debe ser un número.";
+      } else if (userInfo.zipCode.length !== 6) {
+        newErrors.zipCode = "El código postal debe tener 6 dígitos.";
+      }
+      if (!userInfo.acceptedTerms) {
+        newErrors.terms = "Debe aceptar los Términos y Condiciones.";
+      }
+      if (!selectedShipping.method) {
+        newErrors.shipping = "Debes seleccionar un método de envío.";
+      }
+      // Check if payment method is selected
+      if (!selectedPayment) {
+        newErrors.payment = "Debes seleccionar un método de pago.";
+      }
     setErrors(newErrors);
     // If there are errors, prevent form submission
     if (Object.keys(newErrors).length > 0) {
       console.log(newErrors);
       return;
     }
-
     setOrderData({
       userInfo,
       cartProducts,
@@ -371,8 +354,8 @@ if (!userInfo.province.trim()) {
               <input type="checkbox" name="terms" id="terms" onChange={handleCheckboxChange} checked={userInfo.acceptedTerms} />
               <label htmlFor="terms">*Acepto los Términos y Condiciones</label>
             </div>
-            {userInfo.acceptedTerms && (
-              <p className="text-red-500 text-xs italic">{userInfo.acceptedTerms}</p>
+            {errors.terms && (
+              <p className="text-red-500 text-xs italic">{errors.terms}</p>
             )}
           </div>
         </form>
@@ -411,16 +394,18 @@ if (!userInfo.province.trim()) {
                 Recogida en tienda
               </div>
             </div>
+            {errors.shipping && (
+              <p className="text-red-500 text-xs italic py-2">{errors.shipping}</p>
+            )}
           </div>
         </div>
         <div className="bg-gray-50 p-2 py-4">
           <div className="h-auto">
             <h1 className="mb-2 text-start text-2xl font-bold">
               Selecciona el método de pago:
-            </h1> 
-            <p className="mb-4 text-red-500 text-[12px]">de momento los pagos sólo están disponible por transferencias</p>
+            </h1>
+            <p className="mb-4 text-slate-800 fobt-bold text-[16px]">(De momento los pagos sólo están disponible por transferencias)</p>
             <div className="flex flex-row justify-start space-x-2 text-sm">
-              
               <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedPayment === 'Transferencia' ? 'bg-[#304590] hover:bg-[#475caa] text-blue-50' : 'bg-white'}`} onClick={() => handlePaymentSelect('Transferencia')}>
                 Transferencia
               </div>
@@ -433,6 +418,9 @@ if (!userInfo.province.trim()) {
                 Bizum
               </div>
             </div>
+            {errors.payment && (
+              <p className="text-red-500 text-xs italic py-2">{errors.payment}</p>
+            )}
           </div>
         </div>
         <div className="bg-gray-50 ">

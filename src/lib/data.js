@@ -517,3 +517,23 @@ export async function getDataByUrlId(slugIds) {
         return false;
     }
 }
+
+export async function saveNewOrder(orderData) {
+    console.log(orderData);
+    const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
+    const filePathOrders = isLocal ? path.resolve('public/data/ClientOrders.json') : '/data/ClientOrders.json';
+    try {
+        const data = await readFile(filePathOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { ClientOrders } = jsonData; 
+        ClientOrders.push(orderData);
+        await writeFile(filePathOrders, JSON.stringify(jsonData));
+        revalidatePath('/');
+        // console.log("Subcategory added successfully.");
+        return true;
+    } catch (error) {
+        console.error("Error saving new Client Order:", error);
+        return false;
+    }
+
+}

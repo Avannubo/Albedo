@@ -40,6 +40,7 @@ export default function CartItem() {
                   src={product.imagen}
                   alt="product-image"
                   className="w-[160px] h-[100px] object-contain "
+                  priority
                 />
                 <div className="flex flex-col justify-between items-end ">
                   <h1 className="font-bold w-full">{product.ALBEDOtitulo} ({product.ALBEDOcodigo})</h1>

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 export default function ModalTransference({ isOpen, onClose, orderData }) {
+    console.log('modal console: ', JSON.stringify(orderData));
     const [isCopied, setIsCopied] = useState(false);
 
     const copyAccountNumber = () => {
@@ -12,7 +13,7 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
             setIsCopied(false);
         }, 4000); // Reset copied message after 2 seconds
     };
-    console.log('modal console: ', JSON.stringify(orderData));
+    
     return isOpen ? (
         <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-[1000px] max-w-6xl bg-white shadow-lg rounded-md p-12 relative">

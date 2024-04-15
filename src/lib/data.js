@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
-const filePath = isLocal ? path.resolve('public/data/data.json') : '/data/data.json';
+const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
 let cachedData = null;
 let lastModifiedTime = null;
 const currentdate = new Date();

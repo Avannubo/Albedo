@@ -29,3 +29,14 @@ input[type="number"] {
     /* Firefox */
     -moz-appearance: textfield;
 }
+
+.box-shadow {
+    box-shadow: 3px 2px 8px 2px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+    /* Smooth transition for hover effect */
+}
+
+.box-shadow:hover {
+    box-shadow: 5px 4px 15px 4px rgba(0, 0, 0, 0.1);
+    /* Adjusted shadow on hover */
+}

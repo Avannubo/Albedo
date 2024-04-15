@@ -11,6 +11,7 @@
   "dependencies": {
     "@syncfusion/ej2-react-richtexteditor": "^25.1.38",
     "axios": "^1.6.8",
+    "dompurify": "^3.1.0",
     "js-cookie": "^3.0.5",
     "next": "14.1.0",
     "react": "^18",

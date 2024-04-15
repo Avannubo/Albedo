@@ -108,14 +108,14 @@ export default function Page() {
 }
 
 
-   const validProvinces = [
-  "Álava", "Albacete", "Alicante", "Almería", "Asturias", "Ávila", "Badajoz", "Barcelona", "Burgos", "Cáceres",
-  "Cádiz", "Cantabria", "Castellón", "Ceuta", "Ciudad Real", "Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara",
-  "Guipúzcoa", "Huelva", "Huesca", "Islas Baleares", "Jaén", "La Coruña", "La Rioja", "Las Palmas", "León", "Lérida",
-  "Lugo", "Madrid", "Málaga", "Melilla", "Murcia", "Navarra", "Orense", "Palencia", "Pontevedra", "Salamanca",
-  "Santa Cruz de Tenerife", "Segovia", "Sevilla", "Soria", "Tarragona", "Teruel", "Toledo", "Valencia", "Valladolid",
-  "Vizcaya", "Zamora", "Zaragoza"
-];
+//    const validProvinces = [
+//   "Álava", "Albacete", "Alicante", "Almería", "Asturias", "Ávila", "Badajoz", "Barcelona", "Burgos", "Cáceres",
+//   "Cádiz", "Cantabria", "Castellón", "Ceuta", "Ciudad Real", "Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara",
+//   "Guipúzcoa", "Huelva", "Huesca", "Islas Baleares", "Jaén", "La Coruña", "La Rioja", "Las Palmas", "León", "Lérida",
+//   "Lugo", "Madrid", "Málaga", "Melilla", "Murcia", "Navarra", "Orense", "Palencia", "Pontevedra", "Salamanca",
+//   "Santa Cruz de Tenerife", "Segovia", "Sevilla", "Soria", "Tarragona", "Teruel", "Toledo", "Valencia", "Valladolid",
+//   "Vizcaya", "Zamora", "Zaragoza"
+// ];
 if (!userInfo.address.trim()) {
   newErrors.address = "La dirección de envío es obligatoria.";
 }
@@ -124,9 +124,10 @@ if (!userInfo.city.trim()) {
 }
 if (!userInfo.province.trim()) {
   newErrors.province = "La provincia es obligatoria.";
-} else if (!validProvinces.includes(userInfo.province.trim())) {
-  newErrors.province = "Por favor, introduce una provincia válida en España.";
-}
+} 
+// else if (!validProvinces.includes(userInfo.province.trim())) {
+//   newErrors.province = "Por favor, introduce una provincia válida en España.";
+// }
 
 
     if (!userInfo.zipCode.trim()) {
@@ -414,9 +415,10 @@ if (!userInfo.province.trim()) {
         </div>
         <div className="bg-gray-50 p-2 py-4">
           <div className="h-auto">
-            <h1 className="mb-4 text-start text-2xl font-bold">
+            <h1 className="mb-2 text-start text-2xl font-bold">
               Selecciona el método de pago:
-            </h1>
+            </h1> 
+            <p className="mb-4 text-red-500 text-[12px]">de momento los pagos sólo están disponible por transferencias</p>
             <div className="flex flex-row justify-start space-x-2 text-sm">
               
               <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedPayment === 'Transferencia' ? 'bg-[#304590] hover:bg-[#475caa] text-blue-50' : 'bg-white'}`} onClick={() => handlePaymentSelect('Transferencia')}>

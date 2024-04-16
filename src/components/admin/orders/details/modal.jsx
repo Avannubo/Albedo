@@ -26,10 +26,10 @@ export default function modal({ isOpen, onClose, orderId }) {
               <h1 className="mb-4 text-start text-2xl font-bold">
                 Pedido:
               </h1>
-              <div className='h-[270px] overflow-y-scroll'>
+              <div className={`h-[270px] overflow-y-scroll ${orderData.cartProducts && orderData.cartProducts.length <= 4 ? 'no-scrollbar' : ''}`}>
                 {orderData.cartProducts && orderData.cartProducts.length > 0 && (
                   orderData.cartProducts.map((product, index) => (
-                    <div className='flex flex-col ' key={index}>
+                    <div className='flex flex-col mr-2' key={index}>
                       <div className='flex flex-row'>
                         <div className='w-[70px] h-auto my-2'>
                           <img
@@ -90,7 +90,7 @@ export default function modal({ isOpen, onClose, orderId }) {
                   </div>
                   <div className='flex flex-row space-x-2'>
                     <h1 className='font-bold'>Dirección de Entrega: </h1>
-                    <p className='text-wrap text-right'>{orderData.userInfo.address}
+                    <p className='text-wrap text-left'>{orderData.userInfo.address}
                       {orderData.userInfo.zipCode} {orderData.userInfo.city}
                       {orderData.userInfo.province}</p>
                   </div>

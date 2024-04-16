@@ -22,12 +22,13 @@ export default function Btn({ orderState, orderId }) {
                 // Handle error if needed
             }
         };
-        const intervalId = setInterval(fetchOrderData, 1000);
+        // const intervalId = setInterval(fetchOrderData, 1000);
 
-        // Cleanup function to clear the interval
-        return () => {
-            clearInterval(intervalId);
-        };
+        // // Cleanup function to clear the interval
+        // return () => {
+        //     clearInterval(intervalId);
+        // };
+        fetchOrderData();
     }, [orderId]);
     // Define a mapping of order states to button colors
     const stateColors = {

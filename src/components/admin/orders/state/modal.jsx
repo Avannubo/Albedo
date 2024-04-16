@@ -3,7 +3,7 @@ import { updateOrderStateById } from "@/lib/data";
 
 export default function Modal({ isOpen, onClose, orderId, orderState }) {
     const [newOrderState, setNewOrderState] = useState(orderState);
-    const availableStates = ["Confirmed", "Pending", "Cancelled"];
+    const availableStates = ["Nuevo", "Pendiente", "Confirmado", "Procesando", "Enviado", "Cancelado"];
 
     const handleStateUpdate = async () => {
         const success = await updateOrderStateById(orderId, newOrderState);
@@ -29,7 +29,7 @@ export default function Modal({ isOpen, onClose, orderId, orderState }) {
                 <select
                     value={newOrderState}
                     onChange={(e) => setNewOrderState(e.target.value)}
-                    className="border font-semibold p-2 rounded-lg bg-white"
+                    className="border font-medium p-2 rounded-lg bg-white"
                 >
                     {availableStates.map((state) => (
                         <option key={state} value={state}>

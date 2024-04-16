@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import Modal from '@/components/admin/categories/subcategory/addModal';
+import Modal from '@/components/admin/products/subcategory/addModal';
 
 export default function addCategory(categoryId) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,7 +15,7 @@ export default function addCategory(categoryId) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
                 <h1>Subcategoria</h1>
-            </div> 
+            </div>
             <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} />
         </div>
     )

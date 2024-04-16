@@ -49,7 +49,7 @@ export default function Page() {
     }));
   };
   const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target; 
+    const { name, checked } = e.target;
     if (name === 'terms') {
       setUserInfo(prevUserInfo => ({
         ...prevUserInfo,
@@ -75,57 +75,61 @@ export default function Page() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
-      if (!userInfo.firstName.trim()) {
-        newErrors.firstName = "El nombre es obligatorio.";
-      }
-      if (!userInfo.lastName.trim()) {
-        newErrors.lastName = "Los apellidos son obligatorios.";
-      }
-      const dniRegex = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
-      if (!userInfo.dni.trim()) {
-        newErrors.dni = "El DNI es obligatorio.";
-      } else if (!dniRegex.test(userInfo.dni)) {
-        newErrors.dni = "Por favor, introduce un DNI español válido.";
-      }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!userInfo.email.trim()) {
-        newErrors.email = "El Email es obligatorio.";
-      } else if (!emailRegex.test(userInfo.email)) {
-        newErrors.email = "Por favor, introduce una dirección de correo electrónico válida.";
-      }
-      if (!userInfo.phoneNumber.trim()) {
-        newErrors.phoneNumber = "El Número de teléfono es obligatorio.";
-      } else if (!/^\d{9}$/.test(userInfo.phoneNumber)) {
-        newErrors.phoneNumber = "El Número de teléfono debe tener 9 dígitos.";
-      } else if (!/[679]/.test(userInfo.phoneNumber.charAt(0))) {
-        newErrors.phoneNumber = "El Número de teléfono debe comenzar con 6, 7 o 9.";
-      } 
-      if (!userInfo.address.trim()) {
-        newErrors.address = "La dirección de envío es obligatoria.";
-      }
-      if (!userInfo.city.trim()) {
-        newErrors.city = "La ciudad es obligatoria.";
-      }
-      if (!userInfo.province.trim()) {
-        newErrors.province = "La provincia es obligatoria.";
-      } 
-      if (!userInfo.zipCode.trim()) {
-        newErrors.zipCode = "El código postal es obligatorio.";
-      } else if (isNaN(userInfo.zipCode)) {
-        newErrors.zipCode = "El código postal debe ser un número.";
-      } else if (userInfo.zipCode.length !== 6) {
-        newErrors.zipCode = "El código postal debe tener 6 dígitos.";
-      }
-      if (!userInfo.acceptedTerms) {
-        newErrors.terms = "Debe aceptar los Términos y Condiciones.";
-      }
-      if (!selectedShipping.method) {
-        newErrors.shipping = "Debes seleccionar un método de envío.";
-      }
-      // Check if payment method is selected
-      if (!selectedPayment) {
-        newErrors.payment = "Debes seleccionar un método de pago.";
-      }
+    
+    if (!userInfo.firstName.trim()) {
+      newErrors.firstName = "El nombre es obligatorio.";
+    }
+    if (!userInfo.lastName.trim()) {
+      newErrors.lastName = "Los apellidos son obligatorios.";
+    }
+    if (cartProducts.length === 0) {
+      newErrors.cartProducts = "El carrito está vacío.";
+    }
+    const dniRegex = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
+    if (!userInfo.dni.trim()) {
+      newErrors.dni = "El DNI es obligatorio.";
+    } else if (!dniRegex.test(userInfo.dni)) {
+      newErrors.dni = "Por favor, introduce un DNI español válido.";
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!userInfo.email.trim()) {
+      newErrors.email = "El Email es obligatorio.";
+    } else if (!emailRegex.test(userInfo.email)) {
+      newErrors.email = "Por favor, introduce una dirección de correo electrónico válida.";
+    }
+    if (!userInfo.phoneNumber.trim()) {
+      newErrors.phoneNumber = "El Número de teléfono es obligatorio.";
+    } else if (!/^\d{9}$/.test(userInfo.phoneNumber)) {
+      newErrors.phoneNumber = "El Número de teléfono debe tener 9 dígitos.";
+    } else if (!/[679]/.test(userInfo.phoneNumber.charAt(0))) {
+      newErrors.phoneNumber = "El Número de teléfono debe comenzar con 6, 7 o 9.";
+    }
+    if (!userInfo.address.trim()) {
+      newErrors.address = "La dirección de envío es obligatoria.";
+    }
+    if (!userInfo.city.trim()) {
+      newErrors.city = "La ciudad es obligatoria.";
+    }
+    if (!userInfo.province.trim()) {
+      newErrors.province = "La provincia es obligatoria.";
+    }
+    if (!userInfo.zipCode.trim()) {
+      newErrors.zipCode = "El código postal es obligatorio.";
+    } else if (isNaN(userInfo.zipCode)) {
+      newErrors.zipCode = "El código postal debe ser un número.";
+    } else if (userInfo.zipCode.length !== 6) {
+      newErrors.zipCode = "El código postal debe tener 6 dígitos.";
+    }
+    if (!userInfo.acceptedTerms) {
+      newErrors.terms = "Debe aceptar los Términos y Condiciones.";
+    }
+    if (!selectedShipping.method) {
+      newErrors.shipping = "Debes seleccionar un método de envío.";
+    }
+    // Check if payment method is selected
+    if (!selectedPayment) {
+      newErrors.payment = "Debes seleccionar un método de pago.";
+    }
     setErrors(newErrors);
     // If there are errors, prevent form submission
     if (Object.keys(newErrors).length > 0) {
@@ -369,7 +373,10 @@ export default function Page() {
             <div className="max-h-[270px] bg-white overflow-y-scroll ">
               {/* no-scrollbar */}
               <CartItem />
-            </div>
+              
+            </div>{errors.cartProducts && (
+                <p className="text-red-500 text-xs italic py-2">{errors.cartProducts}</p>
+              )}
           </div>
         </div>
         <div className="bg-gray-50 p-2 py-4">

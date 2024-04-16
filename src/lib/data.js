@@ -513,7 +513,7 @@ export async function saveNewOrder(orderData) {
         const jsonData = JSON.parse(data);
         const { ClientOrders } = jsonData; 
         const orderDataWithState = { ...orderData, orderState: 'Nuevo' }; // Add orderState field with default value
-        ClientOrders.push(orderDataWithState);
+        ClientOrders.unshift(orderDataWithState);
         await writeFile(filePathOrders, JSON.stringify(jsonData));
         revalidatePath('/');
         // console.log("Subcategory added successfully.");
@@ -533,5 +533,39 @@ export async function getAllOrders() {
     } catch (error) {
         console.error("Error getting all Client Orders:", error);
         return [];
+    }
+}
+export async function getOrderByIndex(orderIndex) {
+    try {
+        const data = await readFile(filePathOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { ClientOrders } = jsonData;
+
+        if (orderIndex < 0 || orderIndex >= ClientOrders.length) {
+            throw new Error("Invalid order index");
+        }
+
+        return ClientOrders[orderIndex];
+    } catch (error) {
+        console.error("Error getting order by index:", error);
+        return null;
+    }
+}
+
+export async function updateOrderStateById(orderId, newState) {
+    try {
+        const data = await readFile(filePathOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { ClientOrders } = jsonData;
+        // Update the state of the order
+        ClientOrders[orderId].orderState = newState;
+
+        // Write the updated data back to the file
+        await writeFile(filePathOrders, JSON.stringify(jsonData));
+
+        return true;
+    } catch (error) {
+        console.error("Error updating order state:", error);
+        return false;
     }
 }

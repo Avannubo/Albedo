@@ -535,3 +535,20 @@ export async function getAllOrders() {
         return [];
     }
 }
+export async function getOrderByIndex(orderIndex) {
+    try {
+        const data = await readFile(filePathOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { ClientOrders } = jsonData;
+
+        if (orderIndex < 0 || orderIndex >= ClientOrders.length) {
+            throw new Error("Invalid order index");
+        }
+
+        return ClientOrders[orderIndex];
+    } catch (error) {
+        console.error("Error getting order by index:", error);
+        return null;
+    }
+}
+

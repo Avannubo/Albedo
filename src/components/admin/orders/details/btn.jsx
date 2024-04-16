@@ -1,7 +1,7 @@
 "use client"
 import Modal from "@/components/admin/orders/details/modal";
 import React, { useState } from 'react';
-export default function btn({ orderId }) {
+export default function btn({  orderId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -18,7 +18,7 @@ export default function btn({ orderId }) {
             <circle cx="12" cy="12" r="3" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></circle> </g>
         </svg>
       </div>
-      <Modal isOpen={isModalOpen} onClose={toggleModal} />
+      <Modal isOpen={isModalOpen} onClose={toggleModal} orderId={orderId} />
     </div>
   )
 }

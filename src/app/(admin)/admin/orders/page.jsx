@@ -40,10 +40,10 @@ export default async function page() {
                       <td className="text-center whitespace-nowrap px-6 py-4 font-medium">{order.totalPedido}€</td>
                       <td className="text-center whitespace-nowrap px-6 py-4 font-medium">{order.selectedPayment}</td>
                       <td className="text-center whitespace-nowrap px-6 py-4 font-medium">
-                        <State orderState={order.orderState} />
+                        <State orderState={order.orderState} orderId={index} />
                       </td>
                       <td className="text-center whitespace-nowrap px-6 py-4 font-medium">
-                        <Details orderId={index + 1} /> 
+                        <Details orderId={index} /> 
                       </td>
                     </tr>
                   ))}

@@ -4,19 +4,13 @@ import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
-const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
+const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json'; 
+const filePathOrders = isLocal ? path.resolve('public/data/ClientOrders.json') : '/data/ClientOrders.json';
 let cachedData = null;
 let lastModifiedTime = null;
 const currentdate = new Date();
-const euFormattedDateTime = currentdate.getDate() + "/"
-    + (currentdate.getMonth() + 1) + "/"
-    + currentdate.getFullYear() + "   "
-    + (currentdate.getHours()) + ":"
-    + currentdate.getMinutes() + ":"
-    + currentdate.getSeconds();
-// Convert the EU date and time to a string
-// const euFormattedDateTime = euDateTimeFormat.format(euTime);
-// // console.log(euFormattedDateTime); // Output the current time in the EU timezone
+const euFormattedDateTime = currentdate.getDate() + "/"+ (currentdate.getMonth() + 1) + "/"+ currentdate.getFullYear() + "   "+ (currentdate.getHours()) + ":"+ currentdate.getMinutes() + ":"+ currentdate.getSeconds();
+
 export async function requireContent() {
     const stats = await fs.stat(filePath);
     if (stats.mtimeMs !== lastModifiedTime) {
@@ -34,13 +28,7 @@ export async function getCategories() {
     } else {
         return []; // Return an empty array if categories don't exist
     }
-}
-// export async function getUsers() {//para usuarios
-//     const {
-//         users
-//     } = await requireContent();
-//     return users
-// }
+} 
 export async function deleteElement(categoryId, productId) {
     if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
         try {
@@ -467,7 +455,6 @@ export async function getCategoryById(categoryId) {
     }
 }
 
-
 export async function getDataByUrlId(slugIds) {
     try {
         // Read the JSON file
@@ -520,8 +507,7 @@ export async function getDataByUrlId(slugIds) {
 
 export async function saveNewOrder(orderData) {
     console.log(orderData);
-    const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
-    const filePathOrders = isLocal ? path.resolve('public/data/ClientOrders.json') : '/data/ClientOrders.json';
+    
     try {
         const data = await readFile(filePathOrders, 'utf8');
         const jsonData = JSON.parse(data);
@@ -536,4 +522,15 @@ export async function saveNewOrder(orderData) {
         return false;
     }
 
+}
+export async function getAllOrders() { 
+    try {
+        const data = await readFile(filePathOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { ClientOrders } = jsonData;
+        return ClientOrders;
+    } catch (error) {
+        console.error("Error getting all Client Orders:", error);
+        return [];
+    }
 }

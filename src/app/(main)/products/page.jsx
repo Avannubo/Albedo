@@ -138,8 +138,9 @@ export default async function page() {
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
                 <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
                     {last6.map((product) => (
-                        <div key={product.ALBEDOcodigo}>
-                            <ProductItem product={product} />
+                        <div className="w-[250px] flex flex-col p-2 rounded-lg box-shadow justify-between">
+                            <Link href={product.fixedUrl} key={product.ALBEDOcodigo} >
+                                <ProductItem product={product} /></Link>
                             <AddToCart producto={product} />
                         </div>
                     ))}

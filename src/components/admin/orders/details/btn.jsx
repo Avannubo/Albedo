@@ -5,8 +5,7 @@ export default function btn({ orderId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-  };
-  console.log("order id: " + orderId);
+  }; 
   return (
     <div>
       <div onClick={toggleModal} className='flex justify-center border p-2 rounded-lg bg-blue-300 hover:bg-blue-400 cursor-pointer'>

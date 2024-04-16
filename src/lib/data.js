@@ -512,7 +512,8 @@ export async function saveNewOrder(orderData) {
         const data = await readFile(filePathOrders, 'utf8');
         const jsonData = JSON.parse(data);
         const { ClientOrders } = jsonData; 
-        ClientOrders.push(orderData);
+        const orderDataWithState = { ...orderData, orderState: 'Nuevo' }; // Add orderState field with default value
+        ClientOrders.push(orderDataWithState);
         await writeFile(filePathOrders, JSON.stringify(jsonData));
         revalidatePath('/');
         // console.log("Subcategory added successfully.");

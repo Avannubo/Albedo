@@ -63,7 +63,7 @@ export default async function Page() {
   // data.reverse();
   // console.log(data.reverse());
   return (
-    <div className="ml-28">
+    <div className="">
       <div className="flex mb-8">
         <h1 className="font-semibold text-4xl">Productos</h1>
         <AddNewCategoryModal />

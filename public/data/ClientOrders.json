@@ -110,7 +110,8 @@
             },
             "selectedPayment": "Transferencia",
             "totalPedido": 977.99,
-            "invoice": true
+            "invoice": true,
+            "orderState": "Nuevo"
         },
         {
             "userInfo": {
@@ -171,7 +172,8 @@
             },
             "selectedPayment": "Transferencia",
             "totalPedido": 267.99,
-            "invoice": true
+            "invoice": true,
+            "orderState": "Nuevo"
         },
         {
             "userInfo": {
@@ -216,7 +218,8 @@
             },
             "selectedPayment": "Transferencia",
             "totalPedido": 148.99,
-            "invoice": true
+            "invoice": true,
+            "orderState": "Nuevo"
         },
         {
             "userInfo": {
@@ -261,7 +264,8 @@
             },
             "selectedPayment": "Transferencia",
             "totalPedido": 204.99,
-            "invoice": true
+            "invoice": true,
+            "orderState": "Nuevo"
         }
     ]
 }

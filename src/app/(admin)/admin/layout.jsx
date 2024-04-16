@@ -5,7 +5,7 @@ export default function layout({ children }) {
     <section className="flex flex-col ">
       <div className="">
         <SideNav />
-        <div>{children}</div>
+        <div className="ml-30">{children}</div>
       </div>
     </section>
   );

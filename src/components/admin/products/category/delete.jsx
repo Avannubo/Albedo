@@ -1,6 +1,6 @@
 "use client"
-import React, { useState } from 'react'; 
-import Modal from '@/components/admin/categories/category/deleteModal'; 
+import React, { useState } from 'react';
+import Modal from '@/components/admin/products/category/deleteModal';
 
 export default function Delete(category, product) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -9,8 +9,8 @@ export default function Delete(category, product) {
         setIsModalOpen(!isModalOpen);
     };
     return (
-        <div onClick={toggleModal} className='flex flex-row cursor-pointer'> 
-            <div  className="">
+        <div onClick={toggleModal} className='flex flex-row cursor-pointer'>
+            <div className="">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

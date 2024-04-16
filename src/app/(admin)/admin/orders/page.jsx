@@ -2,6 +2,9 @@ import React from 'react'
 import { getAllOrders } from '@/lib/data'
 export default async function page() {
   const orders = await getAllOrders();
+  
+
+
   return (
     <div>
       <h1 className="font-semibold text-4xl">Pedidos</h1>

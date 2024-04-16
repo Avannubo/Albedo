@@ -43,7 +43,7 @@ export default function CartItem() {
                   priority
                 />
                 <div className="flex flex-col justify-between items-end ">
-                  <h1 className="font-bold w-full">{product.ALBEDOtitulo} ({product.ALBEDOcodigo})</h1>
+                  <h1 className="font-bold w-full text-right">{product.ALBEDOtitulo} ({product.ALBEDOcodigo})</h1>
                   <div className="flex flex-row justify-center items-center space-x-4 ">
                     <div className="flex items-center border-gray-100">
                       <span

@@ -22,7 +22,7 @@ export default function aside() {
           <p className="flex justify-center font-semibold">Escritorio</p>
         </Link> */}
         <Link
-          href="/admin/categories"
+          href="/admin/products"
           className="cursor-pointer p-4 w-full hover:shadow-md bg-white rounded-lg "
         >
           <p className="flex justify-center font-semibold">Productos</p>

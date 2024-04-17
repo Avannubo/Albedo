@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { updateOrderStateById } from "@/lib/data";
 
-export default function Modal({ isOpen, onClose, orderId, orderState }) {
+export default function Modal({ isOpen, onClose, orderId, orderState, onModalClose }) {
     const [newOrderState, setNewOrderState] = useState(orderState);
     const availableStates = ["Nuevo", "Pendiente", "Confirmado", "Procesando", "Enviado", "Cancelado"];
 
@@ -10,6 +10,7 @@ export default function Modal({ isOpen, onClose, orderId, orderState }) {
         if (success) {
             console.log("Order state updated successfully.");
             onClose(); // Close the modal after successful update
+            onModalClose(); // Callback to inform the parent component about modal close
         } else {
             console.error("Failed to update order state.");
         }

@@ -52,7 +52,7 @@ export default async function page() {
           </div>
         </div>
       </div> 
-      <OrdersStateCount />
+      {/* <OrdersStateCount /> */}
     </div>
   );
 }

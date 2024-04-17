@@ -1,5 +1,6 @@
 import Layout from "@/app/(admin)/admin/layout";
 import OrdersStateCount from "@/components/admin/orders/OrdersStateCount";
+import OrdersChart from "@/components/admin/panel/ordersChart";
 export default function page() {
   return (
     <Layout>
@@ -7,7 +8,7 @@ export default function page() {
         <h1 className="font-semibold text-4xl">Admin Panel</h1>
         <div className="flex flex-col space-y-6 my-4">
           <div className="flex flex-row justify-between space-x-6 ">
-            <div className="grow h-auto shadow-lg rounded-lg p-2 space-y-2">
+            <div className="grow h-auto box-shadow rounded-lg p-2 space-y-2">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col justify-center">
                   <h1 className="font-semibold text-slate-600 text-xl">Pedidos Totales</h1>
@@ -28,7 +29,7 @@ export default function page() {
                 </div>
               </div>
             </div>
-            <div className="grow h-auto shadow-lg rounded-lg p-2 space-y-2">
+            <div className="grow h-auto box-shadow rounded-lg p-2 space-y-2">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col justify-center">
                   <h1 className="font-semibold text-slate-600 text-xl">Productos Vendidos</h1>
@@ -39,7 +40,7 @@ export default function page() {
                 </div>
               </div>
             </div>
-            <div className="grow h-auto shadow-lg rounded-lg p-2 space-y-2">
+            <div className="grow h-auto box-shadow rounded-lg p-2 space-y-2">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col justify-center">
                   <h1 className="font-semibold text-slate-600 text-xl">Total Facturado</h1>
@@ -53,7 +54,7 @@ export default function page() {
           </div>
           <div className="flex flex-row justify-between space-x-6 ">
             <OrdersStateCount />
-            <div className="grow h-auto shadow-lg rounded-lg p-2 space-y-2">
+            <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
               <h1 className="font-semibold text-slate-600 text-xl">Pedidos Por transacciones</h1>
               <hr />
               <div>
@@ -62,15 +63,28 @@ export default function page() {
                 <p className="text-xl font-medium">Bizum: 4</p>
               </div>
             </div>
-            <div className="grow h-auto shadow-lg rounded-lg p-2 space-y-2">
-              <h1 className="font-semibold text-slate-600 text-xl">Pedidos por Provincias</h1>
+            <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
+              <h1 className="font-semibold text-slate-600 text-xl">Pedidos por Provencias</h1>
               <hr />
               <div>
                 <p className="text-xl font-medium">Barcelona: 12</p>
-                <p className="text-xl font-medium">Madrid: 7</p>
-                <p className="text-xl font-medium">qwerty: 4</p>
+                <p className="text-xl font-medium">Madrid: 12</p>
+                <p className="text-xl font-medium">qwerty: 12</p>
               </div>
             </div>
+            <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
+              <h1 className="font-semibold text-slate-600 text-xl">Productos mas vendidos</h1>
+              <hr />
+              <div>
+                <p className="text-xl font-medium">Farolas: 12</p>
+                <p className="text-xl font-medium">Dupline(G3800-1015-230): 12</p>
+                <p className="text-xl font-medium">Controladores(XIKRA-261): 12</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+            <OrdersChart />
           </div>
         </div>
       </div>

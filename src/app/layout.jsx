@@ -1,4 +1,5 @@
 import "./globals.css";
+import SideNav from "@/components/admin/nav/aside";
 
 
 export const metadata = {
@@ -9,8 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return ( 
     <html lang="es">
-      <body className="flex flex-col items-center w-full text-stone-700">
-        <div className="w-[1100px] mt-24">{children}</div>
+      <body className="flex flex-row justify-start w-full text-stone-700">
+        <SideNav />
+
+        <div className="mx-40 mt-24 w-[100%]">{children}</div>
       </body>
     </html>
   );

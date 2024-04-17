@@ -4,13 +4,17 @@ import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
-const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json'; 
+const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
 const filePathOrders = isLocal ? path.resolve('public/data/ClientOrders.json') : '/data/ClientOrders.json';
 let cachedData = null;
 let lastModifiedTime = null;
 const currentdate = new Date();
-const euFormattedDateTime = currentdate.getDate() + "/"+ (currentdate.getMonth() + 1) + "/"+ currentdate.getFullYear() + "   "+ (currentdate.getHours()) + ":"+ currentdate.getMinutes() + ":"+ currentdate.getSeconds();
+const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + "   " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 
+/**
+ * Reads the content of a JSON file containing product data.
+ * @returns {Object} The parsed JSON content of the file.
+ */
 export async function requireContent() {
     const stats = await fs.stat(filePath);
     if (stats.mtimeMs !== lastModifiedTime) {
@@ -20,6 +24,11 @@ export async function requireContent() {
     }
     return cachedData;
 }
+
+/**
+ * Retrieves categories from the product data.
+ * @returns {Array} An array of category objects.
+ */
 export async function getCategories() {
     const content = await requireContent();
     if (content) {
@@ -28,7 +37,14 @@ export async function getCategories() {
     } else {
         return []; // Return an empty array if categories don't exist
     }
-} 
+}
+
+/**
+ * Deletes a category or a product based on provided IDs.
+ * @param {object} categoryId - The ID of the category or product to be deleted.
+ * @param {string} productId - The ID of the product to be deleted.
+ * @returns {boolean} Indicates whether the deletion was successful.
+ */
 export async function deleteElement(categoryId, productId) {
     if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
         try {
@@ -96,6 +112,19 @@ export async function deleteElement(categoryId, productId) {
         }
     }
 }
+
+/**
+ * Adds a new category with provided details to the product data.
+ * @param {string} Code - The code of the new category.
+ * @param {string} Url_Id - The URL ID of the new category.
+ * @param {string} name - The name of the new category.
+ * @param {string} description - The description of the new category.
+ * @param {string} body - The body of the new category.
+ * @param {boolean} isPublished - Whether the category is published.
+ * @param {string} imageFile - The file path of the image for the category.
+ * @param {string} pdfFile - The file path of the PDF for the category.
+ * @returns {boolean} Indicates whether the addition was successful.
+ */
 export async function addCategory(Code, Url_Id, name, description, body, isPublished, imageFile, pdfFile) {
     console.log("New subcategory: " + imageFile, pdfFile);
     try {
@@ -130,15 +159,27 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
         return false;
     }
 }
+
+/**
+ * Generates a random number within a given range.
+ * @param {number} min - The minimum value of the range.
+ * @param {number} max - The maximum value of the range.
+ * @returns {number} The generated random number.
+ */
 function getFileIdNumber(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
+
 /**
- * Función para agregar una nueva subcategoría con un nombre y descripción dados.
- *
- * @param {string} name - El nombre de la nueva subcategoría.
- * @param {string} description - La descripción de la nueva subcategoría.
- * @returns {boolean} Un valor booleano que indica si la subcategoría se agregó correctamente.
+ * Adds a new subcategory to an existing category.
+ * @param {object} categoryId - The ID of the category to which the subcategory will be added.
+ * @param {string} Code - The code of the new subcategory.
+ * @param {string} Url_Id - The URL ID of the new subcategory.
+ * @param {string} newCategoryName - The name of the new subcategory.
+ * @param {string} Description - The description of the new subcategory.
+ * @param {string} Body - The body of the new subcategory.
+ * @param {boolean} isPublished - Whether the subcategory is published.
+ * @returns {boolean} Indicates whether the addition was successful.
  */
 export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body, isPublished) {
     // // console.log("Adding subcategory to " + categoryId.categoryId.id);
@@ -199,6 +240,22 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
         return false;
     }
 }
+
+/**
+ * Adds a new product to an existing category.
+ * @param {object} categoryId - The ID of the category to which the product will be added.
+ * @param {string} productCode - The code of the new product.
+ * @param {string} Url_Id - The URL ID of the new product.
+ * @param {string} Name - The name of the new product.
+ * @param {string} Price - The price of the new product.
+ * @param {string} Description - The description of the new product.
+ * @param {string} Body - The body of the new product.
+ * @param {number} Stock - The stock quantity of the new product.
+ * @param {number} MinStock - The minimum stock quantity of the new product.
+ * @param {string} DeliveryTime - The delivery time of the new product.
+ * @param {boolean} isPublished - Whether the product is published.
+ * @returns {boolean} Indicates whether the addition was successful.
+ */
 export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished) {
     // console.log("New product:" + categoryId.categoryId.id + " " + productCode + " " + Url_Id + "  " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
     try {
@@ -225,7 +282,7 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
                         "isPublished": isPublished,
                         "FeachaDeCreacion": new Date().toISOString(),
                         "FechaDeModificacion": new Date().toISOString(),
-                        "imagen": "/assets/images/200000066.jpg", 
+                        "imagen": "/assets/images/200000066.jpg",
                         "ALBEDOplazo_entrega": DeliveryTime
                     }
                     category.products.push(dataObj);
@@ -258,6 +315,22 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
         return false;
     }
 }
+
+/**
+ * Edits an existing product's details.
+ * @param {string} productId - The ID of the product to be edited.
+ * @param {string} productCode - The new code of the product.
+ * @param {string} url_Id - The new URL ID of the product.
+ * @param {string} Name - The new name of the product.
+ * @param {string} Price - The new price of the product.
+ * @param {string} Description - The new description of the product.
+ * @param {string} Body - The new body of the product.
+ * @param {number} Stock - The new stock quantity of the product.
+ * @param {number} MinStock - The new minimum stock quantity of the product.
+ * @param {string} DeliveryTime - The new delivery time of the product.
+ * @param {boolean} isPublished - Whether the product is published.
+ * @returns {boolean} Indicates whether the editing was successful.
+ */
 export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished) {
     // console.log("\nNew product data changes:\n" + productCode + " \n" + url_Id + " " + Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
     try {
@@ -314,7 +387,17 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
         return false;
     }
 }
-// Exported async function to edit a category with the given parameters
+
+/**
+ * Edits an existing category's details.
+ * @param {object} categoryId - The ID of the category to be edited.
+ * @param {string} Code - The new code of the category.
+ * @param {string} Name - The new name of the category.
+ * @param {string} Description - The new description of the category.
+ * @param {string} Body - The new body of the category.
+ * @param {boolean} isPublished - Whether the category is published.
+ * @returns {boolean} Indicates whether the editing was successful.
+ */
 export async function editCategory(categoryId, Code, Name, Description, Body, isPublished) {
     try {
         // Read the contents of the file as a string
@@ -374,6 +457,12 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
         return false;
     }
 }
+
+/**
+ * Retrieves a product based on its ID.
+ * @param {string} productId - The ID of the product to retrieve.
+ * @returns {Object} The product data.
+ */
 export async function getProductById(productId) {
     // // console.log(productId);
     try { // Provide correct file path
@@ -409,6 +498,12 @@ export async function getProductById(productId) {
         throw error; // Rethrow error
     }
 }
+
+/**
+ * Retrieves a category based on its ID.
+ * @param {object} categoryId - The ID of the category to retrieve.
+ * @returns {Object} The category data.
+ */
 export async function getCategoryById(categoryId) {
     // Check if the categoryId is provided and has an id field 
     try {
@@ -511,13 +606,18 @@ export async function getDataByUrlId(slugIds) {
 }
 
 //function to save new orders on checkout page
+/**
+ * Saves a new order to the system.
+ * @param {Object} orderData - The data of the new order.
+ * @returns {boolean} Indicates whether the addition was successful.
+ */
 export async function saveNewOrder(orderData) {
     console.log(orderData);
-    
+
     try {
         const data = await readFile(filePathOrders, 'utf8');
         const jsonData = JSON.parse(data);
-        const { ClientOrders } = jsonData; 
+        const { ClientOrders } = jsonData;
         const orderDataWithState = { ...orderData, orderState: 'Nuevo' }; // Add orderState field with default value
         ClientOrders.unshift(orderDataWithState);
         await writeFile(filePathOrders, JSON.stringify(jsonData));
@@ -530,8 +630,13 @@ export async function saveNewOrder(orderData) {
     }
 
 }
+
 //functions to /admin/orders
-export async function getAllOrders() { 
+/**
+ * Retrieves all orders.
+ * @returns {Array} An array of order objects.
+ */
+export async function getAllOrders() {
     try {
         const data = await readFile(filePathOrders, 'utf8');
         const jsonData = JSON.parse(data);
@@ -542,7 +647,13 @@ export async function getAllOrders() {
         return [];
     }
 }
+
 //to get individual order by id to get the state of the order for teh client
+/**
+ * Retrieves an order based on its index.
+ * @param {number} orderIndex - The index of the order to retrieve.
+ * @returns {Object | null} The order data, or null if not found.
+ */
 export async function getOrderByIndex(orderIndex) {
     try {
         const data = await readFile(filePathOrders, 'utf8');
@@ -559,7 +670,14 @@ export async function getOrderByIndex(orderIndex) {
         return null;
     }
 }
+
 //to update the state of the order in the Modal
+/**
+ * Updates the state of an order.
+ * @param {number} orderId - The ID of the order to update.
+ * @param {string} newState - The new state of the order.
+ * @returns {boolean} Indicates whether the update was successful.
+ */
 export async function updateOrderStateById(orderId, newState) {
     try {
         const data = await readFile(filePathOrders, 'utf8');

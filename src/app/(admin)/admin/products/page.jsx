@@ -6,6 +6,7 @@ import AddNewCategoryModal from "@/components/admin/products/category/add";
 import AddNewProduct from "@/components/admin/products/product/add";
 import EditProduct from "@/components/admin/products/product/edit";
 import EditCatedory from "@/components/admin/products/category/edit";
+import Layout from "@/app/(admin)/admin/AdminLayout";
 
 const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full">
@@ -63,7 +64,7 @@ export default async function Page() {
   // data.reverse();
   // console.log(data.reverse());
   return (
-    <div className="">
+    <Layout className="">
       <div className="flex mb-8">
         <h1 className="font-semibold text-4xl">Productos</h1>
         <AddNewCategoryModal />
@@ -75,6 +76,6 @@ export default async function Page() {
         </div>
       ))}
       <Modal />
-    </div>
+    </Layout>
   );
 }

@@ -1,5 +1,8 @@
+
+import Layout from "@/app/(main)/WebLayout";
+
 export default function Page() {
-    return <section>
+    return <Layout>
         homepage
-    </section>
+    </Layout>
 }

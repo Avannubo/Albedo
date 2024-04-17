@@ -1,4 +1,4 @@
-import Layout from "@/app/(admin)/admin/layout";
+import Layout from "@/app/(admin)/admin/AdminLayout";
 import OrdersStateCount from "@/components/admin/orders/OrdersStateCount";
 import OrdersChart from "@/components/admin/panel/ordersChart";
 export default function page() {

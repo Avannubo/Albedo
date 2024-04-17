@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Header from "@/components/header/header";
-import Footer from "@/components/footer";
+import Image from "next/image"; 
 import { getCategories } from "@/lib/data";
 import ProductItem from "@/components/products/productItem";
 import AddToCart from '@/components/products/addToCart';
+import Layout from "@/app/(main)/WebLayout";
+
 import Link from "next/link";
 // import { RichTextEditorComponent } from '@syncfusion/ej2-react-richtexteditor';
 export default async function Home() {
@@ -23,8 +23,7 @@ export default async function Home() {
   const products = GetProducts(data);
   const last6 = products.slice(0, 4);
   return (
-    <main>
-      <Header />
+    <Layout>
       <div className="">
         <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
         <p className="text-xl my-4">
@@ -107,7 +106,6 @@ export default async function Home() {
         </div>
       </div>
       <div></div>
-      <Footer />
-    </main>
+    </Layout>
   );
 }

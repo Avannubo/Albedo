@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import Layout from "@/app/(main)/WebLayout";
 
 export default function page() {
   return (
-    <div>
+    <Layout>
       <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
 
       <div className='flex flex-row mt-4'>
@@ -37,6 +38,6 @@ export default function page() {
             priority />
           <div><div id="g-mapdisplay" ><iframe frameBorder="0" src="https://www.google.com/maps/embed/v1/place?q=ALBEDO+Design+SL,+Carrer+de+Joan+d'Àustria,+Barcelona,+España&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe></div></div>
         </div> </div>
-    </div>
+    </Layout>
   )
 }

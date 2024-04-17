@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import CartItem from "@/components/products/cartItem";
+import Layout from "@/app/(main)/WebLayout";
 import ModalTransference from "@/components/checkout/modalTransference";
 export default function Page() {
   const [selectedShipping, setSelectedShipping] = useState({ method: null, price: null });
@@ -150,7 +151,7 @@ export default function Page() {
     }
   };
   return (
-    <div className="flex flex-row items-start min-h-[85vh] w-[1100px] mt-6 mb-8">
+    <Layout className="flex flex-row items-start min-h-[85vh] mt-6 mb-8">
       <div className="bg-gray-50 p-2 mr-2 grow w-[45%]">
         <h1 className="mb-4 text-start text-2xl font-bold">Datos del pedido</h1>
         <form onSubmit={handleSubmit} className="w-full max-w-lg" >
@@ -462,6 +463,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }

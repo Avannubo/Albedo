@@ -10,9 +10,9 @@ import Layout from "@/app/(admin)/admin/AdminLayout";
 
 const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full">
-    <div className="bg-slate-300 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4 hover:shadow-md">
+    <div className="border bg-slate-100 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
       <p className="h-auto  self-center">{category.url_Id} : {category.name}</p>
-      <div className="space-x-4 flex flex-row">
+      <div className="space-x-4 flex flex-row justify-center items-center">
         {/* <p>{category.isPublished ? "Publicado" : "Oculto"}</p> */}
 
         <AddNewProduct categoryId={category} />
@@ -32,12 +32,12 @@ const Category = ({ category }) => (
         {category.products.reverse().map((product) => (
           <div
             key={product.ALBEDOcodigo}
-            className="ml-14 flex flex-row justify-between bg-slate-200 rounded-lg p-2 mb-2 hover:shadow-md"
+            className="ml-14 flex flex-row justify-between border bg-slate-50 rounded-lg p-2 mb-1"
           >
             <p className="h-auto w-full self-center ">
               {product.url_Id} : {product.ALBEDOtitulo}
             </p>
-            <div className="space-x-4 flex flex-row">
+            <div className="space-x-4 flex flex-row justify-center items-center">
 
               <EditProduct productId={product.ALBEDOcodigo} />
               <Delete categoryId={"none"} productId={product} />
@@ -64,7 +64,7 @@ export default async function Page() {
   // data.reverse();
   // console.log(data.reverse());
   return (
-    <Layout className="">
+    <Layout>
       <div className="flex mb-8">
         <h1 className="font-semibold text-4xl">Productos</h1>
         <AddNewCategoryModal />

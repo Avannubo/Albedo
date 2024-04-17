@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function aside() {
   return (
-    <div className="bg-slate-100 w-[400px]  h-[100vh]  ">
+    <div className="bg-slate-50 w-[400px]  h-[100vh]  border-r-4 border-[#475caa]">
       {/* z-40 absolute left-0 top-0 shadow-2xl */}
       <Link href="/" className="flex flex-col justify-center p-6">
         <Image
@@ -18,25 +18,25 @@ export default function aside() {
       <div className="flex flex-col space-y-4 p-4 ">
         <Link
           href="/admin"
-          className="cursor-pointer p-4 w-full hover:box-shadow bg-white rounded-lg "
+          className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
         >
           <p className="flex justify-center font-semibold">Escritorio</p>
         </Link>
         <Link
           href="/admin/products"
-          className="cursor-pointer p-4 w-full hover:box-shadow bg-white rounded-lg "
+          className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
         >
           <p className="flex justify-center font-semibold">Productos</p>
         </Link>
         {/* <Link
           href="/admin/users"
-          className="cursor-pointer p-4 w-full hover:box-shadow bg-white rounded-lg "
+          className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
         >
           <p className="flex justify-center font-semibold">Usuarios</p>
         </Link> */}
         <Link
           href="/admin/orders"
-          className="cursor-pointer p-4 w-full hover:box-shadow bg-white rounded-lg "
+          className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
         >
           <p className="flex justify-center font-semibold">Pedidos</p>
         </Link>

@@ -76,7 +76,7 @@ export default function Page() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
-    
+
     if (!userInfo.firstName.trim()) {
       newErrors.firstName = "El nombre es obligatorio.";
     }
@@ -151,318 +151,321 @@ export default function Page() {
     }
   };
   return (
-    <Layout className="flex flex-row items-start min-h-[85vh] mt-6 mb-8">
-      <div className="bg-gray-50 p-2 mr-2 grow w-[45%]">
-        <h1 className="mb-4 text-start text-2xl font-bold">Datos del pedido</h1>
-        <form onSubmit={handleSubmit} className="w-full max-w-lg" >
-          <div className="flex flex-wrap -mx-3 mb-4">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-first-name"
-              >
-                Nombre:
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="text"
-                name="firstName"
-                value={userInfo.firstName}
-                onChange={handleInputChange}
-              />
-              {errors.firstName && (
-                <p className="text-red-500 text-xs italic">{errors.firstName}</p>
+    <Layout>
+      <div className="flex flex-row items-start min-h-[85vh] w-[1100px] mt-6 mb-8">
+        <div className="bg-gray-50 p-2 mr-2 grow w-[45%]">
+          <h1 className="mb-4 text-start text-2xl font-bold">Datos del pedido</h1>
+          <form onSubmit={handleSubmit} className="w-full max-w-lg" >
+            <div className="flex flex-wrap -mx-3 mb-4">
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-first-name"
+                >
+                  Nombre:
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                  id="grid-first-name"
+                  type="text"
+                  name="firstName"
+                  value={userInfo.firstName}
+                  onChange={handleInputChange}
+                />
+                {errors.firstName && (
+                  <p className="text-red-500 text-xs italic">{errors.firstName}</p>
+                )}
+                {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
+              </div>
+              <div className="w-full md:w-1/2 px-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-last-name"
+                >
+                  Apellidos:
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="grid-last-name"
+                  type="text"
+                  name="lastName"
+                  value={userInfo.lastName}
+                  onChange={handleInputChange}
+                />
+                {errors.lastName && (
+                  <p className="text-red-500 text-xs italic">{errors.lastName}</p>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-4">
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  DNI/CIF:
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="text"
+                  name="dni"
+                  value={userInfo.dni}
+                  onChange={handleInputChange}
+                />
+                {errors.dni && (
+                  <p className="text-red-500 text-xs italic">{errors.dni}</p>
+                )}
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Empresa (Opcional):
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="text"
+                  name="company"
+                  value={userInfo.company}
+                  onChange={handleInputChange}
+                />
+                {errors.company && (
+                  <p className="text-red-500 text-xs italic">{errors.company}</p>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-4">
+              <div className="w-full md:w-1/2 px-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Número de teléfono:
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="telephone"
+                  name="phoneNumber"
+                  value={userInfo.phoneNumber}
+                  onChange={handleInputChange}
+                />
+                {errors.phoneNumber && (
+                  <p className="text-red-500 text-xs italic">{errors.phoneNumber}</p>
+                )}
+              </div> <div className="w-full md:w-1/2 px-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Email:
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="email"
+                  name="email"
+                  value={userInfo.email}
+                  onChange={handleInputChange}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-xs italic">{errors.email}</p>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-4">
+              <div className="w-full px-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Dirección de envío:
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="text"
+                  name="address"
+                  value={userInfo.address}
+                  onChange={handleInputChange}
+                />
+                {errors.address && (
+                  <p className="text-red-500 text-xs italic">{errors.address}</p>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-2">
+              <div className="w-full md:w-1/3 px-3 mb-6">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-city"
+                >
+                  Ciudad:
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="grid-city"
+                  type="text"
+                  name="city"
+                  value={userInfo.city}
+                  onChange={handleInputChange}
+                />
+                {errors.city && (
+                  <p className="text-red-500 text-xs italic">{errors.city}</p>
+                )}
+              </div>
+              <div className="w-full md:w-1/3 px-3 mb-6">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-city"
+                >
+                  Provincia:
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="grid-city"
+                  type="text"
+                  name="province"
+                  value={userInfo.province}
+                  onChange={handleInputChange}
+                />
+                {errors.province && (
+                  <p className="text-red-500 text-xs italic">{errors.province}</p>
+                )}
+              </div>
+              <div className="w-full md:w-1/3 px-3 mb-6">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-zip"
+                >
+                  Código Postal
+                </label>
+                <input
+                  className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="grid-zip"
+                  type="text"
+                  name="zipCode"
+                  value={userInfo.zipCode}
+                  onChange={handleInputChange}
+                />
+                {errors.zipCode && (
+                  <p className="text-red-500 text-xs italic">{errors.zipCode}</p>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-wrap p-3 text-lg space-y-2 mb-2">
+              <div className="space-x-2">
+                <input type="checkbox" name="invoice" id="invoice" onChange={handleCheckboxChange} checked={userInfo.invoice} />
+                <label htmlFor="invoice"> Quiero recibir una factura digital</label>
+              </div>
+              <div className="space-x-2">
+                <input type="checkbox" name="terms" id="terms" onChange={handleCheckboxChange} checked={userInfo.acceptedTerms} />
+                <label htmlFor="terms">*Acepto los Términos y Condiciones</label>
+              </div>
+              {errors.terms && (
+                <p className="text-red-500 text-xs italic">{errors.terms}</p>
               )}
-              {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
             </div>
-            <div className="w-full md:w-1/2 px-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-last-name"
-              >
-                Apellidos:
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-last-name"
-                type="text"
-                name="lastName"
-                value={userInfo.lastName}
-                onChange={handleInputChange}
-              />
-              {errors.lastName && (
-                <p className="text-red-500 text-xs italic">{errors.lastName}</p>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-4">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                DNI/CIF:
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="text"
-                name="dni"
-                value={userInfo.dni}
-                onChange={handleInputChange}
-              />
-              {errors.dni && (
-                <p className="text-red-500 text-xs italic">{errors.dni}</p>
-              )}
-            </div>
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                Empresa (Opcional):
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="text"
-                name="company"
-                value={userInfo.company}
-                onChange={handleInputChange}
-              />
-              {errors.company && (
-                <p className="text-red-500 text-xs italic">{errors.company}</p>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-4">
-            <div className="w-full md:w-1/2 px-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                Número de teléfono:
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="telephone"
-                name="phoneNumber"
-                value={userInfo.phoneNumber}
-                onChange={handleInputChange}
-              />
-              {errors.phoneNumber && (
-                <p className="text-red-500 text-xs italic">{errors.phoneNumber}</p>
-              )}
-            </div> <div className="w-full md:w-1/2 px-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                Email:
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="email"
-                name="email"
-                value={userInfo.email}
-                onChange={handleInputChange}
-              />
-              {errors.email && (
-                <p className="text-red-500 text-xs italic">{errors.email}</p>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-4">
-            <div className="w-full px-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
-                Dirección de envío:
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="text"
-                name="address"
-                value={userInfo.address}
-                onChange={handleInputChange}
-              />
-              {errors.address && (
-                <p className="text-red-500 text-xs italic">{errors.address}</p>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-2">
-            <div className="w-full md:w-1/3 px-3 mb-6">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-city"
-              >
-                Ciudad:
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-city"
-                type="text"
-                name="city"
-                value={userInfo.city}
-                onChange={handleInputChange}
-              />
-              {errors.city && (
-                <p className="text-red-500 text-xs italic">{errors.city}</p>
-              )}
-            </div>
-            <div className="w-full md:w-1/3 px-3 mb-6">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-city"
-              >
-                Provincia:
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-city"
-                type="text"
-                name="province"
-                value={userInfo.province}
-                onChange={handleInputChange}
-              />
-              {errors.province && (
-                <p className="text-red-500 text-xs italic">{errors.province}</p>
-              )}
-            </div>
-            <div className="w-full md:w-1/3 px-3 mb-6">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-zip"
-              >
-                Código Postal
-              </label>
-              <input
-                className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-zip"
-                type="text"
-                name="zipCode"
-                value={userInfo.zipCode}
-                onChange={handleInputChange}
-              />
-              {errors.zipCode && (
-                <p className="text-red-500 text-xs italic">{errors.zipCode}</p>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-wrap p-3 text-lg space-y-2 mb-2">
-            <div className="space-x-2">
-              <input type="checkbox" name="invoice" id="invoice" onChange={handleCheckboxChange} checked={userInfo.invoice} />
-              <label htmlFor="invoice"> Quiero recibir una factura digital</label>
-            </div>
-            <div className="space-x-2">
-              <input type="checkbox" name="terms" id="terms" onChange={handleCheckboxChange} checked={userInfo.acceptedTerms} />
-              <label htmlFor="terms">*Acepto los Términos y Condiciones</label>
-            </div>
-            {errors.terms && (
-              <p className="text-red-500 text-xs italic">{errors.terms}</p>
-            )}
-          </div>
-        </form>
-      </div>
-      <div className="grow w-[55%] space-y-2">
-        <div className="bg-gray-50 p-2 py-4">
-          <div className="h-auto">
-            <h1 className="mb-4 text-start text-2xl font-bold">
-              Productos en el carrito:
-            </h1>
-            <div className="max-h-[270px] bg-white overflow-y-scroll ">
-              {/* no-scrollbar */}
-              <CartItem />
-              
-            </div>{errors.cartProducts && (
+          </form>
+        </div>
+        <div className="grow w-[55%] space-y-2">
+          <div className="bg-gray-50 p-2 py-4">
+            <div className="h-auto">
+              <h1 className="mb-4 text-start text-2xl font-bold">
+                Productos en el carrito:
+              </h1>
+              <div className="max-h-[270px] bg-white overflow-y-scroll ">
+                {/* no-scrollbar */}
+                <CartItem />
+
+              </div>{errors.cartProducts && (
                 <p className="text-red-500 text-xs italic py-2">{errors.cartProducts}</p>
               )}
+            </div>
           </div>
-        </div>
-        <div className="bg-gray-50 p-2 py-4">
-          <div className="h-auto">
-            <h1 className="mb-4 text-start text-2xl font-bold">
-              Envío:
-            </h1>
-            <div className="flex flex-row justify-start space-x-2 text-sm">
-              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+          <div className="bg-gray-50 p-2 py-4">
+            <div className="h-auto">
+              <h1 className="mb-4 text-start text-2xl font-bold">
+                Envío:
+              </h1>
+              <div className="flex flex-row justify-start space-x-2 text-sm">
+                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
               ${selectedShipping && selectedShipping.method === 'Envío Ibérica' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
-                onClick={() => handleShippingSelect('Envío Ibérica', 4.99)}>
-                Península 4,99€
-              </div>
-              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+                  onClick={() => handleShippingSelect('Envío Ibérica', 4.99)}>
+                  Península 4,99€
+                </div>
+                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
               ${selectedShipping && selectedShipping.method === 'Envío Baleares' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
-                onClick={() => handleShippingSelect('Envío Baleares', 8.99)}>
-                Baleares 8,99€
-              </div>
-              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+                  onClick={() => handleShippingSelect('Envío Baleares', 8.99)}>
+                  Baleares 8,99€
+                </div>
+                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
               ${selectedShipping && selectedShipping.method === 'Recogida' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
-                onClick={() => handleShippingSelect('Recogida', 0.0)}>
-                Recogida en tienda
-              </div>
-            </div>
-            {errors.shipping && (
-              <p className="text-red-500 text-xs italic py-2">{errors.shipping}</p>
-            )}
-          </div>
-        </div>
-        <div className="bg-gray-50 p-2 py-4">
-          <div className="h-auto">
-            <h1 className="mb-2 text-start text-2xl font-bold">
-              Selecciona el método de pago:
-            </h1>
-            <p className="mb-4 text-slate-800 fobt-bold text-[16px]">(De momento los pagos sólo están disponible por transferencias)</p>
-            <div className="flex flex-row justify-start space-x-2 text-sm">
-              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedPayment === 'Transferencia' ? 'bg-[#304590] hover:bg-[#475caa] text-blue-50' : 'bg-white'}`} onClick={() => handlePaymentSelect('Transferencia')}>
-                Transferencia
-              </div>
-              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] cursor-not-allowed ${selectedPayment === 'Visa-Mastercard' ? '' : 'bg-grey-300'}`} >
-                Visa-Mastercard
-              </div>
-              {/* onClick={() => handlePaymentSelect('Visa-Mastercard')} */}
-              <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  cursor-not-allowed ${selectedPayment === 'Bizum' ? '' : 'bg-grey-300'}`} >
-                {/* onClick={() => handlePaymentSelect('Bizum')} */}
-                Bizum
-              </div>
-            </div>
-            {errors.payment && (
-              <p className="text-red-500 text-xs italic py-2">{errors.payment}</p>
-            )}
-          </div>
-        </div>
-        <div className="bg-gray-50 ">
-          <div className="h-auto">
-            <div className="justify-center p-2 py-4 space-y-3">
-              <div className="h-full   border bg-white p-3">
-                <div className="mb-2 flex justify-between">
-                  <p className="text-gray-700">Subtotal</p>
-                  <p className="text-gray-700 font-bold">{subTotal}€</p>
+                  onClick={() => handleShippingSelect('Recogida', 0.0)}>
+                  Recogida en tienda
                 </div>
-                <div className="flex justify-between">
-                  <p className="text-gray-700">Envío</p>
-                  <p className="text-gray-700">{selectedShipping.price}€</p>
+              </div>
+              {errors.shipping && (
+                <p className="text-red-500 text-xs italic py-2">{errors.shipping}</p>
+              )}
+            </div>
+          </div>
+          <div className="bg-gray-50 p-2 py-4">
+            <div className="h-auto">
+              <h1 className="mb-2 text-start text-2xl font-bold">
+                Selecciona el método de pago:
+              </h1>
+              <p className="mb-4 text-slate-800 fobt-bold text-[16px]">(De momento los pagos sólo están disponible por transferencias)</p>
+              <div className="flex flex-row justify-start space-x-2 text-sm">
+                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedPayment === 'Transferencia' ? 'bg-[#304590] hover:bg-[#475caa] text-blue-50' : 'bg-white'}`} onClick={() => handlePaymentSelect('Transferencia')}>
+                  Transferencia
                 </div>
-                <hr className="my-2" />
-                <div className="flex justify-between">
-                  <p className="text-lg font-bold">Total</p>
-                  <div className="">
-                    <p className="mb-1 text-lg font-bold text-right">{subTotal + selectedShipping.price}€</p>
-                    <p className="text-sm text-gray-700">*IVA incluido</p>
+                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] cursor-not-allowed ${selectedPayment === 'Visa-Mastercard' ? '' : 'bg-grey-300'}`} >
+                  Visa-Mastercard
+                </div>
+                {/* onClick={() => handlePaymentSelect('Visa-Mastercard')} */}
+                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  cursor-not-allowed ${selectedPayment === 'Bizum' ? '' : 'bg-grey-300'}`} >
+                  {/* onClick={() => handlePaymentSelect('Bizum')} */}
+                  Bizum
+                </div>
+              </div>
+              {errors.payment && (
+                <p className="text-red-500 text-xs italic py-2">{errors.payment}</p>
+              )}
+            </div>
+          </div>
+          <div className="bg-gray-50 ">
+            <div className="h-auto">
+              <div className="justify-center p-2 py-4 space-y-3">
+                <div className="h-full   border bg-white p-3">
+                  <div className="mb-2 flex justify-between">
+                    <p className="text-gray-700">Subtotal</p>
+                    <p className="text-gray-700 font-bold">{subTotal}€</p>
                   </div>
+                  <div className="flex justify-between">
+                    <p className="text-gray-700">Envío</p>
+                    <p className="text-gray-700">{selectedShipping.price}€</p>
+                  </div>
+                  <hr className="my-2" />
+                  <div className="flex justify-between">
+                    <p className="text-lg font-bold">Total</p>
+                    <div className="">
+                      <p className="mb-1 text-lg font-bold text-right">{subTotal + selectedShipping.price}€</p>
+                      <p className="text-sm text-gray-700">*IVA incluido</p>
+                    </div>
+                  </div>
+                  <form onSubmit={handleSubmit}>
+                    {/* if transfrence is selected i want to toggle the modal  */}
+                    <button type="submit" className="mt-2 w-full rounded-md bg-[#304590] py-1.5 font-medium text-blue-50 hover:bg-[#475caa]">
+                      Proceder al pago
+                    </button>
+                  </form> <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} />
+                  {/* orderData={orderData}  */}
                 </div>
-                <form onSubmit={handleSubmit}>
-                  {/* if transfrence is selected i want to toggle the modal  */}
-                  <button type="submit" className="mt-2 w-full rounded-md bg-[#304590] py-1.5 font-medium text-blue-50 hover:bg-[#475caa]">
-                    Proceder al pago
-                  </button>
-                </form> <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} />
-                {/* orderData={orderData}  */}
               </div>
             </div>
           </div>
         </div>
       </div>
     </Layout>
+
   );
 }

@@ -5,7 +5,11 @@ export default function layout({ children }) {
     <div className="flex flex-row justify-start"> 
       <SideNav />
 
-      <div className="mx-40 mt-24 w-[100%]">{children}</div>
+      <div className="w-[100%] overflow-y-auto" style={{ maxHeight: '100vh' }}>
+        <div className="mt-24 mx-40">
+          {children}
+        </div> 
+      </div>
 
     </div>
   );

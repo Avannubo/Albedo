@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className="flex flex-col justify-start w-full text-stone-700">
-         {children}
+        {children}
       </body>
     </html>
   );

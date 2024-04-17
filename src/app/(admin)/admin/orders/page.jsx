@@ -1,9 +1,11 @@
 import React from 'react'
 import Details from '@/components/admin/orders/details/btn'
 import State from '@/components/admin/orders/state/btn'
+import OrdersStateCount from '@/components/admin/orders/OrdersStateCount'
 import { getAllOrders } from '@/lib/data'
 export default async function page() {
-  const orders = await getAllOrders();
+  const orders = await getAllOrders(); 
+
   return (
     <div>
       <h1 className="font-semibold text-4xl">Pedidos</h1>
@@ -40,7 +42,7 @@ export default async function page() {
                         <State orderState={order.orderState} orderId={index} />
                       </td>
                       <td className="text-center whitespace-nowrap px-6 py-4 font-medium">
-                        <Details orderId={index} /> 
+                        <Details orderId={index} />
                       </td>
                     </tr>
                   ))}
@@ -49,7 +51,8 @@ export default async function page() {
             </div>
           </div>
         </div>
-      </div>
+      </div> 
+      <OrdersStateCount />
     </div>
   );
 }

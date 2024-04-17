@@ -28,7 +28,7 @@ export default function header() {
                 <div className="flex justify-center flex-row flex-nowrap px-4 py-2 text-lg cursor-pointer whitespace-nowrap">
                   <button className="" data-dropdown-toggle="dropdown">
                     Servicios</button>
-                    <svg className="w-2.5 h-2.5 ml-2.5 self-center" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"></path></svg>
+                  <svg className="w-2.5 h-2.5 ml-2.5 self-center" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"></path></svg>
                 </div>
 
                 <div className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
@@ -44,13 +44,13 @@ export default function header() {
                     </li>
                   </ul>
                 </div>
-                <Link href="https://www.albedo.biz/blog/" className="px-4 py-2 text-lg cursor-pointer">Blog</Link> 
+                <Link href="https://www.albedo.biz/blog/" className="px-4 py-2 text-lg cursor-pointer">Blog</Link>
                 {/* <Link href="/contacto" className="px-4 py-2 text-lg cursor-pointer">Contacto</Link> */}
-                 
+
                 <div className="flex justify-center flex-row flex-nowrap px-4 py-2 text-lg cursor-pointer whitespace-nowrap">
                   <button className="" data-dropdown-toggle="dropdown2">
-                  Sobre Nosotros</button>
-                    <svg className="w-2.5 h-2.5 ml-2.5 self-center" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"></path></svg>
+                    Sobre Nosotros</button>
+                  <svg className="w-2.5 h-2.5 ml-2.5 self-center" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"></path></svg>
                 </div>
                 <div className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown2">
                   <ul className="py-1" aria-labelledby="dropdown2">

@@ -9,7 +9,7 @@ const filePathOrders = isLocal ? path.resolve('public/data/ClientOrders.json') :
 let cachedData = null;
 let lastModifiedTime = null;
 const currentdate = new Date();
-const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + "   " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 
 /**
  * Reads the content of a JSON file containing product data.
@@ -618,7 +618,8 @@ export async function saveNewOrder(orderData) {
         const data = await readFile(filePathOrders, 'utf8');
         const jsonData = JSON.parse(data);
         const { ClientOrders } = jsonData;
-        const orderDataWithState = { ...orderData, orderState: 'Nuevo' }; // Add orderState field with default value
+        const orderDataWithState = { ...orderData, orderState: 'Nuevo', createdAt: euFormattedDateTime };
+        // Add orderState field with default value
         ClientOrders.unshift(orderDataWithState);
         await writeFile(filePathOrders, JSON.stringify(jsonData));
         revalidatePath('/');

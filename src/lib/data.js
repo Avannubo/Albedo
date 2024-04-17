@@ -455,6 +455,11 @@ export async function getCategoryById(categoryId) {
     }
 }
 
+/**
+ * Returns the category data based on the given URL IDs.
+ * @param {string[]} slugIds - The array of URL IDs.
+ * @returns {Category | { subCategory: Category, products: Product[] }} - The category data.
+ */
 export async function getDataByUrlId(slugIds) {
     try {
         // Read the JSON file
@@ -505,6 +510,7 @@ export async function getDataByUrlId(slugIds) {
     }
 }
 
+//function to save new orders on checkout page
 export async function saveNewOrder(orderData) {
     console.log(orderData);
     
@@ -524,6 +530,7 @@ export async function saveNewOrder(orderData) {
     }
 
 }
+//functions to /admin/orders
 export async function getAllOrders() { 
     try {
         const data = await readFile(filePathOrders, 'utf8');
@@ -535,6 +542,7 @@ export async function getAllOrders() {
         return [];
     }
 }
+//to get individual order by id to get the state of the order for teh client
 export async function getOrderByIndex(orderIndex) {
     try {
         const data = await readFile(filePathOrders, 'utf8');
@@ -551,7 +559,7 @@ export async function getOrderByIndex(orderIndex) {
         return null;
     }
 }
-
+//to update the state of the order in the Modal
 export async function updateOrderStateById(orderId, newState) {
     try {
         const data = await readFile(filePathOrders, 'utf8');

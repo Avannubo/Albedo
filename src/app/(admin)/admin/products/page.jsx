@@ -10,7 +10,7 @@ import Layout from "@/app/(admin)/admin/AdminLayout";
 
 const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full">
-    <div className="border bg-slate-100 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
+    <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
       <p className="h-auto  self-center">{category.url_Id} : {category.name}</p>
       <div className="space-x-4 flex flex-row justify-center items-center">
         {/* <p>{category.isPublished ? "Publicado" : "Oculto"}</p> */}

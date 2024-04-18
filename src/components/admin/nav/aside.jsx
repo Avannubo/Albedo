@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function aside() {
   return (
-    <div className="bg-slate-50 w-[400px]  h-[100vh]  border-r-4 border-[#475caa]">
+    <div className="bg-slate-100 w-[400px]  h-[100vh]  shadow-2xl">
       {/* z-40 absolute left-0 top-0 shadow-2xl */}
       <Link href="/" className="flex flex-col justify-center p-6">
         <Image

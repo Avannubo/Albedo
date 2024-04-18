@@ -1,5 +1,6 @@
 "use server"
 import { promises as fs } from 'fs';
+import bcrypt from 'bcryptjs';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
@@ -712,4 +713,16 @@ export async function updateOrderStateById(orderId, newState) {
         console.error("Error updating order state:", error);
         return false;
     }
+}
+
+
+export async function getHashPassword() {
+    return new Promise((resolve, reject) => {
+        const storedPassword = process.env.PASSWORD_HASH;
+        if (storedPassword) {
+            resolve(storedPassword);
+        } else {
+            reject(new Error("Stored password not found in environment variables."));
+        }
+    });
 }

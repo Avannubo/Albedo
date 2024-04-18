@@ -1,14 +1,14 @@
 "use client"
-import Image from 'next/image'
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import bcrypt from 'bcryptjs'; // Import bcryptjs
 import Link from 'next/link';
-import bcrypt from 'bcrypt';
+import Image from 'next/image';
+import { getHashPassword } from '@/lib/data'; 
 
 export default function Page() {
     const router = useRouter();
-    const storedPasswordHash = process.env.PASSWORD_HASH; // Store the hashed password
-
+    const [passwordHash, setPasswordHash] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
@@ -16,13 +16,36 @@ export default function Page() {
         setPassword(event.target.value);
     };
 
-    const handleLogin = async () => {
-        try {
-            // Hash the entered password
-            const hashedPassword = await bcrypt.hash(password, 10);
+    useEffect(() => {
+        async function fetchPasswordHash() {
+            try {
 
-            // Compare the hashed entered password with the stored hashed password
-            const passwordsMatch = await bcrypt.compare(hashedPassword, storedPasswordHash);
+                const data = await getHashPassword();
+                // Ensure data is not empty and is a valid hash
+                // console.log(data);
+                if (data) {
+                    setPasswordHash(data);
+                } else {
+                    setError('Error: No se encontró ninguna contraseña almacenada.');
+                }
+            } catch (error) {
+                console.error('Error fetching password hash:', error);
+                setError('Error al obtener la contraseña. Por favor, inténtelo de nuevo.');
+            }
+        }
+
+        fetchPasswordHash();
+
+    }, []);
+
+    const handleLogin = () => {
+        try {
+            // Compare the entered password with the stored hashed password
+            console.log("Entered password:", password);
+            console.log("Stored hashed password:", passwordHash);
+
+            const passwordsMatch = bcrypt.compareSync(password, passwordHash);
+            console.log('Passwords Match:', passwordsMatch);
 
             if (passwordsMatch) {
                 // If password matches, redirect to admin dashboard
@@ -36,8 +59,6 @@ export default function Page() {
             setError('Error al comparar contraseñas. Por favor, inténtelo de nuevo.');
         }
     };
-
-
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-24 lg:px-8">
             <div className='border bg-slate-50 p-12 rounded-lg mx-auto  sm:max-w-sm md:max-w-lg xl:max-w-xl' >
@@ -50,6 +71,7 @@ export default function Page() {
                             width={250}
                             height={100}
                             priority
+
                         />
                     </Link>
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-600">Iniciar sesión en el panel de administración</h2>
@@ -67,7 +89,7 @@ export default function Page() {
                                 <label htmlFor="password" className="block text-lg font-bold leading-6 text-gray-600">Contraseña</label>
                             </div>
                             <div className="mt-2">
-                                <input onChange={handleInputChangePassword} id="password" placeholder='***********' name="password" type="password" autoComplete="current-password" required className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#304590] sm:text-sm sm:leading-6" />
+                                <input onChange={handleInputChangePassword} value={password} id="password" placeholder='***********' name="password" type="password" autoComplete="current-password" required className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#304590] sm:text-sm sm:leading-6" />
                                 {error && <p className="text-red-500 text-sm">{error}</p>}
                             </div>
                         </div>
@@ -80,9 +102,7 @@ export default function Page() {
                     <a href="#" className="font-semibold leading-6 text-[#304590] hover:text-[#475caa]">Start a 14 day free trial</a>
                 </p> */}
                 </div>
-
             </div>
-
         </div>
     )
 }

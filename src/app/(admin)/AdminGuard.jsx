@@ -9,7 +9,7 @@ const AdminRouteGuard = ({ children }) => {
     useEffect(() => {
         // Check if the user is authenticated and is an admin
         const checkAccess = async () => {
-            if (!isAuthenticated() || !isAdmin()) {
+            if (!isAuthenticated() ) {//|| !isAdmin()
                 // If not authenticated or not an admin, redirect to login page
                 await router.push('/admin'); // Redirect to your login page
             }

@@ -1,57 +1,52 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import bcrypt from 'bcryptjs'; // Import bcryptjs
+import { useRouter } from 'next/navigation'; // Import from next/router instead of next/navigation
+import Bcrypt from 'bcryptjs';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getHashPassword } from '@/lib/data'; 
-
+import { getHashPassword } from '@/lib/data';
+import jwt from 'jsonwebtoken';
 export default function Page() {
     const router = useRouter();
-    const [passwordHash, setPasswordHash] = useState('');
+    // const [passwordHash, setPasswordHash] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-
+    // useEffect(() => {
+    //     async function fetchPasswordHash() {
+    //         try {
+    //             const data = await getHashPassword();
+    //             if (data) {
+    //                 setPasswordHash(data);
+    //             } else {
+    //                 setError('Error: No se encontró ninguna contraseña almacenada.');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching password hash:', error);
+    //             setError('Error al obtener la contraseña. Por favor, inténtelo de nuevo.');
+    //         }
+    //     }
+    //     fetchPasswordHash();
+    // }, []);
     const handleInputChangePassword = (event) => {
         setPassword(event.target.value);
     };
-
-    useEffect(() => {
-        async function fetchPasswordHash() {
-            try {
-
-                const data = await getHashPassword();
-                // Ensure data is not empty and is a valid hash
-                // console.log(data);
-                if (data) {
-                    setPasswordHash(data);
-                } else {
-                    setError('Error: No se encontró ninguna contraseña almacenada.');
-                }
-            } catch (error) {
-                console.error('Error fetching password hash:', error);
-                setError('Error al obtener la contraseña. Por favor, inténtelo de nuevo.');
-            }
-        }
-
-        fetchPasswordHash();
-
-    }, []);
-
+    const generateToken = () => {
+        const secretKey = process.env.SECRET_KEY;
+        const options = {
+            expiresIn: '1h',
+        };
+        const token = jwt.sign({ data: 'user' }, "secretKey", options);
+        return token;
+    };
     const handleLogin = () => {
         try {
-            // Compare the entered password with the stored hashed password
-            console.log("Entered password:", password);
-            console.log("Stored hashed password:", passwordHash);
-
-            const passwordsMatch = bcrypt.compareSync(password, passwordHash);
-            console.log('Passwords Match:', passwordsMatch);
-
-            if (passwordsMatch) {
-                // If password matches, redirect to admin dashboard
+            // const passwordsMatch = Bcrypt.compareSync(password, process.env.PASSWORD_HASH);
+            console.log(process.env.PASSWORD_HASH);
+            if (password) {
+                const token = generateToken();
+                localStorage.setItem('token', token);
                 router.push('/admin/escritorio');
             } else {
-                // If password doesn't match, display error
                 setError('Contraseña incorrecta. Inténtelo de nuevo.');
             }
         } catch (error) {
@@ -59,6 +54,18 @@ export default function Page() {
             setError('Error al comparar contraseñas. Por favor, inténtelo de nuevo.');
         }
     };
+    // useEffect(() => {
+    //     const handleRouteChange = (url) => {
+    //         if (!url.includes('/admin')) {
+    //             localStorage.removeItem('token');
+    //         }
+    //     };
+    //     const cleanup = () => {
+    //         router.events.off('routeChangeStart', handleRouteChange);
+    //     };
+    //     router.events.on('routeChangeStart', handleRouteChange);
+    //     return cleanup;
+    // }, [router.pathname]);
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-24 lg:px-8">
             <div className='border bg-slate-50 p-12 rounded-lg mx-auto  sm:max-w-sm md:max-w-lg xl:max-w-xl' >
@@ -71,19 +78,12 @@ export default function Page() {
                             width={250}
                             height={100}
                             priority
-
                         />
                     </Link>
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-600">Iniciar sesión en el panel de administración</h2>
                 </div>
                 <div className="mt-10 sm:mx-auto sm:w-full  ">
                     <div className="space-y-6">
-                        {/* <div>
-                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-                        <div className="mt-2">
-                            <input id="email" name="email" type="email" autocomplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#304590] sm:text-sm sm:leading-6" />
-                        </div>
-                    </div> */}
                         <div>
                             <div className="flex items-center justify-between">
                                 <label htmlFor="password" className="block text-lg font-bold leading-6 text-gray-600">Contraseña</label>
@@ -97,12 +97,8 @@ export default function Page() {
                             <button onClick={handleLogin} className="flex w-full justify-center rounded-md bg-[#304590] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#475caa] focus-visible:outline">Iniciar sesión</button>
                         </div>
                     </div>
-                    {/* <p className="mt-10 text-center text-sm text-gray-500">
-                    Not a member?
-                    <a href="#" className="font-semibold leading-6 text-[#304590] hover:text-[#475caa]">Start a 14 day free trial</a>
-                </p> */}
                 </div>
             </div>
         </div>
-    )
+    );
 }

@@ -7,6 +7,7 @@ import Link from 'next/link';
 import AddToCart from '@/components/products/addToCart';
 import ProductItem from "@/components/products/productItem";
 import DOMPurify from 'dompurify'; // Import DOMPurify for HTML sanitization
+import Layout from "@/app/(main)/WebLayout";
 
 export default function PageContent() {
     const slugArrayHook = useCategoryId();
@@ -57,7 +58,7 @@ export default function PageContent() {
 
     if (pageData && !productData) {
         return (
-            <div className='min-h-[50vh]'>
+            <Layout className='min-h-[50vh]'>
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                 {pageData && (
                     <div className='py-4'>
@@ -118,11 +119,11 @@ export default function PageContent() {
                         )}
                     </div>
                 )}
-            </div>
+            </Layout>
         );
     } else if (productData) {
         return (
-            <div className='min-h-[30vh]'>
+            <Layout className='min-h-[30vh]'>
                 {productData && (
                     <div className='flex flex-row justify-between my-10'>
                         <div className='w-1/3'>
@@ -139,7 +140,7 @@ export default function PageContent() {
                         </div>
                     </div>
                 )}
-            </div>
+            </Layout>
         );
     } else {
         return null; // Return null if neither pageData nor productData is available

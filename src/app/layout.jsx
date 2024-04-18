@@ -7,10 +7,10 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  return ( 
+  return (
     <html lang="es">
-      <body className="flex flex-col items-center w-full text-stone-700">
-        <div className="w-[1100px] mt-24">{children}</div>
+      <body className="flex flex-col justify-start w-full text-stone-700">
+        {children}
       </body>
     </html>
   );

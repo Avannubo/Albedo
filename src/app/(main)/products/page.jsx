@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getCategories } from "@/lib/data";
 import ProductItem from "@/components/products/productItem";
 import AddToCart from '@/components/products/addToCart';
+import Layout from "@/app/(main)/WebLayout";
 
 export default async function page() {
     const data = await getCategories();
@@ -22,7 +23,7 @@ export default async function page() {
     const products = GetProducts(data);
     const last6 = products.slice(0, 4);
     return (
-        <div>
+        <Layout>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
             <div className="flex justify-center my-4">
                 <h1 className="text-2xl font-bold">Gama de productos</h1>
@@ -146,6 +147,6 @@ export default async function page() {
                     ))}
                 </div>
             </div>
-        </div>
+        </Layout>
     );
 }

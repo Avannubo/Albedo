@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import Layout from "@/app/(main)/WebLayout";
 
 export default function page() {
     return (
-        <div>
+        <Layout>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
             <div className="flex justify-center my-4">
                 <h1 className="text-2xl font-bold">Diseñamos y producimos sus productos electrónicos</h1>
@@ -75,6 +76,6 @@ export default function page() {
                     <div className='flex flex-row text-xl'><Link href="/services/design/low_power" className='text-[#304590] font-bold'>Equipos de baja y ultra-baja potencia: </Link>  Sistemas electrónicos óptimos en en uso de la potencia disponible.</div>
                 </Link>
             </div>
-        </div>
+        </Layout>
     )
 }

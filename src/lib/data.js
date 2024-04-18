@@ -400,63 +400,80 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
  */
 export async function editCategory(categoryId, Code, Name, Description, Body, isPublished) {
     try {
-        // Read the contents of the file as a string
         const data = await fs.readFile(filePath, 'utf8');
-        // Parse the JSON data into an object containing categories and deleted content
         const { categories, deletedContent } = JSON.parse(data);
-        // Recursive function to traverse through categories and update the specified category
+
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
-                // Log the current category id and the id of the category to be updated
-                // console.log("Checking category:", category.id, "not equal to:", categoryId);
-                // Check if the current category is the one to be updated
                 if (category.id === categoryId.categoryId.id) {
-                    // console.log("Category found:", category);
                     // Update the category properties
                     category.id = Code;
                     category.name = Name;
                     category.ALBEDOdescripcion = Description;
                     category.ALBEDOcuerpo = Body;
-                    category.isPublished = isPublished,
-                        category.FechaDeModificacion = new Date().toISOString();
-                    // Log that the updated data is being written to the file
-                    // console.log("Writing updated data to file...");
+                    category.isPublished = isPublished;
+                    category.FechaDeModificacion = new Date().toISOString();
+
+                    // Update publishing status of products in the current category
+                    await updateProductsPublishingStatus(category.products, isPublished);
+
+                    // If the category has children, update their publishing status recursively
+                    if (category.subCategories && category.subCategories.length > 0) {
+                        await updateChildrenPublishingStatus(category.subCategories, isPublished);
+                    }
+
                     // Write the updated JSON data to the file
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    // Log that the data was written successfully
-                    // console.log("Data written successfully.");
-                    // Log that the path has been revalidated
-                    // console.log("Path revalidated.");
-                    // Return true to indicate that the category was updated
+
                     return true;
                 }
-                // If the category has subcategories, recursively check them
+
                 if (category.subCategories && category.subCategories.length > 0) {
-                    // console.log("Checking subcategories for category:", category.id);
                     const subcategorySaved = await loopRecursive(category.subCategories);
-                    // If the subcategory was updated, return true
                     if (subcategorySaved) return true;
                 }
             }
-            // Return false if the category was not found
             return false;
         };
-        // Log that the saving process is starting
-        // console.log("Starting saving process...");
-        // Call the recursive function to save the category
+
+        const updateChildrenPublishingStatus = async (children, parentIsPublished) => {
+            for (let i = 0; i < children.length; i++) {
+                const child = children[i];
+                // Update the publishing status of the child based on the parent's publishing status
+                child.isPublished = parentIsPublished;
+                child.FechaDeModificacion = new Date().toISOString();
+
+                // Update publishing status of products in the current category
+                await updateProductsPublishingStatus(child.products, parentIsPublished);
+
+                // If the child has children, update their publishing status recursively
+                if (child.subCategories && child.subCategories.length > 0) {
+                    await updateChildrenPublishingStatus(child.subCategories, parentIsPublished);
+                }
+            }
+        };
+
+        const updateProductsPublishingStatus = async (products, publishingStatus) => {
+            for (let i = 0; i < products.length; i++) {
+                const product = products[i];
+                product.isPublished = publishingStatus;
+                product.FechaDeModificacion = new Date().toISOString();
+            }
+        };
+
         const categorySaved = await loopRecursive(categories);
-        // If the category was not found, log that fact and return false
         if (!categorySaved) {
-            // console.log("Category not found.");
             return false;
         }
+
+        return true;
     } catch (error) {
-        // Handle any errors that occur during the process
-        // console.log("Error editing category:", error);
+        console.error("Error editing category:", error);
         return false;
     }
 }
+
 
 /**
  * Retrieves a product based on its ID.

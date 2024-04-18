@@ -2,12 +2,13 @@ import React from 'react'
 import Details from '@/components/admin/orders/details/btn'
 import State from '@/components/admin/orders/state/btn'
 import OrdersStateCount from '@/components/admin/orders/OrdersStateCount'
+import Layout from "@/app/(admin)/admin/AdminLayout";
 import { getAllOrders } from '@/lib/data'
 export default async function page() {
   const orders = await getAllOrders(); 
 
   return (
-    <div>
+    <Layout>
       <h1 className="font-semibold text-4xl">Pedidos</h1>
       <div className="flex flex-col ">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -52,7 +53,7 @@ export default async function page() {
           </div>
         </div>
       </div> 
-      <OrdersStateCount />
-    </div>
+      {/* <OrdersStateCount /> */}
+    </Layout>
   );
 }

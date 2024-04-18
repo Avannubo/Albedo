@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import React from 'react'
+import Layout from "@/app/(main)/WebLayout";
 
 export default function page() {
   return (
-    <div> <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+    <Layout> <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
       <div className="flex justify-center my-4">
         <h1 className="text-2xl font-bold">Servicios. Sistemas de baja y ultra-baja potencia</h1>
       </div>
@@ -30,6 +31,6 @@ export default function page() {
           <br /><br />
           Por supuesto, su necesidad no tiene porqué estar incluida en la lista anterior. En cualquier caso, no dude en consultar qué podemos hacer por usted. </p>
       </div>
-    </div>
+    </Layout>
   )
 }

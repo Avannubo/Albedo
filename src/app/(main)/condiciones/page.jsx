@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import React from 'react'
+import Layout from "@/app/(main)/WebLayout";
 
 export default function page() {
     return (
-        <div>
+        <Layout>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
             <div className="flex justify-center my-4">
                 <h1 className="text-2xl font-bold">Comprar en ALBEDO Design S.L.</h1>
@@ -114,6 +115,6 @@ export default function page() {
                     <br />
                     Según lo dispuesto en la Ley Orgánica de Protección de Datos de Carácter Personal (LO 15/1999), Usted puede ejercitar en todo momento sus derechos de acceso, rectificación, oposición y cancelación de los datos personales, dirigiéndose a                     </p>
             </div>
-        </div>
+        </Layout>
     )
 }

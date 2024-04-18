@@ -1,7 +1,7 @@
 import React from 'react'
-
+import Layout from "@/app/(main)/WebLayout";
 export default function page() {
   return (
-    <div>page</div>
+    <Layout >page</Layout>
   )
 }

@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import Layout from "@/app/(main)/WebLayout";
 
 export default function page() {
     return (
-        <div>
+        <Layout>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
             <div className="flex justify-center my-4">
                 <h1 className="text-3xl font-bold">Historia de la empresa</h1>
@@ -44,6 +45,6 @@ export default function page() {
                 <p><b className='font-bold'>2006</b> : Creamos la nueva división, <Link className='font-bold text-[#304590]' href="https://www.instruments.albedo.biz/">ALBEDO instruments</Link>, dedicada a la comercialización de instrumentos de medida para el mercado español.</p>
                 <p><b className='font-bold'>2008</b> : En colaboración con un antiguo colaborador de la época de ICT electronics, Pepe Caballero, iniciamos las actividades de la división cuya misión es la asesoría, consultorio, formación y, en general cualquier actividad relacionada con el mundo de las Telecomunicaciones profesionales, <Link className='font-bold text-[#304590]' href="https://www.albedotelecom.com/">ALBEDO Telecom</Link> .</p>
             </div>
-        </div>
+        </Layout>
     )
 }

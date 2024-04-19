@@ -31,17 +31,19 @@ export default function Page() {
         setPassword(event.target.value);
     };
     const generateToken = () => {
-        const secretKey = process.env.SECRET_KEY;
-        const options = {
-            expiresIn: '1h',
-        };
-        const token = jwt.sign({ data: 'user' }, "secretKey", options);
+        const secretKey = "043950dea0158f162ef41f2a1b6c0fd2246e24c932399f527f3ec3cb685c1667";
+        console.log(secretKey);
+        if (!secretKey) {
+            throw new Error('Secret key not found in environment variables');
+        }
+        const token = jwt.sign( "user", secretKey, { expiresIn: '1h' });
         return token;
     };
+
     const handleLogin = () => {
         try {
             // const passwordsMatch = Bcrypt.compareSync(password, process.env.PASSWORD_HASH);
-            console.log(process.env.PASSWORD_HASH);
+            //console.log(process.env.PASSWORD_HASH);
             if (password) {
                 const token = generateToken();
                 localStorage.setItem('token', token);

@@ -58,29 +58,31 @@ const Category = ({ category }) => (
   </div>
 );
 export default function Page() {
-  const [isPublishedFilter, setIsPublishedFilter] = useState(true);
-  const [fetchedFilters, setfetchedFilters] = useState([]);
-  
+  const [isPublishedFilter, setIsPublishedFilter] = useState(true); // null represents "All"
   const [categoryFilter, setCategoryFilter] = useState('');
   const [categories, setCategories] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     fetchData();
-  }, [isPublishedFilter, categoryFilter]); // Fetch data on component mount
-  const fetchData = async () => { 
+  }, [isPublishedFilter, categoryFilter]); // Fetch data on filter change
+  const fetchData = async () => {
+    setIsLoading(true);
     const fetchedCategories = await getCategories();
     let filteredData = fetchedCategories;
     if (isPublishedFilter !== null) {
       filteredData = filteredData.filter(category => category.isPublished === isPublishedFilter);
     }
+    setFilters(filteredData)
     if (categoryFilter !== '') {
       filteredData = filteredData.filter(category => category.name === categoryFilter);
     }
-    setfetchedFilters(fetchedCategories)
     setCategories(filteredData);
+    setIsLoading(false);
   };
-  // const getCategoryNames = () => {
-  //   return categories.map(category => category.name);
-  // };
+  const getCategoryNames = () => {
+    return filters.map(category => category.name);
+  };
   return (
     <Layout>
       <div className="flex flex-row justify-between mb-8">
@@ -90,32 +92,40 @@ export default function Page() {
         </div>
         <div className="flex flex-row space-x-4">
           <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-3 py-1 border-2 border-blue-100 rounded-lg focus:outline-none focus:border-[#304590]"
+            value={isPublishedFilter === true ? "" : isPublishedFilter}
+            onChange={(e) => setIsPublishedFilter(e.target.value === "" ? true : e.target.value === 'true')}
+            className="px-3 py-1 border-2 border-[#304590] rounded-lg focus:outline-none focus:border-[#304590] "
           >
-            <option value="">All Categories</option>
-            {fetchedFilters.map((name, index) => (
-              <option key={index} value={name.name}>{name.name.split(" ").length > 2
-                ? name.name.split(" ")[0]
-                : name.name}</option>
-            ))}
-          </select>
-          <select
-            value={isPublishedFilter}
-            onChange={(e) => setIsPublishedFilter(e.target.value === 'true' ? true : false)}
-            className="px-3 py-1 border-2 border-blue-100 rounded-lg focus:outline-none focus:border-[#304590] "
-          >
+            {/* <option value="">Todos</option> */}
             <option value={true}>Publicado</option>
             <option value={false}>Borrador</option>
           </select>
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className="px-3 py-1 border-2 border-[#304590] rounded-lg focus:outline-none focus:border-[#304590]"
+          >
+            <option value="">Todas las categorias</option>
+            {getCategoryNames().map((categoryName, index) => (
+              <option key={index} value={categoryName}>
+                {categoryName.split(" ").length > 2 ? categoryName.split(" ")[0] : categoryName}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
-      {categories.map((category) => (
-        <div key={category.id} className="mt-6">
-          <Category category={category} />
+      {isLoading ? (
+        <div class="flex-col gap-4 w-full flex items-center justify-center">
+          <div class="w-20 h-20 border-8 text-blue-600 text-xl animate-spin border-gray-300 flex items-center justify-center border-t-blue-600 rounded-full">
+          </div>
         </div>
-      ))}
+      ) : (
+        categories.map((category) => (
+          <div key={category.id} className="mt-6">
+            <Category category={category} />
+          </div>
+        ))
+      )}
       <Modal />
     </Layout>
   );

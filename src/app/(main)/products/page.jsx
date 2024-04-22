@@ -5,9 +5,9 @@ import { getCategories } from "@/lib/data";
 import ProductItem from "@/components/products/productItem";
 import AddToCart from '@/components/products/addToCart';
 import Layout from "@/app/(main)/WebLayout";
-
 export default async function page() {
     const data = await getCategories();
+    const Categories = data.filter(category => category.isPublished === true);
     function GetProducts(categories) {
         let products = [];
         categories.forEach((category) => {
@@ -21,7 +21,7 @@ export default async function page() {
         return products;
     }
     const products = GetProducts(data);
-    const last6 = products.slice(0, 4);
+    const last6 = products.slice(products.length - 4, products.length);
     return (
         <Layout>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
@@ -30,8 +30,28 @@ export default async function page() {
             </div>
             <div className="">
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-                <div className="flex flex-row justify-between space-x-6 my-8">
-                    {/* cat1 */}
+                <div className='flex flex-row flex-wrap justify-center mt-2 '>
+                    {Categories.map((category, index) => (
+                        <Link key={index}
+                            href={`/products/${category.url_Id}`}
+                            className="block px-4 py-2 text-md text-gray-700 rounded-lg "
+                        >
+                            <Image
+                                src={category.imagen}
+                                alt="Vercel Logo"
+                                className="self-center w-full h-[110px] rounded-lg"
+                                width={100}
+                                height={24}
+                            />
+                            <p className='text-center font-bold'>
+                                {category.name.split(" ").length > 2
+                                    ? category.name.split(" ")[0]
+                                    : category.name}</p>
+                            {/* <button className="self-center text-white w-full py-1.5 mt-2 rounded-md bg-[#304590] hover:bg-[#475caa]">Ver Más</button> */}
+                        </Link>
+                    ))}
+                </div>
+                {/* <div className="flex flex-row justify-between space-x-6 my-8">
                     <Link href="/products/020" className="flex flex-col w-auto ">
                         <Image
                             src="/assets/images/ADFSSM100/imagen.png"
@@ -45,7 +65,6 @@ export default async function page() {
                             Iluminación
                         </h2>
                     </Link>
-                    {/* cat1 */}
                     <Link href="/products/011" className="flex flex-col w-auto ">
                         <Image
                             src="/assets/images/automatismos.jpg"
@@ -59,7 +78,6 @@ export default async function page() {
                             Automatismos
                         </h2>
                     </Link>
-                    {/* cat1 */}
                     <Link href="/products/001" className="flex flex-col w-auto ">
                         <Image
                             src="/assets/images/controladores.jpg"
@@ -73,7 +91,6 @@ export default async function page() {
                             Controladores
                         </h2>
                     </Link>
-                    {/* cat1 */}
                     <Link href="/products/021" className="flex flex-col w-auto ">
                         <Image
                             src="/assets/images/dupline.jpg"
@@ -87,7 +104,6 @@ export default async function page() {
                             Dupline
                         </h2>
                     </Link>
-                    {/* cat1 */}
                     <Link href="/products/012" className="flex flex-col w-auto ">
                         <Image
                             src="/assets/images/gama_enocean.jpg"
@@ -101,7 +117,6 @@ export default async function page() {
                             Gama Enocean
                         </h2>
                     </Link>
-                    {/* cat1 */}
                     <Link href="/products/017" className="flex flex-col w-auto ">
                         <Image
                             src="/assets/images/energia.jpg"
@@ -115,7 +130,6 @@ export default async function page() {
                             Energia
                         </h2>
                     </Link>
-                    {/* cat1 */}
                     <Link href="/products/006" className="flex flex-col w-auto ">
                         <Image
                             src="/assets/images/protectores.jpg"
@@ -129,9 +143,9 @@ export default async function page() {
                             Protectores
                         </h2>
                     </Link>
-                </div>
+                </div> */}
             </div>
-            <div className="my-12">
+            <div className="my-6">
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
                 <div className="flex justify-center">
                     <h1 className="text-lg font-bold my-2">Nuevos productos</h1>

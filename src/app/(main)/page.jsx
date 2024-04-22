@@ -21,7 +21,7 @@ export default async function Home() {
     return products;
   }
   const products = GetProducts(data);
-  const last6 = products.slice(0, 4);
+  const last6 = products.slice(products.length - 4, products.length);
   return (
     <Layout>
       <div className="">

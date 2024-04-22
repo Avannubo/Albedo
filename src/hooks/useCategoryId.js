@@ -13,7 +13,7 @@ export default function useCategoryId() {
         const Ids = urlParts.slice(categoryIndex + 1);
         return Ids;
       } else {
-        return null;
+        return null;  
       }
     };
 

@@ -1,93 +1,106 @@
-import Layout from "@/app/(admin)/admin/AdminLayout";
-import OrdersStateCount from "@/components/admin/orders/OrdersStateCount";
-import OrdersChart from "@/components/admin/panel/ordersChart";
-export default function page() {
-  return (
-    <Layout>
-      <div>
-        <h1 className="font-semibold text-4xl">Admin Panel</h1>
-        <div className="flex flex-col space-y-6 my-4">
-          <div className="flex flex-row justify-between space-x-6 ">
-            <div className="grow h-auto box-shadow rounded-lg p-2 space-y-2">
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-col justify-center">
-                  <h1 className="font-semibold text-slate-600 text-xl">Pedidos Totales</h1>
-                  <p className="text-2xl font-bold">24</p>
+"use client";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation'; // Import from next/router instead of next/navigation
+import Bcrypt from 'bcryptjs';
+import Link from 'next/link';
+import Image from 'next/image';
+import { getHashPassword } from '@/lib/data';
+import jwt from 'jsonwebtoken';
+export default function Page() {
+    const router = useRouter();
+    // const [passwordHash, setPasswordHash] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    // useEffect(() => {
+    //     async function fetchPasswordHash() {
+    //         try {
+    //             const data = await getHashPassword();
+    //             if (data) {
+    //                 setPasswordHash(data);
+    //             } else {
+    //                 setError('Error: No se encontró ninguna contraseña almacenada.');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching password hash:', error);
+    //             setError('Error al obtener la contraseña. Por favor, inténtelo de nuevo.');
+    //         }
+    //     }
+    //     fetchPasswordHash();
+    // }, []);
+    const handleInputChangePassword = (event) => {
+        setPassword(event.target.value);
+    };
+    const generateToken = () => {
+        const secretKey = "043950dea0158f162ef41f2a1b6c0fd2246e24c932399f527f3ec3cb685c1667";
+        console.log(secretKey);
+        if (!secretKey) {
+            throw new Error('Secret key not found in environment variables');
+        }
+        const token = jwt.sign( "user", secretKey, { expiresIn: '1h' });
+        return token;
+    };
+
+    const handleLogin = () => {
+        try {
+            // const passwordsMatch = Bcrypt.compareSync(password, process.env.PASSWORD_HASH);
+            //console.log(process.env.PASSWORD_HASH);
+            if (password) {
+                const token = generateToken();
+                localStorage.setItem('token', token);
+                router.push('/admin/escritorio');
+            } else {
+                setError('Contraseña incorrecta. Inténtelo de nuevo.');
+            }
+        } catch (error) {
+            console.error('Error comparing passwords:', error);
+            setError('Error al comparar contraseñas. Por favor, inténtelo de nuevo.');
+        }
+    };
+    // useEffect(() => {
+    //     const handleRouteChange = (url) => {
+    //         if (!url.includes('/admin')) {
+    //             localStorage.removeItem('token');
+    //         }
+    //     };
+    //     const cleanup = () => {
+    //         router.events.off('routeChangeStart', handleRouteChange);
+    //     };
+    //     router.events.on('routeChangeStart', handleRouteChange);
+    //     return cleanup;
+    // }, [router.pathname]);
+    return (
+        <div className="flex min-h-full flex-col justify-center px-6 py-24 lg:px-8">
+            <div className='border bg-slate-50 p-12 rounded-lg mx-auto  sm:max-w-sm md:max-w-lg xl:max-w-xl' >
+                <div className="sm:mx-auto sm:w-full ">
+                    <Link href="/" className="flex flex-col justify-center">
+                        <Image
+                            src="/images/Logo_albedo.png"
+                            alt="Vercel Logo"
+                            className="self-center"
+                            width={250}
+                            height={100}
+                            priority
+                        />
+                    </Link>
+                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-600">Iniciar sesión en el panel de administración</h2>
                 </div>
-                <div className="p-1 rounded-lg bg-slate-100">
-                  <svg width="64px" height="64px" viewBox="0 0 48 48" version="1" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48" fill="#000000">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                      <path fill="#8d9acf" d="M43,36H29V14h10.6c0.9,0,1.6,0.6,1.9,1.4L45,26v8C45,35.1,44.1,36,43,36z"></path>
-                      <path fill="#3a55af" d="M29,36H5c-1.1,0-2-0.9-2-2V9c0-1.1,0.9-2,2-2h22c1.1,0,2,0.9,2,2V36z"></path> <g fill="#d8d8d8">
-                        <circle cx="37" cy="36" r="5"></circle>
-                        <circle cx="13" cy="36" r="5"></circle> </g>
-                      <g fill="#78909C"> <circle cx="37" cy="36" r="2"></circle>
-                        <circle cx="13" cy="36" r="2"></circle> </g> <path fill="#d8d8d8" d="M41,25h-7c-0.6,0-1-0.4-1-1v-7c0-0.6,0.4-1,1-1h5.3c0.4,0,0.8,0.3,0.9,0.7l1.7,5.2c0,0.1,0.1,0.2,0.1,0.3V24 C42,24.6,41.6,25,41,25z"></path>
-                      <polygon fill="#b9d3f4" points="21.8,13.8 13.9,21.7 10.2,17.9 8,20.1 13.9,26 24,15.9"></polygon> </g></svg>
+                <div className="mt-10 sm:mx-auto sm:w-full  ">
+                    <div className="space-y-6">
+                        <div>
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="password" className="block text-lg font-bold leading-6 text-gray-600">Contraseña</label>
+                            </div>
+                            <div className="mt-2">
+                                <input onChange={handleInputChangePassword} value={password} id="password" placeholder='***********' name="password" type="password" autoComplete="current-password" required className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#304590] sm:text-sm sm:leading-6" />
+                                {error && <p className="text-red-500 text-sm">{error}</p>}
+                            </div>
+                        </div>
+                        <div>
+                            <button onClick={handleLogin} className="flex w-full justify-center rounded-md bg-[#304590] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#475caa] focus-visible:outline">Iniciar sesión</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div className="grow h-auto box-shadow rounded-lg p-2 space-y-2">
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-col justify-center">
-                  <h1 className="font-semibold text-slate-600 text-xl">Productos Vendidos</h1>
-                  <p className="text-2xl font-bold">56</p>
-                </div>
-                <div className="p-1 rounded-lg bg-slate-100">
-                  <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.5777 3.38197L17.5777 4.43152C19.7294 5.56066 20.8052 6.12523 21.4026 7.13974C22 8.15425 22 9.41667 22 11.9415V12.0585C22 14.5833 22 15.8458 21.4026 16.8603C20.8052 17.8748 19.7294 18.4393 17.5777 19.5685L15.5777 20.618C13.8221 21.5393 12.9443 22 12 22C11.0557 22 10.1779 21.5393 8.42229 20.618L6.42229 19.5685C4.27063 18.4393 3.19479 17.8748 2.5974 16.8603C2 15.8458 2 14.5833 2 12.0585V11.9415C2 9.41667 2 8.15425 2.5974 7.13974C3.19479 6.12523 4.27063 5.56066 6.42229 4.43152L8.42229 3.38197C10.1779 2.46066 11.0557 2 12 2C12.9443 2 13.8221 2.46066 15.5777 3.38197Z" stroke="#8d9acf" stroke-width="1.5" stroke-linecap="round"></path> <path d="M21 7.5L17 9.5M12 12L3 7.5M12 12V21.5M12 12C12 12 14.7426 10.6287 16.5 9.75C16.6953 9.65237 17 9.5 17 9.5M17 9.5V13M17 9.5L7.5 4.5" stroke="#8d9acf" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
-                </div>
-              </div>
-            </div>
-            <div className="grow h-auto box-shadow rounded-lg p-2 space-y-2">
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-col justify-center">
-                  <h1 className="font-semibold text-slate-600 text-xl">Total Facturado</h1>
-                  <p className="text-2xl font-bold">568€</p>
-                </div>
-                <div className="p-1 rounded-lg bg-slate-100">
-                  <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M1.28869 2.76282C1.41968 2.36986 1.84442 2.15749 2.23737 2.28848L2.50229 2.37678C2.51549 2.38118 2.52864 2.38557 2.54176 2.38994C3.16813 2.59871 3.69746 2.77513 4.11369 2.96876C4.55613 3.17459 4.94002 3.42968 5.23112 3.83355C5.52221 4.23743 5.64282 4.68229 5.69817 5.16711C5.75025 5.62321 5.75023 6.18117 5.7502 6.84142L5.7502 9.49999C5.7502 10.9354 5.7518 11.9365 5.85335 12.6919C5.952 13.4256 6.13245 13.8142 6.40921 14.091C6.68598 14.3677 7.07455 14.5482 7.80832 14.6468C8.56367 14.7484 9.56479 14.75 11.0002 14.75H18.0002C18.4144 14.75 18.7502 15.0858 18.7502 15.5C18.7502 15.9142 18.4144 16.25 18.0002 16.25H10.9453C9.57774 16.25 8.47542 16.25 7.60845 16.1335C6.70834 16.0125 5.95047 15.7536 5.34855 15.1516C4.74664 14.5497 4.48774 13.7918 4.36673 12.8917C4.25017 12.0248 4.25018 10.9225 4.2502 9.55487L4.2502 6.88303C4.2502 6.17003 4.24907 5.69826 4.20785 5.33726C4.16883 4.99541 4.10068 4.83052 4.01426 4.71062C3.92784 4.59072 3.79296 4.47392 3.481 4.3288C3.15155 4.17554 2.70435 4.02527 2.02794 3.79981L1.76303 3.7115C1.37008 3.58052 1.15771 3.15578 1.28869 2.76282Z" fill="#3a55af"></path> <path opacity="0.5" d="M5.74512 5.99997C5.75008 6.25909 5.75008 6.53954 5.75007 6.84137L5.75006 9.49997C5.75006 10.9354 5.75166 11.9365 5.85321 12.6918C5.86803 12.8021 5.8847 12.9045 5.90326 13H16.0221C16.9815 13 17.4612 13 17.8369 12.7522C18.2126 12.5045 18.4016 12.0636 18.7795 11.1817L19.2081 10.1817C20.0176 8.29291 20.4223 7.3485 19.9777 6.67423C19.5331 5.99997 18.5056 5.99997 16.4507 5.99997H5.74512Z" fill="#3a55af"></path> <path d="M7.25 9C7.25 8.58579 7.58579 8.25 8 8.25H11C11.4142 8.25 11.75 8.58579 11.75 9C11.75 9.41421 11.4142 9.75 11 9.75H8C7.58579 9.75 7.25 9.41421 7.25 9Z" fill="#3a55af"></path> <path d="M7.5 18C8.32843 18 9 18.6716 9 19.5C9 20.3284 8.32843 21 7.5 21C6.67157 21 6 20.3284 6 19.5C6 18.6716 6.67157 18 7.5 18Z" fill="#3a55af"></path> <path d="M18 19.5001C18 18.6716 17.3284 18.0001 16.5 18.0001C15.6716 18.0001 15 18.6716 15 19.5001C15 20.3285 15.6716 21.0001 16.5 21.0001C17.3284 21.0001 18 20.3285 18 19.5001Z" fill="#3a55af"></path> </g></svg>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-row justify-between space-x-6 ">
-            <OrdersStateCount />
-            <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
-              <h1 className="font-semibold text-slate-600 text-xl">Pedidos Por transacciones</h1>
-              <hr />
-              <div>
-                <p className="text-xl font-medium">Transferencia: 12</p>
-                <p className="text-xl font-medium">Visa-Mastercard: 7</p>
-                <p className="text-xl font-medium">Bizum: 4</p>
-              </div>
-            </div>
-            <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
-              <h1 className="font-semibold text-slate-600 text-xl">Pedidos por Provencias</h1>
-              <hr />
-              <div>
-                <p className="text-xl font-medium">Barcelona: 12</p>
-                <p className="text-xl font-medium">Madrid: 12</p>
-                <p className="text-xl font-medium">qwerty: 12</p>
-              </div>
-            </div>
-            <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
-              <h1 className="font-semibold text-slate-600 text-xl">Productos mas vendidos</h1>
-              <hr />
-              <div>
-                <p className="text-xl font-medium">Farolas: 12</p>
-                <p className="text-xl font-medium">Dupline(G3800-1015-230): 12</p>
-                <p className="text-xl font-medium">Controladores(XIKRA-261): 12</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-            <OrdersChart />
-          </div>
         </div>
-      </div>
-    </Layout>
-  );
+    );
 }

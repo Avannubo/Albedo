@@ -15,9 +15,11 @@ export default function PageContent() {
     const [pageData, setPageData] = useState(null);
     const [productData, setProductData] = useState(null);
     const [productSanitizedHTML, setSanitizedHTMLForProduct] = useState('');
+    const [loading, setLoading] = useState(true); // State for loading status
 
     useEffect(() => {
         async function fetchData() {
+            setLoading(true);
             try {
                 if (slugArrayHook && slugArrayHook.length > 0) {
                     const productId = slugArrayHook[slugArrayHook.length - 1];
@@ -35,6 +37,8 @@ export default function PageContent() {
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
+            setLoading(false);
+
         }
         fetchData();
     }, [slugArrayHook]);
@@ -55,12 +59,17 @@ export default function PageContent() {
             sanitizeAndSetHTML(productData.ALBEDOcuerpo, setSanitizedHTMLForProduct);
         }
     }, [pageData, productData]);
-
-    if (pageData && !productData) {
-        return (
-            <Layout className='min-h-[50vh]'>
-                <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-                {pageData && (
+    return (
+        <Layout>
+            {loading && (
+                <div className="flex-col gap-4 w-full flex items-center justify-center">
+                    <div className="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full">
+                    </div>
+                </div>
+            )}
+            {pageData && (
+                <div className='min-h-[50vh]'>
+                    <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                     <div className='py-4'>
                         <div className='flex justify-center my-4'>
                             <h1 className='text-2xl font-bold'>
@@ -118,13 +127,10 @@ export default function PageContent() {
                             </div>
                         )}
                     </div>
-                )}
-            </Layout>
-        );
-    } else if (productData) {
-        return (
-            <Layout className='min-h-[30vh]'>
-                {productData && (
+                </div>
+            )}
+            {productData && (
+                <div className='min-h-[30vh]'>
                     <div className='flex flex-row justify-between my-10'>
                         <div className='w-1/3'>
                             <Image className='rounded-lg' src={productData.imagen} alt={productData.ALBEDOtitulo} width={300} height={350} />
@@ -139,10 +145,9 @@ export default function PageContent() {
                             </div>
                         </div>
                     </div>
-                )}
-            </Layout>
-        );
-    } else {
-        return null; // Return null if neither pageData nor productData is available
-    }
+                </div>
+            )}
+        </Layout>
+    );
+
 }

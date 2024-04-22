@@ -22,7 +22,9 @@ export default function Dropdown() {
     async function fetchData() {
       try {
         const data = await getCategories();
-        setCategories(data);
+        const Categories = data.filter(category => category.isPublished === true);
+
+        setCategories(Categories);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -74,7 +76,7 @@ export default function Dropdown() {
         </button>
 
         {isOpen && (
-          <div className="origin-top-left absolute left-0 mt-2 w-44 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 h-[500px] overflow-y-scroll no-scrollbar">
+          <div className="origin-top-left absolute left-0 mt-2 w-44 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 h-auto overflow-y-scroll no-scrollbar">
             <ul>
               <li className="px-4 py-2 text-md text-gray-700 hover:bg-gray-100 rounded-lg">
                 <Link href="/products">Gama de productos</Link>

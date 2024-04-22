@@ -51,7 +51,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
         //             </div> 
         //         </div>
         //         <div className="flex flex-col space-y-2"> 
-        //             <button  onClick={handleAddCategory} className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-blue-500 hover:bg-blue-600 active:bg-blue-500">Añadir</button> 
+        //             <button  onClick={handleAddCategory} className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-blue-500 hover:bg-[#304590] active:bg-blue-500">Añadir</button> 
         //             <button onClick={onClose} className="px-6 py-2.5 rounded-md text-black text-sm font-semibold border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Cancelar</button>
         //         </div>
         //     </div>

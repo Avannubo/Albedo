@@ -53,7 +53,9 @@ export default function page() {
             </div>
           </div>
           <div className="flex flex-row justify-between space-x-6 ">
-            <OrdersStateCount />
+            <div className="w-[250px] ">
+              <OrdersStateCount />
+            </div>
             <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
               <h1 className="font-semibold text-slate-600 text-xl">Pedidos Por transacciones</h1>
               <hr />
@@ -82,8 +84,11 @@ export default function page() {
               </div>
             </div>
           </div>
-          <div>
-            <OrdersChart />
+          <div className="flex flex-row justify-between space-x-2">
+            
+            <div className="grow">
+              <OrdersChart />
+            </div>
           </div>
         </div>
       </div>

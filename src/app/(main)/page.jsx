@@ -1,27 +1,45 @@
-import Image from "next/image"; 
+"use client"
+import { useState, useEffect } from 'react';
+import Image from "next/image";
 import { getCategories } from "@/lib/data";
 import ProductItem from "@/components/products/productItem";
 import AddToCart from '@/components/products/addToCart';
 import Layout from "@/app/(main)/WebLayout";
-
 import Link from "next/link";
-// import { RichTextEditorComponent } from '@syncfusion/ej2-react-richtexteditor';
-export default async function Home() {
-  const data = await getCategories();
+export default function Home() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState();
+  // const data = await getCategories();
+  const fetchData = async () => {
+    setIsLoading(true);
+    const fetchedCategories = await getCategories();
+    setData(fetchedCategories)
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
   function GetProducts(categories) {
     let products = [];
-    categories.forEach((category) => {
-      if (category.products.length > 0) {
-        products = products.concat(category.products);
-      }
-      if (category.subCategories) {
-        products = products.concat(GetProducts(category.subCategories));
-      }
-    });
+    if (categories) {
+      categories.forEach((category) => {
+        if (category.products.length > 0) {
+          products = products.concat(category.products);
+        }
+        if (category.subCategories) {
+          products = products.concat(GetProducts(category.subCategories));
+        }
+      });
+    }
     return products;
   }
+
   const products = GetProducts(data);
   const last6 = products.slice(products.length - 4, products.length);
+
+
   return (
     <Layout>
       <div className="">
@@ -59,15 +77,23 @@ export default async function Home() {
             <h1 className="text-xl font-bold my-2">Nuevos productos</h1>
           </div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
-          <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
-            {last6.map((product) => (
-              <div className="w-[250px] flex flex-col p-2 rounded-lg box-shadow justify-between">
-                <Link href={product.fixedUrl} key={product.ALBEDOcodigo} >
-                  <ProductItem product={product} /></Link>
-                <AddToCart producto={product} />
+          {isLoading ? (
+            <div class="flex-col gap-4 w-full flex items-center justify-center">
+              <div class="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full">
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
+              {last6.map((product) => (
+                <div className="w-[250px] flex flex-col p-2 rounded-lg box-shadow justify-between">
+                  <Link href={product.fixedUrl} key={product.ALBEDOcodigo} >
+                    <ProductItem product={product} /></Link>
+                  <AddToCart producto={product} />
+                </div>
+              ))}
+            </div>)}
+        </div>
+        <div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           <div className="bg-[#304590] rounded-xl p-3 flex justify-center">
             <h1 className="text-xl font-bold text-white ">

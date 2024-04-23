@@ -21,23 +21,24 @@ export default function Home() {
   }, []);
 
 
-  function GetProducts(categories) {
+  function GetPublishedProducts(categories) {
     let products = [];
-    if (categories) {
+    if (categories && categories.length > 0) {
       categories.forEach((category) => {
-        if (category.products.length > 0) {
+        if (category.isPublished && category.products && category.products.length > 0) {
           products = products.concat(category.products);
         }
         if (category.subCategories) {
-          products = products.concat(GetProducts(category.subCategories));
+          products = products.concat(GetPublishedProducts(category.subCategories));
         }
       });
     }
     return products;
   }
 
-  const products = GetProducts(data);
-  const last6 = products.slice(products.length - 4, products.length);
+  const allPublishedProducts = GetPublishedProducts(data);
+  const last4PublishedProducts = allPublishedProducts.slice(-4);
+
 
 
   return (
@@ -78,13 +79,13 @@ export default function Home() {
           </div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           {isLoading ? (
-            <div class="flex-col gap-4 w-full flex items-center justify-center">
+            <div class="flex-col gap-4 w-full flex items-center justify-center my-4">
               <div class="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full">
               </div>
             </div>
           ) : (
             <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
-              {last6.map((product) => (
+                {last4PublishedProducts.map((product) => (
                 <div className="w-[250px] flex flex-col p-2 rounded-lg box-shadow justify-between">
                   <Link href={product.fixedUrl} key={product.ALBEDOcodigo} >
                     <ProductItem product={product} /></Link>

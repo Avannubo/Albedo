@@ -48,8 +48,10 @@ function AddToCart({ producto }) {
       {/* Input field to specify quantity */}
       <input
         type="number"
-        className="shadow-sm rounded-md w-1/4 text-right px-2.5 py-1.5 border border-gray-300 focus:outline-2 focus:ring-blue-500 focus:border-blue-500"
+        className="shadow-sm rounded-md w-1/4 text-right px-2.5 py-1.5 border border-gray-300 focus:outline-2 focus:ring-[#304590] focus:border-[#304590]"
         placeholder="0"
+        min="0"
+        step="1"
         value={quantity}
         onChange={handleQuantityChange}
         required

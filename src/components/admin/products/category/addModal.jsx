@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { addCategory } from '@/lib/data';
-// import Dropzone from '@/components/admin/categories/Dropzone'
+import { addCategory } from '@/lib/data'; // Import the addCategory function from the data.js file
 
 export default function AddModal({ isOpen, onClose }) {
     const [newCategoryName, setNewCategoryName] = useState('');
@@ -10,8 +9,12 @@ export default function AddModal({ isOpen, onClose }) {
     const [newCategoryCode, setNewCategoryCode] = useState('');
     const [newCategoryUrlCode, setNewCategoryUrlCode] = useState('');
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
-    // const [imageFile, setImageFile] = useState(null);
-    // const [pdfFile, setPdfFile] = useState(null);
+
+    // State variables for error handling
+    const [nameError, setNameError] = useState(false);
+    const [descriptionError, setDescriptionError] = useState(false);
+    const [codeError, setCodeError] = useState(false);
+    const [urlCodeError, setUrlCodeError] = useState(false);
 
     const handleInputChangeCode = (event) => {
         setNewCategoryCode(event.target.value);
@@ -32,27 +35,43 @@ export default function AddModal({ isOpen, onClose }) {
     const handleInputChangeBody = (event) => {
         setNewCategoryBody(event.target.value);
     };
-    // const handleImageChange = (event) => {
-    //     setImageFile(event.target.files[0]);
-    // };
-
-    // const handlePdfChange = (event) => {
-    //     setPdfFile(event.target.files[0]);
-    // };
 
     const handleAddCategory = () => {
-        addCategory(newCategoryCode, newCategoryUrlCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished);
+        // Set errors for all fields that don't meet the requirements
+        setCodeError(!newCategoryCode.trim());
+        setUrlCodeError(!newCategoryUrlCode.trim());
+        setNameError(!newCategoryName.trim());
+        setDescriptionError(!newCategoryDescription.trim());
+
+        // If any field doesn't meet the requirements, stop execution
+        if (!newCategoryCode.trim() || !newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
+            return;
+        }
+
+        // If all fields meet the requirements, add the category
+        addCategory(
+            newCategoryCode,
+            newCategoryUrlCode,
+            newCategoryName,
+            newCategoryDescription,
+            newCategoryBody,
+            newCategoryIsPublished
+        );
+
+        // Reset form and close modal
         setNewCategoryName('');
         setNewCategoryDescription('');
         setNewCategoryBody('');
         setNewCategoryCode('');
         setNewCategoryUrlCode('');
         setNewCategoryIsPublished(false);
-        // setImageFile(null);
-        // setPdfFile(null);
+        setNameError(false);
+        setDescriptionError(false);
+        setCodeError(false);
+        setUrlCodeError(false);
         onClose();
-
     };
+
 
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
@@ -81,41 +100,47 @@ export default function AddModal({ isOpen, onClose }) {
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de Categoría</label>
-                                    <input onChange={handleInputChangeCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Codigo" required />
+                                    <input onChange={handleInputChangeCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
+                                    {codeError && <span className="text-red-500 italic text-xs ">El código de categoría es requerido</span>}
+
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
-                                    <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Codigo URL ej. 001" required />
+                                    <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo URL ej. 001" required />
+                                    {urlCodeError && <span className="text-red-500 italic text-xs">El código de URL es requerido</span>}
+
                                 </div>
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Categoría</label>
-                                    <input onChange={handleInputChangeName} rows="2" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Categoría" required />
+                                    <input onChange={handleInputChangeName} rows="2" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Categoría" required />
+                                    {nameError && <span className="text-red-500 italic text-xs">El nombre de la categoría es requerido</span>}
+
                                 </div>
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Categoría</label>
-                                <textarea onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Descripción" required />
+                                <textarea onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required />
+                                {descriptionError && <span className="text-red-500 italic text-xs">La descripción de la categoría es requerida</span>}
+
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cuerpo de Categoría </label>
-                                <textarea onChange={handleInputChangeBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Cuerpo" />
+                                <textarea onChange={handleInputChangeBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Cuerpo" />
                             </div>
-                            <div className='flex flex-row justify-between space-x-4'>
-                                {/* <div className="flex-1 mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Imagen</label>
-                                    <input type="file" onChange={handleImageChange} className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+                            <div className='flex flex-row  justify-between space-x-4'>
+                                <div className="grow mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
+                                    <input type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
-                                <div className="flex-1 mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">PDF</label>
-                                    <input type="file" onChange={handlePdfChange} className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
-                                </div> */}
-                                {/* <Dropzone className='mt-10 border border-neutral-200 p-20' /> */}
-
+                                <div className="grow mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
+                                    <input type="file" className="sshadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                </div>
                             </div>
                             <div className='flex justify-center mt-4'>
-                                <button onClick={handleAddCategory} type="submit" className="w-[150px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                <button onClick={handleAddCategory} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">
                                     Guardar
                                 </button>
                             </div>

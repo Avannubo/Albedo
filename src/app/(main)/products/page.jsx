@@ -24,23 +24,23 @@ export default function page() {
         fetchData();
     }, []);
 
-    function GetProducts(categories) {
+    function GetPublishedProducts(categories) {
         let products = [];
         if (categories && categories.length > 0) {
             categories.forEach((category) => {
-                if (category.products && category.products.length > 0) {
+                if (category.isPublished && category.products && category.products.length > 0) {
                     products = products.concat(category.products);
                 }
                 if (category.subCategories) {
-                    products = products.concat(GetProducts(category.subCategories));
+                    products = products.concat(GetPublishedProducts(category.subCategories));
                 }
             });
         }
         return products;
     }
 
-    const products = GetProducts(data);
-    const last6 = products.slice(products.length - 4, products.length);
+    const allPublishedProducts = GetPublishedProducts(data);
+    const last4PublishedProducts = allPublishedProducts.slice(-4);
 
     return (
         <Layout>
@@ -56,9 +56,9 @@ export default function page() {
                         </div>
                     </div>
                 ) : (
-                    <div className='flex flex-row flex-wrap space-x-6 justify-center mt-2 '>
+                    <div className='flex flex-row flex-wrap space-x-6  justify-center mt-2 '>
                         {data.map((category, index) => (
-                            <Link key={index} href={`/products/${category.url_Id}`} className="block  text-md text-gray-700 rounded-lg ">
+                            <Link key={index} href={`/products/${category.url_Id}`} className="block mb-4 text-md text-gray-700 rounded-lg ">
                                 <Image src={category.imagen} alt="Vercel Logo" className="self-center w-[135px] h-[100px] rounded-lg" width={100} height={24} />
                                 <p className='text-center font-semibold text-md'>
                                     {category.name.split(" ").length > 2 ? category.name.split(" ")[0] : category.name}
@@ -82,7 +82,7 @@ export default function page() {
                     </div>
                 ) : (
                     <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
-                        {last6.map((product) => (
+                            {last4PublishedProducts.map((product) => (
                             <div className="w-[250px] flex flex-col p-2 rounded-lg box-shadow justify-between" key={product.ALBEDOcodigo}>
                                 <Link href={product.fixedUrl}>
                                     <ProductItem product={product} />

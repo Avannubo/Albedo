@@ -134,15 +134,17 @@ export default function PageContent() {
                     <div className='flex flex-row justify-between my-10'>
                         <div className='w-1/3'>
                             <Image className='rounded-lg' src={productData.imagen} alt={productData.ALBEDOtitulo} width={300} height={350} />
+
+                            <p className='text-xl font-medium mt-2'><b>Precio: </b>{productData.ALBEDOprecio}€</p>
+                            <div className='mt-4 w-[250px]'>
+                                <AddToCart producto={productData} />
+                            </div>
                         </div>
                         <div className='w-2/3'>
                             <h1 className='font-extrabold text-2xl'>{productData.ALBEDOtitulo}</h1>
                             <p className='text-md'>{productData.ALBEDOdescripcion}</p>
                             <div className='flex flex-col text-start my-2' dangerouslySetInnerHTML={{ __html: productSanitizedHTML }} />
-                            <p className='text-xl font-medium'>Precio: {productData.ALBEDOprecio}€</p>
-                            <div className='mt-4 w-[250px]'>
-                                <AddToCart producto={productData} />
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

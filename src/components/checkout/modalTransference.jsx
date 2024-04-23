@@ -182,7 +182,7 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
 
                                 <div className='flex flex-row space-x-6 justify-center mt-2'>
                                     <button onClick={handleConfirmPayment} className='self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' type="button">
-                                        Confirmar Pago
+                                        Realizar Pedido
                                     </button>
                                     <button onClick={onClose} className='self-center w-[150px] rounded-md bg-red-600 py-1.5 px-4 font-medium text-blue-50 hover:bg-red-500' type="button">
                                         Cancelar

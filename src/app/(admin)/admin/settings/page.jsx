@@ -1,111 +1,129 @@
-import React from 'react'
-import Details from '@/components/admin/orders/details/btn'
-import State from '@/components/admin/orders/state/btn'
-import OrdersStateCount from '@/components/admin/orders/OrdersStateCount'
+"use client"
+import React, { useState } from 'react';
 import Layout from "@/app/(admin)/admin/AdminLayout";
-import { getAllOrders } from '@/lib/data'
-export default async function page() {
-  const orders = await getAllOrders();
+import { updatePassword, updateShippingPrices, updateIBAN, updateIVA } from '@/lib/data'; // Import the functions for updating data
+
+export default function page() {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [spainPrice, setSpainPrice] = useState(0);
+  const [euPrice, setEuPrice] = useState(0);
+  const [internationalPrice, setInternationalPrice] = useState(0);
+  const [newIBAN, setNewIBAN] = useState("");
+  const [newIVA, setNewIVA] = useState(0);
+
+  async function handlePasswordUpdate() {
+    try {
+      await updatePassword(currentPassword, newPassword);
+      console.log("Password updated successfully!");
+    } catch (error) {
+      console.error("Error updating password:", error);
+    }
+  }
+
+  async function handleShippingPricesUpdate() {
+    try {
+      await updateShippingPrices(spainPrice, euPrice, internationalPrice);
+      console.log("Shipping prices updated successfully!");
+    } catch (error) {
+      console.error("Error updating shipping prices:", error);
+    }
+  }
+
+  async function handleIBANUpdate() {
+    try {
+      await updateIBAN(newIBAN);
+      console.log("IBAN updated successfully!");
+    } catch (error) {
+      console.error("Error updating IBAN:", error);
+    }
+  }
+
+  async function handleIVAUpdate() {
+    try {
+      await updateIVA(newIVA);
+      console.log("IVA updated successfully!");
+    } catch (error) {
+      console.error("Error updating IVA:", error);
+    }
+  }
   return (
     <Layout>
       <h1 className="font-semibold text-4xl">Variable Globales</h1>
       <div className="flex flex-col space-y-6 my-4">
         <div className="flex flex-row justify-between space-x-6 ">
           <div className="w-full h-auto bg-slate-50 rounded-lg p-4 space-y-1 border">
-            <h1 className="font-semibold text-slate-500 text-2xl mb-4">Actualizar Contrasenya</h1>
-            {/* <hr /> */}
+            <h1 className="font-semibold text-slate-500 text-2xl mb-4">Actualizar Contraseña</h1>
             <div className='space-y-0'>
               <div className='flex flex-row justify-between space-x-2'>
                 <div className="mb-2 flex-1">
                   <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Contraseña Actual</label>
-                  <input rows="2" type="text" className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="Contraseña Actual" required />
+                  <input rows="2" type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="Contraseña Actual" required />
                 </div>
               </div>
               <div className='flex flex-row justify-between space-x-4'>
                 <div className="mb-2 flex-1">
                   <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Nueva contraseña</label>
-                  <input rows="2" type="text" className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="Nueva contraseña" required />
-                </div>
-              </div>
-              <div className='flex flex-row justify-between space-x-4'>
-                <div className="mb-2 flex-1">
-                  <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Reescribir Nueva contraseña</label>
-                  <input rows="2" type="text" className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="Reescribir Nueva contraseña" required />
+                  <input rows="2" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="Nueva contraseña" required />
                 </div>
               </div>
             </div>
             <div className='flex justify-center mt-2'>
-              <button type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-1.5 px-4 rounded-lg">
-                Guardar
-              </button>
+              <button type="button" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-1.5 px-4 rounded-lg" onClick={handlePasswordUpdate}>Guardar</button>
             </div>
           </div>
           <div className="w-full h-auto bg-slate-50 rounded-lg p-4 space-y-1 border">
-            <h1 className="font-semibold text-slate-500 text-2xl mb-4">Precios de Envios</h1>
-            {/* <hr /> */}
-            <div>
-              <div className='flex flex-row justify-between space-x-2'>
-                <div className="mb-2 flex-1">
-                  <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">España</label>
-                  <input min="0" step="0.1" type="number" className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="0" required />
-                </div>
+            <h1 className="font-semibold text-slate-500 text-2xl mb-4">Precios de Envíos</h1>
+
+            <div className='flex flex-col justify-between'>
+              <div className="mb-2 flex-1">
+                <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">España</label>
+                <input min="0" step="0.1" type="number" value={spainPrice} onChange={(e) => setSpainPrice(parseFloat(e.target.value))} className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="0" required />
               </div>
-              <div className='flex flex-row justify-between space-x-4'>
-                <div className="mb-2 flex-1">
-                  <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Unión Europea</label>
-                  <input type="number" step="0.1" min={0} className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="0" required />
-                </div>
+              <div className="mb-2 flex-1">
+                <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">UE</label>
+                <input min="0" step="0.1" type="number" value={euPrice} onChange={(e) => setEuPrice(parseFloat(e.target.value))} className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="0" required />
               </div>
-              <div className='flex flex-row justify-between space-x-4'>
-                <div className="mb-2 flex-1">
-                  <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Resto del mundo</label>
-                  <input type="number" step="0.1" min={0} className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="0" required />
-                </div>
+              <div className="mb-2 flex-1">
+                <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">International</label>
+                <input min="0" step="0.1" type="number" value={internationalPrice} onChange={(e) => setInternationalPrice(parseFloat(e.target.value))} className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="0" required />
               </div>
             </div>
             <div className='flex justify-center mt-2'>
-              <button type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-1.5 px-4 rounded-lg">
-                Guardar
-              </button>
+              <button type="button" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-1.5 px-4 rounded-lg" onClick={handleShippingPricesUpdate}>Guardar</button>
             </div>
           </div>
         </div>
         <div className="flex flex-row justify-between space-x-6 ">
           <div className="w-full h-auto bg-slate-50 rounded-lg p-4 space-y-1 border">
             <h1 className="font-semibold text-slate-500 text-2xl mb-4">Actualizar IBAN</h1>
-            {/* <hr /> */}
             <div>
               <div className='flex flex-row justify-between space-x-2 '>
                 <div className="mb-4 flex-1">
                   <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Nº de Cuenta (IBAN)</label>
-                  <input rows="2" type="text" className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="ES34 1234 2134 1234 1234 1234" required />
+                  <input rows="2" type="text" value={newIBAN} onChange={(e) => setNewIBAN(e.target.value)} className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="ES34 1234 2134 1234 1234 1234" required />
                 </div>
               </div>
             </div>
             <div className='flex justify-center mt-2'>
-              <button type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-1.5 px-4 rounded-lg">
-                Guardar
-              </button>
+              <button type="button" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-1.5 px-4 rounded-lg" onClick={handleIBANUpdate}>Guardar</button>
             </div>
           </div>
           <div className="w-full h-auto bg-slate-50 rounded-lg p-4 space-y-1 border">
             <h1 className="font-semibold text-slate-500 text-2xl mb-4">Actualizar IVA</h1>
-            {/* <hr /> */}
             <div>
               <div className='flex flex-row justify-between space-x-4'>
                 <div className="mb-4 flex-1">
                   <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2">Actualizar IVA%</label>
-                  <input rows="2" type="number" className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="Nueva IVA" required />
+                  <input rows="2" type="number" value={newIVA} onChange={(e) => setNewIVA(parseFloat(e.target.value))} className="shadow-sm rounded-md w-full px-2 py-1.5 border border-gray-300 focus:outline-1 focus:ring-[#475caa] focus:border-[#475caa]" placeholder="Nueva IVA" required />
                 </div>
               </div>
             </div>
             <div className='flex justify-center mt-2'>
-              <button type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-1.5 px-4 rounded-lg">
-                Guardar
-              </button>
+              <button type="button" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-1.5 px-4 rounded-lg" onClick={handleIVAUpdate}>Guardar</button>
             </div>
           </div>
-        </div> 
+        </div>
       </div>
     </Layout>
   );

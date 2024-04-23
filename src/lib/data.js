@@ -7,6 +7,7 @@ import path from 'path';
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
 const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
 const filePathOrders = isLocal ? path.resolve('public/data/ClientOrders.json') : '/data/ClientOrders.json';
+const filePathParameters = isLocal ? path.resolve('public/data/Parameters.json') : '/data/Parameters.json';
 let cachedData = null;
 let lastModifiedTime = null;
 const currentdate = new Date();
@@ -39,7 +40,94 @@ export async function getCategories() {
         return []; // Return an empty array if categories don't exist
     }
 }
+export async function getParameters() {
+    try {
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data); 
+        console.log(jsonData);
+        return jsonData;
+    } catch (error) {
+        console.error("Error getting Parameters:", error);
+        return [];
+    }
+}
+export async function updatePassword(currentPassword, newPassword) {
+    try {
+        // Read data from file
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data);
 
+        // Check if the current password matches the stored password
+        if (currentPassword !== jsonData.Password) {
+            throw new Error("Current password does not match.");
+        }
+
+        // Update the password
+        jsonData.Password = newPassword;
+
+        // Write the updated JSON back to the file
+        await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
+
+        return jsonData;
+    } catch (error) {
+        throw new Error("Error updating password: " + error.message);
+    }
+}
+
+export async function updateShippingPrices(spainPrice, euPrice, internationalPrice) {
+    try {
+        // Read data from file
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data);
+
+        // Update shipping prices
+        jsonData.EnvioEspaña = spainPrice;
+        jsonData.EnviosUE = euPrice;
+        jsonData.EnviosInternacional = internationalPrice;
+
+        // Write the updated JSON back to the file
+        await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
+
+        return jsonData;
+    } catch (error) {
+        throw new Error("Error updating shipping prices: " + error.message);
+    }
+}
+
+export async function updateIBAN(newIBAN) {
+    try {
+        // Read data from file
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data);
+
+        // Update IBAN
+        jsonData.IBAN = newIBAN;
+
+        // Write the updated JSON back to the file
+        await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
+
+        return jsonData;
+    } catch (error) {
+        throw new Error("Error updating IBAN: " + error.message);
+    }
+}
+export async function updateIVA(newIVA) {
+    try {
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data);
+
+        // Update the IVA field
+        jsonData.IVA = newIVA;
+
+        // Write the updated JSON back to the file
+        await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
+
+        return jsonData;
+    } catch (error) {
+        console.error("Error updating IVA:", error);
+        return null;
+    }
+}
 /**
  * Deletes a category or a product based on provided IDs.
  * @param {object} categoryId - The ID of the category or product to be deleted.
@@ -636,7 +724,7 @@ export async function saveNewOrder(orderData) {
         const data = await readFile(filePathOrders, 'utf8');
         const jsonData = JSON.parse(data);
         const { ClientOrders } = jsonData;
-        const orderDataWithState = { ...orderData, orderState: 'Nuevo', createdAt: euFormattedDateTime };
+        const orderDataWithState = { ...orderData, orderState: 'Pendiente', createdAt: euFormattedDateTime };
         // Add orderState field with default value
         ClientOrders.unshift(orderDataWithState);
         await writeFile(filePathOrders, JSON.stringify(jsonData));

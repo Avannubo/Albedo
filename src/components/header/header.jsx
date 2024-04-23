@@ -20,7 +20,6 @@ export default function header() {
               priority
             />
           </Link>
-          <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
           <div className="flex grow justify-between self-center">
             <div className="flex justify-center mt-2">
               <Dropdown />

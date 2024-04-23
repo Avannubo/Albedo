@@ -3,7 +3,10 @@ import React, { useState, useEffect } from 'react';
 import CartItem from "@/components/products/cartItem";
 import Layout from "@/app/(main)/WebLayout";
 import ModalTransference from "@/components/checkout/modalTransference";
+import { getParameters } from '@/lib/data';
+
 export default function Page() {
+  const [parameters, setParameters] = useState(null);
   const [selectedShipping, setSelectedShipping] = useState({ method: null, price: null });
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [cartProducts, setCartProducts] = useState([]);
@@ -65,6 +68,30 @@ export default function Page() {
     }
   };
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getParameters();
+        setParameters(data);
+      } catch (error) {
+        console.error("Error fetching parameters:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (parameters) {
+      console.log(parameters.EnvioEspaña);
+      // console.log("Password:", parameters.Password);
+      // console.log("Envios:", parameters.Envios);
+      // console.log("IBAN:", parameters.IBAN);
+      // console.log("IVA:", parameters.IVA);
+    }
+  }, [parameters]);
+  
+
+  useEffect(() => {
     const intervalId = setInterval(() => {
       if (typeof window !== 'undefined') {
         setCartProducts(JSON.parse(localStorage.getItem("carrito")) || []);
@@ -76,7 +103,6 @@ export default function Page() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
-
     if (!userInfo.firstName.trim()) {
       newErrors.firstName = "El nombre es obligatorio.";
     }
@@ -86,10 +112,9 @@ export default function Page() {
     if (cartProducts.length === 0) {
       newErrors.cartProducts = "El carrito está vacío.";
     }
-    
     if (!userInfo.dni.trim()) {
       newErrors.dni = "El DNI es obligatorio.";
-    } 
+    }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!userInfo.email.trim()) {
       newErrors.email = "El Email es obligatorio.";
@@ -98,7 +123,7 @@ export default function Page() {
     }
     if (!userInfo.phoneNumber.trim()) {
       newErrors.phoneNumber = "El Número de teléfono es obligatorio.";
-    } 
+    }
     if (!userInfo.address.trim()) {
       newErrors.address = "La dirección de envío es obligatoria.";
     }
@@ -112,7 +137,7 @@ export default function Page() {
       newErrors.zipCode = "El código postal es obligatorio.";
     } else if (isNaN(userInfo.zipCode)) {
       newErrors.zipCode = "El código postal debe ser un número.";
-    } 
+    }
     if (!userInfo.acceptedTerms) {
       newErrors.terms = "Debe aceptar los Términos y Condiciones.";
     }
@@ -367,7 +392,6 @@ export default function Page() {
               <div className="max-h-[270px] bg-white overflow-y-scroll ">
                 {/* no-scrollbar */}
                 <CartItem />
-
               </div>{errors.cartProducts && (
                 <p className="text-red-500 text-xs italic py-2">{errors.cartProducts}</p>
               )}
@@ -378,23 +402,33 @@ export default function Page() {
               <h1 className="mb-4 text-start text-2xl font-bold">
                 Envío:
               </h1>
-              <div className="flex flex-row justify-start space-x-2 text-sm">
-                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
-              ${selectedShipping && selectedShipping.method === 'Envío Ibérica' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
-                  onClick={() => handleShippingSelect('Envío Ibérica', 4.99)}>
-                  Península 4,99€
+              <div className='flex flex-col space-y-2 justify-between'>
+                <div className="flex flex-row justify-start space-x-2 text-sm">
+                  <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+              ${selectedShipping && selectedShipping.method === 'España' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
+                    onClick={() => handleShippingSelect('España', parameters?.EnvioEspaña ?? 0)}>
+                    España {parameters?.EnvioEspaña ?? 0}€
+                  </div>
+                  <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+              ${selectedShipping && selectedShipping.method === 'unión europea' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
+                    onClick={() => handleShippingSelect('unión europea', parameters?.EnviosUE ?? 0)}>
+                    Unión Europea {parameters?.EnviosUE ?? 0}€
+                  </div>
+                  <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+              ${selectedShipping && selectedShipping.method === 'internacional' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
+                    onClick={() => handleShippingSelect('internacional', parameters?.EnviosInternacional ?? 0)}>
+                    Internacional {parameters?.EnviosInternacional ?? 0}€
+                  </div>
                 </div>
-                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
-              ${selectedShipping && selectedShipping.method === 'Envío Baleares' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
-                  onClick={() => handleShippingSelect('Envío Baleares', 8.99)}>
-                  Baleares 8,99€
-                </div>
-                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+                <div className="flex flex-row justify-start space-x-2 text-sm">
+                  <div className={`grow text-center border py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
               ${selectedShipping && selectedShipping.method === 'Recogida' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
-                  onClick={() => handleShippingSelect('Recogida', 0.0)}>
-                  Recogida en tienda
+                    onClick={() => handleShippingSelect('Recogida', 0.0)}>
+                    Recogida en tienda
+                  </div>
                 </div>
               </div>
+
               {errors.shipping && (
                 <p className="text-red-500 text-xs italic py-2">{errors.shipping}</p>
               )}
@@ -428,9 +462,14 @@ export default function Page() {
             <div className="h-auto">
               <div className="justify-center p-2 py-4 space-y-3">
                 <div className="h-full   border bg-white p-3">
-                  <div className="mb-2 flex justify-between">
+                  <div className=" flex justify-between">
                     <p className="text-gray-700">Subtotal</p>
                     <p className="text-gray-700 font-bold">{(subTotal).toFixed(2)}€</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="text-gray-700">IVA</p>
+                    <p className="text-gray-700">{parameters?.IVA ?? 0}%</p>
+                    {/* ({(subTotal * (parameters?.IVA / 100)).toFixed(2)}€) */}
                   </div>
                   <div className="flex justify-between">
                     <p className="text-gray-700">Envío</p>
@@ -440,8 +479,7 @@ export default function Page() {
                   <div className="flex justify-between">
                     <p className="text-lg font-bold">Total</p>
                     <div className="">
-                      <p className="mb-1 text-lg font-bold text-right">{(subTotal + selectedShipping.price).toFixed(2)}€</p>
-                      <p className="text-sm text-gray-700">*IVA incluido</p>
+                      <p className="mb-1 text-lg font-bold text-right">{((subTotal * (parameters?.IVA/100)) + subTotal + selectedShipping.price).toFixed(2)}€</p>
                     </div>
                   </div>
                   <form onSubmit={handleSubmit}>
@@ -458,6 +496,5 @@ export default function Page() {
         </div>
       </div>
     </Layout>
-
   );
 }

@@ -86,12 +86,10 @@ export default function Page() {
     if (cartProducts.length === 0) {
       newErrors.cartProducts = "El carrito está vacío.";
     }
-    const dniRegex = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
+    
     if (!userInfo.dni.trim()) {
       newErrors.dni = "El DNI es obligatorio.";
-    } else if (!dniRegex.test(userInfo.dni)) {
-      newErrors.dni = "Por favor, introduce un DNI español válido.";
-    }
+    } 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!userInfo.email.trim()) {
       newErrors.email = "El Email es obligatorio.";
@@ -100,11 +98,7 @@ export default function Page() {
     }
     if (!userInfo.phoneNumber.trim()) {
       newErrors.phoneNumber = "El Número de teléfono es obligatorio.";
-    } else if (!/^\d{9}$/.test(userInfo.phoneNumber)) {
-      newErrors.phoneNumber = "El Número de teléfono debe tener 9 dígitos.";
-    } else if (!/[679]/.test(userInfo.phoneNumber.charAt(0))) {
-      newErrors.phoneNumber = "El Número de teléfono debe comenzar con 6, 7 o 9.";
-    }
+    } 
     if (!userInfo.address.trim()) {
       newErrors.address = "La dirección de envío es obligatoria.";
     }
@@ -118,9 +112,7 @@ export default function Page() {
       newErrors.zipCode = "El código postal es obligatorio.";
     } else if (isNaN(userInfo.zipCode)) {
       newErrors.zipCode = "El código postal debe ser un número.";
-    } else if (userInfo.zipCode.length !== 6) {
-      newErrors.zipCode = "El código postal debe tener 6 dígitos.";
-    }
+    } 
     if (!userInfo.acceptedTerms) {
       newErrors.terms = "Debe aceptar los Términos y Condiciones.";
     }
@@ -438,7 +430,7 @@ export default function Page() {
                 <div className="h-full   border bg-white p-3">
                   <div className="mb-2 flex justify-between">
                     <p className="text-gray-700">Subtotal</p>
-                    <p className="text-gray-700 font-bold">{subTotal}€</p>
+                    <p className="text-gray-700 font-bold">{(subTotal).toFixed(2)}€</p>
                   </div>
                   <div className="flex justify-between">
                     <p className="text-gray-700">Envío</p>
@@ -448,7 +440,7 @@ export default function Page() {
                   <div className="flex justify-between">
                     <p className="text-lg font-bold">Total</p>
                     <div className="">
-                      <p className="mb-1 text-lg font-bold text-right">{subTotal + selectedShipping.price}€</p>
+                      <p className="mb-1 text-lg font-bold text-right">{(subTotal + selectedShipping.price).toFixed(2)}€</p>
                       <p className="text-sm text-gray-700">*IVA incluido</p>
                     </div>
                   </div>

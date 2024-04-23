@@ -2,20 +2,21 @@
 import React, { useState, useEffect } from "react";
 export default function CartItem() {
   const [cartItems, setCartItems] = useState([]);
+
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("carrito"));
     if (storedCartItems) {
       setCartItems(storedCartItems);
     }
   }, []);
-  const updateCartItem = (id, action) => {
+
+  const updateCartItem = (id, newQuantity) => {
+    // Ensure the new quantity is at least 1
+    newQuantity = Math.max(1, newQuantity);
+
     const updatedCartItems = cartItems.map((product) => {
       if (product.ALBEDOcodigo === id) {
-        if (action === "increment") {
-          return { ...product, quantity: product.quantity + 1 };
-        } else if (action === "decrement") {
-          return { ...product, quantity: Math.max(1, product.quantity - 1) };
-        }
+        return { ...product, quantity: newQuantity };
       }
       return product;
     });
@@ -29,7 +30,8 @@ export default function CartItem() {
     setCartItems(newCartItems);
     localStorage.setItem("carrito", JSON.stringify(newCartItems));
   };
-  return (
+
+  return ( 
     <div className="">
       {cartItems && cartItems.length > 0 ? (
         <div className="space-y-2 p-2">
@@ -47,21 +49,27 @@ export default function CartItem() {
                   <div className="flex flex-row justify-center items-center space-x-4 ">
                     <div className="flex items-center border-gray-100">
                       <span
-                        onClick={() => updateCartItem(product.ALBEDOcodigo, "decrement")}
+                        onClick={() => updateCartItem(product.ALBEDOcodigo, product.quantity - 1)}
                         className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-[#304590] hover:text-blue-50"
                       >
                         {" "}
                         -{" "}
                       </span>
                       <input
-                        className="h-8 w-8 border bg-white text-center text-xs outline-none"
+                        className="h-8 w-12 border bg-white text-center text-sm outline-none number-input "
                         type="number"
                         value={product.quantity}
                         min="1"
+                        onChange={(e) => {
+                          const newQuantity = parseInt(e.target.value);
+                          if (!isNaN(newQuantity) && newQuantity >= 1) {
+                            updateCartItem(product.ALBEDOcodigo, newQuantity);
+                          }
+                        }}
                       />
                       <span
-                        onClick={() => updateCartItem(product.ALBEDOcodigo, "increment")}
-                        className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-[#304590] hover:text-blue-50"
+                        onClick={() => updateCartItem(product.ALBEDOcodigo, product.quantity + 1)}
+                        className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-[#304590] hover:text-blue-50 "
                       >
                         {" "}
                         +{" "}
@@ -84,10 +92,10 @@ export default function CartItem() {
                     </svg>
                   </div>
                   <div className="flex flex-row space-x-2">
-                    <p>
-                      Total por producto:
-                    </p>
-                    <h1 className="font-semibold">{product.ALBEDOprecio * product.quantity} €</h1>
+                    <p>Total por producto:</p>
+                    <h1 className="font-semibold">
+                      {(product.ALBEDOprecio * product.quantity).toFixed(2)} €
+                    </h1>
                   </div>
                 </div>
               </div>
@@ -110,8 +118,9 @@ export default function CartItem() {
                 <path d="M159.174,55.045c1.92,0,3.841-0.733,5.306-2.199l23.552-23.573c2.928-2.93,2.925-7.679-0.005-10.606 c-2.93-2.928-7.679-2.925-10.606,0.005l-23.552,23.573c-2.928,2.93-2.925,7.679,0.005,10.607 C155.338,54.314,157.256,55.045,159.174,55.045z"></path>
                 <path d="M135.006,48.311c0.001,0,0.001,0,0.002,0c4.141,0,7.499-3.357,7.5-7.498l0.008-33.311c0.001-4.142-3.356-7.501-7.498-7.502 c-0.001,0-0.001,0-0.001,0c-4.142,0-7.5,3.357-7.501,7.498l-0.008,33.311C127.507,44.951,130.864,48.31,135.006,48.311z"></path> </g> </g></svg>
             <h1 className="">No hay productos en el carrito</h1>
-          </div></div>
+          </div>
+        </div>
       )}
     </div>
-  );
+  ); 
 }

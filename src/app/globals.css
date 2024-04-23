@@ -19,15 +19,16 @@
     /* Firefox */
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+.number-input {
     -webkit-appearance: none;
-    margin: 0;
+    -moz-appearance: textfield;
+    /* For Firefox */
 }
 
-input[type="number"] {
-    /* Firefox */
-    -moz-appearance: textfield;
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .box-shadow {

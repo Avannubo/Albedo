@@ -81,9 +81,15 @@ export async function updateShippingPrices(spainPrice, euPrice, internationalPri
         const jsonData = JSON.parse(data);
 
         // Update shipping prices
-        jsonData.EnvioEspaña = spainPrice;
-        jsonData.EnviosUE = euPrice;
-        jsonData.EnviosInternacional = internationalPrice;
+        if (spainPrice !== 0 && spainPrice !== null && spainPrice !== undefined) {
+            jsonData.EnvioEspaña = spainPrice;
+        }
+        if (euPrice !== 0 && euPrice !== null && euPrice !== undefined) {
+            jsonData.EnviosUE = euPrice;
+        }
+        if (internationalPrice !== 0 && internationalPrice !== null && internationalPrice !== undefined) {
+            jsonData.EnviosInternacional = internationalPrice;
+        }
 
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
@@ -101,7 +107,9 @@ export async function updateIBAN(newIBAN) {
         const jsonData = JSON.parse(data);
 
         // Update IBAN
-        jsonData.IBAN = newIBAN;
+        if (newIBAN !== 0 && newIBAN !== null && newIBAN !== undefined) { 
+            jsonData.IBAN = newIBAN;
+        }
 
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
@@ -117,7 +125,10 @@ export async function updateIVA(newIVA) {
         const jsonData = JSON.parse(data);
 
         // Update the IVA field
-        jsonData.IVA = newIVA;
+        if (newIVA !== 0 && newIVA !== null && newIVA !== undefined) { 
+            jsonData.IVA = newIVA;
+        }
+
 
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));

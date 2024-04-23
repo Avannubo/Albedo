@@ -44,19 +44,19 @@ export default function OrdersStateCount() {
     };
 
     return (
-        <div className='rounded-lg box-shadow p-4 space-y-2 min-h-[180px]'>
-            <h1 className="font-semibold text-slate-600 text-xl">Estados de Pedidos</h1>
+        <div className='grow h-auto box-shadow p-3 space-y-2 rounded-lg box-shadow min-h-[155px]'>
+            <h1 className="font-semibold text-slate-500 text-xl">Estados de Pedidos</h1>
             <hr />
             {loading ? (
-                <div className="flex flex-col items-start justify-between space-y-2">
-                    <div className="h-5 w-16 bg-gray-400 rounded-full animate-pulse"></div>
-                    <div className="h-5 w-56 bg-gray-400 rounded-full animate-pulse"></div>
-                    <div className="h-5 w-44 bg-gray-400 rounded-full animate-pulse"></div>
-                    <div className="h-5 w-36 bg-gray-400 rounded-full animate-pulse"></div> 
+                <div className="flex flex-col items-start justify-between space-y-2 mt-2">
+                    <div className="h-5 w-16 bg-gray-200 rounded-full animate-pulse"></div>
+                    <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div>
+                    <div className="h-5 w-44 bg-gray-200 rounded-full animate-pulse"></div>
+                    <div className="h-5 w-36 bg-gray-200 rounded-full animate-pulse"></div> 
                 </div>
             ) : (
                 Object.entries(groupOrdersByState).map(([state, orders]) => (
-                    <div key={state} className='flex flex-row space-x-1 items-center'>
+                    <div key={state} className='flex flex-row space-x-2 items-center'>
                         <div className={`rounded-full h-[15px] w-[35px] ${stateColors[state]}`}></div>
                         <p className='text-xl font-medium'>{state}: {orders.length}</p>
                     </div>

@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "dependencies": {
-    "@syncfusion/ej2-react-richtexteditor": "^25.1.38",
+  "dependencies": { 
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "dompurify": "^3.1.0",

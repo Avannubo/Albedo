@@ -23,7 +23,7 @@ const Category = ({ category, fetchData }) => (
         <EditCatedory categoryId={category} />
         {/* delete svg */}
         <Delete categoryId={category} productId={"none"} reloadData={fetchData} />
-        <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-600' : 'select-none font-medium text-red-600'}`}>
+        <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
           {category.isPublished ? "Publicado" : "Oculto"}
         </p>
       </div>
@@ -41,7 +41,7 @@ const Category = ({ category, fetchData }) => (
             <div className="space-x-4 flex flex-row justify-center items-center">
               <EditProduct productId={product.ALBEDOcodigo} />
               <Delete categoryId={"none"} productId={product} />
-              <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-600' : 'select-none font-medium text-red-600'}`}>
+              <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
                 {product.isPublished ? "Publicado" : "Oculto"}
               </p>
             </div>

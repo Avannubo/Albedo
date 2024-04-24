@@ -1,8 +1,7 @@
 // addModal.js
 "use client";
 import { useState } from 'react';
-import { addproduct } from '@/lib/data';
-// import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar } from '@syncfusion/ej2-react-richtexteditor';
+import { addproduct } from '@/lib/data'; 
 export default function AddModal({ isOpen, onClose, categoryId }) {
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
@@ -13,6 +12,11 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const [newProductStock, setNewProductStock] = useState(0);
     const [newProductMinStock, setNewProductMinStock] = useState(0);
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(0);
+    const [nameError, setNameError] = useState(false);
+    const [descriptionError, setDescriptionError] = useState(false);
+    const [codeError, setCodeError] = useState(false);
+    const [urlCodeError, setUrlCodeError] = useState(false);
+    const [priceError, setPriceError] = useState(false);
 
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
@@ -41,8 +45,31 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const handleInputChangeDeliveryTime = (event) => {
         setNewProductDeliveryTime(event.target.value);
     };
+    // State variables for error handling
+    
     const handleAddProduct = () => {
-        console.log(categoryId, newProductCode, setNewProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
+        // Set errors for all fields that don't meet the requirements
+        setCodeError(!newProductCode.trim());
+        setUrlCodeError(!newProductUrlCode.trim());
+        setNameError(!newProductName.trim());
+        setPriceError(!newProductPrice.trim());
+        setDescriptionError(!newProductDescription.trim());
+        // setDescriptionError(!newProductMinStock.trim()); 
+        // setDescriptionError(!newProductDeliveryTime.trim());
+
+        // If any field doesn't meet the requirements, stop execution
+        if (!newProductCode.trim() ||
+            !newProductUrlCode.trim() ||
+            !newProductName.trim() ||
+            !newProductPrice.trim() || 
+            !newCategoryDescription.trim()) {
+            return;
+        }
+
+
+
+
+        console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
         addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
         setNewProductCode('');
         setNewProductUrlCode('');
@@ -74,32 +101,35 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
+                                    {codeError && <span className="text-red-500 italic text-xs ">El código de categoría es requerido</span>}
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo URL ej. 001" required />
+                                    {urlCodeError && <span className="text-red-500 italic text-xs "> El Codigo de URL es requerido</span>}
                                 </div>
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
                                     <input onChange={handleInputChangeProduct} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="product" required />
+                                    {nameError && <span className="text-red-500 italic text-xs "> El Nombre de Producto es requerido</span>}
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
                                     <input onChange={handleInputChangePrice} type="number" min="0" step="0.1" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Precio" required />
+                                    {priceError && <span className="text-red-500 italic text-xs "> El Precio de producto es requerido</span>}
                                 </div>
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
                                 <textarea onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required />
+                                {descriptionError && <span className="text-red-500 italic text-xs "> El Descripción del Producto es requerido</span>}
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
                                 <textarea onChange={handleInputChangeBody} value={newProductBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" />
-                                {/* <RichTextEditorComponent> 
-                                    <Inject services={[Toolbar, Image, Link, HtmlEditor, QuickToolbar]} />
-                                </RichTextEditorComponent> */}
+                                
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">

@@ -9,7 +9,7 @@ export default function Delete(category, product, reloadData) {
         setIsModalOpen(!isModalOpen);
     };
     return (
-        <div onClick={toggleModal} className='flex flex-row cursor-pointer'>
+        <div onClick={toggleModal} className='flex flex-row cursor-pointer hover:text-red-500'>
             <div className="">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

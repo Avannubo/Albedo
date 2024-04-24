@@ -1,8 +1,7 @@
-{
-  "Password": "$2a$09$dY2ss7oL/VVqyT2AmhVfd.N.uhenavj3rEkjZqpnhixrWbDN.PY96",
-  "EnvioEspaña": 4.89,
-  "EnviosUE": null,
-  "EnviosInternacional": null,
-  "IBAN": "",
+{ 
+  "EnvioES": 3,
+  "EnviosUE": 12,
+  "EnviosINT": 20,
+  "IBAN": "ES34 ES34 1234 2134 1234 1234 1234", 
   "IVA": 30
 }

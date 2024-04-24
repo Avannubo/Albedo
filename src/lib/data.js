@@ -43,8 +43,8 @@ export async function getCategories() {
 export async function getParameters() {
     try {
         const data = await readFile(filePathParameters, 'utf8');
-        const jsonData = JSON.parse(data); 
-        console.log(jsonData);
+        const jsonData = JSON.parse(data);
+        console.log(JSON.stringify(jsonData));
         return jsonData;
     } catch (error) {
         console.error("Error getting Parameters:", error);
@@ -80,24 +80,25 @@ export async function updateShippingPrices(spainPrice, euPrice, internationalPri
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
 
-        // Update shipping prices
-        if (spainPrice !== 0 && spainPrice !== null && spainPrice !== undefined) {
-            jsonData.EnvioEspaña = spainPrice;
+        if (jsonData.EnvioEspaña !== spainPrice && euPrice !== 0 && euPrice !== null) {
+            jsonData.EnvioEspaña = spainPrice; 
         }
-        if (euPrice !== 0 && euPrice !== null && euPrice !== undefined) {
+        if (jsonData.EnviosUE !== euPrice && euPrice !== 0 && euPrice !== null) {
             jsonData.EnviosUE = euPrice;
         }
-        if (internationalPrice !== 0 && internationalPrice !== null && internationalPrice !== undefined) {
+        if (jsonData.EnviosInternacional !== internationalPrice && internationalPrice !== 0 && internationalPrice !== null) {
             jsonData.EnviosInternacional = internationalPrice;
-        }
+        }  
 
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
+
 
         return jsonData;
     } catch (error) {
         throw new Error("Error updating shipping prices: " + error.message);
     }
+
 }
 
 export async function updateIBAN(newIBAN) {
@@ -107,7 +108,7 @@ export async function updateIBAN(newIBAN) {
         const jsonData = JSON.parse(data);
 
         // Update IBAN
-        if (newIBAN !== 0 && newIBAN !== null && newIBAN !== undefined) { 
+        if (newIBAN !== 0 && newIBAN !== null && newIBAN !== undefined) {
             jsonData.IBAN = newIBAN;
         }
 
@@ -125,7 +126,7 @@ export async function updateIVA(newIVA) {
         const jsonData = JSON.parse(data);
 
         // Update the IVA field
-        if (newIVA !== 0 && newIVA !== null && newIVA !== undefined) { 
+        if (newIVA !== 0 && newIVA !== null && newIVA !== undefined) {
             jsonData.IVA = newIVA;
         }
 

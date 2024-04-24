@@ -79,12 +79,12 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
 
                             <div className='flex justify-start '>
                                 <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
-                                {/* <span class="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}
-                                <label class="inline-flex items-center cursor-pointer">
-                                    <input onChange={handleInputChangeIsPublished} type="checkbox" checked={newCategoryIsPublished} class="sr-only peer" />
-                                    <div class="self-center relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#304590]"></div>
+                                {/* <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}
+                                <label className="inline-flex items-center cursor-pointer">
+                                    <input onChange={handleInputChangeIsPublished} type="checkbox" checked={newCategoryIsPublished} className="sr-only peer" />
+                                    <div className="self-center relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#304590]"></div>
                                 </label>
-                                <span class="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Publicado</span>
+                                <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Publicado</span>
                             </div>
                         </div>
                         <div className='flex flex-col'>

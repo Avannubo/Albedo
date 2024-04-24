@@ -1,15 +1,15 @@
 "use client";
-import React, { useState } from 'react';
-import { addCategory } from '@/lib/data'; // Import the addCategory function from the data.js file
+import React, { useEffect, useState } from 'react';
+import { addCategory, getCategories } from '@/lib/data'; // Import the addCategory function from the data.js file
 
 export default function AddModal({ isOpen, onClose }) {
+    const [data, setData] = useState();
     const [newCategoryName, setNewCategoryName] = useState('');
     const [newCategoryDescription, setNewCategoryDescription] = useState('');
     const [newCategoryBody, setNewCategoryBody] = useState('');
     const [newCategoryCode, setNewCategoryCode] = useState('');
     const [newCategoryUrlCode, setNewCategoryUrlCode] = useState('');
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
-
     // State variables for error handling
     const [nameError, setNameError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
@@ -36,6 +36,17 @@ export default function AddModal({ isOpen, onClose }) {
         setNewCategoryBody(event.target.value);
     };
 
+    useEffect(() => {
+        async function fetchData() {
+            const categories = await getCategories();
+            // console.log(categories);
+            setData(categories);
+
+        }
+
+        fetchData();
+    },[])
+
     const handleAddCategory = () => {
         // Set errors for all fields that don't meet the requirements
         setCodeError(!newCategoryCode.trim());
@@ -48,7 +59,16 @@ export default function AddModal({ isOpen, onClose }) {
             return;
         }
 
-        // If all fields meet the requirements, add the category
+        // Check if the URL ID already exists 
+        const urlIdExists = data.some(category => category.url_Id === newCategoryUrlCode); // Use 'url_Id' for comparison
+
+        // If URL ID already exists, set error and stop execution
+        if (urlIdExists) {
+            setUrlCodeError(true);
+            return;
+        }
+
+        // If all fields meet the requirements and URL ID is unique, add the category
         addCategory(
             newCategoryCode,
             newCategoryUrlCode,
@@ -71,6 +91,7 @@ export default function AddModal({ isOpen, onClose }) {
         setUrlCodeError(false);
         onClose();
     };
+
 
 
     return isOpen ? (
@@ -107,7 +128,7 @@ export default function AddModal({ isOpen, onClose }) {
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo URL ej. 001" required />
-                                    {urlCodeError && <span className="text-red-500 italic text-xs">El código de URL es requerido</span>}
+                                    {urlCodeError && <span className="text-red-500 italic text-xs"> El código URL es obligatorio y no duplicado. </span>}
 
                                 </div>
                             </div>

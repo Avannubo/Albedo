@@ -1,10 +1,18 @@
 // deleteModal.js
 "use client"
+import React, { useEffect } from 'react';
 
-import { deleteElement } from '@/lib/data';
-import React from 'react';
+import { deleteElement } from '@/lib/data'; 
 
-export default function DeleteModal({ isOpen, onClose, category, product }) {
+export default function DeleteModal({ isOpen, onClose, category, product, reloadData }) {
+  // useEffect hook to reload data after modal is closed
+  useEffect(() => {
+    if (!isOpen) {
+      if (typeof reloadData === 'function') {
+        reloadData(); // Call the reloadData function when the modal is closed
+      }
+    }
+  }, [isOpen, reloadData]);
   return isOpen ? (
     <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
       <div className="w-full max-w-md bg-white shadow-lg rounded-md p-6 relative">

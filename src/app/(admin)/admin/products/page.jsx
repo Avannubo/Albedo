@@ -9,7 +9,7 @@ import AddNewProduct from "@/components/admin/products/product/add";
 import EditProduct from "@/components/admin/products/product/edit";
 import EditCatedory from "@/components/admin/products/category/edit";
 import Layout from "@/app/(admin)/admin/AdminLayout";
-const Category = ({ category }) => (
+const Category = ({ category, fetchData }) => (
 
   <div key={category.id} className="space-y-2 w-full">
     <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
@@ -22,7 +22,7 @@ const Category = ({ category }) => (
         {/* edit svg */}
         <EditCatedory categoryId={category} />
         {/* delete svg */}
-        <Delete categoryId={category} productId={"none"} />
+        <Delete categoryId={category} productId={"none"} reloadData={fetchData} />
         <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-600' : 'select-none font-medium text-red-600'}`}>
           {category.isPublished ? "Publicado" : "Oculto"}
         </p>
@@ -117,14 +117,14 @@ export default function Page() {
         </div>
       </div>
       {isLoading ? (
-        <div class="flex-col gap-4 w-full flex items-center justify-center">
-          <div class="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full">
+        <div className="flex-col gap-4 w-full flex items-center justify-center">
+          <div className="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full">
           </div>
         </div>
       ) : (
         categories.map((category) => (
           <div key={category.id} className="mt-6">
-            <Category category={category} />
+            <Category category={category} fetchData={fetchData} />
           </div>
         ))
       )}

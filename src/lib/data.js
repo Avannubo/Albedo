@@ -12,7 +12,6 @@ let cachedData = null;
 let lastModifiedTime = null;
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-
 /**
  * Reads the content of a JSON file containing product data.
  * @returns {Object} The parsed JSON content of the file.
@@ -26,7 +25,6 @@ export async function requireContent() {
     }
     return cachedData;
 }
-
 /**
  * Retrieves categories from the product data.
  * @returns {Array} An array of category objects.
@@ -56,30 +54,24 @@ export async function updatePassword(currentPassword, newPassword) {
         // Read data from file
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-
         // Check if the current password matches the stored password
         if (currentPassword !== jsonData.Password) {
             throw new Error("Current password does not match.");
         }
-
         // Update the password
         jsonData.Password = newPassword;
-
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
-
         return jsonData;
     } catch (error) {
         throw new Error("Error updating password: " + error.message);
     }
 }
-
 export async function updateShippingPrices(spainPrice, euPrice, internationalPrice) {
     try {
         // Read data from file
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-
         if (jsonData.EnvioEspaña !== spainPrice && euPrice !== 0 && euPrice !== null) {
             jsonData.EnvioEspaña = spainPrice; 
         }
@@ -89,32 +81,24 @@ export async function updateShippingPrices(spainPrice, euPrice, internationalPri
         if (jsonData.EnviosInternacional !== internationalPrice && internationalPrice !== 0 && internationalPrice !== null) {
             jsonData.EnviosInternacional = internationalPrice;
         }  
-
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
-
-
         return jsonData;
     } catch (error) {
         throw new Error("Error updating shipping prices: " + error.message);
     }
-
 }
-
 export async function updateIBAN(newIBAN) {
     try {
         // Read data from file
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-
         // Update IBAN
         if (newIBAN !== 0 && newIBAN !== null && newIBAN !== undefined) {
             jsonData.IBAN = newIBAN;
         }
-
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
-
         return jsonData;
     } catch (error) {
         throw new Error("Error updating IBAN: " + error.message);
@@ -124,16 +108,12 @@ export async function updateIVA(newIVA) {
     try {
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-
         // Update the IVA field
         if (newIVA !== 0 && newIVA !== null && newIVA !== undefined) {
             jsonData.IVA = newIVA;
         }
-
-
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
-
         return jsonData;
     } catch (error) {
         console.error("Error updating IVA:", error);
@@ -146,7 +126,7 @@ export async function updateIVA(newIVA) {
  * @param {string} productId - The ID of the product to be deleted.
  * @returns {boolean} Indicates whether the deletion was successful.
  */
-export async function deleteElement(categoryId, productId) {
+export async function deleteElement(categoryId) {
     if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
         try {
             const data = await fs.readFile(filePath, 'utf8');//call file
@@ -206,14 +186,13 @@ export async function deleteElement(categoryId, productId) {
                 }
                 // console.log("Product deleted successfully.");
                 return true;
-            }
+            } 
         } catch (error) {
             console.error("An error occurred:", error);
             return false;
         }
     }
 }
-
 /**
  * Adds a new category with provided details to the product data.
  * @param {string} Code - The code of the new category.
@@ -233,11 +212,12 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
         const jsonData = JSON.parse(data);
         const { categories } = jsonData;
         // Save image and pdf files to assets directory
-        const savedImageFilePath = await saveFileToAssets(imageFile, name + '_' + Url_Id + '_' + getFileIdNumber(100000, 10000000) + '.jpg');
-        const savedPdfFilePath = await saveFileToAssets(pdfFile, name + '_' + Url_Id + '.pdf');
+        // const savedImageFilePath = await saveFileToAssets(imageFile, name + '_' + Url_Id + '_' + getFileIdNumber(100000, 10000000) + '.jpg');
+        // const savedPdfFilePath = await saveFileToAssets(pdfFile, name + '_' + Url_Id + '.pdf');
         const newCategory = {
             "id": Code.replace(/ /g, "-"),
             "url_Id": Url_Id,
+            "fixedUrl": "",
             "name": name,
             "ALBEDOdescripcion": description,
             "ALBEDOcuerpo": body,
@@ -247,10 +227,10 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
             "imagen": "/assets/images/200000066.jpg",
             "subCategories": [],
             "products": [],
-            "imageFilePath": savedImageFilePath, // Store the path to the saved image file
-            "pdfFilePath": savedPdfFilePath // Store the path to the saved pdf file
+            // "imageFilePath": savedImageFilePath, // Store the path to the saved image file
+            // "pdfFilePath": savedPdfFilePath // Store the path to the saved pdf file
         };
-        categories.push(newCategory);
+        categories.unshift(newCategory);
         await writeFile(filePath, JSON.stringify(jsonData));
         revalidatePath('/admin/categories');
         // console.log("Subcategory added successfully.");
@@ -260,7 +240,6 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
         return false;
     }
 }
-
 /**
  * Generates a random number within a given range.
  * @param {number} min - The minimum value of the range.
@@ -270,7 +249,6 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
 function getFileIdNumber(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
-
 /**
  * Adds a new subcategory to an existing category.
  * @param {object} categoryId - The ID of the category to which the subcategory will be added.
@@ -301,6 +279,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                     const dataObj = {
                         "id": Code.replace(/ /g, "-"),
                         "url_Id": Url_Id,
+                        "fixedUrl": "",
                         "name": newCategoryName,
                         "description": Description,
                         "ALBEDOcuerpo": Body,
@@ -311,7 +290,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         "subCategories": [],
                         "products": []
                     }
-                    category.subCategories.push(dataObj);
+                    category.subCategories.unshift(dataObj);
                     // console.log("New subcategory added:", dataObj);
                     // console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
@@ -341,7 +320,6 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
         return false;
     }
 }
-
 /**
  * Adds a new product to an existing category.
  * @param {object} categoryId - The ID of the category to which the product will be added.
@@ -374,6 +352,7 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
                     const dataObj = {
                         "ALBEDOcodigo": productCode.replace(/ /g, "-"),
                         "url_Id": Url_Id,
+                        "fixedUrl": "",
                         "ALBEDOtitulo": Name,
                         "ALBEDOprecio": parseFloat(Price),
                         "ALBEDOdescripcion": Description,
@@ -416,7 +395,6 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
         return false;
     }
 }
-
 /**
  * Edits an existing product's details.
  * @param {string} productId - The ID of the product to be edited.
@@ -488,7 +466,6 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
         return false;
     }
 }
-
 /**
  * Edits an existing category's details.
  * @param {object} categoryId - The ID of the category to be edited.
@@ -503,7 +480,6 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
@@ -515,21 +491,16 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
                     category.ALBEDOcuerpo = Body;
                     category.isPublished = isPublished;
                     category.FechaDeModificacion = new Date().toISOString();
-
                     // Update publishing status of products in the current category
                     await updateProductsPublishingStatus(category.products, isPublished);
-
                     // If the category has children, update their publishing status recursively
                     if (category.subCategories && category.subCategories.length > 0) {
                         await updateChildrenPublishingStatus(category.subCategories, isPublished);
                     }
-
                     // Write the updated JSON data to the file
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-
                     return true;
                 }
-
                 if (category.subCategories && category.subCategories.length > 0) {
                     const subcategorySaved = await loopRecursive(category.subCategories);
                     if (subcategorySaved) return true;
@@ -537,24 +508,20 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
             }
             return false;
         };
-
         const updateChildrenPublishingStatus = async (children, parentIsPublished) => {
             for (let i = 0; i < children.length; i++) {
                 const child = children[i];
                 // Update the publishing status of the child based on the parent's publishing status
                 child.isPublished = parentIsPublished;
                 child.FechaDeModificacion = new Date().toISOString();
-
                 // Update publishing status of products in the current category
                 await updateProductsPublishingStatus(child.products, parentIsPublished);
-
                 // If the child has children, update their publishing status recursively
                 if (child.subCategories && child.subCategories.length > 0) {
                     await updateChildrenPublishingStatus(child.subCategories, parentIsPublished);
                 }
             }
         };
-
         const updateProductsPublishingStatus = async (products, publishingStatus) => {
             for (let i = 0; i < products.length; i++) {
                 const product = products[i];
@@ -562,20 +529,16 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
                 product.FechaDeModificacion = new Date().toISOString();
             }
         };
-
         const categorySaved = await loopRecursive(categories);
         if (!categorySaved) {
             return false;
         }
-
         return true;
     } catch (error) {
         console.error("Error editing category:", error);
         return false;
     }
 }
-
-
 /**
  * Retrieves a product based on its ID.
  * @param {string} productId - The ID of the product to retrieve.
@@ -616,7 +579,6 @@ export async function getProductById(productId) {
         throw error; // Rethrow error
     }
 }
-
 /**
  * Retrieves a category based on its ID.
  * @param {object} categoryId - The ID of the category to retrieve.
@@ -667,7 +629,6 @@ export async function getCategoryById(categoryId) {
         return false;
     }
 }
-
 /**
  * Returns the category data based on the given URL IDs.
  * @param {string[]} slugIds - The array of URL IDs.
@@ -706,7 +667,6 @@ export async function getDataByUrlId(slugIds) {
         if (!lastCategory) {
             throw new Error(`Category with ID ${lastId} not found`);
         }
-
         // Check if the last category has products
         if (lastCategory.products && lastCategory.products.length > 0) {
             // Return the last subcategory and its products
@@ -722,7 +682,6 @@ export async function getDataByUrlId(slugIds) {
         return false;
     }
 }
-
 //function to save new orders on checkout page
 /**
  * Saves a new order to the system.
@@ -731,7 +690,6 @@ export async function getDataByUrlId(slugIds) {
  */
 export async function saveNewOrder(orderData) {
     console.log(orderData);
-
     try {
         const data = await readFile(filePathOrders, 'utf8');
         const jsonData = JSON.parse(data);
@@ -747,9 +705,7 @@ export async function saveNewOrder(orderData) {
         console.error("Error saving new Client Order:", error);
         return false;
     }
-
 }
-
 //functions to /admin/orders
 /**
  * Retrieves all orders.
@@ -766,7 +722,6 @@ export async function getAllOrders() {
         return [];
     }
 }
-
 //to get individual order by id to get the state of the order for teh client
 /**
  * Retrieves an order based on its index.
@@ -778,18 +733,15 @@ export async function getOrderByIndex(orderIndex) {
         const data = await readFile(filePathOrders, 'utf8');
         const jsonData = JSON.parse(data);
         const { ClientOrders } = jsonData;
-
         if (orderIndex < 0 || orderIndex >= ClientOrders.length) {
             throw new Error("Invalid order index");
         }
-
         return ClientOrders[orderIndex];
     } catch (error) {
         console.error("Error getting order by index:", error);
         return null;
     }
 }
-
 //to update the state of the order in the Modal
 /**
  * Updates the state of an order.
@@ -804,18 +756,14 @@ export async function updateOrderStateById(orderId, newState) {
         const { ClientOrders } = jsonData;
         // Update the state of the order
         ClientOrders[orderId].orderState = newState;
-
         // Write the updated data back to the file
         await writeFile(filePathOrders, JSON.stringify(jsonData));
-
         return true;
     } catch (error) {
         console.error("Error updating order state:", error);
         return false;
     }
 }
-
-
 export async function getHashPassword() {
     return new Promise((resolve, reject) => {
         const storedPassword = process.env.PASSWORD_HASH;

@@ -77,8 +77,50 @@ export default function page() {
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
 
                 {isLoading ? (
-                    <div className="flex-col my-4 gap-4 w-full flex items-center justify-center">
-                        <div className="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full">
+                    <div className='flex flex-row items-center justify-center space-x-4 mt-4 mb-8'>
+                        <div className="w-[250px] h-[275px] flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
+                            <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
+                                <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
+                                <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
+                                <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
+                                <div className='flex flex-row justify-between space-x-4 '>
+                                    <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
+                                    <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-[250px] h-[275px] flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
+                            <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
+                                <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
+                                <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
+                                <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
+                                <div className='flex flex-row justify-between space-x-4 '>
+                                    <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
+                                    <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-[250px] h-[275px] flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
+                            <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
+                                <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
+                                <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
+                                <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
+                                <div className='flex flex-row justify-between space-x-4 '>
+                                    <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
+                                    <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-[250px] h-[275px] flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
+                            <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
+                                <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
+                                <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
+                                <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
+                                <div className='flex flex-row justify-between space-x-4 '>
+                                    <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
+                                    <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ) : (

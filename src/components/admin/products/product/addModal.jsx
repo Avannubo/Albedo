@@ -1,7 +1,9 @@
 // addModal.js
 "use client";
 import { useState } from 'react';
-import { addproduct } from '@/lib/data'; 
+import { addproduct } from '@/lib/data';
+import QuillEditor from "@/components/admin/products/QuillEditor"
+
 export default function AddModal({ isOpen, onClose, categoryId }) {
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
@@ -17,7 +19,6 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [priceError, setPriceError] = useState(false);
-
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -30,11 +31,11 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const handleInputChangePrice = (event) => {
         setNewProductPrice(event.target.value);
     };
-    const handleInputChangeDescription = (event) => {
-        setNewProductDescription(event.target.value);
+    const handleInputChangeDescription = (value) => {
+        setNewProductDescription(value);
     };
-    const handleInputChangeBody = (event) => {
-        setNewProductBody(event.target.value);
+    const handleInputChangeBody = (value) => {
+        setNewProductBody(value);
     };
     const handleInputChangeStock = (event) => {
         setNewProductStock(event.target.value);
@@ -46,25 +47,26 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
         setNewProductDeliveryTime(event.target.value);
     };
     // State variables for error handling
-    
     const handleAddProduct = () => {
         // Set errors for all fields that don't meet the requirements
         setCodeError(!newProductCode.trim());
         setUrlCodeError(!newProductUrlCode.trim());
         setNameError(!newProductName.trim());
-        setPriceError(!newProductPrice.trim());
+        // setPriceError(!newProductPrice.trim());
         setDescriptionError(!newProductDescription.trim());
         // setDescriptionError(!newProductMinStock.trim()); 
         // setDescriptionError(!newProductDeliveryTime.trim());
-
         // If any field doesn't meet the requirements, stop execution
         if (!newProductCode.trim() ||
             !newProductUrlCode.trim() ||
             !newProductName.trim() ||
-            !newProductPrice.trim() || 
-            !newCategoryDescription.trim()) {
+            // !newProductPrice.trim() || 
+            !newProductDescription.trim()) {
             return;
         }
+        //ckeck for duplicate product Ids
+
+
 
 
 
@@ -81,9 +83,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
         setNewProductMinStock(0);
         setNewProductDeliveryTime(0);
         onClose();
-
     };
-
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-6xl bg-white shadow-lg rounded-md p-6 relative">
@@ -95,7 +95,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                 <div className="flex flex-col">
                     <div className="">
                     </div>
-                    <div className="w-full rounded-md  p-10">
+                    <div className="w-full rounded-md  p-4">
                         <div className='flex flex-col'>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
@@ -118,18 +118,20 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
                                     <input onChange={handleInputChangePrice} type="number" min="0" step="0.1" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Precio" required />
-                                    {priceError && <span className="text-red-500 italic text-xs "> El Precio de producto es requerido</span>}
+                                    {/* {priceError && <span className="text-red-500 italic text-xs "> El Precio de producto es requerido</span>} */}
                                 </div>
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
-                                <textarea onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required />
+                                {/* <textarea onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
+                                <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
                                 {descriptionError && <span className="text-red-500 italic text-xs "> El Descripción del Producto es requerido</span>}
+
                             </div>
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
-                                <textarea onChange={handleInputChangeBody} value={newProductBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" />
-                                
+                                <label className=" text-sm font-medium text-gray-700 dark:text-gray-300">Producto Cuerpo</label>
+                                {/* <textarea  rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" /> */}
+                                <QuillEditor value={newProductBody} onChange={handleInputChangeBody} />
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">

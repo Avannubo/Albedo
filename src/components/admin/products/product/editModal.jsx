@@ -2,6 +2,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { editproduct, getProductById } from '@/lib/data';
+import QuillEditor from "@/components/admin/products/QuillEditor"
 
 export default function EditModal({ isOpen, onClose, productId }) {
     const [newProductName, setNewProductName] = useState('');
@@ -57,11 +58,11 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const handleInputChangePrice = (event) => {
         setNewProductPrice(event.target.value);
     };
-    const handleInputChangeDescription = (event) => {
-        setNewProductDescription(event.target.value);
+    const handleInputChangeDescription = (value) => {
+        setNewProductDescription(value);
     };
-    const handleInputChangeBody = (event) => {
-        setNewProductBody(event.target.value);
+    const handleInputChangeBody = (value) => {
+        setNewProductBody(value);
     };
     const handleInputChangeIsPublished = (event) => {
         setNewCategoryIsPublished(event.target.checked);
@@ -144,12 +145,17 @@ export default function EditModal({ isOpen, onClose, productId }) {
 
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
-                                <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required />
+                                <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
+
+                                {/* <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
                             </div>
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
-                                <textarea onChange={handleInputChangeBody} value={newProductBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' />
+                                <QuillEditor value={newProductBody} onChange={handleInputChangeBody} />
+
+                                {/* <textarea onChange={handleInputChangeBody} value={newProductBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' /> */}
                             </div>
+                            
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Stock</label>

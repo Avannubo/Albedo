@@ -8,7 +8,7 @@ import AddToCart from '@/components/products/addToCart';
 import ProductItem from "@/components/products/productItem";
 import DOMPurify from 'dompurify'; // Import DOMPurify for HTML sanitization
 import Layout from "@/app/(main)/WebLayout";
-
+import QuillTextDisplay from '@/components/admin/products/QuillTextDisplay'
 // Function to sanitize HTML
 const sanitizeHTML = (html) => {
     if (!html) return ''; // Return empty string if html is null or undefined
@@ -120,11 +120,12 @@ export default function PageContent() {
                                     </div>
                                 </div>
                                 <div className='w-2/3'>
-                                    <h1 className='font-extrabold text-2xl'>{productData.ALBEDOtitulo}</h1>
+                                    <h1 className='font-extrabold text-2xl pl-[15px]'>{productData.ALBEDOtitulo}</h1>
                                     {productData.ALBEDOdescripcion &&
-                                        <div className='my-2' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />}
+                                        <div className='pl-[15px]' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />}
 
-                                    <div className='flex flex-col text-start my-2' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData?.ALBEDOcuerpo) }} />
+                                        {/* <div className='flex flex-col text-start my-2' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData?.ALBEDOcuerpo) }} /> */}
+                                        <QuillTextDisplay value={productData.ALBEDOcuerpo} />
                                 </div>
                             </div>
                         </div>

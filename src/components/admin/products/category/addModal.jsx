@@ -137,7 +137,7 @@ export default function AddModal({ isOpen, onClose }) {
                             <div className='flex flex-row  justify-between space-x-4'>
                                 <div className="grow mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
-                                    <input type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                    <input type="file" accept="image/*" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                                 <div className="grow mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
@@ -151,6 +151,7 @@ export default function AddModal({ isOpen, onClose }) {
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

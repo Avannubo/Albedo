@@ -48,6 +48,10 @@
     padding: 0px!important;
 }
 
+p, li {
+    font-size: 16px;
+    line-height: 24px;
+}
 /* .ql-editor{
     padding: 0px!important;
     margin: 0px!important;

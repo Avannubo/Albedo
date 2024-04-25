@@ -1,7 +1,15 @@
 "use client";
 import Link from "next/link";
 import AddToCart from "./addToCart";
-export default function productItem({ product }) {
+import DOMPurify from 'dompurify'; // Import DOMPurify for HTML sanitization
+
+// Function to sanitize HTML
+const sanitizeHTML = (html) => {
+  if (!html) return ''; // Return empty string if html is null or undefined
+  return DOMPurify.sanitize(html); // Sanitize html using DOMPurify
+};
+
+export default function ProductItem({ product }) {
   function calculateSimilarity(str1, str2) {
     // Convert both strings to lowercase for case-insensitive comparison
     const lowerStr1 = str1.toLowerCase();
@@ -20,7 +28,7 @@ export default function productItem({ product }) {
     // Return similarity as a value between 0 and 1
     return similarity;
   }
-  // Example usage
+
   const similarityThreshold = 0.5; // Set a threshold for similarity
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -30,7 +38,6 @@ export default function productItem({ product }) {
     }
   };
   const titleWords = product.ALBEDOtitulo.split(" ");
-
   // Get the first two words
   const truncatedTitle = titleWords.slice(0, 2).join(" ");
   return (
@@ -49,9 +56,7 @@ export default function productItem({ product }) {
         alt="Vercel Logo"
         className="self-center h-[150px] w-full object-cover rounded-lg"
       />
-      <p className="text-sm text-center">
-        {truncateText(product.ALBEDOdescripcion, 65)}
-      </p>
+      <p className="text-sm text-center" dangerouslySetInnerHTML={{ __html: sanitizeHTML(truncateText(product.ALBEDOdescripcion, 65)) }} />
     </div>
   );
 }

@@ -18,7 +18,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const [descriptionError, setDescriptionError] = useState(false);
     const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
-    const [priceError, setPriceError] = useState(false);
+    // const [priceError, setPriceError] = useState(false);
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -65,14 +65,18 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
             return;
         }
         //ckeck for duplicate product Ids
+        console.log('Products:', categoryId.categoryId.products);
+        // Check if the urlId exists in subCategories
+        const urlIdExists = categoryId.categoryId.products.some(product => product.url_Id === newProductUrlCode);
 
+        // If urlId exists, setUrlCodeError and return
+        if (urlIdExists) {
+            setUrlCodeError(true);
+            return;
+        }
 
-
-
-
-
-        console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
-        addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime);
+        console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished);
+        addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished);
         setNewProductCode('');
         setNewProductUrlCode('');
         setNewProductName('');
@@ -106,7 +110,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo URL ej. 001" required />
-                                    {urlCodeError && <span className="text-red-500 italic text-xs "> El Codigo de URL es requerido</span>}
+                                    {urlCodeError && <span className="text-red-500 italic text-xs "> El Codigo de URL es requerido y no duplicado</span>}
                                 </div>
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>

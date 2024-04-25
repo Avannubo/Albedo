@@ -73,14 +73,14 @@ export async function updateShippingPrices(spainPrice, euPrice, internationalPri
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
         if (jsonData.EnvioEspaña !== spainPrice && euPrice !== 0 && euPrice !== null) {
-            jsonData.EnvioEspaña = spainPrice; 
+            jsonData.EnvioEspaña = spainPrice;
         }
         if (jsonData.EnviosUE !== euPrice && euPrice !== 0 && euPrice !== null) {
             jsonData.EnviosUE = euPrice;
         }
         if (jsonData.EnviosInternacional !== internationalPrice && internationalPrice !== 0 && internationalPrice !== null) {
             jsonData.EnviosInternacional = internationalPrice;
-        }  
+        }
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
         return jsonData;
@@ -186,7 +186,7 @@ export async function deleteElement(categoryId) {
                 }
                 // console.log("Product deleted successfully.");
                 return true;
-            } 
+            }
         } catch (error) {
             console.error("An error occurred:", error);
             return false;
@@ -246,9 +246,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
  * @param {number} max - The maximum value of the range.
  * @returns {number} The generated random number.
  */
-function getFileIdNumber(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
+
 /**
  * Adds a new subcategory to an existing category.
  * @param {object} categoryId - The ID of the category to which the subcategory will be added.
@@ -411,11 +409,10 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
  * @returns {boolean} Indicates whether the editing was successful.
  */
 export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished) {
-    // console.log("\nNew product data changes:\n" + productCode + " \n" + url_Id + " " + Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
+
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        const productToEdit = productCode;
         // console.log("\nproduct to EDIT: ", productToEdit);
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {

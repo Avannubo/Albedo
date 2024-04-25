@@ -35,12 +35,14 @@ export default function QuillEditorComponent({ value, onChange }) {
     ];
 
     return (
-        <QuillEditor
-            value={value}
-            onChange={onChange}
-            modules={quillModules}
-            formats={quillFormats}
-            className="w-full h-[70%] bg-white"
-        />
+        <div className="h-[20vh] w-full rounded-lg">
+            <QuillEditor
+                value={value}
+                onChange={onChange}
+                modules={quillModules}
+                formats={quillFormats}
+                className="w-full h-[70%]  bg-white "
+            />
+        </div>
     );
 }

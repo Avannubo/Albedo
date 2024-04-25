@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { addCategory, getCategories } from '@/lib/data'; // Import the addCategory function from the data.js file
-
+import QuillEditor from "@/components/admin/products/QuillEditor"
 export default function AddModal({ isOpen, onClose }) {
     const [data, setData] = useState();
     const [newCategoryName, setNewCategoryName] = useState('');
@@ -15,7 +15,6 @@ export default function AddModal({ isOpen, onClose }) {
     const [descriptionError, setDescriptionError] = useState(false);
     const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
-
     const handleInputChangeCode = (event) => {
         setNewCategoryCode(event.target.value);
     };
@@ -28,46 +27,37 @@ export default function AddModal({ isOpen, onClose }) {
     const handleInputChangeName = (event) => {
         setNewCategoryName(event.target.value);
     };
-
-    const handleInputChangeDescription = (event) => {
-        setNewCategoryDescription(event.target.value);
+    const handleInputChangeDescription = (value) => {
+        setNewCategoryDescription(value);
     };
-    const handleInputChangeBody = (event) => {
-        setNewCategoryBody(event.target.value);
+    const handleInputChangeBody = (value) => {
+        setNewCategoryBody(value);
     };
-
     useEffect(() => {
         async function fetchData() {
             const categories = await getCategories();
             // console.log(categories);
             setData(categories);
-
         }
-
         fetchData();
-    },[])
-
+    }, [])
     const handleAddCategory = () => {
         // Set errors for all fields that don't meet the requirements
         setCodeError(!newCategoryCode.trim());
         setUrlCodeError(!newCategoryUrlCode.trim());
         setNameError(!newCategoryName.trim());
         setDescriptionError(!newCategoryDescription.trim());
-
         // If any field doesn't meet the requirements, stop execution
         if (!newCategoryCode.trim() || !newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
             return;
         }
-
         // Check if the URL ID already exists 
         const urlIdExists = data.some(category => category.url_Id === newCategoryUrlCode); // Use 'url_Id' for comparison
-
         // If URL ID already exists, set error and stop execution
         if (urlIdExists) {
             setUrlCodeError(true);
             return;
         }
-
         // If all fields meet the requirements and URL ID is unique, add the category
         addCategory(
             newCategoryCode,
@@ -77,7 +67,6 @@ export default function AddModal({ isOpen, onClose }) {
             newCategoryBody,
             newCategoryIsPublished
         );
-
         // Reset form and close modal
         setNewCategoryName('');
         setNewCategoryDescription('');
@@ -91,9 +80,6 @@ export default function AddModal({ isOpen, onClose }) {
         setUrlCodeError(false);
         onClose();
     };
-
-
-
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-6xl bg-white shadow-lg rounded-md p-6 relative">
@@ -123,13 +109,11 @@ export default function AddModal({ isOpen, onClose }) {
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de Categoría</label>
                                     <input onChange={handleInputChangeCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                     {codeError && <span className="text-red-500 italic text-xs ">El código de categoría es requerido</span>}
-
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo URL ej. 001" required />
                                     {urlCodeError && <span className="text-red-500 italic text-xs"> El código URL es obligatorio y no duplicado. </span>}
-
                                 </div>
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
@@ -137,18 +121,18 @@ export default function AddModal({ isOpen, onClose }) {
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Categoría</label>
                                     <input onChange={handleInputChangeName} rows="2" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Categoría" required />
                                     {nameError && <span className="text-red-500 italic text-xs">El nombre de la categoría es requerido</span>}
-
                                 </div>
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Categoría</label>
-                                <textarea onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required />
+                                {/* <textarea onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
+                                <QuillEditor value={newCategoryDescription} onChange={handleInputChangeDescription} />
                                 {descriptionError && <span className="text-red-500 italic text-xs">La descripción de la categoría es requerida</span>}
-
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cuerpo de Categoría </label>
-                                <textarea onChange={handleInputChangeBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Cuerpo" />
+                                {/* <textarea onChange={handleInputChangeBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Cuerpo" /> */}
+                                <QuillEditor value={newCategoryBody} onChange={handleInputChangeBody} />
                             </div>
                             <div className='flex flex-row  justify-between space-x-4'>
                                 <div className="grow mb-4">

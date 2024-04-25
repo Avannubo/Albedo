@@ -2,6 +2,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { editCategory, getCategoryById } from '@/lib/data';
+import QuillEditor from "@/components/admin/products/QuillEditor"
 
 export default function EditModal({ isOpen, onClose, categoryId }) {
     // const productData = getProductById(productId);
@@ -43,11 +44,11 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
     const handleInputChangeCode = (event) => {
         setNewCategoryCode(event.target.value);
     };
-    const handleInputChangeDescription = (event) => {
-        setNewCategoryDescription(event.target.value);
+    const handleInputChangeDescription = (value) => {
+        setNewCategoryDescription(value);
     };
-    const handleInputChangeBody = (event) => {
-        setNewCategoryBody(event.target.value);
+    const handleInputChangeBody = (value) => {
+        setNewCategoryBody(value);
     };
     const handleInputChangeIsPublished = (event) => {
         setNewCategoryIsPublished(event.target.checked);
@@ -102,11 +103,13 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
 
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
-                                <input onChange={handleInputChangeDescription} value={newCategoryDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required />
+                                {/* <input onChange={handleInputChangeDescription} value={newCategoryDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
+                                <QuillEditor value={newCategoryDescription} onChange={handleInputChangeDescription} />
                             </div>
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
-                                <textarea onChange={handleInputChangeBody} value={newCategoryBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' />
+                                {/* <textarea onChange={handleInputChangeBody} value={newCategoryBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' /> */}
+                                <QuillEditor value={newCategoryBody} onChange={handleInputChangeBody} />
                             </div>
                             <div className='flex justify-center mt-6'>
                                 <button onClick={handleAddProduct} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">

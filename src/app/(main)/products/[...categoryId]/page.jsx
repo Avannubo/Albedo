@@ -14,13 +14,11 @@ const sanitizeHTML = (html) => {
     if (!html) return ''; // Return empty string if html is null or undefined
     return DOMPurify.sanitize(html); // Sanitize html using DOMPurify
 };
-
 export default function PageContent() {
     const slugArrayHook = useCategoryId();
     const [pageData, setPageData] = useState(null);
     const [productData, setProductData] = useState(null);
     const [loading, setLoading] = useState(true); // State for loading status
-
     useEffect(() => {
         async function fetchData() {
             setLoading(true);
@@ -44,7 +42,6 @@ export default function PageContent() {
         }
         fetchData();
     }, [slugArrayHook]);
-
     return (
         <Layout>
             {loading ? (
@@ -123,9 +120,8 @@ export default function PageContent() {
                                     <h1 className='font-extrabold text-2xl pl-[15px]'>{productData.ALBEDOtitulo}</h1>
                                     {productData.ALBEDOdescripcion &&
                                         <div className='pl-[15px]' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />}
-
-                                        {/* <div className='flex flex-col text-start my-2' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData?.ALBEDOcuerpo) }} /> */}
-                                        <QuillTextDisplay value={productData.ALBEDOcuerpo} />
+                                    {/* <div className='flex flex-col text-start my-2' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData?.ALBEDOcuerpo) }} /> */}
+                                    <QuillTextDisplay value={productData.ALBEDOcuerpo} />
                                 </div>
                             </div>
                         </div>

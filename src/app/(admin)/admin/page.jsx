@@ -1,73 +1,40 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Import from next/router instead of next/navigation
-import Bcrypt from 'bcryptjs';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getHashPassword } from '@/lib/data';
-import jwt from 'jsonwebtoken';
+import { login } from '@/lib/data'; 
+import cookie from 'js-cookie';
+
 export default function Page() {
     const router = useRouter();
     // const [passwordHash, setPasswordHash] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    // useEffect(() => {
-    //     async function fetchPasswordHash() {
-    //         try {
-    //             const data = await getHashPassword();
-    //             if (data) {
-    //                 setPasswordHash(data);
-    //             } else {
-    //                 setError('Error: No se encontró ninguna contraseña almacenada.');
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching password hash:', error);
-    //             setError('Error al obtener la contraseña. Por favor, inténtelo de nuevo.');
-    //         }
-    //     }
-    //     fetchPasswordHash();
-    // }, []);
     const handleInputChangePassword = (event) => {
         setPassword(event.target.value);
     };
-    const generateToken = () => {
-        const secretKey = "043950dea0158f162ef41f2a1b6c0fd2246e24c932399f527f3ec3cb685c1667";
-        console.log(secretKey);
-        if (!secretKey) {
-            throw new Error('Secret key not found in environment variables');
-        }
-        const token = jwt.sign( "user", secretKey, { expiresIn: '1h' });
-        return token;
-    };
 
-    const handleLogin = () => {
+
+    const handleLogin = async () => {
         try {
-            // const passwordsMatch = Bcrypt.compareSync(password, process.env.PASSWORD_HASH);
-            //console.log(process.env.PASSWORD_HASH);
-            if (password) {
-                const token = generateToken();
-                localStorage.setItem('token', token);
-                router.push('/admin/escritorio');
+            const response = await login(password); // Send plain password to server
+            if (response.token) {
+                // Successfully logged in, save token and redirect
+                // localStorage.setItem('token', response.token);      //, { expires: 0.5 }
+                cookie.set('token', response.token);
+                // router.push('/admin/dashboard');
+                router.push('/admin/products');
             } else {
-                setError('Contraseña incorrecta. Inténtelo de nuevo.');
+                // Error occurred, display error message
+                setError(response.error);
             }
         } catch (error) {
-            console.error('Error comparing passwords:', error);
-            setError('Error al comparar contraseñas. Por favor, inténtelo de nuevo.');
+            console.error('Error during login:', error);
+            setError('Error during login. Please try again.');
         }
     };
-    // useEffect(() => {
-    //     const handleRouteChange = (url) => {
-    //         if (!url.includes('/admin')) {
-    //             localStorage.removeItem('token');
-    //         }
-    //     };
-    //     const cleanup = () => {
-    //         router.events.off('routeChangeStart', handleRouteChange);
-    //     };
-    //     router.events.on('routeChangeStart', handleRouteChange);
-    //     return cleanup;
-    // }, [router.pathname]);
+
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-24 lg:px-8">
             <div className='border bg-slate-50 p-12 rounded-lg mx-auto  sm:max-w-sm md:max-w-lg xl:max-w-xl' >
@@ -82,7 +49,7 @@ export default function Page() {
                             priority
                         />
                     </Link>
-                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-600">Iniciar sesión en el panel de administración</h2>
+                    <h2 className="mt-10 text-center text-2xl font-semibold leading-9 tracking-tight text-gray-600">Iniciar sesión en el panel de administración</h2>
                 </div>
                 <div className="mt-10 sm:mx-auto sm:w-full  ">
                     <div className="space-y-6">

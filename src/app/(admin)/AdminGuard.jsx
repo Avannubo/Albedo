@@ -1,7 +1,8 @@
 "use client"
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { isAuthenticated, isAdmin } from '@/lib/auth';
+import cookie from 'js-cookie';
+
 
 const AdminRouteGuard = ({ children }) => {
     const router = useRouter();
@@ -9,10 +10,13 @@ const AdminRouteGuard = ({ children }) => {
     useEffect(() => {
         // Check if the user is authenticated and is an admin
         const checkAccess = async () => {
-            // if (!isAuthenticated() ) {//|| !isAdmin()
-            //     // If not authenticated or not an admin, redirect to login page
-            //     await router.push('/admin'); // Redirect to your login page
-            // }
+            const token = cookie.get('token');
+
+            if (!token) {
+                // If there is no token, redirect to the login page
+                await router.push('/admin');
+            } else {
+            }
         };
 
         checkAccess();

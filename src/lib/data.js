@@ -1,6 +1,7 @@
 "use server"
 import { promises as fs } from 'fs';
-import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import Bcrypt from 'bcryptjs';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
@@ -241,13 +242,6 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
     }
 }
 /**
- * Generates a random number within a given range.
- * @param {number} min - The minimum value of the range.
- * @param {number} max - The maximum value of the range.
- * @returns {number} The generated random number.
- */
-
-/**
  * Adds a new subcategory to an existing category.
  * @param {object} categoryId - The ID of the category to which the subcategory will be added.
  * @param {string} Code - The code of the new subcategory.
@@ -409,7 +403,6 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
  * @returns {boolean} Indicates whether the editing was successful.
  */
 export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished) {
-
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -770,4 +763,65 @@ export async function getHashPassword() {
             reject(new Error("Stored password not found in environment variables."));
         }
     });
+}
+function getStoredPassword() {
+    // Fetch the stored password from your database or wherever it's stored
+    // For now, returning a hardcoded password for demonstration
+    return 'qwe123';
+}
+
+export async function login(userInput) {
+    try {
+        const storedPassword = getStoredPassword();
+        if (userInput === '123') {
+            // Passwords match, generate token
+            const token = generateToken();
+            return {token};
+        } else {
+            return { error: 'Contraseña incorrecta. Inténtelo de nuevo.' };
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        return { error: 'Error during login. Please try again.' };
+    }
+}
+
+function generateToken() {
+    const secretKey = getSecKey();
+    const token = jwt.sign({ user: 'username' }, secretKey, { expiresIn: '1h' });
+    return token;
+}
+
+function getSecKey() {
+    const key = process.env.SECRET_KEY;
+    if (key) {
+        return key;
+    } else {
+        throw new Error("Stored secret key not found in environment variables.");
+    }
+}
+
+async function uploadFiles(formData) {
+    const files = formData.getAll("files");
+
+    for (const file of files) {
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = new Uint8Array(arrayBuffer);
+
+        let folderPath = './public/assets/';
+        if (isImage(file)) {
+            folderPath += 'images/';
+        } else {
+            folderPath += 'archivos/';
+        }
+
+        await fs.mkdir(folderPath, { recursive: true });
+        await fs.writeFile(`${folderPath}${file.name}`, buffer);
+    }
+
+    revalidatePath("/");
+}
+
+function isImage(file) {
+    return file.type.startsWith('image');
 }

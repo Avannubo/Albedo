@@ -15,10 +15,10 @@ export default function aside() {
       </Link>
       <div className="flex flex-col space-y-4 p-4 ">
         <Link
-          href="/admin/escritorio"
+          href="/admin/dashboard"
           className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
         >
-          <p className="flex justify-center font-semibold">Escritorio</p>
+          <p className="flex justify-center font-semibold">Dashboard</p>
         </Link>
         <Link
           href="/admin/products"

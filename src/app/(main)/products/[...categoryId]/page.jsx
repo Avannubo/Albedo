@@ -110,10 +110,12 @@ export default function PageContent() {
                         <div className='grow'>
                             <div className='flex flex-row justify-between my-10'>
                                 <div className='w-1/3'>
-                                    <Image className='rounded-lg' src={productData.imagen} alt={productData.ALBEDOtitulo} width={300} height={350} />
-                                    <p className='text-xl font-medium mt-2'><b>Precio: </b>{productData.ALBEDOprecio}€</p>
-                                    <div className='mt-4 w-[250px]'>
-                                        <AddToCart producto={productData} />
+                                    <div className='top-28 sticky'>
+                                        <Image className='rounded-lg' src={productData.imagen} alt={productData.ALBEDOtitulo} width={300} height={350} />
+                                        <p className='text-xl font-medium mt-2'><b>Precio: </b>{productData.ALBEDOprecio}€</p>
+                                        <div className='mt-4 w-[250px]'>
+                                            <AddToCart producto={productData} />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='w-2/3'>
@@ -122,6 +124,16 @@ export default function PageContent() {
                                         <div className='pl-[15px]' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />}
                                     {/* <div className='flex flex-col text-start my-2' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData?.ALBEDOcuerpo) }} /> */}
                                     <QuillTextDisplay value={productData.ALBEDOcuerpo} />
+                                    {
+                                        productData.archivos && (
+                                            <div className='flex space-x-2 pl-[15px]'>
+                                                <p className='font-semibold'>Más información:</p>
+                                                <Link target="_blank" href={productData.archivos} className='font-semibold text-[#304590]'>
+                                                    Hoja de características del {productData.ALBEDOtitulo}
+                                                </Link>
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>

@@ -18,6 +18,8 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const [descriptionError, setDescriptionError] = useState(false);
     const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
+    const [selectedImages, setSelectedImages] = useState([]);
+
     // const [priceError, setPriceError] = useState(false);
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
@@ -46,16 +48,40 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const handleInputChangeDeliveryTime = (event) => {
         setNewProductDeliveryTime(event.target.value);
     };
+    const handleImageChange = (event) => {
+        const files = Array.from(event.target.files);
+        setSelectedImages(files);
+    };
+    const uploadImages = () => {
+        const imagePaths = [];
+        selectedImages.forEach(async (image) => {
+            const reader = new FileReader();
+            reader.onload = async () => {
+                // Get the base64 representation of the image
+                const base64Image = reader.result;
+                // You can save the image to a local folder in the public directory here
+                // For example, if you have a folder named "images" in the public directory:
+                const imagePath = `/public/assets/images/${image.name}`;
+
+                // console.log('data' + imagePath);
+                // Save the image to the folder
+                // await fetch(imagePath, { method: 'POST', body: base64Image });
+                // Add the image path to the list
+                imagePaths.push(imagePath.replace(/ /g, "-"));
+            };
+            reader.readAsDataURL(image);
+        });
+        // Return the list of image paths
+        return imagePaths;
+    };
+
     // State variables for error handling
     const handleAddProduct = () => {
         // Set errors for all fields that don't meet the requirements
         setCodeError(!newProductCode.trim());
         setUrlCodeError(!newProductUrlCode.trim());
         setNameError(!newProductName.trim());
-        // setPriceError(!newProductPrice.trim());
         setDescriptionError(!newProductDescription.trim());
-        // setDescriptionError(!newProductMinStock.trim()); 
-        // setDescriptionError(!newProductDeliveryTime.trim());
         // If any field doesn't meet the requirements, stop execution
         if (!newProductCode.trim() ||
             !newProductUrlCode.trim() ||
@@ -74,9 +100,11 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
             setUrlCodeError(true);
             return;
         }
-
-        console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished);
-        addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished);
+        const imagePaths = uploadImages();
+        console.log();
+        console.log();
+        console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
+        addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
         setNewProductCode('');
         setNewProductUrlCode('');
         setNewProductName('');
@@ -86,6 +114,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
         setNewProductStock(0);
         setNewProductMinStock(0);
         setNewProductDeliveryTime(0);
+        setSelectedImages([]);
         onClose();
     };
     return isOpen ? (
@@ -154,7 +183,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
-                                    <input type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                    <input onChange={handleImageChange} multiple type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                                 <div className="flex-1 mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>

@@ -226,6 +226,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
             "FeachaDeCreacion": euFormattedDateTime,
             "FechaDeModificacion": euFormattedDateTime,
             "imagen": "/assets/images/200000066.jpg",
+            "archivos": "/assets/archivos/G34304249.pdf",
             "subCategories": [],
             "products": [],
             // "imageFilePath": savedImageFilePath, // Store the path to the saved image file
@@ -279,6 +280,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         "FeachaDeCreacion": new Date().toISOString(),
                         "FechaDeModificacion": new Date().toISOString(),
                         "imagen": "/assets/images/200000066.jpg",
+                        "archivos": "/assets/archivos/G34304249.pdf",
                         "subCategories": [],
                         "products": []
                     }
@@ -327,7 +329,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
  * @param {boolean} isPublished - Whether the product is published.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished) {
+export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths) {
     // console.log("New product:" + categoryId.categoryId.id + " " + productCode + " " + Url_Id + "  " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -354,7 +356,8 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
                         "isPublished": isPublished,
                         "FeachaDeCreacion": new Date().toISOString(),
                         "FechaDeModificacion": new Date().toISOString(),
-                        "imagen": "/assets/images/200000066.jpg",
+                        "imagen": JSON.stringify(imagePaths) ,
+                        "archivos": "/assets/archivos/G34304249.pdf",
                         "ALBEDOplazo_entrega": DeliveryTime
                     }
                     category.products.push(dataObj);
@@ -769,7 +772,6 @@ function getStoredPassword() {
     // For now, returning a hardcoded password for demonstration
     return 'qwe123';
 }
-
 export async function login(userInput) {
     try {
         const storedPassword = getStoredPassword();
@@ -785,13 +787,11 @@ export async function login(userInput) {
         return { error: 'Error during login. Please try again.' };
     }
 }
-
 function generateToken() {
     const secretKey = getSecKey();
     const token = jwt.sign({ user: 'username' }, secretKey, { expiresIn: '1h' });
     return token;
 }
-
 function getSecKey() {
     const key = process.env.SECRET_KEY;
     if (key) {
@@ -800,15 +800,15 @@ function getSecKey() {
         throw new Error("Stored secret key not found in environment variables.");
     }
 }
-
-async function uploadFiles(formData) {
+export async function uploadFiles(formData) {
     const files = formData.getAll("files");
+    const uploadedPaths = [];
 
     for (const file of files) {
         const arrayBuffer = await file.arrayBuffer();
         const buffer = new Uint8Array(arrayBuffer);
-
         let folderPath = './public/assets/';
+
         if (isImage(file)) {
             folderPath += 'images/';
         } else {
@@ -816,12 +816,13 @@ async function uploadFiles(formData) {
         }
 
         await fs.mkdir(folderPath, { recursive: true });
-        await fs.writeFile(`${folderPath}${file.name}`, buffer);
+        const filePath = `${folderPath}${file.name}`;
+        await fs.writeFile(filePath, buffer);
+        uploadedPaths.push(filePath);
     }
-
-    revalidatePath("/");
+console.log(uploadedPaths);
+    return uploadedPaths;
 }
-
 function isImage(file) {
     return file.type.startsWith('image');
 }

@@ -330,7 +330,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
  * @returns {boolean} Indicates whether the addition was successful.
  */
 export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths) {
-    // console.log("New product:" + categoryId.categoryId.id + " " + productCode + " " + Url_Id + "  " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
+    console.log("New product:" + categoryId.categoryId.id + " " + productCode + " " + Url_Id + "  " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime + " " + imagePaths);
     console.log(JSON.stringify(imagePaths));
     try {
         const data = await fs.readFile(filePath, 'utf8');

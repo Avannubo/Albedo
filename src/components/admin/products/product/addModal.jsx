@@ -19,6 +19,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
+    const [selectedImagesPaths, setSelectedImagesPaths] = useState([]);
 
     // const [priceError, setPriceError] = useState(false);
     const handleInputChangeProduct = (event) => {
@@ -61,14 +62,15 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                 const base64Image = reader.result;
                 // You can save the image to a local folder in the public directory here
                 // For example, if you have a folder named "images" in the public directory:
-                const imagePath = `/assets/images/${image.name}`;
-                imagePaths.push(imagePath.replace(/ /g, "_"));
+                const imagePath = `./public/assets/images/${image.name}`;
+                const imagePathToSave = `/assets/images/${image.name}`;
+
                 // console.log('data' + imagePath);
                 // Save the image to the folder
                 // await fetch(imagePath, { method: 'POST', body: base64Image });
                 await saveImage(base64Image, imagePath.replace(/ /g, "_"));
                 // Add the image path to the list
-
+                imagePaths.push(imagePathToSave.replace(/ /g, "_"));
             };
             reader.readAsDataURL(image);
         });
@@ -102,9 +104,10 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
             return;
         }
         const imagePaths = uploadImages();
+        setSelectedImagesPaths(imagePaths)
         console.log(uploadImages());
         console.log(imagePaths);
-        // console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
+        console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
         addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
         setNewProductCode('');
         setNewProductUrlCode('');

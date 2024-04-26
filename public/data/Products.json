@@ -45,6 +45,40 @@
                     "imagen": "[\"/assets/images/Captura_de_pantalla_2024-04-26_130709.png\",\"/assets/images/Captura_de_pantalla_2024-04-26_130709.png\"]",
                     "archivos": "/assets/archivos/G34304249.pdf",
                     "ALBEDOplazo_entrega": 0
+                },
+                {
+                    "ALBEDOcodigo": "rweqerwqerwqerwq",
+                    "url_Id": "5432",
+                    "fixedUrl": "",
+                    "ALBEDOtitulo": "erwqerwqerwq",
+                    "ALBEDOprecio": 0,
+                    "ALBEDOdescripcion": "<p>erwqerwqwqerwre</p>",
+                    "ALBEDOcuerpo": "",
+                    "ALBEDOstock_minimo": 0,
+                    "ALBEDOstock": 0,
+                    "isPublished": true,
+                    "FeachaDeCreacion": "2024-04-26T12:42:18.480Z",
+                    "FechaDeModificacion": "2024-04-26T12:42:18.480Z",
+                    "imagen": [],
+                    "archivos": "/assets/archivos/G34304249.pdf",
+                    "ALBEDOplazo_entrega": 0
+                }, 
+                {
+                    "ALBEDOcodigo": "dadsd",
+                    "url_Id": "32123",
+                    "fixedUrl": "",
+                    "ALBEDOtitulo": "sdasdasd",
+                    "ALBEDOprecio": null,
+                    "ALBEDOdescripcion": "<p>dadasd</p>",
+                    "ALBEDOcuerpo": "",
+                    "ALBEDOstock_minimo": 0,
+                    "ALBEDOstock": 0,
+                    "isPublished": true,
+                    "FeachaDeCreacion": "2024-04-26T12:52:26.912Z",
+                    "FechaDeModificacion": "2024-04-26T12:52:26.912Z",
+                    "imagen": [],
+                    "archivos": "/assets/archivos/G34304249.pdf",
+                    "ALBEDOplazo_entrega": 0
                 }
             ],
             "subCategories": []

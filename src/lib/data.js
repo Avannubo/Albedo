@@ -331,6 +331,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
  */
 export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths) {
     // console.log("New product:" + categoryId.categoryId.id + " " + productCode + " " + Url_Id + "  " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
+    console.log(JSON.stringify(imagePaths));
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -356,7 +357,7 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
                         "isPublished": isPublished,
                         "FeachaDeCreacion": new Date().toISOString(),
                         "FechaDeModificacion": new Date().toISOString(),
-                        "imagen": JSON.stringify(imagePaths) ,
+                        "imagen": imagePaths,
                         "archivos": "/assets/archivos/G34304249.pdf",
                         "ALBEDOplazo_entrega": DeliveryTime
                     }
@@ -800,29 +801,20 @@ function getSecKey() {
         throw new Error("Stored secret key not found in environment variables.");
     }
 }
-export async function uploadFiles(formData) {
-    const files = formData.getAll("files");
-    const uploadedPaths = [];
 
-    for (const file of files) {
-        const arrayBuffer = await file.arrayBuffer();
-        const buffer = new Uint8Array(arrayBuffer);
-        let folderPath = './public/assets/';
+export async function saveImage(base64Image, imagePath) {
+    // Remove the data URI prefix
+    const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
 
-        if (isImage(file)) {
-            folderPath += 'images/';
+    // Create a buffer from the base64 string
+    const buffer = Buffer.from(base64Data, 'base64');
+
+    // Write the buffer to the file
+    fs.writeFile(imagePath, buffer, (err) => {
+        if (err) {
+            console.error('Error saving image:', err);
         } else {
-            folderPath += 'archivos/';
+            console.log('Image saved successfully.');
         }
-
-        await fs.mkdir(folderPath, { recursive: true });
-        const filePath = `${folderPath}${file.name}`;
-        await fs.writeFile(filePath, buffer);
-        uploadedPaths.push(filePath);
-    }
-console.log(uploadedPaths);
-    return uploadedPaths;
-}
-function isImage(file) {
-    return file.type.startsWith('image');
+    });
 }

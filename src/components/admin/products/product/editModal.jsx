@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { editproduct, getProductById } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
+import Image from 'next/image';
 
 export default function EditModal({ isOpen, onClose, productId }) {
     const [newProductName, setNewProductName] = useState('');
@@ -15,7 +16,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const [newProductMinStock, setNewProductMinStock] = useState(0);
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(0);
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
-
+    const [productImages, setProductImages] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -33,6 +34,8 @@ export default function EditModal({ isOpen, onClose, productId }) {
                     setNewCategoryIsPublished(product.isPublished);
                     setNewProductMinStock(product.ALBEDOstock_minimo);
                     setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
+                    setProductImages(JSON.parse(product.imagen));
+                    console.log(JSON.parse(product.imagen))
                 } else {
                     console.log("Product not found.");
                 }
@@ -155,7 +158,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
 
                                 {/* <textarea onChange={handleInputChangeBody} value={newProductBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' /> */}
                             </div>
-                            
+
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Stock</label>
@@ -170,7 +173,25 @@ export default function EditModal({ isOpen, onClose, productId }) {
                                     <input onChange={handleInputChangeDeliveryTime} value={newProductDeliveryTime} type="number" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" min="0" placeholder="Dias" required />
                                 </div>
                             </div>
-                            <div className='flex justify-center mt-6'>
+                            <div>  
+                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes Del Producto</label>
+                            </div>
+                            <div className='flex flex-row space-x-2'>
+                                {productImages && productImages.length > 0 && (
+                                productImages.map((imagePath, index) => (
+                                    <Image
+                                        key={index} // Adding a unique key for each image
+                                        src={imagePath}
+                                        alt={`Product Image ${index + 1}`}
+                                        className="h-auto w-[250px] rounded-lg"
+                                        width="350"
+                                        height="80" 
+                                    />
+                                ))
+                            )}
+                            </div>
+                            
+                            < div className='flex justify-center mt-6'>
                                 <button onClick={handleAddProduct} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">
                                     Guardar
                                 </button>
@@ -179,6 +200,6 @@ export default function EditModal({ isOpen, onClose, productId }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     ) : null;
 }

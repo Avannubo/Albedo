@@ -1,7 +1,7 @@
 // addModal.js
 "use client";
 import { useState } from 'react';
-import { addproduct } from '@/lib/data';
+import { addproduct, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 
 export default function AddModal({ isOpen, onClose, categoryId }) {
@@ -61,13 +61,14 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                 const base64Image = reader.result;
                 // You can save the image to a local folder in the public directory here
                 // For example, if you have a folder named "images" in the public directory:
-                const imagePath = `/public/assets/images/${image.name}`;
-
+                const imagePath = `/assets/images/${image.name}`;
+                imagePaths.push(imagePath.replace(/ /g, "_"));
                 // console.log('data' + imagePath);
                 // Save the image to the folder
                 // await fetch(imagePath, { method: 'POST', body: base64Image });
+                await saveImage(base64Image, imagePath.replace(/ /g, "_"));
                 // Add the image path to the list
-                imagePaths.push(imagePath.replace(/ /g, "-"));
+
             };
             reader.readAsDataURL(image);
         });
@@ -101,9 +102,9 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
             return;
         }
         const imagePaths = uploadImages();
-        console.log();
-        console.log();
-        console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
+        console.log(uploadImages());
+        console.log(imagePaths);
+        // console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
         addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
         setNewProductCode('');
         setNewProductUrlCode('');

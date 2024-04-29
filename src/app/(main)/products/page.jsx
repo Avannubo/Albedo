@@ -59,7 +59,7 @@ export default function page() {
                         <div className='flex flex-row flex-wrap space-x-6  justify-center mt-2 '>
                             {data.map((category, index) => (
                                 <Link key={index} href={`/products/${category.url_Id}`} className="block mb-4 text-md text-gray-700 rounded-lg ">
-                                    <Image src={category.imagen} alt="Vercel Logo" className="self-center w-[135px] h-[100px] rounded-lg" width={100} height={24} />
+                                    <Image src={category.imagen[0]} alt="Vercel Logo" className="self-center w-[135px] h-[100px] rounded-lg" width={100} height={24} />
                                     <p className='text-center font-semibold text-md'>
                                         {category.name.split(" ").length > 2 ? category.name.split(" ")[0] : category.name}
                                     </p>

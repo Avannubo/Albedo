@@ -34,8 +34,8 @@ export default function EditModal({ isOpen, onClose, productId }) {
                     setNewCategoryIsPublished(product.isPublished);
                     setNewProductMinStock(product.ALBEDOstock_minimo);
                     setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
-                    setProductImages(JSON.parse(product.imagen));
-                    console.log(JSON.parse(product.imagen))
+                    setProductImages(product.imagen);
+                    console.log(product.imagen)
                 } else {
                     console.log("Product not found.");
                 }
@@ -176,14 +176,14 @@ export default function EditModal({ isOpen, onClose, productId }) {
                             <div>  
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes Del Producto</label>
                             </div>
-                            <div className='flex flex-row space-x-2'>
+                            <div className='flex  flex-row justify-evenly flex-wrap space-x-2 '>
                                 {productImages && productImages.length > 0 && (
                                 productImages.map((imagePath, index) => (
                                     <Image
                                         key={index} // Adding a unique key for each image
                                         src={imagePath}
                                         alt={`Product Image ${index + 1}`}
-                                        className="h-auto w-[250px] rounded-lg"
+                                        className="h-[100px] w-[250px] rounded-lg mb-2"
                                         width="350"
                                         height="80" 
                                     />

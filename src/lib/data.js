@@ -329,9 +329,22 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
  * @param {boolean} isPublished - Whether the product is published.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths) {
-    console.log("New product:" + categoryId.categoryId.id + " " + productCode + " " + Url_Id + "  " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime + " " + imagePaths);
-    console.log(JSON.stringify(imagePaths));
+export async function addproduct(categoryId, productData ) {
+
+    console.log("New product:" +
+        JSON.stringify(productData) + " "
+        // productData.newProductUrlCode + " " +
+        // productData.newProductName + " " +
+        // productData.newProductPrice + " " +
+        // productData.newProductDescription + " " +
+        // productData.newProductBody + " " +
+        // productData.newProductStock + " " +
+        // productData.newProductMinStock + " " +
+        // productData.newProductDeliveryTime + " " +
+        // categoryId.categoryId.isPublished + " " +
+        // productData.imagePaths
+    );
+    console.log(productData.imagePaths);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -345,21 +358,21 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
                         category.products = [];
                     }
                     const dataObj = {
-                        "ALBEDOcodigo": productCode.replace(/ /g, "-"),
-                        "url_Id": Url_Id,
+                        "ALBEDOcodigo": productData.newProductCode,  //productCode.replace(/ /g, "-"),
+                        "url_Id": productData.newProductUrlCode,
                         "fixedUrl": "",
-                        "ALBEDOtitulo": Name,
-                        "ALBEDOprecio": parseFloat(Price),
-                        "ALBEDOdescripcion": Description,
-                        "ALBEDOcuerpo": Body,
-                        "ALBEDOstock_minimo": MinStock,
-                        "ALBEDOstock": Stock,
-                        "isPublished": isPublished,
+                        "ALBEDOtitulo": productData.newProductName,
+                        "ALBEDOprecio": parseFloat(productData.newProductPrice),
+                        "ALBEDOdescripcion": productData.newProductDescription,
+                        "ALBEDOcuerpo": productData.newProductBody,
+                        "ALBEDOstock_minimo": productData.newProductStock,
+                        "ALBEDOstock": productData.newProductStock,
+                        "isPublished": categoryId.categoryId.isPublished,
                         "FeachaDeCreacion": new Date().toISOString(),
                         "FechaDeModificacion": new Date().toISOString(),
-                        "imagen": imagePaths,
+                        "imagen": productData.imagePaths,
                         "archivos": "/assets/archivos/G34304249.pdf",
-                        "ALBEDOplazo_entrega": DeliveryTime
+                        "ALBEDOplazo_entrega": productData.newProductDeliveryTime
                     }
                     category.products.push(dataObj);
                     // console.log("New product added:", dataObj);
@@ -779,7 +792,7 @@ export async function login(userInput) {
         if (userInput === '123') {
             // Passwords match, generate token
             const token = generateToken();
-            return {token};
+            return { token };
         } else {
             return { error: 'Contraseña incorrecta. Inténtelo de nuevo.' };
         }

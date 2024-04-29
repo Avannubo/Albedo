@@ -54,32 +54,32 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
         setSelectedImages(files);
     };
     const uploadImages = () => {
-        const imagePaths = [];
-        selectedImages.forEach(async (image) => {
-            const reader = new FileReader();
-            reader.onload = async () => {
-                // Get the base64 representation of the image
-                const base64Image = reader.result;
-                // You can save the image to a local folder in the public directory here
-                // For example, if you have a folder named "images" in the public directory:
-                const imagePath = `./public/assets/images/${image.name}`;
-                const imagePathToSave = `/assets/images/${image.name}`;
-
-                // console.log('data' + imagePath);
-                // Save the image to the folder
-                // await fetch(imagePath, { method: 'POST', body: base64Image });
-                await saveImage(base64Image, imagePath.replace(/ /g, "_"));
-                // Add the image path to the list
-                imagePaths.push(imagePathToSave.replace(/ /g, "_"));
-            };
-            reader.readAsDataURL(image);
+        return new Promise((resolve, reject) => {
+            const imagePaths = [];
+            const uploadPromises = selectedImages.map(image => {
+                return new Promise((resolveImage, rejectImage) => {
+                    const reader = new FileReader();
+                    reader.onload = async () => {
+                        const base64Image = reader.result;
+                        const imagePath = `./public/assets/images/${image.name}`;
+                        const imagePathToSave = `/assets/images/${image.name}`;
+                        // Assuming saveImage is asynchronous and returns a promise
+                        await saveImage(base64Image, imagePath.replace(/ /g, "_"));
+                        imagePaths.push(imagePathToSave.replace(/ /g, "_"));
+                        resolveImage();
+                    };
+                    reader.onerror = error => rejectImage(error);
+                    reader.readAsDataURL(image);
+                });
+            });
+            Promise.all(uploadPromises)
+                .then(() => resolve(imagePaths))
+                .catch(error => reject(error));
         });
-        // Return the list of image paths
-        return imagePaths;
     };
 
     // State variables for error handling
-    const handleAddProduct = () => {
+    const handleAddProduct = async () => {
         // Set errors for all fields that don't meet the requirements
         setCodeError(!newProductCode.trim());
         setUrlCodeError(!newProductUrlCode.trim());
@@ -93,7 +93,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
             !newProductDescription.trim()) {
             return;
         }
-        //ckeck for duplicate product Ids
+        //check for duplicate product Ids
         console.log('Products:', categoryId.categoryId.products);
         // Check if the urlId exists in subCategories
         const urlIdExists = categoryId.categoryId.products.some(product => product.url_Id === newProductUrlCode);
@@ -103,12 +103,40 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
             setUrlCodeError(true);
             return;
         }
-        const imagePaths = uploadImages();
-        setSelectedImagesPaths(imagePaths)
-        console.log(uploadImages());
-        console.log(imagePaths);
-        console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
-        addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
+
+        try {
+            const imagePaths = await uploadImages();
+            setSelectedImagesPaths(imagePaths);
+            const productData = {
+                newProductCode: newProductCode,
+                newProductUrlCode: newProductUrlCode,
+                newProductName: newProductName,
+                newProductPrice: newProductPrice,
+                newProductDescription: newProductDescription,
+                newProductBody: newProductBody,
+                newProductStock: newProductStock,
+                newProductMinStock: newProductMinStock,
+                newProductDeliveryTime: newProductDeliveryTime,
+                imagePaths: imagePaths
+            };
+            addproduct(
+                categoryId,
+                productData
+            );
+            console.log(productData);
+
+        } catch (error) {
+            console.error("Error uploading images:", error);
+        }
+        // const imagePaths = uploadImages();
+        // setSelectedImagesPaths(imagePaths)
+        // console.log(uploadImages());
+        // console.log(imagePaths);
+        // console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, imagePaths);
+        // addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
+
+
+        //reset fields
         setNewProductCode('');
         setNewProductUrlCode('');
         setNewProductName('');

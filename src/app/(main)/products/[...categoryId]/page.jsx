@@ -76,7 +76,7 @@ export default function PageContent() {
                                         <div className='flex flex-row flex-wrap justify-center mt-2'>
                                             {pageData.subCategories.map((subCat, index) => (
                                                 <Link href={`/products/${slugArrayHook.join("/")}/${subCat.url_Id}`} key={index} className='w-[250px] flex flex-col justify-between m-2  p-2 rounded-md box-shadow'>
-                                                    <Image src={subCat.imagen} alt="Vercel Logo" className="self-center w-full h-[170px] rounded-lg" width={100} height={24} />
+                                                    <Image src={subCat.imagen[0]} alt="Vercel Logo" className="self-center w-full h-[170px] rounded-lg" width={100} height={24} />
                                                     <p className='text-center font-bold'>{subCat.name}</p>
                                                     <button className="self-center text-white w-full py-1.5 mt-2 rounded-md bg-[#304590] hover:bg-[#475caa]">Ver Más</button>
                                                 </Link>
@@ -111,7 +111,7 @@ export default function PageContent() {
                             <div className='flex flex-row justify-between my-10'>
                                 <div className='w-1/3'>
                                     <div className='top-28 sticky'>
-                                        <Image className='rounded-lg' src={productData.imagen} alt={productData.ALBEDOtitulo} width={300} height={350} />
+                                        <Image className='rounded-lg' src={productData.imagen[0]} alt={productData.ALBEDOtitulo} width={300} height={350} />
                                         <p className='text-xl font-medium mt-2'><b>Precio: </b>{productData.ALBEDOprecio}€</p>
                                         <div className='mt-4 w-[250px]'>
                                             <AddToCart producto={productData} />

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import AddToCart from "./addToCart";
 import DOMPurify from 'dompurify'; // Import DOMPurify for HTML sanitization
+import Image from "next/image";
 
 // Function to sanitize HTML
 const sanitizeHTML = (html) => {
@@ -51,10 +52,12 @@ export default function ProductItem({ product }) {
       <p className="text-md self-center">
         <strong>Precio:</strong> {product.ALBEDOprecio}€ + IVA
       </p>
-      <img
-        src={product.imagen}
+      <Image
+        src={product.imagen[0]}
         alt="Vercel Logo"
         className="self-center h-[150px] w-full object-cover rounded-lg"
+        width={200}
+        height={150}
       />
       <p className="text-sm text-center" dangerouslySetInnerHTML={{ __html: sanitizeHTML(truncateText(product.ALBEDOdescripcion, 65)) }} />
     </div>

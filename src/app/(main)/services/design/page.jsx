@@ -18,7 +18,7 @@ export default function page() {
                         className="self-center rounded-lg h-[300px]"
                         width="700"
                         height="350"
-                        priority
+                        priority="true"
                     />
                 </div>
                 <div>
@@ -37,7 +37,7 @@ export default function page() {
                     className="self-center rounded-lg h-[300px]"
                     width="700"
                     height="450"
-                    priority
+                    priority="true"
                 /></div>
 
             </div>
@@ -49,7 +49,7 @@ export default function page() {
                         className="self-center rounded-lg w-[80px] h-[80px]"
                         width="100"
                         height="50"
-                        priority
+                        priority="true"
                     /></Link>
                     <div className='flex flex-row text-xl'><Link href="/services/design/rf" className='text-[#304590] font-bold'>Módulos de Radio Frecuencia (RF):</Link> Diseño de subsistemas de RF de bajo nivel de ruido y alta sensibilidad.</div>
                 </div>
@@ -60,7 +60,7 @@ export default function page() {
                         className="self-center rounded-lg w-[80px] h-[80px]"
                         width="100"
                         height="50"
-                        priority
+                        priority="true"
                     /></Link>
                     <div className='flex flex-row text-xl'><Link href="/services/design/ferrite" className='text-[#304590] font-bold'>Ferritas:</Link>  Diseños en los que los componentes de ferrita sean elementos centrales: fuentes de alimentación, sensores, baluns, transformadores.</div>
                 </div>
@@ -71,7 +71,7 @@ export default function page() {
                         className="self-center rounded-lg w-[80px] h-[80px]"
                         width="100"
                         height="50"
-                        priority
+                        priority="true"
                     /></div>
                     <div className='flex flex-row text-xl'><Link href="/services/design/low_power" className='text-[#304590] font-bold'>Equipos de baja y ultra-baja potencia: </Link>  Sistemas electrónicos óptimos en en uso de la potencia disponible.</div>
                 </Link>

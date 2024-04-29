@@ -62,7 +62,7 @@ export default function Home() {
             className="self-center"
             width={400}
             height={24}
-            priority
+            priority="true"
           />
         </div>
         <div>
@@ -153,7 +153,7 @@ export default function Home() {
                 className=""
                 width={300}
                 height={24}
-                priority
+                priority="true"
               />
               <Image
                 src="/images/home/diseño2.png"
@@ -161,7 +161,7 @@ export default function Home() {
                 className=""
                 width={200}
                 height={24}
-                priority
+                priority="true"
               />
             </div>
           </div>

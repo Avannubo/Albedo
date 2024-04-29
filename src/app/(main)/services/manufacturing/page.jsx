@@ -17,7 +17,7 @@ export default function page() {
                         className="self-center rounded-lg"
                         width="1200"
                         height="250"
-                        priority
+                        priority="true"
                     />
                 </div>
 
@@ -29,7 +29,7 @@ export default function page() {
                         className="float-left rounded-lg m-2"
                         width="150"
                         height="200"
-                        priority
+                        priority="true"
                     />
                     <p>Toda la maquinaria es propia (Serigrafía, Pick & Place, horno, cámaras de secado, camaras de burn-in), por lo que no dependemos de proveedores externos en todo el proceso productivo. <br />
                         <br />
@@ -40,7 +40,7 @@ export default function page() {
                         className="float-right rounded-lg m-2"
                         width="150"
                         height="200"
-                        priority
+                        priority="true"
                     />
                     <p>Disponemos de todos los elementos necesarios "in house" para la pre-certificación del producto (ESD, EMI conducida y radiada, Hipot, continuidad de tierra).
                         <br /><br />
@@ -53,7 +53,7 @@ export default function page() {
                         className="self-center rounded-lg"
                         width="1200"
                         height="250"
-                        priority
+                        priority="true"
                     />
                 </div>
                 <div className='text-justify text-xl mb-4'>
@@ -68,7 +68,7 @@ export default function page() {
                                 className="float-left rounded-lg m-2 w-[550px] object-cover"
                                 width="350"
                                 height="200"
-                                priority
+                                priority="true"
                             />
                             <Image
                                 src="/images/100000911.jpg"
@@ -76,7 +76,7 @@ export default function page() {
                                 className="float-left rounded-lg m-2 w-[550px] object-cover"
                                 width="350"
                                 height="200"
-                                priority
+                                priority="true"
                             />
                         </div>
                         <div className='flex flex-row justify-center'><Image
@@ -85,7 +85,7 @@ export default function page() {
                             className="float-left rounded-lg m-2 w-[550px] object-cover"
                             width="350"
                             height="200"
-                            priority
+                            priority="true"
                         />
                             <Image
                                 src="/images/100000913.jpg"
@@ -93,10 +93,10 @@ export default function page() {
                                 className="float-left rounded-lg m-2 w-[550px] object-cover"
                                 width="350"
                                 height="200"
-                                priority
+                                priority="true"
                             />
-                           
-                           </div>
+
+                        </div>
                     </div>
                     <div className='flex justify-center  '>
                         <video autoPlay loop muted className='w-[1100px] rounded-lg'>
@@ -111,7 +111,7 @@ export default function page() {
                                 className="float-left rounded-lg m-2 w-[550px] object-cover"
                                 width="350"
                                 height="200"
-                                priority
+                                priority="true"
                             />
                             <Image
                                 src="/assets/images/100000915.jpg"
@@ -119,29 +119,29 @@ export default function page() {
                                 className="float-left rounded-lg m-2 w-[550px] object-cover"
                                 width="350"
                                 height="200"
-                                priority
+                                priority="true"
                             />
                         </div>
                         <div className='flex flex-row justify-center'>
                             <Image
-                            src="/assets/images/100000916.jpg"
-                            alt="Vercel Logo"
-                            className="float-left rounded-lg m-2 w-[550px] object-cover"
-                            width="350"
-                            height="200"
-                            priority
-                        />
-                           <Image
-                            src="/assets/images/100000917.jpg"
-                            alt="Vercel Logo"
-                            className="float-left rounded-lg m-2 w-[550px] object-cover"
-                            width="350"
-                            height="200"
-                            priority
-                        />
-                           
-                           
-                           </div>
+                                src="/assets/images/100000916.jpg"
+                                alt="Vercel Logo"
+                                className="float-left rounded-lg m-2 w-[550px] object-cover"
+                                width="350"
+                                height="200"
+                                priority="true"
+                            />
+                            <Image
+                                src="/assets/images/100000917.jpg"
+                                alt="Vercel Logo"
+                                className="float-left rounded-lg m-2 w-[550px] object-cover"
+                                width="350"
+                                height="200"
+                                priority="true"
+                            />
+
+
+                        </div>
                     </div>
                     <p className='myb-4'>Para ampliar información sobre estos servicios contacte con <Link href="mailto:produccion@albedo.biz" className="text-[#304590]">produccion@albedo.biz</Link> </p>
                     <div className='flex justify-center'>

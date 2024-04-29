@@ -26,7 +26,7 @@ export default function page() {
                         className="self-center rounded-lg"
                         width="1100"
                         height="250"
-                        priority
+                        priority="true"
                     />
                 </div>
                 <div className='flex flex-row space-x-6'>
@@ -59,10 +59,10 @@ export default function page() {
                     </p></div>
                 </div>
                 <div className='flex justify-center mb-4'>
-                        <video autoPlay loop muted className='w-[1100px] rounded-lg'>
-                            <source src="/assets/videos/VIDEO-SMD-2.mp4" type="video/mp4" />
-                        </video>
-                    </div>
+                    <video autoPlay loop muted className='w-[1100px] rounded-lg'>
+                        <source src="/assets/videos/VIDEO-SMD-2.mp4" type="video/mp4" />
+                    </video>
+                </div>
             </div>
         </Layout>
     )

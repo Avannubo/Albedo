@@ -17,10 +17,10 @@ export default function page() {
           </div>
           <p>
             1.- Por correo-electrónico. Es el método preferido pues nos permite atenderle aún cuando estemos ausentes. Las direcciones son:
-            <br />  
+            <br />
             <Link href="mailto:ventas@albedo.biz">ventas@albedo.biz</Link>: para comprar nuestros productos <br />
-            <Link href="mailto:soporte@albedo.biz">soporte@albedo.biz</Link>: para resolver cualquier duda técnica</p> 
- 
+            <Link href="mailto:soporte@albedo.biz">soporte@albedo.biz</Link>: para resolver cualquier duda técnica</p>
+
           <p>2.- Por correo: nuestra dirección postal es: Joan d'Àustria, 112, 08018, Barcelona, España.
             <br /> <br />
             3.- Por teléfono: 93 221 09 24, de 9:00 a 14:00 y de 16:00 a 18:30, de lunes a viernes.
@@ -35,7 +35,7 @@ export default function page() {
             className="float-right rounded-lg"
             width="350"
             height="80"
-            priority />
+            priority="true" />
           <div><div id="g-mapdisplay" ><iframe frameBorder="0" src="https://www.google.com/maps/embed/v1/place?q=ALBEDO+Design+SL,+Carrer+de+Joan+d'Àustria,+Barcelona,+España&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe></div></div>
         </div> </div>
     </Layout>

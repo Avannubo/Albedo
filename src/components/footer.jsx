@@ -12,7 +12,7 @@ function footer() {
             className="w-1/3 object-contain"
             width={300}
             height={24}
-            priority
+            priority="true"
           />
           <div className="text-left w-auto flex flex-col justify-between">
             <h1 className="font-bold text-xl ">Textos Legales</h1>

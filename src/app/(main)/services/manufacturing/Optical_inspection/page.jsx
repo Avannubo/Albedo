@@ -28,7 +28,7 @@ export default function page() {
                         className="self-center rounded-lg"
                         width="1100"
                         height="250"
-                        priority
+                        priority="true"
                     />
                     <div className="flex justify-center my-4">
                         <h1 className="text-2xl font-bold">Estación de trabajo de Rayos X (XRay WorkStation)</h1>
@@ -41,11 +41,11 @@ export default function page() {
                         className="self-center rounded-lg"
                         width="1100"
                         height="250"
-                        priority
+                        priority="true"
                     />
                     <p>
                         En aquellas placas con dispositivos de altísima densidad de conexiones y aquellos cuyos pins quedan ocultos para una inspección visual directa (BGA, QFN, LGA) disponemos de una estación de trabajo por rayos X que permite controlar y certificar el proceso de soldadura de dichos componentes.
-<br /> <br />
+                        <br /> <br />
                         En las imagenes que veran a continuación se puede apreciar el detalle de una bola en un BGA correcta respecto a una defectuosa
                     </p>
                     <Image
@@ -54,7 +54,7 @@ export default function page() {
                         className="self-center rounded-lg"
                         width="1100"
                         height="250"
-                        priority
+                        priority="true"
                     />
                     <Image
                         src="/assets/images/200000132.jpg"
@@ -62,7 +62,7 @@ export default function page() {
                         className="self-center rounded-lg"
                         width="1100"
                         height="250"
-                        priority
+                        priority="true"
                     />
                 </div>
             </div>

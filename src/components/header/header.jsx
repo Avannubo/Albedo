@@ -17,7 +17,7 @@ export default function header() {
               className="h-[50px] self-center mr-6"
               width={150}
               height={100}
-              priority
+              priority="true"
             />
           </Link>
           <div className="flex grow justify-between self-center">

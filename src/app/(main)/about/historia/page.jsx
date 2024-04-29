@@ -19,7 +19,7 @@ export default function page() {
                         className="float-left rounded-lg mr-4"
                         width="130"
                         height="50"
-                        priority
+                        priority="true"
                     />
                     Albedo Design SL nace a principios de 2004 e inicia sus actividades en Junio de 2004. A pesar de su corta edad, en la empresa se acumulan más de 40 años de experiencia en el sector electrónico profesional.
                     <br />Dicha experiencia procede de la larga trayectoria profesional de algunos de los socios fundadores de Albedo Design S.L.: <b className='font-bold'>Juan Beneyto</b>  y <b className='font-bold'>Juan Luis Montore</b> (<Link className='text-[#304590]' href="/mas">más información...</Link>).
@@ -31,7 +31,7 @@ export default function page() {
                         className="float-right rounded-lg ml-4"
                         width="170"
                         height="50"
-                        priority
+                        priority="true"
                     /> ICT pasó posteriormente a telecom2 formar parte del grupo Trend Communications bajo la denominación Trend Communications SL. <br />
                     ICT electronics fue durante largos años lider mundial en el sector de la Instrumentación para Telecomunicaciones.
                     <br />

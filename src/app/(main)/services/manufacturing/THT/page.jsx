@@ -11,7 +11,7 @@ export default function page() {
             </div>
             <div className='text-xl space-y-4 mb-4'>
                 <p>
-                Nuestros profesionales están especializados en montaje THT para garantizar la mejor calidad en los procesos de soldadura manual. Este tipo de montaje es definido en la fase de prototipado por la ingeniería de diseño. Alguno de nuestros profesionales llevan más de 30 años trabajando con nosotros. 
+                    Nuestros profesionales están especializados en montaje THT para garantizar la mejor calidad en los procesos de soldadura manual. Este tipo de montaje es definido en la fase de prototipado por la ingeniería de diseño. Alguno de nuestros profesionales llevan más de 30 años trabajando con nosotros.
                 </p>
                 <div className='flex flex-row justify-center'>
                     <Image
@@ -20,9 +20,9 @@ export default function page() {
                         className="self-center rounded-lg"
                         width="1100"
                         height="250"
-                        priority
+                        priority="true"
                     />
-                </div> 
+                </div>
             </div>
         </Layout>
     )

@@ -31,7 +31,7 @@ export default function CartItem() {
     localStorage.setItem("carrito", JSON.stringify(newCartItems));
   };
 
-  return ( 
+  return (
     <div className="">
       {cartItems && cartItems.length > 0 ? (
         <div className="space-y-2 p-2">
@@ -42,7 +42,7 @@ export default function CartItem() {
                   src={product.imagen}
                   alt="product-image"
                   className="w-[160px] h-[100px] object-cover "
-                  priority
+                  priority="true"
                 />
                 <div className="flex flex-col justify-between items-end ">
                   <h1 className="font-bold w-full text-right">{product.ALBEDOtitulo} ({product.ALBEDOcodigo})</h1>
@@ -122,5 +122,5 @@ export default function CartItem() {
         </div>
       )}
     </div>
-  ); 
+  );
 }

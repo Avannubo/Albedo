@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { login } from '@/lib/data'; 
+import { login } from '@/lib/data';
 import cookie from 'js-cookie';
 
 export default function Page() {
@@ -46,7 +46,7 @@ export default function Page() {
                             className="self-center"
                             width={250}
                             height={100}
-                            priority
+                            priority="true"
                         />
                     </Link>
                     <h2 className="mt-10 text-center text-2xl font-semibold leading-9 tracking-tight text-gray-600">Iniciar sesión en el panel de administración</h2>

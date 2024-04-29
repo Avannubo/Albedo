@@ -1,9 +1,8 @@
 // addModal.js
 "use client";
 import { useState } from 'react';
-import { addproduct, saveImage } from '@/lib/data';
+import { addproduct, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
-
 export default function AddModal({ isOpen, onClose, categoryId }) {
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
@@ -18,8 +17,8 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const [descriptionError, setDescriptionError] = useState(false);
     const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
-    const [selectedImages, setSelectedImages] = useState([]); 
-
+    const [selectedImages, setSelectedImages] = useState([]);
+    const [relatedFiles, setRelatedFiles] = useState([]);
     // const [priceError, setPriceError] = useState(false);
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
@@ -52,6 +51,33 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
         const files = Array.from(event.target.files);
         setSelectedImages(files);
     };
+    const handleRelatedFilesChange = (event) => {
+        const files = Array.from(event.target.files);
+        setRelatedFiles(files);
+    };
+    const uploadRelatedFiles = () => {
+        return new Promise((resolve, reject) => {
+            const filePromises = relatedFiles.map(file => {
+                return new Promise((resolveFile, rejectFile) => {
+                    const reader = new FileReader();
+                    reader.onload = async () => {
+                        const fileData = reader.result;
+                        const filePath = `./public/assets/archivos/${file.name}`;
+                        const filePathtoSave = `/assets/archivos/${file.name}`;
+                        // Assuming saveFile is asynchronous and returns a promise
+                        // await saveFile(fileData, filePath);
+                        // relatedFiles.push(filePathtoSave.replace(/ /g, "_"));
+                        resolveFile(filePathtoSave.replace(/ /g, "_"));
+                    };
+                    reader.onerror = error => rejectFile(error);
+                    reader.readAsDataURL(file);
+                });
+            });
+            Promise.all(filePromises)
+                .then(filePaths => resolve(filePaths))
+                .catch(error => reject(error));
+        });
+    };
     const uploadImages = () => {
         return new Promise((resolve, reject) => {
             const imagePaths = [];
@@ -76,7 +102,6 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                 .catch(error => reject(error));
         });
     };
-
     // State variables for error handling
     const handleAddProduct = async () => {
         // Set errors for all fields that don't meet the requirements
@@ -96,15 +121,14 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
         console.log('Products:', categoryId.categoryId.products);
         // Check if the urlId exists in subCategories
         const urlIdExists = categoryId.categoryId.products.some(product => product.url_Id === newProductUrlCode);
-
         // If urlId exists, setUrlCodeError and return
         if (urlIdExists) {
             setUrlCodeError(true);
             return;
         }
-
         try {
-            const imagePaths = await uploadImages(); 
+            const imagePaths = await uploadImages();
+            const relatedFilePaths = await uploadRelatedFiles();
             const productData = {
                 newProductCode: newProductCode,
                 newProductUrlCode: newProductUrlCode,
@@ -115,25 +139,17 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                 newProductStock: newProductStock,
                 newProductMinStock: newProductMinStock,
                 newProductDeliveryTime: newProductDeliveryTime,
-                imagePaths: imagePaths
+                imagePaths: imagePaths,
+                relatedFilePaths: relatedFilePaths,
             };
             addproduct(
                 categoryId,
                 productData
             );
             console.log(productData);
-
         } catch (error) {
             console.error("Error uploading images:", error);
         }
-        // const imagePaths = uploadImages();
-        // setSelectedImagesPaths(imagePaths)
-        // console.log(uploadImages());
-        // console.log(imagePaths);
-        // console.log(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, imagePaths);
-        // addproduct(categoryId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, categoryId.categoryId.isPublished, imagePaths);
-
-
         //reset fields
         setNewProductCode('');
         setNewProductUrlCode('');
@@ -189,7 +205,6 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                                 {/* <textarea onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
                                 <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
                                 {descriptionError && <span className="text-red-500 italic text-xs "> El Descripción del Producto es requerido</span>}
-
                             </div>
                             <div className="mb-4">
                                 <label className=" text-sm font-medium text-gray-700 dark:text-gray-300">Producto Cuerpo</label>
@@ -217,7 +232,14 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                                 </div>
                                 <div className="flex-1 mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
-                                    <input type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                    <input
+                                        onChange={handleRelatedFilesChange}
+                                        multiple
+                                        type="file"
+                                        accept=".rar,.zip,.pdf,.exe,.docx"
+                                        className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]"
+                                        required
+                                    />
                                 </div>
                             </div>
                             <div className='flex justify-center mt-4'>

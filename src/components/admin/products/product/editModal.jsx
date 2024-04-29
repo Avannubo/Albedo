@@ -1,7 +1,7 @@
 // addModal.js
 "use client";
 import React, { useState, useEffect } from 'react';
-import { editproduct, getProductById, deleteImages, saveImage } from '@/lib/data';
+import { editproduct, getProductById, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, productId }) {
@@ -16,7 +16,8 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(0);
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
-    const [productImages, setProductImages] = useState([]); 
+    const [productImages, setProductImages] = useState([]);
+    const [productFiles, setProductFiles] = useState([]); 
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -35,6 +36,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
                     setNewProductMinStock(product.ALBEDOstock_minimo);
                     setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
                     setProductImages(product.imagen);
+                    setProductFiles(product.archivos);
                     console.log(product.imagen)
                 } else {
                     console.log("Product not found.");
@@ -237,7 +239,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
                                             <Image
                                                 src={imagePath}
                                                 alt={`Product Image ${index + 1}`}
-                                                className="h-[100px] w-[150px] object-contain rounded-lg mb-2 border-2 border-gray-200 p-2"
+                                                className="h-[100px] w-auto object-cover rounded-lg mb-2 border-2 border-gray-200"
                                                 width="350"
                                                 height="80"
                                             />

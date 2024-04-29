@@ -330,20 +330,8 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
  * @returns {boolean} Indicates whether the addition was successful.
  */
 export async function addproduct(categoryId, productData) {
-
     console.log("New product:" +
-        JSON.stringify(productData) + " "
-        // productData.newProductUrlCode + " " +
-        // productData.newProductName + " " +
-        // productData.newProductPrice + " " +
-        // productData.newProductDescription + " " +
-        // productData.newProductBody + " " +
-        // productData.newProductStock + " " +
-        // productData.newProductMinStock + " " +
-        // productData.newProductDeliveryTime + " " +
-        // categoryId.categoryId.isPublished + " " +
-        // productData.imagePaths
-    );
+        JSON.stringify(productData));
     console.log(productData.imagePaths);
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -371,7 +359,7 @@ export async function addproduct(categoryId, productData) {
                         "FeachaDeCreacion": euFormattedDateTime,
                         "FechaDeModificacion": euFormattedDateTime,
                         "imagen": productData.imagePaths,
-                        "archivos": "/assets/archivos/G34304249.pdf",
+                        "archivos": productData.relatedFilePaths,
                         "ALBEDOplazo_entrega": productData.newProductDeliveryTime
                     }
                     category.products.push(dataObj);
@@ -484,7 +472,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
  * @param {boolean} isPublished - Whether the category is published.
  * @returns {boolean} Indicates whether the editing was successful.
  */
-export async function editCategory(categoryId, Code, Name, Description, Body, isPublished) {
+export async function editCategory(categoryId, Code, Name, Description, Body, isPublished, imagePaths) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -498,6 +486,7 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
                     category.ALBEDOdescripcion = Description;
                     category.ALBEDOcuerpo = Body;
                     category.isPublished = isPublished;
+                    category.imagen = imagePaths;
                     category.FechaDeModificacion = euFormattedDateTime;
                     // Update publishing status of products in the current category
                     await updateProductsPublishingStatus(category.products, isPublished);
@@ -815,14 +804,11 @@ function getSecKey() {
         throw new Error("Stored secret key not found in environment variables.");
     }
 }
-
 export async function saveImage(base64Image, imagePath) {
     // Remove the data URI prefix
     const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
-
     // Create a buffer from the base64 string
     const buffer = Buffer.from(base64Data, 'base64');
-
     // Write the buffer to the file
     fs.writeFile(imagePath, buffer, (err) => {
         if (err) {
@@ -850,10 +836,36 @@ export async function deleteImages(imagePathsToDelete) {
                 });
             });
         });
-
         // Resolve or reject the promise based on the completion of deletion
         Promise.all(deletePromises)
             .then(() => resolve())
             .catch(error => reject(error));
+    });
+}
+export async function saveFile(file, filePath) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        // Set up event listener for when file reading is complete
+        reader.onloadend = () => {
+            const fileData = reader.result;
+            // Create a Blob object from the file data
+            const blob = new Blob([new Uint8Array(fileData)]);
+            // Create a URL representing the file blob
+            const fileURL = URL.createObjectURL(blob);
+            // Create a new anchor element to trigger the download
+            const a = document.createElement('a');
+            a.href = fileURL;
+            a.download = filePath;
+            // Trigger a click event to start the download
+            a.dispatchEvent(new MouseEvent('click'));
+            // Resolve the promise with the file path
+            resolve(filePath);
+        };
+        // Set up event listener for file reading errors
+        reader.onerror = (error) => {
+            reject(error);
+        };
+        // Start reading the file
+        reader.readAsArrayBuffer(file);
     });
 }

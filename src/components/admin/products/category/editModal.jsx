@@ -1,8 +1,9 @@
 // addModal.js
 "use client";
 import React, { useState, useEffect } from 'react';
-import { editCategory, getCategoryById } from '@/lib/data';
+import { editCategory, getCategoryById, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
+import Image from 'next/image';
 
 export default function EditModal({ isOpen, onClose, categoryId }) {
     // const productData = getProductById(productId);
@@ -12,7 +13,8 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
     const [newCategoryDescription, setNewCategoryDescription] = useState('');
     const [newCategoryBody, setNewCategoryBody] = useState('');
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
-
+    const [selectedImages, setSelectedImages] = useState([]);
+    const [categoryImages, setCategoryImages] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -24,6 +26,8 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                     setNewCategoryDescription(data.ALBEDOdescripcion);
                     setNewCategoryBody(data.ALBEDOcuerpo);
                     setNewCategoryIsPublished(data.isPublished);
+                    setCategoryImages(data.imagen);
+                    console.log(data.imagen);
                 } else {
                     console.log("category not found.");
                 }
@@ -54,14 +58,66 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         setNewCategoryIsPublished(event.target.checked);
     };
 
+
+    const handleImageChange = (event) => {
+        const files = Array.from(event.target.files);
+        setSelectedImages(files);
+    };
+    const handleDeleteImage = (index) => {
+        try {
+            const currentImages = [...categoryImages];
+            currentImages.splice(index, 1);
+            console.log(currentImages);
+            setCategoryImages(currentImages); // Update categoryImages state
+            // Call deleteImages function to delete the image
+            // await deleteImages([imagePathToDelete]);
+            console.log('Image deleted successfully');
+        } catch (error) {
+            console.error('Error deleting image:', error);
+            // You might want to handle errors here, e.g., show an error message
+        }
+    };
+
+    const uploadImages = () => {
+        return new Promise((resolve, reject) => {
+            const imagePaths = [];
+            const uploadPromises = selectedImages.map(image => {
+                return new Promise((resolveImage, rejectImage) => {
+                    const reader = new FileReader();
+                    reader.onload = async () => {
+                        const base64Image = reader.result;
+                        const imagePath = `./public/assets/images/${image.name}`;
+                        const imagePathToSave = `/assets/images/${image.name}`;
+                        // Assuming saveImage is asynchronous and returns a promise
+                        await saveImage(base64Image, imagePath.replace(/ /g, "_"));
+                        imagePaths.push(imagePathToSave.replace(/ /g, "_"));
+                        resolveImage();
+                    };
+                    reader.onerror = error => rejectImage(error);
+                    reader.readAsDataURL(image);
+                });
+            });
+            Promise.all(uploadPromises)
+                .then(() => resolve(imagePaths))
+                .catch(error => reject(error));
+        });
+    };
+
+
     //server Action here
-    const handleAddProduct = () => {
-        editCategory(categoryId, newCategoryCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished);
+    const handleAddProduct = async () => {
+        const imagePaths = await uploadImages();
+        const allImagePaths = [...imagePaths, ...categoryImages];
+        const uniqueImagePaths = Array.from(new Set(allImagePaths));
+        console.log(uniqueImagePaths);
+        editCategory(categoryId, newCategoryCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished, uniqueImagePaths);
         setNewCategoryCode('');
         setNewCategoryName('');
         setNewCategoryDescription('');
         setNewCategoryBody('');
         setNewCategoryIsPublished(newCategoryIsPublished);
+        setSelectedImages([]);
+        setSelectedImages([]);
         onClose();
 
     };
@@ -111,6 +167,40 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                                 {/* <textarea onChange={handleInputChangeBody} value={newCategoryBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' /> */}
                                 <QuillEditor value={newCategoryBody} onChange={handleInputChangeBody} />
                             </div>
+
+                            <div className='flex  flex-row justify-start flex-wrap space-x-4 '>
+                                {categoryImages && categoryImages.length > 0 && (
+                                    categoryImages.map((imagePath, index) => (
+                                        <div key={index} className="relative">
+                                            <Image
+                                                src={imagePath}
+                                                alt={`Product Image ${index + 1}`}
+                                                className="h-[100px] w-[150px] object-cover rounded-lg mb-2 border-2 border-gray-200"
+                                                width="350"
+                                                height="80"
+                                            />
+                                            <button
+                                                className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white w-7 h-7 text-lg"
+                                                onClick={() => handleDeleteImage(index)}
+                                            >
+                                                X
+                                            </button>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                            <div className='flex flex-row  justify-between space-x-4'>
+                                <div className="grow mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
+                                    <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                </div>
+                                <div className="grow mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
+                                    <input type="file" className="sshadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                </div>
+                            </div>
+
+                            
                             <div className='flex justify-center mt-6'>
                                 <button onClick={handleAddProduct} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">
                                     Guardar

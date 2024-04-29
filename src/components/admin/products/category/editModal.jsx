@@ -191,12 +191,12 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                             </div>
                             <div className='flex flex-row  justify-between space-x-4'>
                                 <div className="grow mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
-                                    <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
+                                    <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                                 <div className="grow mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
-                                    <input type="file" className="sshadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
+                                    <input type="file" className="sshadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                             </div>
 

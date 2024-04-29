@@ -407,7 +407,7 @@ export async function addproduct(categoryId, productData) {
  * @param {boolean} isPublished - Whether the product is published.
  * @returns {boolean} Indicates whether the editing was successful.
  */
-export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths) {
+export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -432,6 +432,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         product.ALBEDOplazo_entrega = DeliveryTime;
                         product.isPublished = isPublished;
                         product.imagen = imagePaths;
+                        product.archivos = filePaths;
                         // console.log("Writing updated data to file...");
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                         // console.log("Data written successfully.");

@@ -16,8 +16,9 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(0);
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
+    const [selectedFiles, setSelectedFiles] = useState([]);
     const [productImages, setProductImages] = useState([]);
-    const [productFiles, setProductFiles] = useState([]); 
+    const [productFiles, setProductFiles] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -37,7 +38,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
                     setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
                     setProductImages(product.imagen);
                     setProductFiles(product.archivos);
-                    console.log(product.imagen)
+                    console.log(product.archivos[0])
                 } else {
                     console.log("Product not found.");
                 }
@@ -83,6 +84,10 @@ export default function EditModal({ isOpen, onClose, productId }) {
         const files = Array.from(event.target.files);
         setSelectedImages(files);
     };
+    const handleFileChange = (event) => {
+        const files = Array.from(event.target.files);
+        setSelectedFiles(files);
+    };
     const handleDeleteImage = async (index) => {
         try {
             const currentImages = [...productImages];
@@ -97,7 +102,17 @@ export default function EditModal({ isOpen, onClose, productId }) {
             // You might want to handle errors here, e.g., show an error message
         }
     };
-
+    const handleDeleteFile = (index) => {
+        try {
+            const updatedFiles = [...productFiles];
+            updatedFiles.splice(index, 1);
+            setProductFiles(updatedFiles); // Update productFiles state
+            console.log('File deleted successfully' + updatedFiles);
+        } catch (error) {
+            console.error('Error deleting file:', error);
+            // You might want to handle errors here, e.g., show an error message
+        }
+    };
     const uploadImages = () => {
         return new Promise((resolve, reject) => {
             const imagePaths = [];
@@ -122,13 +137,38 @@ export default function EditModal({ isOpen, onClose, productId }) {
                 .catch(error => reject(error));
         });
     };
+    const uploadRelatedFiles = () => {
+        return new Promise((resolve, reject) => {
+            const filesPaths = [];
+            const uploadPromises = selectedFiles.map(file => {
+                return new Promise((resolveFile, rejectFile) => {
+                    const reader = new FileReader();
+                    reader.onload = async () => {
+                        const fileData = reader.result;
+                        const filePath = `./public/assets/archivos/${file.name}`;
+                        const filePathToSave = `/assets/archivos/${file.name}`;
+                        // Assuming saveFile is asynchronous and returns a promise
+                        // await saveFile(fileData, filePath.replace(/ /g, "_"));
+                        filesPaths.push(filePathToSave.replace(/ /g, "_"));
+                        resolveFile();
+                    };
+                    reader.onerror = error => rejectFile(error);
+                    reader.readAsDataURL(file);
+                });
+            });
+            Promise.all(uploadPromises)
+                .then(() => resolve(filesPaths))
+                .catch(error => reject(error));
+        });
+    };
     const handleAddProduct = async () => {
-
         try {
+            // Upload images and related files
             const imagePaths = await uploadImages();
-            const allImagePaths = [...imagePaths, ...productImages];
-            const uniqueImagePaths = Array.from(new Set(allImagePaths));
-            console.log(uniqueImagePaths); 
+            const relatedFilePaths = await uploadRelatedFiles();
+            // Combine new and existing image paths and file paths
+            const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
+            const uniqueFilePaths = Array.from(new Set([...relatedFilePaths, ...productFiles]));
             editproduct(productId,
                 newProductCode,
                 newProductUrlCode,
@@ -140,12 +180,12 @@ export default function EditModal({ isOpen, onClose, productId }) {
                 newProductMinStock,
                 newProductDeliveryTime,
                 newCategoryIsPublished,
-                uniqueImagePaths);
+                uniqueImagePaths,
+                uniqueFilePaths);
             setProductImages(uniqueImagePaths); // Update productImages state
         } catch (error) {
             console.error("Error uploading images:", error);
         }
-
         setNewProductName('');
         setNewProductCode('');
         setNewProductUrlCode('');
@@ -158,6 +198,8 @@ export default function EditModal({ isOpen, onClose, productId }) {
         setNewCategoryIsPublished(newCategoryIsPublished);
         setProductImages([]);
         setSelectedImages([]);
+        setSelectedFiles([]);
+        setProductFiles([]);
         onClose();
     };
     return isOpen ? (
@@ -229,39 +271,66 @@ export default function EditModal({ isOpen, onClose, productId }) {
                                     <input onChange={handleInputChangeDeliveryTime} value={newProductDeliveryTime} type="number" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" min="0" placeholder="Dias" required />
                                 </div>
                             </div>
-                            <div>
-                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes Del Producto</label>
-                            </div>
-                            <div className='flex  flex-row justify-start flex-wrap space-x-4 '>
-                                {productImages && productImages.length > 0 && (
-                                    productImages.map((imagePath, index) => (
-                                        <div key={index} className="relative">
-                                            <Image
-                                                src={imagePath}
-                                                alt={`Product Image ${index + 1}`}
-                                                className="h-[100px] w-auto object-cover rounded-lg mb-2 border-2 border-gray-200"
-                                                width="350"
-                                                height="80"
-                                            />
-                                            <button
-                                                className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white w-7 h-7 text-lg"
-                                                onClick={() => handleDeleteImage(index)}
-                                            >
-                                                X
-                                            </button>
+                            <div className='flex flex-col justify-start space-x-2'>
+                                <div className='flex flex-row items-center space-x-2'>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes Del Producto</label>
+                                    <div className='flex flex-row  justify-between space-x-4'>
+                                        <div className="grow mb-4">
+                                            <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md  border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                         </div>
-                                    ))
-                                )}
+                                    </div>
+                                </div>
+                                <div className='flex  flex-row justify-start flex-wrap '>
+                                    {productImages && productImages.length > 0 && (
+                                        productImages.map((imagePath, index) => (
+                                            <div key={index} className="relative mr-4">
+                                                <Image
+                                                    src={imagePath}
+                                                    alt={`Product Image ${index + 1}`}
+                                                    className="h-[100px] w-auto object-cover rounded-lg mb-2 border-2 border-gray-200"
+                                                    width="350"
+                                                    height="80"
+                                                />
+                                                <button
+                                                    className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white w-7 h-7 text-lg"
+                                                    onClick={() => handleDeleteImage(index)}
+                                                >
+                                                    X
+                                                </button>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
                             </div>
-                            <div className='flex flex-row  justify-between space-x-4'>
-                                <div className="grow mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
-                                    <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                            <div className='flex flex-col justify-center space-x-2'>
+                                <div className='flex flex-row items-center space-x-2'>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
+                                    <div className="grow mb-4">
+                                        <input multiple
+                                            accept=".rar,.zip,.pdf,.exe,.docx"
+                                            type="file"
+                                            onChange={handleFileChange}
+                                            className="shadow-sm rounded-md border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                    </div>
                                 </div>
-                                <div className="grow mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
-                                    <input type="file" className="sshadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
-                                </div>
+                                {
+                                    productFiles && productFiles.length > 0 && (
+                                        <div className='flex flex-row justify-start flex-wrap'>
+                                            {productFiles.map((filename, index) => (
+                                                <div key={index} className='relative mr-4'>
+                                                    <div className='border py-2 px-4 rounded-xl'>
+                                                        <p>{filename.substring(filename.lastIndexOf('/') + 1)}</p>
+                                                    </div>
+                                                    <button
+                                                        className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white w-7 h-7 text-lg"
+                                                        onClick={() => handleDeleteFile(index)}
+                                                    >
+                                                        X
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                             </div>
                             < div className='flex justify-center mt-6'>
                                 <button onClick={handleAddProduct} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">

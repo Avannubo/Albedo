@@ -178,30 +178,30 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                         <div className='flex flex-col'>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                     {codeError && <span className="text-red-500 italic text-xs ">El código de categoría es requerido</span>}
                                 </div>
                                 <div className="mb-4 flex-1">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo URL ej. 001" required />
                                     {urlCodeError && <span className="text-red-500 italic text-xs "> El Codigo de URL es requerido y no duplicado</span>}
                                 </div>
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
                                     <input onChange={handleInputChangeProduct} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="product" required />
                                     {nameError && <span className="text-red-500 italic text-xs "> El Nombre de Producto es requerido</span>}
                                 </div>
                                 <div className="mb-4 flex-1">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
                                     <input onChange={handleInputChangePrice} type="number" min="0" step="0.1" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Precio" required />
                                     {/* {priceError && <span className="text-red-500 italic text-xs "> El Precio de producto es requerido</span>} */}
                                 </div>
                             </div>
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
+                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
                                 {/* <textarea onChange={handleInputChangeDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
                                 <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
                                 {descriptionError && <span className="text-red-500 italic text-xs "> El Descripción del Producto es requerido</span>}
@@ -213,31 +213,31 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Stock</label>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Stock</label>
                                     <input onChange={handleInputChangeStock} type="number" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" min="0" placeholder="Stock" required />
                                 </div>
                                 <div className="flex-1 mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Min. Stock</label>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Min. Stock</label>
                                     <input onChange={handleInputChangeMinStock} type="number" min="0" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Min. Stock" required />
                                 </div>
                                 <div className="flex-1 mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Plazo de entrega</label>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Plazo de entrega</label>
                                     <input onChange={handleInputChangeDeliveryTime} type="number" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" min="0" placeholder="Dias" required />
                                 </div>
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
-                                    <input onChange={handleImageChange} multiple type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
+                                    <input onChange={handleImageChange} multiple type="file" className="shadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                                 <div className="flex-1 mb-4">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
                                     <input
                                         onChange={handleRelatedFilesChange}
                                         multiple
                                         type="file"
                                         accept=".rar,.zip,.pdf,.exe,.docx"
-                                        className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]"
+                                        className="shadow-sm rounded-md w-full  border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]"
                                         required
                                     />
                                 </div>

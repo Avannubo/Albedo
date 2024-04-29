@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { addCategory, getCategories } from '@/lib/data'; // Import the addCategory function from the data.js file
+import { addCategory, getCategories, saveImage } from '@/lib/data'; // Import the addCategory function from the data.js file
 import QuillEditor from "@/components/admin/products/QuillEditor"
 export default function AddModal({ isOpen, onClose }) {
     const [data, setData] = useState();
@@ -15,6 +15,8 @@ export default function AddModal({ isOpen, onClose }) {
     const [descriptionError, setDescriptionError] = useState(false);
     const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
+    const [selectedImages, setSelectedImages] = useState([]); 
+
     const handleInputChangeCode = (event) => {
         setNewCategoryCode(event.target.value);
     };
@@ -33,6 +35,37 @@ export default function AddModal({ isOpen, onClose }) {
     const handleInputChangeBody = (value) => {
         setNewCategoryBody(value);
     };
+
+    const handleImageChange = (event) => {
+        const files = Array.from(event.target.files);
+        setSelectedImages(files);
+    };
+    const uploadImages = () => {
+        return new Promise((resolve, reject) => {
+            const imagePaths = [];
+            const uploadPromises = selectedImages.map(image => {
+                return new Promise((resolveImage, rejectImage) => {
+                    const reader = new FileReader();
+                    reader.onload = async () => {
+                        const base64Image = reader.result;
+                        const imagePath = `./public/assets/images/${image.name}`;
+                        const imagePathToSave = `/assets/images/${image.name}`;
+                        // Assuming saveImage is asynchronous and returns a promise
+                        await saveImage(base64Image, imagePath.replace(/ /g, "_"));
+                        imagePaths.push(imagePathToSave.replace(/ /g, "_"));
+                        resolveImage();
+                    };
+                    reader.onerror = error => rejectImage(error);
+                    reader.readAsDataURL(image);
+                });
+            });
+            Promise.all(uploadPromises)
+                .then(() => resolve(imagePaths))
+                .catch(error => reject(error));
+        });
+    };
+
+
     useEffect(() => {
         async function fetchData() {
             const categories = await getCategories();
@@ -41,7 +74,9 @@ export default function AddModal({ isOpen, onClose }) {
         }
         fetchData();
     }, [])
-    const handleAddCategory = () => {
+
+
+    const handleAddCategory = async () => {
         // Set errors for all fields that don't meet the requirements
         setCodeError(!newCategoryCode.trim());
         setUrlCodeError(!newCategoryUrlCode.trim());
@@ -58,15 +93,24 @@ export default function AddModal({ isOpen, onClose }) {
             setUrlCodeError(true);
             return;
         }
+
+        try {
+            const imagePaths = await uploadImages(); 
+            addCategory(
+                newCategoryCode,
+                newCategoryUrlCode,
+                newCategoryName,
+                newCategoryDescription,
+                newCategoryBody,
+                newCategoryIsPublished,
+                imagePaths
+            ); 
+
+        } catch (error) {
+            console.error("Error uploading images:", error);
+        }
         // If all fields meet the requirements and URL ID is unique, add the category
-        addCategory(
-            newCategoryCode,
-            newCategoryUrlCode,
-            newCategoryName,
-            newCategoryDescription,
-            newCategoryBody,
-            newCategoryIsPublished
-        );
+        
         // Reset form and close modal
         setNewCategoryName('');
         setNewCategoryDescription('');
@@ -78,6 +122,7 @@ export default function AddModal({ isOpen, onClose }) {
         setDescriptionError(false);
         setCodeError(false);
         setUrlCodeError(false);
+        setSelectedImages([]);
         onClose();
     };
     return isOpen ? (
@@ -137,11 +182,11 @@ export default function AddModal({ isOpen, onClose }) {
                             <div className='flex flex-row  justify-between space-x-4'>
                                 <div className="grow mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
-                                    <input type="file" accept="image/*" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                    <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                                 <div className="grow mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
-                                    <input type="file" className="sshadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                    <input  type="file" className="sshadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                             </div>
                             <div className='flex justify-center mt-4'>

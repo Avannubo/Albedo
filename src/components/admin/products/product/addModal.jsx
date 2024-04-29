@@ -18,8 +18,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const [descriptionError, setDescriptionError] = useState(false);
     const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
-    const [selectedImages, setSelectedImages] = useState([]);
-    const [selectedImagesPaths, setSelectedImagesPaths] = useState([]);
+    const [selectedImages, setSelectedImages] = useState([]); 
 
     // const [priceError, setPriceError] = useState(false);
     const handleInputChangeProduct = (event) => {
@@ -105,8 +104,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
         }
 
         try {
-            const imagePaths = await uploadImages();
-            setSelectedImagesPaths(imagePaths);
+            const imagePaths = await uploadImages(); 
             const productData = {
                 newProductCode: newProductCode,
                 newProductUrlCode: newProductUrlCode,

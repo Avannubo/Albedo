@@ -1,10 +1,9 @@
 // addModal.js
 "use client";
 import React, { useState, useEffect } from 'react';
-import { editproduct, getProductById } from '@/lib/data';
+import { editproduct, getProductById, deleteImages, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
-
 export default function EditModal({ isOpen, onClose, productId }) {
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
@@ -16,7 +15,8 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const [newProductMinStock, setNewProductMinStock] = useState(0);
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(0);
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
-    const [productImages, setProductImages] = useState([]);
+    const [selectedImages, setSelectedImages] = useState([]);
+    const [productImages, setProductImages] = useState([]); 
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -43,12 +43,10 @@ export default function EditModal({ isOpen, onClose, productId }) {
                 console.error('Error fetching product data:', error);
             }
         };
-
         if (isOpen) {
             fetchData();
         }
     }, [isOpen, productId]);
-
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -79,8 +77,73 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const handleInputChangeDeliveryTime = (event) => {
         setNewProductDeliveryTime(event.target.value);
     };
-    const handleAddProduct = () => {
-        editproduct(productId, newProductCode, newProductUrlCode, newProductName, newProductPrice, newProductDescription, newProductBody, newProductStock, newProductMinStock, newProductDeliveryTime, newCategoryIsPublished);
+    const handleImageChange = (event) => {
+        const files = Array.from(event.target.files);
+        setSelectedImages(files);
+    };
+    const handleDeleteImage = async (index) => {
+        try {
+            const currentImages = [...productImages];
+            currentImages.splice(index, 1);
+            console.log(currentImages);
+            setProductImages(currentImages); // Update productImages state
+            // Call deleteImages function to delete the image
+            // await deleteImages([imagePathToDelete]);
+            console.log('Image deleted successfully');
+        } catch (error) {
+            console.error('Error deleting image:', error);
+            // You might want to handle errors here, e.g., show an error message
+        }
+    };
+
+    const uploadImages = () => {
+        return new Promise((resolve, reject) => {
+            const imagePaths = [];
+            const uploadPromises = selectedImages.map(image => {
+                return new Promise((resolveImage, rejectImage) => {
+                    const reader = new FileReader();
+                    reader.onload = async () => {
+                        const base64Image = reader.result;
+                        const imagePath = `./public/assets/images/${image.name}`;
+                        const imagePathToSave = `/assets/images/${image.name}`;
+                        // Assuming saveImage is asynchronous and returns a promise
+                        await saveImage(base64Image, imagePath.replace(/ /g, "_"));
+                        imagePaths.push(imagePathToSave.replace(/ /g, "_"));
+                        resolveImage();
+                    };
+                    reader.onerror = error => rejectImage(error);
+                    reader.readAsDataURL(image);
+                });
+            });
+            Promise.all(uploadPromises)
+                .then(() => resolve(imagePaths))
+                .catch(error => reject(error));
+        });
+    };
+    const handleAddProduct = async () => {
+
+        try {
+            const imagePaths = await uploadImages();
+            const allImagePaths = [...imagePaths, ...productImages];
+            const uniqueImagePaths = Array.from(new Set(allImagePaths));
+            console.log(uniqueImagePaths); 
+            editproduct(productId,
+                newProductCode,
+                newProductUrlCode,
+                newProductName,
+                newProductPrice,
+                newProductDescription,
+                newProductBody,
+                newProductStock,
+                newProductMinStock,
+                newProductDeliveryTime,
+                newCategoryIsPublished,
+                uniqueImagePaths);
+            setProductImages(uniqueImagePaths); // Update productImages state
+        } catch (error) {
+            console.error("Error uploading images:", error);
+        }
+
         setNewProductName('');
         setNewProductCode('');
         setNewProductUrlCode('');
@@ -91,10 +154,10 @@ export default function EditModal({ isOpen, onClose, productId }) {
         setNewProductMinStock(0);
         setNewProductDeliveryTime(0);
         setNewCategoryIsPublished(newCategoryIsPublished);
+        setProductImages([]);
+        setSelectedImages([]);
         onClose();
-
     };
-
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-6xl bg-white shadow-lg rounded-md p-6 relative">
@@ -106,7 +169,6 @@ export default function EditModal({ isOpen, onClose, productId }) {
                     <div className="w-full rounded-md p-10">
                         <div className='flex space-x-6 mb-4'>
                             <h1 className='font-bold text-xl'>Editar Producto</h1>
-
                             <div className='flex justify-start '>
                                 <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
                                 {/* <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}
@@ -129,36 +191,28 @@ export default function EditModal({ isOpen, onClose, productId }) {
                                 </div>
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
-
-
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
                                     <input onChange={handleInputChangeProduct} value={newProductName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="product" required />
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
-
                                     <div className='flex flex-row justify-center space-x-1 self-center mr-2'>
                                         <input onChange={handleInputChangePrice} value={newProductPrice} type="number" min="0" step="0.1" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Precio " required />
                                         <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 self-center whitespace-nowrap">€ +IVA</label>
-
                                     </div>
                                 </div>
                             </div>
-
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
                                 <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
-
                                 {/* <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
                             </div>
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
                                 <QuillEditor value={newProductBody} onChange={handleInputChangeBody} />
-
                                 {/* <textarea onChange={handleInputChangeBody} value={newProductBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' /> */}
                             </div>
-
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Stock</label>
@@ -173,24 +227,40 @@ export default function EditModal({ isOpen, onClose, productId }) {
                                     <input onChange={handleInputChangeDeliveryTime} value={newProductDeliveryTime} type="number" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" min="0" placeholder="Dias" required />
                                 </div>
                             </div>
-                            <div>  
+                            <div>
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes Del Producto</label>
                             </div>
-                            <div className='flex  flex-row justify-evenly flex-wrap space-x-2 '>
+                            <div className='flex  flex-row justify-start flex-wrap space-x-4 '>
                                 {productImages && productImages.length > 0 && (
-                                productImages.map((imagePath, index) => (
-                                    <Image
-                                        key={index} // Adding a unique key for each image
-                                        src={imagePath}
-                                        alt={`Product Image ${index + 1}`}
-                                        className="h-[100px] w-[250px] rounded-lg mb-2"
-                                        width="350"
-                                        height="80" 
-                                    />
-                                ))
-                            )}
+                                    productImages.map((imagePath, index) => (
+                                        <div key={index} className="relative">
+                                            <Image
+                                                src={imagePath}
+                                                alt={`Product Image ${index + 1}`}
+                                                className="h-[100px] w-[150px] object-contain rounded-lg mb-2 border-2 border-gray-200 p-2"
+                                                width="350"
+                                                height="80"
+                                            />
+                                            <button
+                                                className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white w-7 h-7 text-lg"
+                                                onClick={() => handleDeleteImage(index)}
+                                            >
+                                                X
+                                            </button>
+                                        </div>
+                                    ))
+                                )}
                             </div>
-                            
+                            <div className='flex flex-row  justify-between space-x-4'>
+                                <div className="grow mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
+                                    <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                </div>
+                                <div className="grow mb-4">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
+                                    <input type="file" className="sshadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                </div>
+                            </div>
                             < div className='flex justify-center mt-6'>
                                 <button onClick={handleAddProduct} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">
                                     Guardar

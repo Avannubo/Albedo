@@ -2,9 +2,8 @@
 "use client"
 import { useState, useEffect } from 'react';
 import React from 'react';
-import { addSubcategory, getCategories } from '@/lib/data';
+import { addSubcategory, getCategories, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
-
 export default function AddSubcategory({ isOpen, onClose, categoryId }) {
     const [data, setData] = useState([]);
     const [newCategoryName, setNewCategoryName] = useState('');
@@ -17,7 +16,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
     const [descriptionError, setDescriptionError] = useState(false);
     const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
-
+    const [selectedImages, setSelectedImages] = useState([]); 
     useEffect(() => {
         function fetchData() {
             // Assuming getCategories() returns a promise
@@ -35,42 +34,60 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
         }
         fetchData();
     }, []);
-
-
     const handleInputChangeCode = (event) => {
         setNewCategoryCode(event.target.value);
     };
-
     const handleInputChangeUrlCode = (event) => {
         setNewCategoryUrlCode(event.target.value);
     };
-
     const handleInputChangeName = (event) => {
         setNewCategoryName(event.target.value);
     };
-
     const handleInputChangeDescription = (value) => {
         setNewCategoryDescription(value);
     };
-
     const handleInputChangeBody = (value) => {
         setNewCategoryBody(value);
     };
-
-    const handleAddCategory = () => {
+    const handleImageChange = (event) => {
+        const files = Array.from(event.target.files);
+        setSelectedImages(files);
+    };
+    const uploadImages = () => {
+        return new Promise((resolve, reject) => {
+            const imagePaths = [];
+            const uploadPromises = selectedImages.map(image => {
+                return new Promise((resolveImage, rejectImage) => {
+                    const reader = new FileReader();
+                    reader.onload = async () => {
+                        const base64Image = reader.result;
+                        const imagePath = `./public/assets/images/${image.name}`;
+                        const imagePathToSave = `/assets/images/${image.name}`;
+                        // Assuming saveImage is asynchronous and returns a promise
+                        await saveImage(base64Image, imagePath.replace(/ /g, "_"));
+                        imagePaths.push(imagePathToSave.replace(/ /g, "_"));
+                        resolveImage();
+                    };
+                    reader.onerror = error => rejectImage(error);
+                    reader.readAsDataURL(image);
+                });
+            });
+            Promise.all(uploadPromises)
+                .then(() => resolve(imagePaths))
+                .catch(error => reject(error));
+        });
+    };
+    const handleAddCategory = async () => {
         // Check if any of the required fields are empty
         setCodeError(!newCategoryCode.trim());
         setUrlCodeError(!newCategoryUrlCode.trim());
         setNameError(!newCategoryName.trim());
         setDescriptionError(!newCategoryDescription.trim());
-
         // If any of the required fields are empty, return early
         if (!newCategoryCode.trim() || !newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
             return;
         }
-
         console.log('categoryId:', categoryId.categoryId.id);
-
         // Recursive function to search for category by categoryId
         const findCategoryRecursive = (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
@@ -88,36 +105,33 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
             }
             return null;
         };
-
         // Find the category by categoryId using recursive function
         const catObj = findCategoryRecursive(data);
-
         console.log('page cat :' + JSON.stringify(categoryId.categoryId.id));
         console.log('cat obj: ' + JSON.stringify(catObj));
-
         // If category is not found, log an error and return
         if (!catObj) {
             console.error("Category not found.");
             return;
         }
-
         // Ensure subCategories array exists
         if (!catObj.subCategories) {
             catObj.subCategories = [];
         }
-
         // Check if the urlId exists in subCategories
         const urlIdExists = catObj.subCategories.some(category => category.url_Id === newCategoryUrlCode);
-
         // If urlId exists, setUrlCodeError and return
         if (urlIdExists) {
             setUrlCodeError(true);
             return;
         }
-
+        try {
+            const imagePaths = await uploadImages();
+            addSubcategory(categoryId, newCategoryCode, newCategoryUrlCode, newCategoryName, newCategoryDescription, newCategoryBody, isPublished, imagePaths);
+        } catch (error) {
+            console.error("Error uploading images:", error);
+        }
         // If everything is valid, add the subcategory
-        addSubcategory(categoryId, newCategoryCode, newCategoryUrlCode, newCategoryName, newCategoryDescription, newCategoryBody, isPublished);
-
         // Clear input fields and close modal
         setNewCategoryName('');
         setNewCategoryDescription('');
@@ -125,14 +139,9 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
         setNewCategoryCode('');
         setNewCategoryUrlCode('');
         setUrlCodeError(false);
+        setSelectedImages([]);
         onClose();
     };
-
-
-
-
-
-
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-6xl bg-white shadow-lg rounded-md p-6 relative">
@@ -151,13 +160,11 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de Subcategoría</label>
                                     <input onChange={handleInputChangeCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                     {codeError && <span className="text-red-500 italic text-xs ">El código de categoría es requerido</span>}
-
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo URL ej. 001" required />
                                     {urlCodeError && <span className="text-red-500 italic text-xs"> El código URL es obligatorio y no duplicado. </span>}
-
                                 </div>
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
@@ -181,7 +188,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes</label>
-                                    <input type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                    <input onChange={handleImageChange} multiple type="file" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                                 <div className="flex-1 mb-4">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>

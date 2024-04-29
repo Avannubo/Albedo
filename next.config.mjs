@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    experimental: {
+        serverActions: {
+            bodySizeLimit: '4mb', // maximum `4.5MB/4MB` if you are using Vercel
+        },
+    },
+};
+
 
 export default nextConfig;

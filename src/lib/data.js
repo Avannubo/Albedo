@@ -206,8 +206,8 @@ export async function deleteElement(categoryId) {
  * @param {string} pdfFile - The file path of the PDF for the category.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addCategory(Code, Url_Id, name, description, body, isPublished, imageFile, pdfFile) {
-    console.log("New subcategory: " + imageFile, pdfFile);
+export async function addCategory(Code, Url_Id, name, description, body, isPublished, imagePaths, pdfFile) {
+    console.log("New subcategory: " + imagePaths);
     try {
         const data = await readFile(filePath, 'utf8');
         const jsonData = JSON.parse(data);
@@ -225,7 +225,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
             "isPublished": isPublished,
             "FeachaDeCreacion": euFormattedDateTime,
             "FechaDeModificacion": euFormattedDateTime,
-            "imagen": "/assets/images/200000066.jpg",
+            "imagen": imagePaths,
             "archivos": "/assets/archivos/G34304249.pdf",
             "subCategories": [],
             "products": [],
@@ -253,7 +253,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
  * @param {boolean} isPublished - Whether the subcategory is published.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body, isPublished) {
+export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body, isPublished, imagePaths) {
     // // console.log("Adding subcategory to " + categoryId.categoryId.id);
     // // console.log(" subcategory name " + newCategoryName);
     try {
@@ -277,9 +277,9 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         "description": Description,
                         "ALBEDOcuerpo": Body,
                         "isPublished": isPublished,
-                        "FeachaDeCreacion": new Date().toISOString(),
-                        "FechaDeModificacion": new Date().toISOString(),
-                        "imagen": "/assets/images/200000066.jpg",
+                        "FeachaDeCreacion": euFormattedDateTime,
+                        "FechaDeModificacion": euFormattedDateTime,
+                        "imagen": imagePaths,
                         "archivos": "/assets/archivos/G34304249.pdf",
                         "subCategories": [],
                         "products": []
@@ -329,7 +329,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
  * @param {boolean} isPublished - Whether the product is published.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addproduct(categoryId, productData ) {
+export async function addproduct(categoryId, productData) {
 
     console.log("New product:" +
         JSON.stringify(productData) + " "
@@ -368,8 +368,8 @@ export async function addproduct(categoryId, productData ) {
                         "ALBEDOstock_minimo": productData.newProductStock,
                         "ALBEDOstock": productData.newProductStock,
                         "isPublished": categoryId.categoryId.isPublished,
-                        "FeachaDeCreacion": new Date().toISOString(),
-                        "FechaDeModificacion": new Date().toISOString(),
+                        "FeachaDeCreacion": euFormattedDateTime,
+                        "FechaDeModificacion": euFormattedDateTime,
                         "imagen": productData.imagePaths,
                         "archivos": "/assets/archivos/G34304249.pdf",
                         "ALBEDOplazo_entrega": productData.newProductDeliveryTime
@@ -419,7 +419,7 @@ export async function addproduct(categoryId, productData ) {
  * @param {boolean} isPublished - Whether the product is published.
  * @returns {boolean} Indicates whether the editing was successful.
  */
-export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished) {
+export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -440,9 +440,10 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         product.ALBEDOcuerpo = Body;
                         product.ALBEDOstock_minimo = MinStock;
                         product.ALBEDOstock = Stock;
-                        product.FechaDeModificacion = new Date().toISOString();
+                        product.FechaDeModificacion = euFormattedDateTime;
                         product.ALBEDOplazo_entrega = DeliveryTime;
                         product.isPublished = isPublished;
+                        product.imagen = imagePaths;
                         // console.log("Writing updated data to file...");
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                         // console.log("Data written successfully.");
@@ -497,7 +498,7 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
                     category.ALBEDOdescripcion = Description;
                     category.ALBEDOcuerpo = Body;
                     category.isPublished = isPublished;
-                    category.FechaDeModificacion = new Date().toISOString();
+                    category.FechaDeModificacion = euFormattedDateTime;
                     // Update publishing status of products in the current category
                     await updateProductsPublishingStatus(category.products, isPublished);
                     // If the category has children, update their publishing status recursively
@@ -520,7 +521,7 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
                 const child = children[i];
                 // Update the publishing status of the child based on the parent's publishing status
                 child.isPublished = parentIsPublished;
-                child.FechaDeModificacion = new Date().toISOString();
+                child.FechaDeModificacion = euFormattedDateTime;
                 // Update publishing status of products in the current category
                 await updateProductsPublishingStatus(child.products, parentIsPublished);
                 // If the child has children, update their publishing status recursively
@@ -533,7 +534,7 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
             for (let i = 0; i < products.length; i++) {
                 const product = products[i];
                 product.isPublished = publishingStatus;
-                product.FechaDeModificacion = new Date().toISOString();
+                product.FechaDeModificacion = euFormattedDateTime;
             }
         };
         const categorySaved = await loopRecursive(categories);
@@ -829,5 +830,30 @@ export async function saveImage(base64Image, imagePath) {
         } else {
             console.log('Image saved successfully.');
         }
+    });
+}
+export async function deleteImages(imagePathsToDelete) {
+    return new Promise((resolve, reject) => {
+        // Loop through each image path and delete it
+        const deletePromises = imagePathsToDelete.map(imagePath => {
+            console.log(imagePath);
+            return new Promise((resolveDelete, rejectDelete) => {
+                // Delete the image file
+                fs.unlink(imagePath, (err) => {
+                    if (err) {
+                        console.error('Error deleting image:', err);
+                        rejectDelete(err);
+                    } else {
+                        console.log(`Image deleted successfully: ${imagePath}`);
+                        resolveDelete();
+                    }
+                });
+            });
+        });
+
+        // Resolve or reject the promise based on the completion of deletion
+        Promise.all(deletePromises)
+            .then(() => resolve())
+            .catch(error => reject(error));
     });
 }

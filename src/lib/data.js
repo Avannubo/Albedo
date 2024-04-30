@@ -73,15 +73,10 @@ export async function updateShippingPrices(spainPrice, euPrice, internationalPri
         // Read data from file
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-        if (jsonData.EnvioEspaña !== spainPrice && euPrice !== 0 && euPrice !== null) {
-            jsonData.EnvioEspaña = spainPrice;
-        }
-        if (jsonData.EnviosUE !== euPrice && euPrice !== 0 && euPrice !== null) {
+            jsonData.EnvioES = spainPrice;
             jsonData.EnviosUE = euPrice;
-        }
-        if (jsonData.EnviosInternacional !== internationalPrice && internationalPrice !== 0 && internationalPrice !== null) {
-            jsonData.EnviosInternacional = internationalPrice;
-        }
+            jsonData.EnviosINT = internationalPrice;
+        
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
         return jsonData;
@@ -206,7 +201,7 @@ export async function deleteElement(categoryId) {
  * @param {string} pdfFile - The file path of the PDF for the category.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addCategory(Code, Url_Id, name, description, body, isPublished, imagePaths, pdfFile) {
+export async function addCategory(Code, Url_Id, name, description, body, isPublished, imagePaths) {
     console.log("New subcategory: " + imagePaths);
     try {
         const data = await readFile(filePath, 'utf8');
@@ -772,14 +767,22 @@ export async function getHashPassword() {
         }
     });
 }
-function getStoredPassword() {
+async function getStoredPassword() {
     // Fetch the stored password from your database or wherever it's stored
     // For now, returning a hardcoded password for demonstration
-    return '123';
+    try {
+        // Read data from file
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data); 
+        // Write the updated JSON back to the file  
+        return jsonData.Password;
+    } catch (error) {
+        throw new Error("Error updating password: " + error.message);
+    } 
 }
 export async function login(userInput) {
     try {
-        const storedPassword = getStoredPassword();
+        const storedPassword = await getStoredPassword(); 
         if (userInput === storedPassword) {
             // Passwords match, generate token
             const token = generateToken();

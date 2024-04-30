@@ -1,7 +1,8 @@
-{ 
-  "EnvioES": 3,
-  "EnviosUE": 12,
-  "EnviosINT": 20,
-  "IBAN": "ES34 ES34 1234 2134 1234 1234 1234", 
-  "IVA": 30
+{
+  "Password": "123",
+  "EnvioES": 9.9,
+  "EnviosUE": 15.8,
+  "EnviosINT": 12.6,
+  "IBAN": "ES3412341234123412341234",
+  "IVA": 4
 }

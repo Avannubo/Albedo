@@ -62,33 +62,33 @@ export default function modal({ isOpen, onClose, orderId }) {
                   {orderData.userInfo && (
                     <div className='flex flex-col space-y-2 text-lg'>
                       <div className='flex flex-row '>
-                        <div className='flex flex-row space-x-2 w-1/2 grow'>
+                        <div className='flex flex-row items-center space-x-2 w-1/2 grow'>
                           <h1 className='font-bold'>Nombre: </h1>
                           <p>{orderData.userInfo.firstName}</p>
                         </div>
-                        <div className='flex flex-row space-x-2 w-1/2 grow'>
+                        <div className='flex flex-row items-center space-x-2 w-1/2 grow'>
                           <h1 className='font-bold'>Apellidos: </h1>
                           <p>{orderData.userInfo.lastName}</p>
                         </div>
                       </div>
                       <div className='flex flex-row '>
-                        <div className='flex flex-row space-x-2 w-1/2 grow'>
+                        <div className='flex flex-row items-center space-x-2 w-1/2 grow'>
                           <h1 className='font-bold'>DNI/CIF: </h1>
                           <p>{orderData.userInfo.dni}</p>
                         </div>
-                        <div className='flex flex-row space-x-2 w-1/2 grow'>
+                        <div className='flex flex-row items-center space-x-2 w-1/2 grow'>
                           <h1 className='font-bold'>Teléfono: </h1>
                           <p>{orderData.userInfo.phoneNumber}</p>
                         </div>
                       </div>
                       {
                         orderData.userInfo.company && (
-                          <div className='flex flex-row space-x-2'>
+                          <div className='flex flex-row items-center space-x-2'>
                             <h1 className='font-bold'>Empresa: </h1>
                             <p>{orderData.userInfo.company}</p>
                           </div>
                         )}
-                      <div className='flex flex-row space-x-2'>
+                      <div className='flex flex-row items-center space-x-2'>
                         <h1 className='font-bold'>Email: </h1>
                         <p>{orderData.userInfo.email}</p>
                       </div>
@@ -98,24 +98,24 @@ export default function modal({ isOpen, onClose, orderId }) {
                           {orderData.userInfo.zipCode} {orderData.userInfo.city}
                           {orderData.userInfo.province}</p>
                       </div>
-                      <div className='flex flex-row space-x-2'>
+                      <div className='flex flex-row  items-center space-x-2'>
                         <h1 className='font-bold'>Tipo de Envío: </h1>
-                        <p>{orderData.selectedShipping.method}({orderData.selectedShipping.price})</p>
+                        <p>{orderData.selectedShipping.method}</p>
                       </div>
                       <div className='flex flex-row'>
-                        <div className='flex flex-row space-x-2  w-1/2'>
+                        <div className='flex flex-row items-center space-x-2  w-1/2'>
                           <h1 className='font-bold'>Metodo de pago: </h1>
                           <p>{orderData.selectedPayment}</p>
                         </div>
-                        <div className='flex flex-row space-x-2  w-1/2'>
+                        <div className='flex flex-row items-center space-x-2  w-1/2'>
                           <h1 className='font-bold'>Total de Pedido: </h1>
-                          <p>{orderData.totalPedido}</p>
+                          <p>{orderData.totalPedido}€</p>
                         </div>
                       </div>
                       <div className='flex flex-row'>
-                        <div className='flex flex-row space-x-2  w-1/2'>
-                          <h1 className='font-bold'>Factura de Pedido: </h1>
-                          <p>{orderData.invoice ? 'Ha pedido factura' : 'No ha pedido factura'}</p>
+                        <div className='flex flex-row items-center space-x-2  w-1/2'>
+                          <h1 className='font-bold'>Factura: </h1>
+                          <p>{orderData.invoice ? 'Sí' : 'No'}</p>
                         </div>
                         <div className='flex flex-row space-x-2  w-1/2'>
                           <h1 className='font-bold'>Estado de Pedido: </h1>

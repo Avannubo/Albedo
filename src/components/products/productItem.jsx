@@ -53,7 +53,7 @@ export default function ProductItem({ product }) {
         <strong>Precio:</strong> {product.ALBEDOprecio}€ + IVA
       </p>
       <Image
-        src={product.imagen[0]}
+        src={product.imagens[0]}
         alt="Vercel Logo"
         className="self-center h-[150px] w-full object-cover rounded-lg"
         width={200}

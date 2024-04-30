@@ -62,7 +62,8 @@ export default function PageContent() {
                                 </div>
                                 {pageData.ALBEDOdescripcion && (
                                     <div className='flex justify-center my-4'>
-                                        <h1 className='text-lg font-normal'>{pageData.ALBEDOdescripcion}</h1>
+                                            {/* <h1 className='text-lg font-normal'> {pageData.ALBEDOdescripcion}</h1> */}
+                                            <div dangerouslySetInnerHTML={{ __html: sanitizeHTML(pageData?.ALBEDOdescripcion) }}/>
                                     </div>
                                 )}
                                 <div className='flex flex-col text-center justify-center my-2' dangerouslySetInnerHTML={{ __html: sanitizeHTML(pageData?.ALBEDOcuerpo) }} />
@@ -111,7 +112,7 @@ export default function PageContent() {
                             <div className='flex flex-row justify-between my-10'>
                                 <div className='w-1/3'>
                                     <div className='top-28 sticky'>
-                                        <Image className='rounded-lg' src={productData.imagen[0]} alt={productData.ALBEDOtitulo} width={300} height={350} />
+                                        <Image className='rounded-lg' src={productData.imagens[0]} alt={productData.ALBEDOtitulo} width={300} height={350} />
                                         <p className='text-xl font-medium mt-2'><b>Precio: </b>{productData.ALBEDOprecio}€</p>
                                         <div className='mt-4 w-[250px]'>
                                             <AddToCart producto={productData} />

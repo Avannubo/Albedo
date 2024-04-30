@@ -225,7 +225,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
             "isPublished": isPublished,
             "FeachaDeCreacion": euFormattedDateTime,
             "FechaDeModificacion": euFormattedDateTime,
-            "imagen": imagePaths,
+            "imagens": imagePaths,
             "archivos": "/assets/archivos/G34304249.pdf",
             "subCategories": [],
             "products": [],
@@ -279,7 +279,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         "isPublished": false,
                         "FeachaDeCreacion": euFormattedDateTime,
                         "FechaDeModificacion": euFormattedDateTime,
-                        "imagen": imagePaths,
+                        "imagens": imagePaths,
                         "subCategories": [],
                         "products": []
                     }
@@ -358,7 +358,7 @@ export async function addproduct(categoryId, productData) {
                         "isPublished": false,
                         "FeachaDeCreacion": euFormattedDateTime,
                         "FechaDeModificacion": euFormattedDateTime,
-                        "imagen": productData.imagePaths,
+                        "imagens": productData.imagePaths,
                         "archivos": productData.relatedFilePaths,
                         "ALBEDOplazo_entrega": productData.newProductDeliveryTime
                     }
@@ -431,7 +431,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         product.FechaDeModificacion = euFormattedDateTime;
                         product.ALBEDOplazo_entrega = DeliveryTime;
                         product.isPublished = isPublished;
-                        product.imagen = imagePaths;
+                        product.imagens = imagePaths;
                         product.archivos = filePaths;
                         // console.log("Writing updated data to file...");
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
@@ -487,7 +487,7 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
                     category.ALBEDOdescripcion = Description;
                     category.ALBEDOcuerpo = Body;
                     category.isPublished = isPublished;
-                    category.imagen = imagePaths;
+                    category.imagens = imagePaths;
                     category.FechaDeModificacion = euFormattedDateTime;
                     // Update publishing status of products in the current category
                     await updateProductsPublishingStatus(category.products, isPublished);
@@ -775,12 +775,12 @@ export async function getHashPassword() {
 function getStoredPassword() {
     // Fetch the stored password from your database or wherever it's stored
     // For now, returning a hardcoded password for demonstration
-    return 'qwe123';
+    return '123';
 }
 export async function login(userInput) {
     try {
         const storedPassword = getStoredPassword();
-        if (userInput === '123') {
+        if (userInput === storedPassword) {
             // Passwords match, generate token
             const token = generateToken();
             return { token };

@@ -10,8 +10,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
     const [newCategoryDescription, setNewCategoryDescription] = useState('');
     const [newCategoryBody, setNewCategoryBody] = useState('');
     const [newCategoryCode, setNewCategoryCode] = useState('');
-    const [newCategoryUrlCode, setNewCategoryUrlCode] = useState('');
-    const [isPublished, setisPublished] = useState(false);
+    const [newCategoryUrlCode, setNewCategoryUrlCode] = useState(''); 
     const [nameError, setNameError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
     const [codeError, setCodeError] = useState(false);
@@ -22,10 +21,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
             // Assuming getCategories() returns a promise
             getCategories()
                 .then(categories => {
-                    setData(categories); // Set the data after the promise resolves
-                    if (categoryId.categoryId.isPublished) {
-                        setisPublished(true);
-                    }
+                    setData(categories);
                 })
                 .catch(error => {
                     console.error('Error fetching categories:', error);
@@ -127,7 +123,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
         }
         try {
             const imagePaths = await uploadImages();
-            addSubcategory(categoryId, newCategoryCode, newCategoryUrlCode, newCategoryName, newCategoryDescription, newCategoryBody, isPublished, imagePaths);
+            addSubcategory(categoryId, newCategoryCode, newCategoryUrlCode, newCategoryName, newCategoryDescription, newCategoryBody, imagePaths);
         } catch (error) {
             console.error("Error uploading images:", error);
         }
@@ -189,11 +185,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
                                 <div className="flex-1 mb-4">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes</label>
                                     <input onChange={handleImageChange} multiple type="file" className="shadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
-                                </div>
-                                <div className="flex-1 mb-4">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
-                                    <input type="file" className="shadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
-                                </div>
+                                </div> 
                             </div>
                             <div className='flex justify-center mt-4'>
                                 <button onClick={handleAddCategory} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">

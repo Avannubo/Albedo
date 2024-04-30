@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { editCategory, getCategoryById, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
-
 export default function EditModal({ isOpen, onClose, categoryId }) {
     // const productData = getProductById(productId);
     // console.log(JSON.stringify(productData));
@@ -35,12 +34,10 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                 console.error('Error fetching category data:', error);
             }
         };
-
         if (isOpen) {
             fetchData();
         }
     }, [isOpen, categoryId]);
-
     //change listeners  for inputs
     const handleInputChangeName = (event) => {
         setNewCategoryName(event.target.value);
@@ -57,8 +54,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
     const handleInputChangeIsPublished = (event) => {
         setNewCategoryIsPublished(event.target.checked);
     };
-
-
     const handleImageChange = (event) => {
         const files = Array.from(event.target.files);
         setSelectedImages(files);
@@ -77,7 +72,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
             // You might want to handle errors here, e.g., show an error message
         }
     };
-
     const uploadImages = () => {
         return new Promise((resolve, reject) => {
             const imagePaths = [];
@@ -102,8 +96,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                 .catch(error => reject(error));
         });
     };
-
-
     //server Action here
     const handleAddProduct = async () => {
         const imagePaths = await uploadImages();
@@ -119,9 +111,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         setSelectedImages([]);
         setSelectedImages([]);
         onClose();
-
     };
-
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-6xl bg-white shadow-lg rounded-md p-6 relative">
@@ -133,7 +123,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                     <div className="w-full rounded-md p-10">
                         <div className='flex space-x-6 mb-4'>
                             <h1 className='font-bold text-xl'>Editar Categoria</h1>
-
                             <div className='flex justify-start '>
                                 <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
                                 {/* <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}
@@ -146,7 +135,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                         </div>
                         <div className='flex flex-col'>
                             <div className='flex flex-row justify-between space-x-4'>
-
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} value={newCategoryCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
@@ -156,7 +144,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                                     <input onChange={handleInputChangeName} value={newCategoryName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="category" required />
                                 </div>
                             </div>
-
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
                                 {/* <input onChange={handleInputChangeDescription} value={newCategoryDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
@@ -167,8 +154,17 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                                 {/* <textarea onChange={handleInputChangeBody} value={newCategoryBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' /> */}
                                 <QuillEditor value={newCategoryBody} onChange={handleInputChangeBody} />
                             </div>
-
-                            <div className='flex  flex-row justify-start flex-wrap space-x-4 '>
+                            
+                            {/* <div className='flex flex-row  justify-between space-x-4'> */}
+                                <div className="grow mb-4">
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
+                                    <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                </div>
+                                {/* <div className="grow mb-4">
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
+                                    <input type="file" className="sshadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                                </div> */}
+                            {/* </div> */}<div className='flex  flex-row justify-start flex-wrap space-x-4 '>
                                 {categoryImages && categoryImages.length > 0 && (
                                     categoryImages.map((imagePath, index) => (
                                         <div key={index} className="relative">
@@ -189,18 +185,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                                     ))
                                 )}
                             </div>
-                            <div className='flex flex-row  justify-between space-x-4'>
-                                <div className="grow mb-4">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
-                                    <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
-                                </div>
-                                <div className="grow mb-4">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
-                                    <input type="file" className="sshadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
-                                </div>
-                            </div>
-
-                            
                             <div className='flex justify-center mt-6'>
                                 <button onClick={handleAddProduct} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">
                                     Guardar

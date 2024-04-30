@@ -271,14 +271,10 @@ export default function EditModal({ isOpen, onClose, productId }) {
                                     <input onChange={handleInputChangeDeliveryTime} value={newProductDeliveryTime} type="number" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" min="0" placeholder="Dias" required />
                                 </div>
                             </div>
-                            <div className='flex flex-col justify-start space-x-2'>
-                                <div className='flex flex-row items-center space-x-2'>
+                            <div className='flex flex-col justify-start'>
+                                <div className='flex flex-col justify-start'>
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes Del Producto</label>
-                                    <div className='flex flex-row  justify-between space-x-4'>
-                                        <div className="grow mb-4">
-                                            <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md  border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
-                                        </div>
-                                    </div>
+                                    <input multiple onChange={handleImageChange} type="file" accept="image/*" className="mb-4 shadow-sm rounded-md  border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                                 <div className='flex  flex-row justify-start flex-wrap '>
                                     {productImages && productImages.length > 0 && (
@@ -302,16 +298,14 @@ export default function EditModal({ isOpen, onClose, productId }) {
                                     )}
                                 </div>
                             </div>
-                            <div className='flex flex-col justify-center space-x-2'>
-                                <div className='flex flex-row items-center space-x-2'>
+                            <div className='flex flex-col justify-center '>
+                                <div className='flex flex-col  '>
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
-                                    <div className="grow mb-4">
-                                        <input multiple
-                                            accept=".rar,.zip,.pdf,.exe,.docx"
-                                            type="file"
-                                            onChange={handleFileChange}
-                                            className="shadow-sm rounded-md border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
-                                    </div>
+                                    <input multiple
+                                        accept=".rar,.zip,.pdf,.exe,.docx"
+                                        type="file"
+                                        onChange={handleFileChange}
+                                        className="mb-4 shadow-sm rounded-md border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                                 {
                                     productFiles && productFiles.length > 0 && (

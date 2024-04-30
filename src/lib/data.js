@@ -253,7 +253,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
  * @param {boolean} isPublished - Whether the subcategory is published.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body, isPublished, imagePaths) {
+export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body, imagePaths) {
     // // console.log("Adding subcategory to " + categoryId.categoryId.id);
     // // console.log(" subcategory name " + newCategoryName);
     try {
@@ -276,11 +276,10 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         "name": newCategoryName,
                         "description": Description,
                         "ALBEDOcuerpo": Body,
-                        "isPublished": isPublished,
+                        "isPublished": false,
                         "FeachaDeCreacion": euFormattedDateTime,
                         "FechaDeModificacion": euFormattedDateTime,
-                        "imagen": imagePaths,
-                        "archivos": "/assets/archivos/G34304249.pdf",
+                        "imagen": imagePaths, 
                         "subCategories": [],
                         "products": []
                     }
@@ -355,7 +354,7 @@ export async function addproduct(categoryId, productData) {
                         "ALBEDOcuerpo": productData.newProductBody,
                         "ALBEDOstock_minimo": productData.newProductStock,
                         "ALBEDOstock": productData.newProductStock,
-                        "isPublished": categoryId.categoryId.isPublished,
+                        "isPublished": false,
                         "FeachaDeCreacion": euFormattedDateTime,
                         "FechaDeModificacion": euFormattedDateTime,
                         "imagen": productData.imagePaths,

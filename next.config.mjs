@@ -2,7 +2,7 @@
 const nextConfig = {
     experimental: {
         serverActions: {
-            bodySizeLimit: '4mb', // maximum `4.5MB/4MB` if you are using Vercel
+            bodySizeLimit: '1024mb', // maximum limit is `4.5MB/4MB` for Vercel
         },
     },
 };

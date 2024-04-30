@@ -19,6 +19,8 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
     const [relatedFiles, setRelatedFiles] = useState([]);
+    const [selectedFiles, setSelectedFiles] = useState([]);
+
     // const [priceError, setPriceError] = useState(false);
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
@@ -53,29 +55,56 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     };
     const handleRelatedFilesChange = (event) => {
         const files = Array.from(event.target.files);
-        setRelatedFiles(files);
+        setSelectedFiles(files);
     };
+    // const readFileAsBase64 = (file) => {
+    //     return new Promise((resolve, reject) => {
+    //         const reader = new FileReader();
+    //         reader.onload = () => {
+    //             resolve(reader.result);
+    //         };
+    //         reader.onerror = reject;
+    //         reader.readAsDataURL(file);
+    //     });
+    // }; 
     const uploadRelatedFiles = () => {
         return new Promise((resolve, reject) => {
-            const filePromises = relatedFiles.map(file => {
+            const filesPaths = [];
+            const uploadPromises = selectedFiles.map(file => {
                 return new Promise((resolveFile, rejectFile) => {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const fileData = reader.result;
                         const filePath = `./public/assets/archivos/${file.name}`;
-                        const filePathtoSave = `/assets/archivos/${file.name}`;
-                        // Assuming saveFile is asynchronous and returns a promise
-                        // await saveFile(fileData, filePath);
-                        // relatedFiles.push(filePathtoSave.replace(/ /g, "_"));
-                        resolveFile(filePathtoSave.replace(/ /g, "_"));
+                        const filePathToSave = `/assets/archivos/${file.name}`;
+                        console.log("Uploading file:", filePath);
+                        try {
+                            // Assuming saveFile is asynchronous and returns a promise
+                            await saveFile(fileData, filePath.replace(/ /g, "_"));
+                            filesPaths.push(filePathToSave.replace(/ /g, "_"));
+                            console.log("File uploaded:", filePath.replace(/ /g, "_"));
+                            resolveFile();
+                        } catch (error) {
+                            console.error("Error uploading file:", error);
+                            rejectFile(error);
+                        }
                     };
-                    reader.onerror = error => rejectFile(error);
+                    reader.onerror = error => {
+                        console.error("Error reading file:", error);
+                        rejectFile(error);
+                    };
                     reader.readAsDataURL(file);
                 });
             });
-            Promise.all(filePromises)
-                .then(filePaths => resolve(filePaths))
-                .catch(error => reject(error));
+            Promise.all(uploadPromises)
+                .then(() => {
+                    console.log("All files uploaded successfully" + filesPaths);
+                    resolve(filesPaths);
+                })
+                .catch(error => {
+                    console.error("Error uploading files:", error);
+                    reject(error);
+                });
         });
     };
     const uploadImages = () => {
@@ -109,16 +138,17 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
         setUrlCodeError(!newProductUrlCode.trim());
         setNameError(!newProductName.trim());
         setDescriptionError(!newProductDescription.trim());
+
         // If any field doesn't meet the requirements, stop execution
         if (!newProductCode.trim() ||
             !newProductUrlCode.trim() ||
             !newProductName.trim() ||
-            // !newProductPrice.trim() || 
             !newProductDescription.trim()) {
             return;
         }
+
         //check for duplicate product Ids
-        console.log('Products:', categoryId.categoryId.products);
+        // console.log('Products:', categoryId.categoryId.products);
         // Check if the urlId exists in subCategories
         const urlIdExists = categoryId.categoryId.products.some(product => product.url_Id === newProductUrlCode);
         // If urlId exists, setUrlCodeError and return
@@ -126,9 +156,14 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
             setUrlCodeError(true);
             return;
         }
+
         try {
             const imagePaths = await uploadImages();
             const relatedFilePaths = await uploadRelatedFiles();
+
+            console.log(imagePaths);
+            console.log(relatedFilePaths);
+
             const productData = {
                 newProductCode: newProductCode,
                 newProductUrlCode: newProductUrlCode,
@@ -142,27 +177,33 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                 imagePaths: imagePaths,
                 relatedFilePaths: relatedFilePaths,
             };
-            addproduct(
+            console.log(productData);
+
+            // Ensure addproduct is awaited
+            await addproduct(
                 categoryId,
                 productData
             );
-            console.log(productData);
+
+            //reset fields
+            setNewProductCode('');
+            setNewProductUrlCode('');
+            setNewProductName('');
+            setNewProductPrice('');
+            setNewProductDescription('');
+            setNewProductBody('');
+            setNewProductStock(0);
+            setNewProductMinStock(0);
+            setNewProductDeliveryTime(0);
+            setSelectedImages([]);
+            setRelatedFiles([]);
+            onClose();
         } catch (error) {
-            console.error("Error uploading images:", error);
+            console.error("Error adding product:", error);
         }
-        //reset fields
-        setNewProductCode('');
-        setNewProductUrlCode('');
-        setNewProductName('');
-        setNewProductPrice('');
-        setNewProductDescription('');
-        setNewProductBody('');
-        setNewProductStock(0);
-        setNewProductMinStock(0);
-        setNewProductDeliveryTime(0);
-        setSelectedImages([]);
-        onClose();
     };
+
+
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-6xl bg-white shadow-lg rounded-md p-6 relative">

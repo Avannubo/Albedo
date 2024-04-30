@@ -1,7 +1,7 @@
 // addModal.js
 "use client";
 import React, { useState, useEffect } from 'react';
-import { editproduct, getProductById, saveImage } from '@/lib/data';
+import { editproduct, getProductById, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, productId }) {
@@ -123,20 +123,37 @@ export default function EditModal({ isOpen, onClose, productId }) {
                         const base64Image = reader.result;
                         const imagePath = `./public/assets/images/${image.name}`;
                         const imagePathToSave = `/assets/images/${image.name}`;
-                        // Assuming saveImage is asynchronous and returns a promise
-                        await saveImage(base64Image, imagePath.replace(/ /g, "_"));
-                        imagePaths.push(imagePathToSave.replace(/ /g, "_"));
-                        resolveImage();
+                        console.log("Uploading image:", imagePath);
+                        try {
+                            // Assuming saveImage is asynchronous and returns a promise
+                            await saveImage(base64Image, imagePath.replace(/ /g, "_"));
+                            imagePaths.push(imagePathToSave.replace(/ /g, "_"));
+                            console.log("Image uploaded:", imagePathToSave.replace(/ /g, "_"));
+                            resolveImage();
+                        } catch (error) {
+                            console.error("Error uploading image:", error);
+                            rejectImage(error);
+                        }
                     };
-                    reader.onerror = error => rejectImage(error);
+                    reader.onerror = error => {
+                        console.error("Error reading image:", error);
+                        rejectImage(error);
+                    };
                     reader.readAsDataURL(image);
                 });
             });
             Promise.all(uploadPromises)
-                .then(() => resolve(imagePaths))
-                .catch(error => reject(error));
+                .then(() => {
+                    console.log("All images uploaded successfully " + uploadPromises);
+                    resolve(imagePaths);
+                })
+                .catch(error => {
+                    console.error("Error uploading images:", error);
+                    reject(error);
+                });
         });
     };
+
     const uploadRelatedFiles = () => {
         return new Promise((resolve, reject) => {
             const filesPaths = [];
@@ -147,29 +164,48 @@ export default function EditModal({ isOpen, onClose, productId }) {
                         const fileData = reader.result;
                         const filePath = `./public/assets/archivos/${file.name}`;
                         const filePathToSave = `/assets/archivos/${file.name}`;
-                        // Assuming saveFile is asynchronous and returns a promise
-                        // await saveFile(fileData, filePath.replace(/ /g, "_"));
-                        filesPaths.push(filePathToSave.replace(/ /g, "_"));
-                        resolveFile();
+                        console.log("Uploading file:", filePath);
+                        try {
+                            // Assuming saveFile is asynchronous and returns a promise
+                            await saveFile(fileData, filePath.replace(/ /g, "_"));
+                            filesPaths.push(filePathToSave.replace(/ /g, "_"));
+                            console.log("File uploaded:", filePath.replace(/ /g, "_"));
+                            resolveFile();
+                        } catch (error) {
+                            console.error("Error uploading file:", error);
+                            rejectFile(error);
+                        }
                     };
-                    reader.onerror = error => rejectFile(error);
+                    reader.onerror = error => {
+                        console.error("Error reading file:", error);
+                        rejectFile(error);
+                    };
                     reader.readAsDataURL(file);
                 });
             });
             Promise.all(uploadPromises)
-                .then(() => resolve(filesPaths))
-                .catch(error => reject(error));
+                .then(() => {
+                    console.log("All files uploaded successfully" + filesPaths);
+                    resolve(filesPaths);
+                })
+                .catch(error => {
+                    console.error("Error uploading files:", error);
+                    reject(error);
+                });
         });
     };
+
     const handleAddProduct = async () => {
         try {
             // Upload images and related files
             const imagePaths = await uploadImages();
             const relatedFilePaths = await uploadRelatedFiles();
+            console.log(relatedFilePaths);
             // Combine new and existing image paths and file paths
             const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
             const uniqueFilePaths = Array.from(new Set([...relatedFilePaths, ...productFiles]));
-            editproduct(productId,
+            console.log(uniqueFilePaths);
+            await editproduct(productId,
                 newProductCode,
                 newProductUrlCode,
                 newProductName,
@@ -183,24 +219,26 @@ export default function EditModal({ isOpen, onClose, productId }) {
                 uniqueImagePaths,
                 uniqueFilePaths);
             setProductImages(uniqueImagePaths); // Update productImages state
+            setProductFiles(uniqueFilePaths)
+
+            setNewProductName('');
+            setNewProductCode('');
+            setNewProductUrlCode('');
+            setNewProductPrice(0);
+            setNewProductDescription('');
+            setNewProductBody('');
+            setNewProductStock(0);
+            setNewProductMinStock(0);
+            setNewProductDeliveryTime(0);
+            setNewCategoryIsPublished(newCategoryIsPublished);
+            setProductImages([]);
+            setSelectedImages([]);
+            setSelectedFiles([]);
+            setProductFiles([]);
+            onClose();
         } catch (error) {
             console.error("Error uploading images:", error);
         }
-        setNewProductName('');
-        setNewProductCode('');
-        setNewProductUrlCode('');
-        setNewProductPrice(0);
-        setNewProductDescription('');
-        setNewProductBody('');
-        setNewProductStock(0);
-        setNewProductMinStock(0);
-        setNewProductDeliveryTime(0);
-        setNewCategoryIsPublished(newCategoryIsPublished);
-        setProductImages([]);
-        setSelectedImages([]);
-        setSelectedFiles([]);
-        setProductFiles([]);
-        onClose();
     };
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
@@ -283,7 +321,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
                                                 <Image
                                                     src={imagePath}
                                                     alt={`Product Image ${index + 1}`}
-                                                    className="h-[100px] w-auto object-cover rounded-lg mb-2 border-2 border-gray-200"
+                                                    className="h-[100px] w-[150px] object-cover rounded-lg mb-2 border-2 border-gray-200"
                                                     width="350"
                                                     height="80"
                                                 />
@@ -311,12 +349,12 @@ export default function EditModal({ isOpen, onClose, productId }) {
                                     productFiles && productFiles.length > 0 && (
                                         <div className='flex flex-row justify-start flex-wrap'>
                                             {productFiles.map((filename, index) => (
-                                                <div key={index} className='relative mr-4'>
+                                                <div key={index} className='relative mr-4 mb-4'>
                                                     <div className='border py-2 px-4 rounded-xl'>
                                                         <p>{filename.substring(filename.lastIndexOf('/') + 1)}</p>
                                                     </div>
                                                     <button
-                                                        className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white w-7 h-7 text-lg"
+                                                        className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white w-6 h-6 text-sx"
                                                         onClick={() => handleDeleteFile(index)}
                                                     >
                                                         X

@@ -279,7 +279,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         "isPublished": false,
                         "FeachaDeCreacion": euFormattedDateTime,
                         "FechaDeModificacion": euFormattedDateTime,
-                        "imagen": imagePaths, 
+                        "imagen": imagePaths,
                         "subCategories": [],
                         "products": []
                     }
@@ -344,6 +344,7 @@ export async function addproduct(categoryId, productData) {
                     if (!category.products) {
                         category.products = [];
                     }
+                    console.log(productData.relatedFilePaths);
                     const dataObj = {
                         "ALBEDOcodigo": productData.newProductCode,  //productCode.replace(/ /g, "-"),
                         "url_Id": productData.newProductUrlCode,
@@ -818,6 +819,22 @@ export async function saveImage(base64Image, imagePath) {
         }
     });
 }
+export async function saveFile(fileData, filePath) {
+
+    // Decode base64 file data
+    const decodedFileData = Buffer.from(fileData.replace(/^data:\w+\/\w+;base64,/, ''), 'base64');
+
+    // Write the file to the server
+    fs.writeFile(filePath, decodedFileData, (error) => {
+        if (error) {
+            reject(error);
+        } else {
+            console.log('File saved successfully.');
+            resolve(); // Resolve without returning any path
+        }
+    });
+}
+
 export async function deleteImages(imagePathsToDelete) {
     return new Promise((resolve, reject) => {
         // Loop through each image path and delete it
@@ -840,32 +857,5 @@ export async function deleteImages(imagePathsToDelete) {
         Promise.all(deletePromises)
             .then(() => resolve())
             .catch(error => reject(error));
-    });
-}
-export async function saveFile(file, filePath) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        // Set up event listener for when file reading is complete
-        reader.onloadend = () => {
-            const fileData = reader.result;
-            // Create a Blob object from the file data
-            const blob = new Blob([new Uint8Array(fileData)]);
-            // Create a URL representing the file blob
-            const fileURL = URL.createObjectURL(blob);
-            // Create a new anchor element to trigger the download
-            const a = document.createElement('a');
-            a.href = fileURL;
-            a.download = filePath;
-            // Trigger a click event to start the download
-            a.dispatchEvent(new MouseEvent('click'));
-            // Resolve the promise with the file path
-            resolve(filePath);
-        };
-        // Set up event listener for file reading errors
-        reader.onerror = (error) => {
-            reject(error);
-        };
-        // Start reading the file
-        reader.readAsArrayBuffer(file);
     });
 }

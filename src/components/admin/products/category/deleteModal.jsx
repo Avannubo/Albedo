@@ -26,7 +26,7 @@ export default function DeleteModal({ isOpen, onClose, category, product, reload
             <path d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z" data-original="#000000" />
             <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z" data-original="#000000" />
           </svg>
-          <h4 className="text-xl font-semibold mt-6">¿Estás seguro de que quieres eliminarlo?</h4>
+          <h4 className="text-xl font-semibold mt-6 text-slate-600">¿Estás seguro de que quieres eliminarlo?</h4>
           {/* <p className="text-sm text-gray-500 mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor auctor arcu, at fermentum dui. Maecenas</p> */}
         </div>
         <div className="flex flex-col space-y-2">

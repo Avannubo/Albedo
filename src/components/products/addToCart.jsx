@@ -44,11 +44,11 @@ function AddToCart({ producto }) {
   };
 
   return (
-    <div className="flex flex-row space-x-2">
+    <div className="flex flex-row  justify-start items-center  space-x-0 md:space-x-2   ">
       {/* Input field to specify quantity */}
       <input
         type="number"
-        className="shadow-sm rounded-md w-1/4 text-center p-1 border border-gray-300 focus:outline-2 focus:ring-[#304590] focus:border-[#304590]"
+        className="self-center shadow-sm rounded-md w-1/4 mr-2 p-0 h-[36px] text-center border border-gray-300 focus:outline-2 focus:ring-[#304590] focus:border-[#304590]"
         placeholder="0"
         min="1"
         step="1"
@@ -58,7 +58,7 @@ function AddToCart({ producto }) {
       />
 
       <button
-        className="self-center text-white w-full py-1.5 rounded-md bg-[#304590] hover:bg-[#475caa]"
+        className="self-center text-white w-full py-1.5  rounded-md bg-[#304590] hover:bg-[#475caa]"
         onClick={handleClick}
       >
         Añadir al carrito

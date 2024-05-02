@@ -42,12 +42,16 @@
     /* Adjusted shadow on hover */
 }
 
-.quill-editor-container .ql-container {
-    border: none;cursor: default; 
+.quill-editor-container .ql-container  {
+    border: none;
+    cursor: default; 
     border: none!important;
     padding: 0px!important;
 }
-
+@media (max-width: 768px) { 
+ .ql-editor{
+    padding: 0px!important;
+ }}
 p, li {
     font-size: 16px;
     line-height: 24px;

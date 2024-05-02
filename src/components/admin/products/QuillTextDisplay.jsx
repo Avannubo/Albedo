@@ -7,7 +7,7 @@ const QuillEditor = dynamic(() => import('react-quill'), { ssr: false });
 export default function QuillEditorComponent({ value }) {
 
     return (
-        <div className="w-full rounded-lg quill-editor-container">
+        <div className="w-full rounded-lg quill-editor-container no-padding">
             <QuillEditor
                 value={value}
                 readOnly={true}

@@ -56,10 +56,10 @@ export default function page() {
                         </div>
                     </div>
                 ) : ( 
-                        <div className='flex flex-row flex-wrap space-x-6  justify-center mt-2 '>
+                        <div className='flex flex-row flex-wrap space-x-2 md:space-x-6  justify-center  mt-2 '>
                             {data.map((category, index) => (
-                                <Link key={index} href={`/products/${category.url_Id}`} className="block mb-4 text-md text-gray-700 rounded-lg ">
-                                    <Image src={category.imagen[0]} alt="Vercel Logo" className="self-center w-[135px] h-[100px] rounded-lg" width={100} height={24} />
+                                <Link key={index} href={`/products/${category.url_Id}`} className="block mb-4  text-md text-gray-700 rounded-lg ">
+                                    <Image src={category.imagens[0]} alt="Vercel Logo" className="self-center w-[135px] h-[100px] rounded-lg" width={100} height={24} />
                                     <p className='text-center font-semibold text-md'>
                                         {category.name.split(" ").length > 2 ? category.name.split(" ")[0] : category.name}
                                     </p>
@@ -77,7 +77,7 @@ export default function page() {
                 <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
 
                 {isLoading ? (
-                    <div className='flex flex-row items-center justify-center space-x-4 mt-4 mb-8'>
+                    <div className='flex flex-row flex-wrap items-center justify-center my-6'>
                         <div className="w-[250px] h-[275px] flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
                             <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
                                 <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
@@ -124,9 +124,9 @@ export default function page() {
                         </div>
                     </div>
                 ) : (
-                    <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
+                        <div className="flex flex-row flex-wrap items-center justify-center ">
                         {last4PublishedProducts.map((product) => (
-                            <div className="w-[250px] flex flex-col p-2 rounded-lg box-shadow justify-between" key={product.ALBEDOcodigo}>
+                            <div className="lg:w-[250px] flex flex-col p-2 m-4  rounded-lg box-shadow justify-between" key={product.ALBEDOcodigo}>
                                 <Link href={product.fixedUrl}>
                                     <ProductItem product={product} />
                                 </Link>

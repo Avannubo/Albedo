@@ -6,9 +6,9 @@ import Layout from "@/app/(main)/WebLayout";
 export default function page() {
     return (
         <Layout>
-            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700 mt-6" />
             <div className="flex justify-center my-4">
-                <h1 className="text-3xl font-bold">Historia de la empresa</h1>
+                <h1 className="text-3xl font-bold text-center">Historia de la empresa</h1>
             </div>
             <div className='text-xl space-y-4 mb-4'>
 

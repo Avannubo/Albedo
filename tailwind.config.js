@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./node_modules/flowbite-react/lib/**/*.js",
+    "./node_modules/flowbite/**/*.js",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],

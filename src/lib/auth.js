@@ -7,3 +7,5 @@ export const isAuthenticated = () => {
     // Implement your logic to validate the token
     return !!token; // Return true if the token exists and is valid, false otherwise
 };
+
+

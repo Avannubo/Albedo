@@ -1,15 +1,13 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import Dropdown from "@/components/header/headerDropdown";
 import CartLength from "./cartLength";
-
 export default function header() {
   return (
-    <header className="fixed top-0 left-0 w-full z-50">
-      <div className="flex flex-col items-center justify-center text-white bg-[#304590]">
-        <div className="flex flex-row h-[80px] w-[1275px] py-4 self-center mr-[175px]">
+    <nav className="fixed top-0 left-0 w-full z-50">
+      <div className="flex flex-col items-center justify-center text-white bg-[#304590] ">
+        <div className=" flex flex-row self-center items-center w-full py-4 h-auto xl:px-48 md:px-14 px-6 ">
           <Link href="/">
             <Image
               src="/images/Logo_albedo_blanco.png"
@@ -20,47 +18,44 @@ export default function header() {
               priority="true"
             />
           </Link>
-          <div className="flex grow justify-between self-center">
-            <div className="flex justify-center mt-2">
+          <div className="flex flex-row grow lg:justify-between justify-end self-center ">
+            <div className="justify-between lg:justify-center hidden lg:flex">
               <Dropdown />
-              <div className="w-full ml-4 py-6 pb-8 flex flex-row font-medium text-bold">
-                <div className="flex justify-center flex-row flex-nowrap px-4 py-2 text-lg cursor-pointer whitespace-nowrap">
+              <div className="w-full ml-4  flex flex-row font-medium text-bold">
+                <div className="flex justify-center flex-row flex-nowrap px-4 self-center text-lg cursor-pointer whitespace-nowrap">
                   <button className="" data-dropdown-toggle="dropdown">
                     Servicios</button>
-                  <svg className="w-2.5 h-2.5 ml-2.5 self-center" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"></path></svg>
+                  <svg className="w-2.5 h-2.5 ml-2.5 self-center" aria-hidden="true" xmlns="http:www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"></path></svg>
                 </div>
-
-                <div className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
+                <div className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow " id="dropdown">
                   <ul className="py-1" aria-labelledby="dropdown">
                     <li>
-                      <Link href="/services" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Le oferecemos</Link>
+                      <Link href="/services" className="hover:bg-gray-100 text-gray-700 block px-4  self-center text-lg">Le oferecemos</Link>
                     </li>
                     <li>
-                      <Link href="/services/design/" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Diseño</Link>
+                      <Link href="/services/design/" className="hover:bg-gray-100 text-gray-700 block px-4  self-center text-lg">Diseño</Link>
                     </li>
                     <li>
-                      <Link href="/services/manufacturing/" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Fabricación</Link>
+                      <Link href="/services/manufacturing/" className="hover:bg-gray-100 text-gray-700 block px-4  self-center text-lg">Fabricación</Link>
                     </li>
                   </ul>
                 </div>
-                <Link href="https://www.albedo.biz/blog/" className="px-4 py-2 text-lg cursor-pointer">Blog</Link>
-                {/* <Link href="/contacto" className="px-4 py-2 text-lg cursor-pointer">Contacto</Link> */}
-
-                <div className="flex justify-center flex-row flex-nowrap px-4 py-2 text-lg cursor-pointer whitespace-nowrap">
+                <Link href="https:www.albedo.biz/blog/" className="px-4  self-center text-lg cursor-pointer">Blog</Link>
+                <div className="flex justify-center flex-row flex-nowrap px-4  self-center text-lg cursor-pointer whitespace-nowrap">
                   <button className="" data-dropdown-toggle="dropdown2">
                     Sobre Nosotros</button>
-                  <svg className="w-2.5 h-2.5 ml-2.5 self-center" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"></path></svg>
+                  <svg className="w-2.5 h-2.5 ml-2.5 self-center" aria-hidden="true" xmlns="http:www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"></path></svg>
                 </div>
-                <div className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown2">
+                <div className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow " id="dropdown2">
                   <ul className="py-1" aria-labelledby="dropdown2">
                     <li>
-                      <Link href="/about/historia" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Quienes somos</Link>
+                      <Link href="/about/historia" className="hover:bg-gray-100 text-gray-700 block px-4  self-center text-lg">Quienes somos</Link>
                     </li>
                     <li>
-                      <Link href="/about/contacto" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">Contacto</Link>
+                      <Link href="/about/contacto" className="hover:bg-gray-100 text-gray-700 block px-4  self-center text-lg">Contacto</Link>
                     </li>
                     <li>
-                      <Link href="/about/faq" className="hover:bg-gray-100 text-gray-700 block px-4 py-2 text-lg">FAQ</Link>
+                      <Link href="/about/faq" className="hover:bg-gray-100 text-gray-700 block px-4  self-center text-lg">FAQ</Link>
                     </li>
                   </ul>
                 </div>
@@ -75,7 +70,7 @@ export default function header() {
                 height="44px"
                 viewBox="0 0 24 24"
                 fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="http:www.w3.org/2000/svg"
               >
                 <g id="SVGRepo_bgCarrier" strokwidth="0"></g>
                 <g
@@ -116,9 +111,16 @@ export default function header() {
               </svg>
               <CartLength />
             </Link>
+            <div className="lg:hidden visible ml-6 self-center">
+              <svg className="w-[40px] h-[40px]" aria-hidden="true" xmlns="http:www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 2h15M1 7h15M1 12h15" />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
-    </header>
+    </nav>
+
+
   );
 }

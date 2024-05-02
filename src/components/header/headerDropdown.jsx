@@ -50,7 +50,7 @@ export default function Dropdown() {
   };
 
   return (
-    <div className="w-full py-6 pb-8 z-[999] ">
+    <div className="w-full py-2 z-[999] ">
       <div className="relative inline-block" ref={dropdownRef}>
         <button
           type="button"

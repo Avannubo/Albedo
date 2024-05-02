@@ -35,11 +35,13 @@ export default function Home() {
   }
   const allPublishedProducts = GetPublishedProducts(data);
   const last4PublishedProducts = allPublishedProducts.slice(-4);
+
+
   return (
     <Layout>
       <div className="">
         <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-        <p className="text-xl my-4">
+        <p className="lg:lg:text-xl md:text-lg text-md  text-md my-4">
           <strong>ALBEDO Design</strong> es un grupo de empresas donde
           encontrará productos domóticos propios y de terceros, así como
           servicios integrales al servicio de la industria electrónica.
@@ -47,12 +49,12 @@ export default function Home() {
         <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
       </div>
       <div className="bg-[#304590] rounded-xl p-3 flex justify-center">
-        <h1 className="text-xl font-bold text-white ">
+        <h1 className="lg:lg:text-xl md:text-lg text-md  text-md font-bold text-white ">
           TIENDA DE PRODUCTOS DOMÓTICOS
         </h1>
       </div>
       <div className="">
-        <p className="text-xl ">
+        <p className="lg:lg:text-xl md:text-lg text-md  text-md ">
           Si desea <strong>comprar cualquiera de nuestros productos</strong>, entre en <a href="#">nuestra tienda</a>:
         </p>
         <div className="flex justify-center my-4">
@@ -68,7 +70,7 @@ export default function Home() {
         <div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           <div className="flex justify-center">
-            <h1 className="text-xl font-bold my-2">Nuevos productos</h1>
+            <h1 className="lg:text-2xl md:text-xl text-md font-bold my-2">Nuevos productos</h1>
           </div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           {isLoading ? (
@@ -119,9 +121,9 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-row items-center justify-center space-x-4 mt-4 mb-8">
+            <div className="flex flex-row flex-wrap items-center justify-center ">
               {last4PublishedProducts.map((product) => (
-                <div key={product.ALBEDOcodigo} className="w-[250px] flex flex-col p-2 rounded-lg box-shadow justify-between">
+                <div key={product.ALBEDOcodigo} className="lg:w-[250px] flex flex-col p-2 m-4  rounded-lg box-shadow justify-between">
                   <Link href={product.fixedUrl}  >
                     <ProductItem product={product} /></Link>
                   <AddToCart producto={product} />
@@ -132,12 +134,12 @@ export default function Home() {
         <div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           <div className="bg-[#304590] rounded-xl p-3 flex justify-center">
-            <h1 className="text-xl font-bold text-white ">
+            <h1 className="lg:text-xl md:text-lg text-md font-bold text-white ">
               SERVICIOS DE DISEÑO Y FABRICACIÓN
             </h1>
           </div>
           <div className="my-4">
-            <p className="text-xl">
+            <p className="lg:text-xl md:text-lg text-md">
               <strong>Somos un equipo multidisciplinar</strong>, y nos ponemos a
               su disposición para acompañarle en sus proyectos electrónicos.{" "}
               <br />
@@ -146,11 +148,11 @@ export default function Home() {
               una realidad... Desde el <a href="">diseño</a> , y el{" "}
               <a href="">prototipado</a> a la <a href="">fabricación</a> .{" "}
             </p>
-            <div className="flex flex-row justify-center space-x-4 my-4">
+            <div className="flex flex-row flex-wrap justify-center my-4">
               <Image
                 src="/images/home/diseño1.png"
                 alt="Vercel Logo"
-                className=""
+                className="rounded-lg m-2 w-full h-[200px] md:w-[250px] lg:h-auto object-cover"
                 width={300}
                 height={24}
                 priority="true"
@@ -158,7 +160,7 @@ export default function Home() {
               <Image
                 src="/images/home/diseño2.png"
                 alt="Vercel Logo"
-                className=""
+                className="rounded-lg m-2 w-full h-[200px] md:w-[250px] lg:h-auto object-cover"
                 width={200}
                 height={24}
                 priority="true"
@@ -166,8 +168,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
-      <div></div>
+      </div> 
     </Layout>
   );
 }

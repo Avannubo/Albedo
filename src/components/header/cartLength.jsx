@@ -19,7 +19,7 @@ function CartLength() {
   return (
     <>
       {cartProducts && cartProducts.length > 0 && (
-        <p className="bg-red-600 text-white text-center text-[10px] font-bold rounded-full h-4 w-4 -ml-3">
+        <p className="bg-red-600 text-white flex justify-center self-center  text-[10px] font-bold rounded-full h-4 w-4 -ml-3">
           {totalQuantity}
         </p>
       )}

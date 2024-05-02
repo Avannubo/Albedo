@@ -26,3 +26,19 @@ const AdminRouteGuard = ({ children }) => {
 };
 
 export default AdminRouteGuard;
+
+/** "use client"
+import { useRouter } from 'next/navigation'; 
+import { isAuthenticated } from '@/lib/auth';
+
+const AdminRouteGuard = ({ children }) => {
+    const router = useRouter(); 
+            if (isAuthenticated) {
+                // If there is no token, redirect to the login page
+                router.push('/admin');
+            }
+    return children;
+};
+
+export default AdminRouteGuard;
+ */

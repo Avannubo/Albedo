@@ -123,7 +123,7 @@ export default function Page() {
         </div>
       ) : (
         categories.map((category) => (
-          <div key={category.id} className="mt-6">
+          <div key={category.id} className="mt-10">
             <Category category={category} fetchData={fetchData} />
           </div>
         ))

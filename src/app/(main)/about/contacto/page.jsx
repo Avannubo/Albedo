@@ -5,7 +5,7 @@ import Layout from "@/app/(main)/WebLayout";
 export default function page() {
   return (
     <Layout>
-      <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700 mt-6" />
+      <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700 mt-10" />
       <div className='flex flex-col sm:flex-row sm:mt-4'>
         <div className='text-xl space-y-4 sm:mb-4'>
           <div className="flex justify-center my-4">

@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="">
+      <div className="mt-10">
         <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
         <p className="lg:lg:text-xl md:text-lg text-md  text-md my-4">
           <strong>ALBEDO Design</strong> es un grupo de empresas donde
@@ -153,7 +153,7 @@ export default function Home() {
                 src="/images/home/diseño1.png"
                 alt="Vercel Logo"
                 className="rounded-lg m-2 w-full h-[200px] md:w-[250px] lg:h-auto object-cover"
-                width={300}
+                width={500}
                 height={24}
                 priority="true"
               />
@@ -161,7 +161,7 @@ export default function Home() {
                 src="/images/home/diseño2.png"
                 alt="Vercel Logo"
                 className="rounded-lg m-2 w-full h-[200px] md:w-[250px] lg:h-auto object-cover"
-                width={200}
+                width={600}
                 height={24}
                 priority="true"
               />

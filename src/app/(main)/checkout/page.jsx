@@ -4,7 +4,6 @@ import CartItem from "@/components/products/cartItem";
 import Layout from "@/app/(main)/WebLayout";
 import ModalTransference from "@/components/checkout/modalTransference";
 import { getParameters } from '@/lib/data';
-
 export default function Page() {
   const [parameters, setParameters] = useState(null);
   const [selectedShipping, setSelectedShipping] = useState({ method: null, price: null });
@@ -76,21 +75,13 @@ export default function Page() {
         console.error("Error fetching parameters:", error);
       }
     }
-
     fetchData();
   }, []);
-
   useEffect(() => {
     if (parameters) {
-      console.log(parameters.EnvioEspaña);
-      // console.log("Password:", parameters.Password);
-      // console.log("Envios:", parameters.Envios);
-      // console.log("IBAN:", parameters.IBAN);
-      // console.log("IVA:", parameters.IVA);
+      console.log(parameters.EnvioEspaña); 
     }
   }, [parameters]);
-  
-
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (typeof window !== 'undefined') {
@@ -169,10 +160,23 @@ export default function Page() {
   };
   return (
     <Layout>
-      <div className="flex flex-row items-start min-h-[85vh] w-[1100px] mt-6 mb-8">
-        <div className="bg-gray-50 p-2 mr-2 grow w-[45%]">
+      <div className="flex flex-row flex-wrap md:flex-nowrap items-start md:min-h-[85vh] mt-12 mb-8">
+        <div className="sm:bg-gray-50 rounded-lg p-2 md:mr-2 grow sm:w-[45%]">
+          <div className="bg-gray-50 rounded-lg p-2 py-4 mb-2 sm:mb-0 sm:hidden">
+            <div className="h-auto">
+              <h1 className="mb-4 text-start text-2xl font-bold">
+                Productos en el carrito:
+              </h1>
+              <div className="max-h-[270px] bg-white overflow-y-scroll ">
+                {/* no-scrollbar */}
+                <CartItem />
+              </div>{errors.cartProducts && (
+                <p className="text-red-500 text-xs italic py-2">{errors.cartProducts}</p>
+              )}
+            </div>
+          </div>
+          <form onSubmit={handleSubmit} className="w-full bg-gray-50 rounded-lg sm:bg-transparent p-2 py-4 sm:p-0 sm:py-0" >
           <h1 className="mb-4 text-start text-2xl font-bold">Datos del pedido</h1>
-          <form onSubmit={handleSubmit} className="w-full max-w-lg" >
             <div className="flex flex-wrap -mx-3 mb-4">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
@@ -378,18 +382,18 @@ export default function Page() {
                 <label htmlFor="terms">*Acepto los Términos y Condiciones</label>
               </div>
               {errors.terms && (
-                <p className="text-red-500 text-xs italic">{errors.terms}</p>
+                <p className="text-red-500 text-xs italic self-center ml-2 md:ml-0">({errors.terms})</p>
               )}
             </div>
           </form>
         </div>
-        <div className="grow w-[55%] space-y-2">
-          <div className="bg-gray-50 p-2 py-4">
-            <div className="h-auto">
+        <div className="grow sm:w-[55%] md:space-y-2 sm:mt-4 md:mt-0">
+          <div className="bg-gray-50 rounded-lg p-2 hidden sm:flex">
+            <div className="h-auto w-full">
               <h1 className="mb-4 text-start text-2xl font-bold">
                 Productos en el carrito:
               </h1>
-              <div className="max-h-[270px] bg-white overflow-y-scroll ">
+              <div className="max-h-[270px] w-full bg-white overflow-y-scroll ">
                 {/* no-scrollbar */}
                 <CartItem />
               </div>{errors.cartProducts && (
@@ -397,24 +401,24 @@ export default function Page() {
               )}
             </div>
           </div>
-          <div className="bg-gray-50 p-2 py-4">
+          <div className="bg-gray-50 rounded-lg p-2 m-2 sm:m-0">
             <div className="h-auto">
               <h1 className="mb-4 text-start text-2xl font-bold">
                 Envío:
               </h1>
-              <div className='flex flex-col space-y-2 justify-between'>
-                <div className="flex flex-row justify-start space-x-2 text-sm">
-                  <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+              <div className='flex flex-col space-x-0 md:space-y-2 justify-between'>
+                <div className="flex flex-row flex-wrap md:flex-nowrap justify-start space-x-2 text-sm">
+                  <div className={`grow text-center border mb-2  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
               ${selectedShipping && selectedShipping.method === 'España' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
                     onClick={() => handleShippingSelect('España', parameters?.EnvioES ?? 0)}>
                     España {parameters?.EnvioES ?? 0}€
                   </div>
-                  <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+                  <div className={`grow text-center border mb-2  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
               ${selectedShipping && selectedShipping.method === 'unión europea' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
                     onClick={() => handleShippingSelect('unión europea', parameters?.EnviosUE ?? 0)}>
                     Unión Europea {parameters?.EnviosUE ?? 0}€
                   </div>
-                  <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
+                  <div className={`grow text-center border mb-2  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
               ${selectedShipping && selectedShipping.method === 'internacional' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
                     onClick={() => handleShippingSelect('internacional', parameters?.EnviosINT ?? 0)}>
                     Internacional {parameters?.EnviosINT ?? 0}€
@@ -428,13 +432,12 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-
               {errors.shipping && (
                 <p className="text-red-500 text-xs italic py-2">{errors.shipping}</p>
               )}
             </div>
           </div>
-          <div className="bg-gray-50 p-2 py-4">
+          <div className="bg-gray-50 rounded-lg p-2 py-4">
             <div className="h-auto">
               <h1 className="mb-2 text-start text-2xl font-bold">
                 Selecciona el método de pago:
@@ -458,7 +461,7 @@ export default function Page() {
               )}
             </div>
           </div>
-          <div className="bg-gray-50 ">
+          <div className="bg-gray-50 rounded-lg ">
             <div className="h-auto">
               <div className="justify-center p-2 py-4 space-y-3">
                 <div className="h-full   border bg-white p-3">

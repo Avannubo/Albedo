@@ -34,14 +34,14 @@ export default function CartItem() {
   return (
     <div className="">
       {cartItems && cartItems.length > 0 ? (
-        <div className="space-y-2 p-2">
+        <div className="space-y-2 p-2 w-full">
           {cartItems.map((product) => (
             <div key={product.ALBEDOcodigo} className="rounded-lg ">
-              <div className="flex flex-row border-b  justify-between py-4 px-8  border-gray-300">
+              <div className="flex flex-row border-b w-full justify-between sm:py-4 py-2 border-gray-300">
                 <img
-                  src={product.imagen}
+                  src={product.imagens[0]}
                   alt="product-image"
-                  className="w-[160px] h-[100px] object-cover "
+                  className="w-[160px] h-[100px] object-cover rounded-lg"
                   priority="true"
                 />
                 <div className="flex flex-col justify-between items-end ">

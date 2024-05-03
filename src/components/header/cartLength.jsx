@@ -19,9 +19,12 @@ function CartLength() {
   return (
     <>
       {cartProducts && cartProducts.length > 0 && (
-        <p className="bg-red-600 text-white flex justify-center self-center  text-[10px] font-bold rounded-full h-4 w-4 -ml-3">
+        <div className="bg-red-600 text-white flex justify-center rounded-full h-4 w-4 -ml-3">
+          <p className=" self-center  text-[10px] font-bold ">
           {totalQuantity}
         </p>
+        </div>
+        
       )}
     </>
   );

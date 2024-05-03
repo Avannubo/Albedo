@@ -106,10 +106,8 @@ export default async function page() {
               </div>
             </div>
           </div>
-          <div className="flex flex-row justify-between space-x-6 ">
-            <div className="w-[250px] ">
-              <OrdersStateCount />
-            </div>
+          <div className="flex flex-row justify-between space-x-6 "> 
+              <OrdersStateCount /> 
             <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
               <h1 className="font-semibold text-slate-600 text-xl">Pedidos Por transacciones</h1>
               <hr />
@@ -119,7 +117,7 @@ export default async function page() {
                 <p className="text-xl font-medium">Bizum: {bizumCount}</p>
               </div>
             </div>
-            <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
+            {/* <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
               <h1 className="font-semibold text-slate-600 text-xl">Pedidos por Provencias</h1>
               <hr />
               <div>
@@ -127,7 +125,7 @@ export default async function page() {
                 <p className="text-xl font-medium">Madrid: 12</p>
                 <p className="text-xl font-medium">qwerty: 12</p>
               </div>
-            </div>
+            </div> */}
             <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
               <h1 className="font-semibold text-slate-600 text-xl">Productos mas vendidos</h1>
               <hr />

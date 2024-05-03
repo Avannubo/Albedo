@@ -76,16 +76,16 @@ export default function Dropdown() {
         </button>
 
         {isOpen && (
-          <div className="origin-top-left absolute left-0 mt-2 w-44 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 h-auto overflow-y-scroll no-scrollbar">
+          <div className=" absolute left-0 w-auto rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 h-auto overflow-y-scroll no-scrollbar">
             <ul>
-              <li className="px-4 py-2 text-md text-gray-700 hover:bg-gray-100 rounded-lg">
-                <Link href="/products">Gama de productos</Link>
+              <li className="px-2 py-1.5 text-md text-gray-700 hover:bg-gray-100 rounded-lg">
+                <Link href="/products" className="whitespace-nowrap">Gama de productos</Link>
               </li>
               {categories.map((category, index) => (
                 <li key={index} className="relative">
                   <Link
                     href={`/products/${category.url_Id}`}
-                    className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 rounded-lg"
+                    className="block px-2 py-1.5 text-md text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap"
                     onMouseEnter={() => handleCategoryHover(index)}
                     onMouseLeave={handleCategoryLeave}
                   >
@@ -99,7 +99,7 @@ export default function Dropdown() {
                         {category.subcategories.map((subCategory, subIndex) => (
                           <li
                             key={subIndex}
-                            className="px-4 py-2 text-md text-gray-700"
+                            className="px-2 py-1.5 text-md text-gray-700 whitespace-nowrap"
                           >
                             {subCategory.name}
                           </li>

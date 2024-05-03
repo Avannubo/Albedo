@@ -3,14 +3,40 @@ import Image from "next/image";
 import Link from "next/link";
 import Dropdown from "@/components/header/headerDropdown";
 import CartLength from "./cartLength";
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
 export default function Header() {
   const [showMobileDropdown, setShowMobileDropdown] = useState(false);
-  const toggleDropdown = () => setShowMobileDropdown(!showMobileDropdown);
+  const [showServiciosDropdown, setShowServiciosDropdown] = useState(false);
+  const [showSobreDropdown, setShowSobreDropdown] = useState(false);
+  const dropdownRefServicios = useRef(null);
+  const dropdownRefSobre = useRef(null);
+
+  const toggleMobileDropdown = () => setShowMobileDropdown(!showMobileDropdown);
+  const toggleServiciosDropdown = () => setShowServiciosDropdown(!showServiciosDropdown);
+  const toggleSobreDropdown = () => setShowSobreDropdown(!showSobreDropdown);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRefServicios.current && !dropdownRefServicios.current.contains(event.target)) {
+        setShowServiciosDropdown(false);
+      }
+      if (dropdownRefSobre.current && !dropdownRefSobre.current.contains(event.target)) {
+        setShowSobreDropdown(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <nav className="fixed top-0 left-0 w-full z-50">
-      <div className="flex flex-col items-center justify-center text-white bg-[#304590] ">
-        <div className="flex flex-row self-center items-center w-full py-4 h-auto xl:px-48 md:px-14 px-6 ">
+      <div className="flex flex-col items-center justify-center text-white bg-[#304590]">
+        <div className="flex flex-row self-center items-center w-full py-4 h-auto xl:px-48 md:px-14 px-6">
           <Link href="/">
             <Image
               src="/images/Logo_albedo_blanco.png"
@@ -21,77 +47,91 @@ export default function Header() {
               priority={true}
             />
           </Link>
-          <div className="flex flex-row grow lg:justify-between justify-end self-center ">
+          <div className="flex flex-row grow lg:justify-between justify-end self-center">
             <div className="justify-between lg:justify-center hidden lg:flex">
               <Dropdown />
               <div className="w-full ml-4 flex flex-row font-medium text-bold">
-                <div className="flex justify-center flex-row flex-nowrap px-4 self-center text-lg cursor-pointer whitespace-nowrap">
-                  <button className="" data-dropdown-toggle="dropdown">
+                <div className="relative self-center" ref={dropdownRefServicios}>
+                  <button
+                    className="flex justify-center flex-row flex-nowrap px-4 self-center text-md cursor-pointer whitespace-nowrap"
+                    onClick={toggleServiciosDropdown}
+                    aria-expanded={showServiciosDropdown}
+                    aria-controls="dropdown"
+                  >
                     Servicios
+                    <svg
+                      className="w-2.5 h-2.5 ml-2.5 self-center"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 10 6"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="m1 1 4 4 4-4"
+                      ></path>
+                    </svg>
                   </button>
-                  <svg
-                    className="w-2.5 h-2.5 ml-2.5 self-center"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 10 6"
+                  {showServiciosDropdown && (
+                    <div className="absolute left-0 mt-2 bg-white text-gray-700 rounded-lg shadow" id="dropdown">
+                      <ul className="py-2 ">
+                        <li>
+                          <Link href="/services" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">Le ofrecemos</Link>
+                        </li>
+                        <li>
+                          <Link href="/services/design/" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">Diseño</Link>
+                        </li>
+                        <li>
+                          <Link href="/services/manufacturing/" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">Fabricación</Link>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+                <div className="relative self-center" ref={dropdownRefSobre}>
+                  <button
+                    className="flex justify-center flex-row flex-nowrap px-4 self-center text-md cursor-pointer whitespace-nowrap"
+                    onClick={toggleSobreDropdown}
+                    aria-expanded={showSobreDropdown}
+                    aria-controls="dropdown2"
                   >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 4 4 4-4"
-                    ></path>
-                  </svg>
-                </div>
-                <div className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow " id="dropdown">
-                  <ul className="py-1" aria-labelledby="dropdown">
-                    <li>
-                      <Link href="/services" className="hover:bg-gray-100 text-gray-700 block px-4 self-center text-lg">Le ofrecemos</Link>
-                    </li>
-                    <li>
-                      <Link href="/services/design/" className="hover:bg-gray-100 text-gray-700 block px-4 self-center text-lg">Diseño</Link>
-                    </li>
-                    <li>
-                      <Link href="/services/manufacturing/" className="hover:bg-gray-100 text-gray-700 block px-4 self-center text-lg">Fabricación</Link>
-                    </li>
-                  </ul>
-                </div>
-                <Link href="https://www.albedo.biz/blog/" className="px-4 self-center text-lg cursor-pointer">Blog</Link>
-                <div className="flex justify-center flex-row flex-nowrap px-4 self-center text-lg cursor-pointer whitespace-nowrap">
-                  <button className="" data-dropdown-toggle="dropdown2">
                     Sobre Nosotros
+                    <svg
+                      className="w-2.5 h-2.5 ml-2.5 self-center"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 10 6"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="m1 1 4 4 4-4"
+                      ></path>
+                    </svg>
                   </button>
-                  <svg
-                    className="w-2.5 h-2.5 ml-2.5 self-center"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 10 6"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 4 4 4-4"
-                    ></path>
-                  </svg>
+                  {showSobreDropdown && (
+                    <div className="absolute left-0 mt-2 bg-white text-gray-700 shadow rounded-lg" id="dropdown2">
+                      <ul className="py-2">
+                        <li>
+                          <Link href="/about/historia" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">Quienes somos</Link>
+                        </li>
+                        <li>
+                          <Link href="/about/contacto" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">Contacto</Link>
+                        </li>
+                        <li>
+                          <Link href="/about/faq" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">FAQ</Link>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
-                <div className="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow " id="dropdown2">
-                  <ul className="py-1" aria-labelledby="dropdown2">
-                    <li>
-                      <Link href="/about/historia" className="hover:bg-gray-100 text-gray-700 block px-4 self-center text-lg">Quienes somos</Link>
-                    </li>
-                    <li>
-                      <Link href="/about/contacto" className="hover:bg-gray-100 text-gray-700 block px-4 self-center text-lg">Contacto</Link>
-                    </li>
-                    <li>
-                      <Link href="/about/faq" className="hover:bg-gray-100 text-gray-700 block px-4 self-center text-lg">FAQ</Link>
-                    </li>
-                  </ul>
-                </div>
+                <Link href="https://www.albedo.biz/blog/" className="px-4 self-center text-md cursor-pointer">Blog</Link>
               </div>
             </div>
             <Link
@@ -142,26 +182,54 @@ export default function Header() {
             </Link>
             <div className="lg:hidden">
               <button
-                onClick={toggleDropdown}
-                className="text-lg cursor-pointer"
+                onClick={toggleMobileDropdown}
+                className="text-md cursor-pointer flex items-center"
+                aria-expanded={showMobileDropdown}
+                aria-controls="mobileDropdown"
               >
-                Menu
+                <svg className="self-center" width="36px" height="36px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 6H20M4 12H20M4 18H20" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
               </button>
               {showMobileDropdown && (
-                <div className="bg-white absolute top-16 left-0 w-full text-base z-50 list-none divide-y divide-gray-100 shadow mt-2">
+                <div className="bg-white absolute top-20 left-0 w-full text-base z-50 list-none divide-y divide-gray-100 shadow mt-2" id="mobileDropdown">
                   <ul className="py-1">
-                    <li>
-                      <Link href="/services" className="hover:bg-gray-100 text-gray-700 block px-4 py-2">Servicios</Link>
+                    <li className="flex justify-center">
+                      <button className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap w-full px-2 py-2 self-center text-md" onClick={toggleServiciosDropdown}>Servicios</button>
+                      {showServiciosDropdown && (
+                        <div className="absolute left-0 w-full top-full mt-2 bg-white text-gray-700 shadow" ref={dropdownRefServicios}>
+                          <ul>
+                            <li>
+                              <Link href="/services" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">Le ofrecemos</Link>
+                            </li>
+                            <li>
+                              <Link href="/services/design/" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">Diseño</Link>
+                            </li>
+                            <li>
+                              <Link href="/services/manufacturing/" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">Fabricación</Link>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
                     </li>
-                    
-                    <li>
-                      <Link href="/about/historia" className="hover:bg-gray-100 text-gray-700 block px-4 py-2">Sobre Nosotros</Link>
+                    <li className="flex justify-center">
+                      <button className="hover:bg-gray-100 text-gray-700 whitespace-nowrap px-2 w-full py-2 self-center text-md" onClick={toggleSobreDropdown}>Sobre Nosotros</button>
+                      {showSobreDropdown && (
+                        <div className="absolute left-0 w-full top-full mt-2 bg-white text-gray-700 shadow" ref={dropdownRefSobre}>
+                          <ul>
+                            <li>
+                              <Link href="/about/historia" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">Quienes somos</Link>
+                            </li>
+                            <li>
+                              <Link href="/about/contacto" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">Contacto</Link>
+                            </li>
+                            <li>
+                              <Link href="/about/faq" className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap px-2 py-1.5 self-center text-md">FAQ</Link>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
                     </li>
-                    {/* <li>
-                      <Link href="/checkout" className="hover:bg-gray-100 text-gray-700 block px-4 py-2">Checkout</Link>
-                    </li> */}
                     <li>
-                      <Link href="https://www.albedo.biz/blog/" className="hover:bg-gray-100 text-gray-700 block px-4 py-2">Blog</Link>
+                      <Link href="https://www.albedo.biz/blog/" className="hover:bg-gray-100 text-gray-700 flex justify-center px-4 py-2 self-center">Blog</Link>
                     </li>
                   </ul>
                 </div>

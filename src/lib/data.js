@@ -7,7 +7,8 @@ import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
 const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
-const filePathOrders = isLocal ? path.resolve('public/data/ClientOrders.json') : '/data/ClientOrders.json';
+const filePathActiveOrders = isLocal ? path.resolve('public/data/ClientOrdersActive.json') : '/data/ClientOrdersActive.json';
+const filePathInactiveOrders = isLocal ? path.resolve('public/data/ClientOrdersInactive.json') : '/data/ClientOrdersInactive.json';
 const filePathParameters = isLocal ? path.resolve('public/data/Parameters.json') : '/data/Parameters.json';
 let cachedData = null;
 let lastModifiedTime = null;
@@ -73,10 +74,10 @@ export async function updateShippingPrices(spainPrice, euPrice, internationalPri
         // Read data from file
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-            jsonData.EnvioES = spainPrice;
-            jsonData.EnviosUE = euPrice;
-            jsonData.EnviosINT = internationalPrice;
-        
+        jsonData.EnvioES = spainPrice;
+        jsonData.EnviosUE = euPrice;
+        jsonData.EnviosINT = internationalPrice;
+
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
         return jsonData;
@@ -684,13 +685,13 @@ export async function getDataByUrlId(slugIds) {
 export async function saveNewOrder(orderData) {
     console.log(orderData);
     try {
-        const data = await readFile(filePathOrders, 'utf8');
+        const data = await readFile(filePathActiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
         const { ClientOrders } = jsonData;
         const orderDataWithState = { ...orderData, orderState: 'Pendiente', createdAt: euFormattedDateTime };
         // Add orderState field with default value
         ClientOrders.unshift(orderDataWithState);
-        await writeFile(filePathOrders, JSON.stringify(jsonData));
+        await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
         revalidatePath('/');
         // console.log("Subcategory added successfully.");
         return true;
@@ -704,12 +705,23 @@ export async function saveNewOrder(orderData) {
  * Retrieves all orders.
  * @returns {Array} An array of order objects.
  */
-export async function getAllOrders() {
+export async function getAllActiveOrders() {
     try {
-        const data = await readFile(filePathOrders, 'utf8');
+        const data = await readFile(filePathActiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
-        const { ClientOrders } = jsonData;
-        return ClientOrders;
+        const { ActiveOrders } = jsonData;
+        return ActiveOrders;
+    } catch (error) {
+        console.error("Error getting all Client Orders:", error);
+        return [];
+    }
+}
+export async function getAllInactiveOrders() {
+    try {
+        const data = await readFile(filePathInactiveOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { InactiveOrders } = jsonData;
+        return InactiveOrders;
     } catch (error) {
         console.error("Error getting all Client Orders:", error);
         return [];
@@ -721,15 +733,30 @@ export async function getAllOrders() {
  * @param {number} orderIndex - The index of the order to retrieve.
  * @returns {Object | null} The order data, or null if not found.
  */
-export async function getOrderByIndex(orderIndex) {
+export async function getActiveOrderByIndex(orderIndex) {
     try {
-        const data = await readFile(filePathOrders, 'utf8');
+        const data = await readFile(filePathActiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
-        const { ClientOrders } = jsonData;
-        if (orderIndex < 0 || orderIndex >= ClientOrders.length) {
+        const { ActiveOrders } = jsonData;
+        if (orderIndex < 0 || orderIndex >= ActiveOrders.length) {
             throw new Error("Invalid order index");
         }
-        return ClientOrders[orderIndex];
+        return ActiveOrders[orderIndex];
+    } catch (error) {
+        console.error("Error getting order by index:", error);
+        return null;
+    }
+}
+
+export async function getInactiveOrderByIndex(orderIndex) {
+    try {
+        const data = await readFile(filePathActiveOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { InactiveOrders } = jsonData;
+        if (orderIndex < 0 || orderIndex >= InactiveOrders.length) {
+            throw new Error("Invalid order index");
+        }
+        return InactiveOrders[orderIndex];
     } catch (error) {
         console.error("Error getting order by index:", error);
         return null;
@@ -744,13 +771,13 @@ export async function getOrderByIndex(orderIndex) {
  */
 export async function updateOrderStateById(orderId, newState) {
     try {
-        const data = await readFile(filePathOrders, 'utf8');
+        const data = await readFile(filePathActiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
-        const { ClientOrders } = jsonData;
+        const { ActiveOrders } = jsonData;
         // Update the state of the order
-        ClientOrders[orderId].orderState = newState;
+        ActiveOrders[orderId].orderState = newState;
         // Write the updated data back to the file
-        await writeFile(filePathOrders, JSON.stringify(jsonData));
+        await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
         return true;
     } catch (error) {
         console.error("Error updating order state:", error);
@@ -773,16 +800,16 @@ async function getStoredPassword() {
     try {
         // Read data from file
         const data = await readFile(filePathParameters, 'utf8');
-        const jsonData = JSON.parse(data); 
+        const jsonData = JSON.parse(data);
         // Write the updated JSON back to the file  
         return jsonData.Password;
     } catch (error) {
         throw new Error("Error updating password: " + error.message);
-    } 
+    }
 }
 export async function login(userInput) {
     try {
-        const storedPassword = await getStoredPassword(); 
+        const storedPassword = await getStoredPassword();
         if (userInput === storedPassword) {
             // Passwords match, generate token
             const token = generateToken();

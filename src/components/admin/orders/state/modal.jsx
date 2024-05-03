@@ -3,7 +3,7 @@ import { updateOrderStateById } from "@/lib/data";
 
 export default function Modal({ isOpen, onClose, orderId, orderState, onModalClose }) {
     const [newOrderState, setNewOrderState] = useState(orderState);
-    const availableStates = ["Nuevo", "Pendiente", "Confirmado", "Procesando", "Enviado", "Cancelado"];
+    const availableStates = [ "Pendiente", "Confirmado", "Procesando", "Enviado", "Facturado", "Cancelado"];
 
     const handleStateUpdate = async () => {
         const success = await updateOrderStateById(orderId, newOrderState);

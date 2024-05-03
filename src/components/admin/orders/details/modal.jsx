@@ -1,18 +1,5 @@
-"use client";
-import React, { useState, useEffect } from 'react';
-import { getOrderByIndex } from "@/lib/data";
-export default function modal({ isOpen, onClose, orderId }) {
-  const [orderData, setOrderData] = useState(null);
-  useEffect(() => {
-    const fetchOrderData = async () => {
-      if (orderId != null) {
-        const order = await getOrderByIndex(orderId);
-        setOrderData(order);
-        console.log(order);
-      }
-    };
-    fetchOrderData();
-  }, [isOpen, orderId]);
+"use client"; 
+export default function modal({ isOpen, onClose, order }) {
   return isOpen ? (
     <div className="fixed inset-0 p-8 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
       <div className="w-full max-w-6xl bg-white shadow-lg rounded-md p-6 relative">
@@ -24,15 +11,15 @@ export default function modal({ isOpen, onClose, orderId }) {
             </svg>
           </div>
           <div className=''>
-            {orderData && (
+            {order && (
               <div className='flex flex-row'>
                 <div className='flex-1 mr-6 bg-gray-50 p-2'>
                   <h1 className="mb-4 text-start text-2xl font-bold">
                     Pedido:
                   </h1>
-                  <div className={`h-[270px] overflow-y-scroll ${orderData.cartProducts && orderData.cartProducts.length <= 4 ? 'no-scrollbar' : ''}`}>
-                    {orderData.cartProducts && orderData.cartProducts.length > 0 && (
-                      orderData.cartProducts.map((product, index) => (
+                  <div className={`h-[270px] overflow-y-scroll ${order.cartProducts && order.cartProducts.length <= 4 ? 'no-scrollbar' : ''}`}>
+                    {order.cartProducts && order.cartProducts.length > 0 && (
+                      order.cartProducts.map((product, index) => (
                         <div className='flex flex-col mr-2' key={index}>
                           <div className='flex flex-row'>
                             <div className='w-[70px] h-auto my-2'>
@@ -59,67 +46,67 @@ export default function modal({ isOpen, onClose, orderId }) {
                   <h1 className="mb-4 text-start text-2xl font-bold">
                     Datos de Cliente:
                   </h1>
-                  {orderData.userInfo && (
+                  {order.userInfo && (
                     <div className='flex flex-col space-y-2 text-lg'>
                       <div className='flex flex-row '>
                         <div className='flex flex-row items-center space-x-2 w-1/2 grow'>
                           <h1 className='font-bold'>Nombre: </h1>
-                          <p>{orderData.userInfo.firstName}</p>
+                          <p>{order.userInfo.firstName}</p>
                         </div>
                         <div className='flex flex-row items-center space-x-2 w-1/2 grow'>
                           <h1 className='font-bold'>Apellidos: </h1>
-                          <p>{orderData.userInfo.lastName}</p>
+                          <p>{order.userInfo.lastName}</p>
                         </div>
                       </div>
                       <div className='flex flex-row '>
                         <div className='flex flex-row items-center space-x-2 w-1/2 grow'>
                           <h1 className='font-bold'>DNI/CIF: </h1>
-                          <p>{orderData.userInfo.dni}</p>
+                          <p>{order.userInfo.dni}</p>
                         </div>
                         <div className='flex flex-row items-center space-x-2 w-1/2 grow'>
                           <h1 className='font-bold'>Teléfono: </h1>
-                          <p>{orderData.userInfo.phoneNumber}</p>
+                          <p>{order.userInfo.phoneNumber}</p>
                         </div>
                       </div>
                       {
-                        orderData.userInfo.company && (
+                        order.userInfo.company && (
                           <div className='flex flex-row items-center space-x-2'>
                             <h1 className='font-bold'>Empresa: </h1>
-                            <p>{orderData.userInfo.company}</p>
+                            <p>{order.userInfo.company}</p>
                           </div>
                         )}
                       <div className='flex flex-row items-center space-x-2'>
                         <h1 className='font-bold'>Email: </h1>
-                        <p>{orderData.userInfo.email}</p>
+                        <p>{order.userInfo.email}</p>
                       </div>
                       <div className='flex flex-row space-x-2'>
                         <h1 className='font-bold'>Dirección de Entrega: </h1>
-                        <p className='text-wrap text-left'>{orderData.userInfo.address}
-                          {orderData.userInfo.zipCode} {orderData.userInfo.city}
-                          {orderData.userInfo.province}</p>
+                        <p className='text-wrap text-left'>{order.userInfo.address}
+                          {order.userInfo.zipCode} {order.userInfo.city}
+                          {order.userInfo.province}</p>
                       </div>
                       <div className='flex flex-row  items-center space-x-2'>
                         <h1 className='font-bold'>Tipo de Envío: </h1>
-                        <p>{orderData.selectedShipping.method}</p>
+                        <p>{order.selectedShipping.method}</p>
                       </div>
                       <div className='flex flex-row'>
                         <div className='flex flex-row items-center space-x-2  w-1/2'>
                           <h1 className='font-bold'>Metodo de pago: </h1>
-                          <p>{orderData.selectedPayment}</p>
+                          <p>{order.selectedPayment}</p>
                         </div>
                         <div className='flex flex-row items-center space-x-2  w-1/2'>
                           <h1 className='font-bold'>Total de Pedido: </h1>
-                          <p>{orderData.totalPedido}€</p>
+                          <p>{order.totalPedido}€</p>
                         </div>
                       </div>
                       <div className='flex flex-row'>
                         <div className='flex flex-row items-center space-x-2  w-1/2'>
                           <h1 className='font-bold'>Factura: </h1>
-                          <p>{orderData.invoice ? 'Sí' : 'No'}</p>
+                          <p>{order.invoice ? 'Sí' : 'No'}</p>
                         </div>
                         <div className='flex flex-row space-x-2  w-1/2'>
                           <h1 className='font-bold'>Estado de Pedido: </h1>
-                          <p>{orderData.orderState}</p>
+                          <p>{order.orderState}</p>
                         </div>
                       </div>
                     </div>

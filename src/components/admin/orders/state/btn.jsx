@@ -24,11 +24,11 @@ export default function Btn({ orderState, orderId }) {
         fetchOrderData();
     };
     const stateColors = {
-        "Nuevo": "bg-green-300 hover:bg-green-400",
         "Pendiente": "bg-yellow-300 hover:bg-yellow-400",
         "Confirmado": "bg-orange-300 hover:bg-orange-400",
-        "Procesando": "bg-purple-300 hover:bg-purple-400",
+        "Procesando": "bg-green-300 hover:bg-green-400",
         "Enviado": "bg-indigo-300 hover:bg-indigo-400",
+        "Facturado": "bg-purple-300 hover:bg-purple-400",
         "Cancelado": "bg-red-300 hover:bg-red-400",
     };
     const colorClass = stateColors[orderDataStateUpdated] || "bg-gray-300 hover:bg-gray-400";

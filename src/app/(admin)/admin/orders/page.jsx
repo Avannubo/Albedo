@@ -21,6 +21,10 @@ export default function page() {
     setInactive(inactive);
     setIsLoading(false);
   };
+
+  const refetchData = async () => {
+    fetchData();
+  }
   // const handleModalClose = async () => {
   //   setIsLoading(true);
   //   const active = await getAllActiveOrders();
@@ -74,7 +78,7 @@ export default function page() {
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.totalPedido}€</td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.selectedPayment}</td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">
-                            <State orderState={order.orderState} orderId={index} />
+                            <State orderState={order.orderState} orderId={index} refetchData={refetchData} />
                           </td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">
                             <Details order={order} />
@@ -113,7 +117,7 @@ export default function page() {
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.totalPedido}€</td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.selectedPayment}</td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">
-                            <State orderState={order.orderState} orderId={index} />
+                            <State orderState={order.orderState} orderId={index} refetchData={refetchData} />
                             {/* //handleModalClose={handleModalClose} */}
                           </td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">

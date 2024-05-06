@@ -5,6 +5,7 @@ import Bcrypt from 'bcryptjs';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
+import { log } from 'console';
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
 const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
 const filePathActiveOrders = isLocal ? path.resolve('public/data/ClientOrdersActive.json') : '/data/ClientOrdersActive.json';
@@ -769,7 +770,7 @@ export async function getInactiveOrderByIndex(orderIndex) {
  */
 export async function updateActiveOrder(orderId, newState) {
     if (newState === 'Cancelado' || newState === 'Facturado') {
-        console.log('updated to inactive json ');
+        console.log('Update active order: moving to inactive JSON');
         try {
             const inactiveData = await readFile(filePathInactiveOrders, 'utf8');
             const activeData = await readFile(filePathActiveOrders, 'utf8');
@@ -781,22 +782,23 @@ export async function updateActiveOrder(orderId, newState) {
             if (!orderToUpdate) {
                 throw new Error("Order not found in ActiveOrders.");
             }
-            orderToUpdate.orderState = newState;
-            // Remove the order object from ActiveOrders
-            const index = ActiveOrders[orderId];
-            activeJsonData.ActiveOrders.splice(index, 1);
+            orderToUpdate.orderState = newState; 
+            console.log(orderId); 
+            ActiveOrders.splice(orderId, 1);
             // Add the updated order object to InactiveOrders
             InactiveOrders.push(orderToUpdate);
             // Write changes back to files
-            await writeFile(filePathInactiveOrders, JSON.stringify(inactiveJsonData));
-            await writeFile(filePathActiveOrders, JSON.stringify(activeJsonData));
+            await Promise.all([
+                await writeFile(filePathInactiveOrders, JSON.stringify({ InactiveOrders })),
+                await writeFile(filePathActiveOrders, JSON.stringify({ ActiveOrders }))
+            ]);
             return true;
         } catch (error) {
             console.error("Error updating active order state:", error);
             return false;
         }
     } else {
-        console.log('update in the same json');
+        console.log('Update active order: staying in the same JSON');
         try {
             const data = await readFile(filePathActiveOrders, 'utf8');
             const jsonData = JSON.parse(data);
@@ -812,7 +814,7 @@ export async function updateActiveOrder(orderId, newState) {
 }
 export async function updateInactiveOrder(orderId, newState) {
     if (newState === 'Pendiente' || newState === 'Confirmado' || newState === 'Procesando' || newState === 'Enviado') {
-        console.log('updated to Inactive json ');
+        console.log('Update inactive order: moving to active JSON');
         try {
             const inactiveData = await readFile(filePathInactiveOrders, 'utf8');
             const activeData = await readFile(filePathActiveOrders, 'utf8');
@@ -824,22 +826,23 @@ export async function updateInactiveOrder(orderId, newState) {
             if (!orderToUpdate) {
                 throw new Error("Order not found in InactiveOrders.");
             }
-            orderToUpdate.orderState = newState;
-            // Remove the order object from InactiveOrders
-            const index = InactiveOrders[orderId];
-            inactiveJsonData.InactiveOrders.splice(index, 1);
+            orderToUpdate.orderState = newState; 
+            console.log(orderId); 
+            InactiveOrders.splice(orderId, 1);
             // Add the updated order object to ActiveOrders
             ActiveOrders.push(orderToUpdate);
             // Write changes back to files
-            await writeFile(filePathInactiveOrders, JSON.stringify(inactiveJsonData));
-            await writeFile(filePathActiveOrders, JSON.stringify(activeJsonData));
+            await Promise.all([
+                await writeFile(filePathInactiveOrders, JSON.stringify({ InactiveOrders })),
+                await writeFile(filePathActiveOrders, JSON.stringify({ ActiveOrders }))
+            ]);
             return true;
         } catch (error) {
             console.error("Error updating inactive order state:", error);
             return false;
         }
     } else {
-        console.log('updated in the same json');
+        console.log('Update inactive order: staying in the same JSON');
         try {
             const data = await readFile(filePathInactiveOrders, 'utf8');
             const jsonData = JSON.parse(data);

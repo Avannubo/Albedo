@@ -124,7 +124,7 @@ export default function page() {
                             <Details order={order} />
                           </td>
                           <td>
-                            <Delete order={order} />
+                            <Delete index={index}  />
                           </td>
                         </tr>
                       ))}

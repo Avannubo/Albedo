@@ -676,6 +676,9 @@ export async function getDataByUrlId(slugIds) {
         return false;
     }
 }
+
+
+
 //function to save new orders on checkout page
 /**
  * Saves a new order to the system.
@@ -854,6 +857,41 @@ export async function updateInactiveOrder(orderId, newState) {
             console.log(error);
             return false;
         }
+    }
+}
+
+export async function deleteOrder(index) {
+    console.log(index);
+    try {
+        console.log("Reading file...");
+        const data = await readFile(filePathInactiveOrders, 'utf8');
+        console.log("File read successfully.");
+
+        console.log("Parsing JSON...");
+        const jsonData = JSON.parse(data);
+        console.log("JSON parsed successfully.");
+
+        let { InactiveOrders } = jsonData;
+
+        // Check if the index is valid
+        if (index >= 0 && index < InactiveOrders.length) {
+            console.log("Deleting order at index:", index);
+            // Splice the array to remove the order at the given index
+            InactiveOrders.splice(index, 1);
+            console.log("Order deleted successfully.");
+
+            console.log("Writing to file...");
+            await writeFile(filePathInactiveOrders, JSON.stringify(jsonData));
+            console.log("File updated successfully.");
+
+            return true; // Return true to indicate successful deletion
+        } else {
+            console.error("Invalid index provided.");
+            return false; // Return false to indicate failure
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return false; // Return false to indicate failure
     }
 }
 export async function getHashPassword() {

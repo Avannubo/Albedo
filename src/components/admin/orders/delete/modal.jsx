@@ -4,15 +4,21 @@ import React, { useEffect } from 'react';
 
 import { deleteOrder } from '@/lib/data';
 
-export default function DeleteModal({ isOpen, onClose, index }) {
-    // useEffect hook to reload data after modal is closed
-    // useEffect(() => {
-    //     if (!isOpen) {
-    //         if (typeof reloadData === 'function') {
-    //             reloadData(); // Call the reloadData function when the modal is closed
-    //         }
-    //     }
-    // }, [isOpen, reloadData]);
+export default function DeleteModal({ isOpen, onClose, index, refetchData }) {
+    const handleDelete = async () => {
+        // Call the deleteOrder function
+        const success = await deleteOrder(index);
+        // Check if deletion was successful
+        if (success) {
+            // If successful, close the modal
+            refetchData();
+            onClose();
+            
+        } else {
+            // Handle deletion failure if needed
+            console.error("Failed to delete order.");
+        }
+    };
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-md bg-white shadow-lg rounded-md p-6 relative">
@@ -31,7 +37,7 @@ export default function DeleteModal({ isOpen, onClose, index }) {
                 </div>
                 <div className="flex flex-row space-x-2">
 
-                    <button onClick={() => deleteOrder(index)} className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-red-500 hover:bg-red-600 active:bg-red-500">Delete</button>
+                    <button onClick={handleDelete} className="w-full px-6 py-2.5 rounded-md text-white text-sm font-semibold border-none outline-none bg-red-500 hover:bg-red-600 active:bg-red-500">Delete</button>
 
                     <button onClick={onClose} className="w-full px-6 py-2.5 rounded-md text-black text-sm font-semibold border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Cancel</button>
                 </div>

@@ -21,7 +21,6 @@ export default function page() {
     setInactive(inactive);
     setIsLoading(false);
   };
-
   const refetchData = async () => {
     fetchData();
   }
@@ -84,14 +83,15 @@ export default function page() {
                             <Details order={order} />
                           </td>
                         </tr>
-                      
                       ))}
                     </tbody>
                   </table>
                 )}
               </div>
               <div className={`overflow-y-scroll h-[400px] ${Inactive && Inactive.length <= 5 ? 'no-scrollbar' : ''}`}>
-                <h1 className="font-bold text-xl">Pedidos Cancelado/Facturados</h1>
+                {Inactive.length > 0 && (
+                  <h1 className="font-bold text-xl">Pedidos Cancelado/Facturados</h1>
+                )}
                 {Inactive.length > 0 && (
                   <table className="min-w-full text-left text-md font-light text-surface">
                     <thead className="border-b border-neutral-200 font-medium">
@@ -124,7 +124,7 @@ export default function page() {
                             <Details order={order} />
                           </td>
                           <td>
-                            <Delete index={index}  />
+                            <Delete index={index} refetchData={refetchData} />
                           </td>
                         </tr>
                       ))}

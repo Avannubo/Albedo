@@ -1,7 +1,7 @@
 "use client"
 import Modal from "@/components/admin/orders/delete/modal";
 import React, { useState } from 'react';
-export default function btn({ index }) {
+export default function btn({ index, refetchData }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
@@ -24,7 +24,7 @@ export default function btn({ index }) {
                     />
                 </svg>
             </div>
-            <Modal isOpen={isModalOpen} onClose={toggleModal} index={index} />
+            <Modal isOpen={isModalOpen} onClose={toggleModal} index={index} refetchData={refetchData} />
         </div>
     )
 }

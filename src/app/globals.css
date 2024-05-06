@@ -61,7 +61,11 @@ li {
     line-height: 24px;
 }
 
-/* .ql-editor{
-    padding: 0px!important;
-    margin: 0px!important;
-}  */
+.zoom-effect {
+    transition: transform 0.3s ease;
+}
+
+.zoom-effect:hover {
+    transform: scale(1.1);
+    /* Adjust the scale factor as needed */
+}

@@ -5,7 +5,6 @@ import Bcrypt from 'bcryptjs';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
-import { log } from 'console';
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
 const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
 const filePathActiveOrders = isLocal ? path.resolve('public/data/ClientOrdersActive.json') : '/data/ClientOrdersActive.json';

@@ -56,7 +56,7 @@ export default function PageContent() {
     return (
         <Layout>
             {loading ? (
-                <div className='glex grow min-h-[57vh]'>
+                <div className='glex grow min-h-[57vh] mt-10'>
                     <div className="flex-col gap-4 w-full flex items-center justify-center">
                         <div className="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full">
                         </div>
@@ -126,11 +126,12 @@ export default function PageContent() {
                                         {/* <Image className='rounded-lg w-full m-0 sm:mr-4 sm:mb-4' src={productData.imagens[0]} alt={productData.ALBEDOtitulo} width={300} height={350} /> */}
 
                                         {/* Map over each image in productData.imagens */}
-                                        <div className='flex flex-col'>
+                                        <div className='flex flex-col '>
+                                            
                                             {productData.imagens.map((image, index) => (
                                                 <Image
                                                     key={index} // Make sure to provide a unique key for each image
-                                                    className={`md:h-[400px] sm:h-[270px] h-[300px] md:w-[550px] object-cover rounded-lg ${index !== currentImageIndex ? 'hidden' : ''}`}
+                                                    className={` md:h-[400px] sm:h-[270px] h-[300px] md:w-[550px] object-cover rounded-lg ${index !== currentImageIndex ? 'hidden' : ''}`}
                                                     src={image}
                                                     alt={`Image ${index + 1}`} // Alt text can be dynamic if needed
                                                     width={4000}

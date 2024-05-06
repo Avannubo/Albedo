@@ -5,17 +5,14 @@ import Delete from '@/components/admin/orders/delete/btn';
 import State from '@/components/admin/orders/state/btn';
 import Layout from "@/app/(admin)/admin/AdminLayout";
 import { getAllActiveOrders, getAllInactiveOrders } from '@/lib/data';
-
 export default function page() {
   const [isLoading, setIsLoading] = useState(false);
   // const [orders, setOrders] = useState([]);
   const [Active, setActive] = useState([]);
   const [Inactive, setInactive] = useState([]);
-
   useEffect(() => {
     fetchData();
   }, []);
-
   const fetchData = async () => {
     setIsLoading(true);
     const active = await getAllActiveOrders();
@@ -24,14 +21,20 @@ export default function page() {
     setInactive(inactive);
     setIsLoading(false);
   };
-
+  // const handleModalClose = async () => {
+  //   setIsLoading(true);
+  //   const active = await getAllActiveOrders();
+  //   setActive(active);
+  //   const inactive = await getAllInactiveOrders();
+  //   setInactive(inactive);
+  //   setIsLoading(false);
+  // };
   // useEffect(() => {
   //   const activeOrders = orders.filter(order => order.orderState !== 'Cancelado' && order.orderState !== 'Facturado');
   //   setActive(activeOrders);
   //   const inActiveOrders = orders.filter(order => order.orderState === 'Cancelado' || order.orderState === 'Facturado');
   //   setInactive(inActiveOrders);
   // }, [orders]);
-
   return (
     <Layout>
       <div className='-mt-10'>
@@ -77,6 +80,7 @@ export default function page() {
                             <Details order={order} />
                           </td>
                         </tr>
+                      
                       ))}
                     </tbody>
                   </table>
@@ -95,8 +99,8 @@ export default function page() {
                         <th scope="col" className="text-center px-6 py-2">Total de Pedido</th>
                         <th scope="col" className="text-center px-6 py-2">Metodo de Pago</th>
                         <th scope="col" className="text-center px-6 py-2">Estado</th>
-                          <th scope="col" className="text-center px-6 py-2">Ver</th>
-                          <th scope="col" className="text-center px-6 py-2">Eliminar </th>
+                        <th scope="col" className="text-center px-6 py-2">Ver</th>
+                        <th scope="col" className="text-center px-6 py-2">Eliminar </th>
                       </tr>
                     </thead>
                     <tbody className='border-spacing-y-4'>
@@ -110,6 +114,7 @@ export default function page() {
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.selectedPayment}</td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">
                             <State orderState={order.orderState} orderId={index} />
+                            {/* //handleModalClose={handleModalClose} */}
                           </td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">
                             <Details order={order} />

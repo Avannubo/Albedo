@@ -1,19 +1,31 @@
 "use client"
 import Modal from "@/components/admin/orders/state/modal";
-import { getOrderByIndex } from "@/lib/data";
+import { getActiveOrderByIndex, getInactiveOrderByIndex } from "@/lib/data";
 import React, { useState, useEffect } from 'react';
 export default function Btn({ orderState, orderId }) {
+    // console.log(orderState);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [orderDataStateUpdated, setOrderDataStateUpdated] = useState(null); // State to store fetched order data
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
     const fetchOrderData = async () => {
-        try {
-            const order = await getOrderByIndex(orderId);
-            setOrderDataStateUpdated(order.orderState);
-        } catch (error) {
-            console.error("Error fetching order data:", error);
+        if (orderState === 'Facturado' || orderState === 'Cancelado') {
+            try {
+                const order = await getInactiveOrderByIndex(orderId);
+                setOrderDataStateUpdated(order.orderState);
+            } catch (error) {
+                console.error("Error fetching order data:", error);
+            }
+        }
+        
+        if (orderState === 'Pendiente' || orderState === 'Confirmado' || orderState === 'Procesando' || orderState === 'Enviado') {
+            try {
+                const order = await getActiveOrderByIndex(orderId);
+                setOrderDataStateUpdated(order.orderState);
+            } catch (error) {
+                console.error("Error fetching order data:", error);
+            }
         }
     };
     useEffect(() => {

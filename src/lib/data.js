@@ -77,7 +77,6 @@ export async function updateShippingPrices(spainPrice, euPrice, internationalPri
         jsonData.EnvioES = spainPrice;
         jsonData.EnviosUE = euPrice;
         jsonData.EnviosINT = internationalPrice;
-
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
         return jsonData;
@@ -747,10 +746,9 @@ export async function getActiveOrderByIndex(orderIndex) {
         return null;
     }
 }
-
 export async function getInactiveOrderByIndex(orderIndex) {
     try {
-        const data = await readFile(filePathActiveOrders, 'utf8');
+        const data = await readFile(filePathInactiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
         const { InactiveOrders } = jsonData;
         if (orderIndex < 0 || orderIndex >= InactiveOrders.length) {
@@ -769,19 +767,90 @@ export async function getInactiveOrderByIndex(orderIndex) {
  * @param {string} newState - The new state of the order.
  * @returns {boolean} Indicates whether the update was successful.
  */
-export async function updateOrderStateById(orderId, newState) {
-    try {
-        const data = await readFile(filePathActiveOrders, 'utf8');
-        const jsonData = JSON.parse(data);
-        const { ActiveOrders } = jsonData;
-        // Update the state of the order
-        ActiveOrders[orderId].orderState = newState;
-        // Write the updated data back to the file
-        await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
-        return true;
-    } catch (error) {
-        console.error("Error updating order state:", error);
-        return false;
+export async function updateActiveOrder(orderId, newState) {
+    if (newState === 'Cancelado' || newState === 'Facturado') {
+        console.log('updated to inactive json ');
+        try {
+            const inactiveData = await readFile(filePathInactiveOrders, 'utf8');
+            const activeData = await readFile(filePathActiveOrders, 'utf8');
+            const inactiveJsonData = JSON.parse(inactiveData);
+            const activeJsonData = JSON.parse(activeData);
+            const { InactiveOrders } = inactiveJsonData;
+            const { ActiveOrders } = activeJsonData;
+            const orderToUpdate = ActiveOrders[orderId];
+            if (!orderToUpdate) {
+                throw new Error("Order not found in ActiveOrders.");
+            }
+            orderToUpdate.orderState = newState;
+            // Remove the order object from ActiveOrders
+            const index = ActiveOrders[orderId];
+            activeJsonData.ActiveOrders.splice(index, 1);
+            // Add the updated order object to InactiveOrders
+            InactiveOrders.push(orderToUpdate);
+            // Write changes back to files
+            await writeFile(filePathInactiveOrders, JSON.stringify(inactiveJsonData));
+            await writeFile(filePathActiveOrders, JSON.stringify(activeJsonData));
+            return true;
+        } catch (error) {
+            console.error("Error updating active order state:", error);
+            return false;
+        }
+    } else {
+        console.log('update in the same json');
+        try {
+            const data = await readFile(filePathActiveOrders, 'utf8');
+            const jsonData = JSON.parse(data);
+            const { ActiveOrders } = jsonData;
+            ActiveOrders[orderId].orderState = newState;
+            await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+}
+export async function updateInactiveOrder(orderId, newState) {
+    if (newState === 'Pendiente' || newState === 'Confirmado' || newState === 'Procesando' || newState === 'Enviado') {
+        console.log('updated to Inactive json ');
+        try {
+            const inactiveData = await readFile(filePathInactiveOrders, 'utf8');
+            const activeData = await readFile(filePathActiveOrders, 'utf8');
+            const inactiveJsonData = JSON.parse(inactiveData);
+            const activeJsonData = JSON.parse(activeData);
+            const { InactiveOrders } = inactiveJsonData;
+            const { ActiveOrders } = activeJsonData;
+            const orderToUpdate = InactiveOrders[orderId];
+            if (!orderToUpdate) {
+                throw new Error("Order not found in InactiveOrders.");
+            }
+            orderToUpdate.orderState = newState;
+            // Remove the order object from InactiveOrders
+            const index = InactiveOrders[orderId];
+            inactiveJsonData.InactiveOrders.splice(index, 1);
+            // Add the updated order object to ActiveOrders
+            ActiveOrders.push(orderToUpdate);
+            // Write changes back to files
+            await writeFile(filePathInactiveOrders, JSON.stringify(inactiveJsonData));
+            await writeFile(filePathActiveOrders, JSON.stringify(activeJsonData));
+            return true;
+        } catch (error) {
+            console.error("Error updating inactive order state:", error);
+            return false;
+        }
+    } else {
+        console.log('updated in the same json');
+        try {
+            const data = await readFile(filePathInactiveOrders, 'utf8');
+            const jsonData = JSON.parse(data);
+            const { InactiveOrders } = jsonData;
+            InactiveOrders[orderId].orderState = newState;
+            await writeFile(filePathInactiveOrders, JSON.stringify(jsonData));
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 }
 export async function getHashPassword() {
@@ -850,10 +919,8 @@ export async function saveImage(base64Image, imagePath) {
     });
 }
 export async function saveFile(fileData, filePath) {
-
     // Decode base64 file data
     const decodedFileData = Buffer.from(fileData.replace(/^data:\w+\/\w+;base64,/, ''), 'base64');
-
     // Write the file to the server
     fs.writeFile(filePath, decodedFileData, (error) => {
         if (error) {
@@ -864,7 +931,6 @@ export async function saveFile(fileData, filePath) {
         }
     });
 }
-
 export async function deleteImages(imagePathsToDelete) {
     return new Promise((resolve, reject) => {
         // Loop through each image path and delete it

@@ -6,38 +6,38 @@ import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, categoryId }) {
     // const productData = getProductById(productId);
-    // console.log(JSON.stringify(productData));
-    const [newCategoryName, setNewCategoryName] = useState('');
-    const [newCategoryCode, setNewCategoryCode] = useState('');
-    const [newCategoryDescription, setNewCategoryDescription] = useState('');
-    const [newCategoryBody, setNewCategoryBody] = useState('');
-    const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
+    // console.log(categoryId);
+    const [newCategoryName, setNewCategoryName] = useState(categoryId.categoryId.name);
+    const [newCategoryCode, setNewCategoryCode] = useState(categoryId.categoryId.id);
+    const [newCategoryDescription, setNewCategoryDescription] = useState(categoryId.categoryId.ALBEDOdescripcion);
+    const [newCategoryBody, setNewCategoryBody] = useState(categoryId.categoryId.ALBEDOcuerpo);
+    const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(categoryId.categoryId.isPublished);
+    const [categoryImages, setCategoryImages] = useState(categoryId.categoryId.imagens);
     const [selectedImages, setSelectedImages] = useState([]);
-    const [categoryImages, setCategoryImages] = useState([]);
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getCategoryById(categoryId);
-                console.log("client:", JSON.stringify(data));
-                if (data) {
-                    setNewCategoryCode(data.id);
-                    setNewCategoryName(data.name);
-                    setNewCategoryDescription(data.ALBEDOdescripcion);
-                    setNewCategoryBody(data.ALBEDOcuerpo);
-                    setNewCategoryIsPublished(data.isPublished);
-                    setCategoryImages(data.imagen);
-                    console.log(data.imagen);
-                } else {
-                    console.log("category not found.");
-                }
-            } catch (error) {
-                console.error('Error fetching category data:', error);
-            }
-        };
-        if (isOpen) {
-            fetchData();
-        }
-    }, [isOpen, categoryId]);
+    // useEffect(() => {
+    //     setNewCategoryCode(categoryId.categoryId.id);
+    //     setNewCategoryName(categoryId.categoryId.name);
+    //     setNewCategoryDescription(categoryId.categoryId.ALBEDOdescripcion);
+    //     setNewCategoryBody(categoryId.categoryId.ALBEDOcuerpo);
+    //     setNewCategoryIsPublished(categoryId.categoryId.isPublished);
+    //     setCategoryImages(categoryId.categoryId.imagens);
+    //     // const fetchData = async () => {
+    //     //     try {
+    //     //         // const data = await getCategoryById(categoryId);
+    //     //         const data = categoryId.categoryId;
+    //     //         console.log("client:", data);
+    //     //         if (data) {
+                    
+    //     //             // console.log(data.imagen);
+    //     //         } else {
+    //     //             console.log("category not found.");
+    //     //         }
+    //     //     } catch (error) {
+    //     //         console.error('Error fetching category data:', error);
+    //     //     }
+    //     // }; 
+    //     //     fetchData(); 
+    // }, [isOpen, categoryId]);
     //change listeners  for inputs
     const handleInputChangeName = (event) => {
         setNewCategoryName(event.target.value);
@@ -101,15 +101,15 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         const imagePaths = await uploadImages();
         const allImagePaths = [...imagePaths, ...categoryImages];
         const uniqueImagePaths = Array.from(new Set(allImagePaths));
-        console.log(uniqueImagePaths);
+        console.log(uniqueImagePaths, categoryId, newCategoryCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished, uniqueImagePaths);
         editCategory(categoryId, newCategoryCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished, uniqueImagePaths);
-        setNewCategoryCode('');
-        setNewCategoryName('');
-        setNewCategoryDescription('');
-        setNewCategoryBody('');
-        setNewCategoryIsPublished(newCategoryIsPublished);
-        setSelectedImages([]);
-        setSelectedImages([]);
+        // setNewCategoryCode('');
+        // setNewCategoryName('');
+        // setNewCategoryDescription('');
+        // setNewCategoryBody('');
+        // setNewCategoryIsPublished(newCategoryIsPublished);
+        // setSelectedImages([]);
+        // setSelectedImages([]);
         onClose();
     };
     return isOpen ? (
@@ -137,7 +137,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
-                                    <input onChange={handleInputChangeCode} value={newCategoryCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
+                                    <input onChange={handleInputChangeCode} disabled value={newCategoryCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>

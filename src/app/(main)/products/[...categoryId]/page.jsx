@@ -20,12 +20,10 @@ export default function PageContent() {
     const [productData, setProductData] = useState(null);
     const [loading, setLoading] = useState(true); // State for loading status
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
     // Function to handle switching to the previous image
     const prevImage = () => {
         setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? productData.imagens.length - 1 : prevIndex - 1));
     };
-
     // Function to handle switching to the next image
     const nextImage = () => {
         setCurrentImageIndex((prevIndex) => (prevIndex === productData.imagens.length - 1 ? 0 : prevIndex + 1));
@@ -124,10 +122,8 @@ export default function PageContent() {
                                     <div className='md:w-1/3  md:mr-6 sm:mr-3'>
                                     <div className='md:top-28 md:sticky flex flex-col sm:flex-row md:flex-col  sm:space-x-2 md:space-x-0'>
                                         {/* <Image className='rounded-lg w-full m-0 sm:mr-4 sm:mb-4' src={productData.imagens[0]} alt={productData.ALBEDOtitulo} width={300} height={350} /> */}
-
                                         {/* Map over each image in productData.imagens */}
                                         <div className='flex flex-col '>
-                                            
                                             {productData.imagens.map((image, index) => (
                                                 <Image
                                                     key={index} // Make sure to provide a unique key for each image
@@ -138,7 +134,6 @@ export default function PageContent() {
                                                     height={5050}
                                                 />
                                             ))}
-
                                             <div className="flex flex-row items-start mt-2 ">
                                                 {/* Thumbnails of all images for navigation */}
                                                 {productData.imagens.map((image, index) => (
@@ -154,7 +149,6 @@ export default function PageContent() {
                                                 ))}
                                             </div>
                                         </div>
-
                                         <div className='my-4 sm:my-0 w-full'>
                                             <h1 className='md:hidden font-extrabold text-2xl'>{productData.ALBEDOtitulo}</h1>
                                             <p className='text-xl font-medium mt-2'><b>Precio: </b>{productData.ALBEDOprecio}€</p>

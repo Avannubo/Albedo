@@ -6,7 +6,7 @@
             "fixedUrl": "/products/025",
             "name": "Accesibilidad para museos y exposiciones",
             "ALBEDOdescripcion": "<p>Farola solar LED con sensor de movimiento</p>",
-            "FechaDeModificacion": "30/4/2024 9:7:17",
+            "FechaDeModificacion": "7/5/2024 9:58:49",
             "FeachaDeCreacion": "20/03/2024 ",
             "imagens": [
                 "/assets/images/200000066.jpg"
@@ -15,14 +15,14 @@
                 "/assets/archivos/G34304249.pdf"
             ],
             "isPublished": true,
-            "ALBEDOcuerpo": "",
+            "ALBEDOcuerpo": "<p>Farola solar LED</p>",
             "products": [
                 {
                     "ALBEDOcodigo": "indoorNav",
                     "url_Id": "001",
                     "fixedUrl": "/products/025/001",
                     "ALBEDOtitulo": "IndoorNav Basic",
-                    "ALBEDOprecio": 20,
+                    "ALBEDOprecio": 123,
                     "ALBEDOdescripcion": "<p>Sistema de guía accesible en su museo o exposición.</p>",
                     "isPublished": true,
                     "ALBEDOcuerpo": "<p>Sistema de comunicación accesible</p><p>El Sistema se compone de:</p><ul><li>Un subsistema de gestión de contenidos (CMS por sus siglas en inglés).</li><li>Balizas Bluetooth, beacons, para identificar ubicaciones y objetos. Pueden funcionar en el exterior, por su nivel de estanqueidad.</li><li>Una aplicación web para a la gestión de balizas y usuarios.</li><li>Una aplicación móvil de usuario en iOS y Android (audioguía).</li></ul><p><br></p><p>El Servicio Básico comprende:</p><ul><li>20 balizas Bluetooth con una garantía de dos años.</li><li>Almacenamiento en la nube durante el primer año de servicio.</li><li>Mantenimiento correctivo y adaptativo durante el primer año de servicio.</li><li>Manual de instalación y uso.</li></ul><p><br></p><p>El sistema de gestión de contenidos puede almacenar la información en diferentes idiomas, con lenguaje comprensivo según formación, edad y capacidades cognitivas, con audio descripción para personas con discapacidad visual, vídeo en lengua de signos y realidad aumentada. Cada entidad decide el nivel al que quiere llegar en función de los recursos dedicados a la creación del itinerario. Por supuesto, los contenidos siempre pueden ser actualizados.</p><p>La aplicación móvil se descarga de Google Play o de Apple Store. La interfaz se adapta a las capacidades del usuario. Proporciona información de todos los elementos de la exposición con el formato más adecuado para el usuario. Da indicaciones de navegación de la visita y recomienda los posibles itinerarios.</p><p>Nota: en el mantenimiento no se incluye el cambio de pilas de las balizas.</p>",
@@ -38,7 +38,7 @@
                         "/assets/archivos/G34304249.pdf"
                     ],
                     "ALBEDOplazo_entrega": 4,
-                    "FechaDeModificacion": "2/5/2024 15:48:20"
+                    "FechaDeModificacion": "7/5/2024 10:10:7"
                 }
             ],
             "subCategories": []
@@ -77,11 +77,11 @@
                             "url_Id": "005",
                             "fixedUrl": "/products/",
                             "ALBEDOtitulo": "Farola solar LED",
-                            "ALBEDOprecio": 67,
+                            "ALBEDOprecio": 212,
                             "archivos": [],
                             "ALBEDOdescripcion": "<p><strong>Farola solar LED con sensor de movimiento</strong>. Consume 200W y produce un flujo luminoso de 3000 Lumens.</p>",
                             "isPublished": true,
-                            "ALBEDOcuerpo": "<p>Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.</p><p class=\"ql-align-justify\"><br></p><p class=\"ql-align-justify\"><strong>Características</strong></p><p class=\"ql-align-justify\">Potencia eléctrica:              \t  \t100 W</p><p class=\"ql-align-justify\">Índice de protección:          \t   \tIP65</p><p class=\"ql-align-justify\">Temperatura de color:         \t    5000 K</p><p class=\"ql-align-justify\">Flujo luminoso:              \t   \t \t \t2500 lm</p><p class=\"ql-align-justify\">Dimensiones:               \t\t\t \t530x270x70 mm</p><p class=\"ql-align-justify\">Dimensiones panel:             \t\t420x210 mm</p><p class=\"ql-align-justify\">Número diodos LED:                 \t360</p><p class=\"ql-align-justify\">Ángulo de apertura:                \t120 º</p><p class=\"ql-align-justify\">Tiempo de carga de la batería:   6...8 h</p><p class=\"ql-align-justify\">Autonomía de la batería:       \t\t10...12 h</p><p><br></p>",
+                            "ALBEDOcuerpo": "<p>Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.</p><p class=\"ql-align-justify\"><br></p><p class=\"ql-align-justify\"><strong>Características</strong></p><p class=\"ql-align-justify\">Potencia eléctrica: 100 W</p><p class=\"ql-align-justify\">Índice de protección: IP65</p><p class=\"ql-align-justify\">Temperatura de color: 5000 K</p><p class=\"ql-align-justify\">Flujo luminoso: 2500 lm</p><p class=\"ql-align-justify\">Dimensiones: 530x270x70 mm</p><p class=\"ql-align-justify\">Dimensiones panel: 420x210 mm</p><p class=\"ql-align-justify\">Número diodos LED: 360</p><p class=\"ql-align-justify\">Ángulo de apertura: 120 º</p><p class=\"ql-align-justify\">Tiempo de carga de la batería: 6...8 h</p><p class=\"ql-align-justify\">Autonomía de la batería: 10...12 h</p>",
                             "ALBEDOcuerpo2": "Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.",
                             "ALBEDOstock_minimo": "0",
                             "ALBEDOstock": "0",
@@ -90,7 +90,7 @@
                             ],
                             "ALBEDOplazo_entrega": "0",
                             "ALBEDOcategory": "Farolas",
-                            "FechaDeModificacion": "30/4/2024 8:59:35"
+                            "FechaDeModificacion": "7/5/2024 10:14:23"
                         },
                         {
                             "ALBEDOcodigo": "ADFSSM200",

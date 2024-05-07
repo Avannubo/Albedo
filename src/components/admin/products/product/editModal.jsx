@@ -4,51 +4,66 @@ import React, { useState, useEffect } from 'react';
 import { editproduct, getProductById, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
-export default function EditModal({ isOpen, onClose, productId }) {
-    const [newProductName, setNewProductName] = useState('');
-    const [newProductCode, setNewProductCode] = useState('');
-    const [newProductUrlCode, setNewProductUrlCode] = useState('');
-    const [newProductPrice, setNewProductPrice] = useState('');
-    const [newProductDescription, setNewProductDescription] = useState('');
-    const [newProductBody, setNewProductBody] = useState('');
-    const [newProductStock, setNewProductStock] = useState(0);
-    const [newProductMinStock, setNewProductMinStock] = useState(0);
-    const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(0);
-    const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
+export default function EditModal({ isOpen, onClose, productId, reloadData }) {
+    // console.log(productId.productId);
+    const [newProductName, setNewProductName] = useState(productId.productId.ALBEDOtitulo);
+    const [newProductCode, setNewProductCode] = useState(productId.productId.ALBEDOcodigo);
+    const [newProductUrlCode, setNewProductUrlCode] = useState(productId.productId.url_Id);
+    const [newProductPrice, setNewProductPrice] = useState(productId.productId.ALBEDOprecio);
+    const [newProductDescription, setNewProductDescription] = useState(productId.productId.ALBEDOdescripcion);
+    const [newProductBody, setNewProductBody] = useState(productId.productId.ALBEDOcuerpo);
+    const [newProductStock, setNewProductStock] = useState(productId.productId.ALBEDOstock);
+    const [newProductMinStock, setNewProductMinStock] = useState(productId.productId.ALBEDOstock_minimo);
+    const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(productId.productId.ALBEDOplazo_entrega);
+    const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(productId.productId.isPublished);
+    const [productImages, setProductImages] = useState(productId.productId.imagens);
+    const [productFiles, setProductFiles] = useState(productId.productId.archivos);
+
+
     const [selectedImages, setSelectedImages] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
-    const [productImages, setProductImages] = useState([]);
-    const [productFiles, setProductFiles] = useState([]);
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getProductById(productId);
-                console.log("front:", data);
-                if (data) {
-                    const product = JSON.parse(data); // Parse the JSON string
-                    setNewProductName(product.ALBEDOtitulo);
-                    setNewProductCode(product.ALBEDOcodigo);
-                    setNewProductUrlCode(product.url_Id);
-                    setNewProductPrice(product.ALBEDOprecio);
-                    setNewProductDescription(product.ALBEDOdescripcion);
-                    setNewProductBody(product.ALBEDOcuerpo);
-                    setNewProductStock(product.ALBEDOstock);
-                    setNewCategoryIsPublished(product.isPublished);
-                    setNewProductMinStock(product.ALBEDOstock_minimo);
-                    setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
-                    setProductImages(product.imagens);
-                    setProductFiles(product.archivos);
-                    console.log(product.archivos[0])
-                } else {
-                    console.log("Product not found.");
-                }
-            } catch (error) {
-                console.error('Error fetching product data:', error);
-            }
-        };
-        if (isOpen) {
-            fetchData();
-        }
+        setNewProductName(productId.productId.ALBEDOtitulo);
+        setNewProductCode(productId.productId.ALBEDOcodigo);
+        setNewProductUrlCode(productId.productId.url_Id);
+        setNewProductPrice(productId.productId.ALBEDOprecio);
+        setNewProductDescription(productId.productId.ALBEDOdescripcion);
+        setNewProductBody(productId.productId.ALBEDOcuerpo);
+        setNewProductStock(productId.productId.ALBEDOstock);
+        setNewCategoryIsPublished(productId.productId.isPublished);
+        setNewProductMinStock(productId.productId.ALBEDOstock_minimo);
+        setNewProductDeliveryTime(productId.productId.ALBEDOplazo_entrega);
+        setProductImages(productId.productId.imagens);
+        setProductFiles(productId.productId.archivos);
+        // const fetchData = async () => {
+        //     try {
+        //         const data = await getProductById(productId.productId);
+        //         console.log("front:", data);
+        //         if (data) {
+        //             const product = JSON.parse(data); // Parse the JSON string
+        //             setNewProductName(product.ALBEDOtitulo);
+        //             setNewProductCode(product.ALBEDOcodigo);
+        //             setNewProductUrlCode(product.url_Id);
+        //             setNewProductPrice(product.ALBEDOprecio);
+        //             setNewProductDescription(product.ALBEDOdescripcion);
+        //             setNewProductBody(product.ALBEDOcuerpo);
+        //             setNewProductStock(product.ALBEDOstock);
+        //             setNewCategoryIsPublished(product.isPublished);
+        //             setNewProductMinStock(product.ALBEDOstock_minimo);
+        //             setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
+        //             setProductImages(product.imagens);
+        //             setProductFiles(product.archivos);
+        //             console.log(product.archivos[0])
+        //         } else {
+        //             console.log("Product not found.");
+        //         }
+        //     } catch (error) {
+        //         console.error('Error fetching product data:', error);
+        //     }
+        // };
+        // if (isOpen) {
+        //     fetchData();
+        // }
     }, [isOpen, productId]);
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
@@ -200,7 +215,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
             // Upload images and related files
             const imagePaths = await uploadImages();
             const relatedFilePaths = await uploadRelatedFiles();
-            console.log(relatedFilePaths);
+            // console.log(relatedFilePaths);
             // Combine new and existing image paths and file paths
             const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
             const uniqueFilePaths = Array.from(new Set([...relatedFilePaths, ...productFiles]));
@@ -220,21 +235,21 @@ export default function EditModal({ isOpen, onClose, productId }) {
                 uniqueFilePaths);
             setProductImages(uniqueImagePaths); // Update productImages state
             setProductFiles(uniqueFilePaths)
-
-            setNewProductName('');
-            setNewProductCode('');
-            setNewProductUrlCode('');
-            setNewProductPrice(0);
-            setNewProductDescription('');
-            setNewProductBody('');
-            setNewProductStock(0);
-            setNewProductMinStock(0);
-            setNewProductDeliveryTime(0);
-            setNewCategoryIsPublished(newCategoryIsPublished);
-            setProductImages([]);
-            setSelectedImages([]);
-            setSelectedFiles([]);
-            setProductFiles([]);
+            // setNewProductName('');
+            // setNewProductCode('');
+            // setNewProductUrlCode('');
+            // setNewProductPrice(0);
+            // setNewProductDescription('');
+            // setNewProductBody('');
+            // setNewProductStock(0);
+            // setNewProductMinStock(0);
+            // setNewProductDeliveryTime(0);
+            // setNewCategoryIsPublished(newCategoryIsPublished);
+            // setProductImages([]);
+            // setSelectedImages([]);
+            // setSelectedFiles([]);
+            // setProductFiles([]);
+            reloadData();
             onClose();
         } catch (error) {
             console.error("Error uploading images:", error);
@@ -265,7 +280,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
-                                    <input onChange={handleInputChangeCode} value={newProductCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
+                                    <input onChange={handleInputChangeCode} disabled value={newProductCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Modal from '@/components/admin/products/product/editModal';
 
-export default function editProduct(productId) {
+export default function editProduct(product, reloadData) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -16,7 +16,7 @@ export default function editProduct(productId) {
                 </svg>
                 <h1>Editar</h1>
             </div>
-            <Modal isOpen={isModalOpen} onClose={toggleModal} productId={productId} />
+            <Modal isOpen={isModalOpen} onClose={toggleModal} productId={product} reloadData={reloadData} />
         </div>
     )
 }

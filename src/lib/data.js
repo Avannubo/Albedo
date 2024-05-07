@@ -18,19 +18,25 @@ const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth(
  * Reads the content of a JSON file containing product data.
  * @returns {Object} The parsed JSON content of the file.
  */
+// export async function requireContent() {
+//     const stats = await fs.stat(filePath);
+//     if (stats.mtimeMs !== lastModifiedTime) {
+//         lastModifiedTime = stats.mtimeMs;
+//         const res = await fs.readFile(filePath, 'utf8');
+//         cachedData = JSON.parse(res);
+//     }
+//     return cachedData;
+// }
+let cachedContent = null;
+
 export async function requireContent() {
-    const stats = await fs.stat(filePath);
-    if (stats.mtimeMs !== lastModifiedTime) {
-        lastModifiedTime = stats.mtimeMs;
+    if (!cachedContent) {
         const res = await fs.readFile(filePath, 'utf8');
-        cachedData = JSON.parse(res);
+        cachedContent = JSON.parse(res);
     }
-    return cachedData;
+    return cachedContent;
 }
-/**
- * Retrieves categories from the product data.
- * @returns {Array} An array of category objects.
- */
+
 export async function getCategories() {
     const content = await requireContent();
     if (content) {
@@ -40,6 +46,14 @@ export async function getCategories() {
         return []; // Return an empty array if categories don't exist
     }
 }
+
+// Parallel loading of content and categories
+export async function loadData() {
+    const [content, categories] = await Promise.all([requireContent(), getCategories()]);
+    return { content, categories };
+}
+
+
 export async function getParameters() {
     try {
         const data = await readFile(filePathParameters, 'utf8');
@@ -403,18 +417,19 @@ export async function addproduct(categoryId, productData) {
  * @returns {boolean} Indicates whether the editing was successful.
  */
 export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
+    console.log('called function editproduct' + productId.productId);
+
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        // console.log("\nproduct to EDIT: ", productToEdit);
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 for (let j = 0; j < category.products.length; j++) {
                     const product = category.products[j];
-                    // // console.log(productId.productId);
-                    if (product.ALBEDOcodigo === productId.productId) {
-                        // console.log("product found:", product);
+                    // console.log(productId.productId);
+                    if (product.ALBEDOcodigo === productCode) {
+                        console.log("product found:", product);
                         product.ALBEDOcodigo = productCode.replace(/ /g, "-");
                         product.url_Id = url_Id;
                         product.ALBEDOtitulo = Name;
@@ -428,9 +443,9 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         product.isPublished = isPublished;
                         product.imagens = imagePaths;
                         product.archivos = filePaths;
-                        // console.log("Writing updated data to file...");
+                        console.log("Writing updated data to file...");
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                        // console.log("Data written successfully.");
+                        console.log("Data written successfully.");
                         // Assuming revalidatePath is defined somewhere
                         // window.location.reload();
                         //  revalidatePath('/admin/categories');
@@ -445,16 +460,16 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
             }
             return false;
         };
-        // console.log("Starting saving process...");
+        console.log("Starting saving process...");
         const product = await loopRecursive(categories);
         if (!product) {
-            // console.log("product not found.");
+            console.log("product not found.");
             return false;
         }
-        // console.log("product saved successfully.");
+        console.log("product saved successfully.");
         return true;
     } catch (error) {
-        // console.log("Error:", error);
+        console.log("Error:", error);
         return false;
     }
 }
@@ -469,6 +484,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
  * @returns {boolean} Indicates whether the editing was successful.
  */
 export async function editCategory(categoryId, Code, Name, Description, Body, isPublished, imagePaths) {
+    console.log('called function editCategory');
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -622,6 +638,8 @@ export async function getCategoryById(categoryId) {
         return false;
     }
 }
+
+
 /**
  * Returns the category data based on the given URL IDs.
  * @param {string[]} slugIds - The array of URL IDs.
@@ -784,8 +802,8 @@ export async function updateActiveOrder(orderId, newState) {
             if (!orderToUpdate) {
                 throw new Error("Order not found in ActiveOrders.");
             }
-            orderToUpdate.orderState = newState; 
-            console.log(orderId); 
+            orderToUpdate.orderState = newState;
+            console.log(orderId);
             ActiveOrders.splice(orderId, 1);
             // Add the updated order object to InactiveOrders
             InactiveOrders.push(orderToUpdate);
@@ -828,8 +846,8 @@ export async function updateInactiveOrder(orderId, newState) {
             if (!orderToUpdate) {
                 throw new Error("Order not found in InactiveOrders.");
             }
-            orderToUpdate.orderState = newState; 
-            console.log(orderId); 
+            orderToUpdate.orderState = newState;
+            console.log(orderId);
             InactiveOrders.splice(orderId, 1);
             // Add the updated order object to ActiveOrders
             ActiveOrders.push(orderToUpdate);

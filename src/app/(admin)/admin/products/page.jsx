@@ -39,8 +39,8 @@ const Category = ({ category, fetchData }) => (
               {product.url_Id} : {product.ALBEDOtitulo}
             </p>
             <div className="space-x-4 flex flex-row justify-center items-center">
-              <EditProduct productId={product.ALBEDOcodigo} />
-              <Delete categoryId={"none"} productId={product} />
+              <EditProduct productId={product} reloadData={fetchData} />
+              <Delete categoryId={"none"} productId={product} reloadData={fetchData} />
               <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
                 {product.isPublished ? "Publicado" : "Oculto"}
               </p>

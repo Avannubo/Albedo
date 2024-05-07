@@ -22,7 +22,7 @@ const Category = ({ category, fetchData }) => (
         {/* edit svg */}
         <EditCatedory categoryId={category} />
         {/* delete svg */}
-        <Delete categoryId={category} productId={"none"} reloadData={fetchData} />
+        <Delete categoryId={category} productId={"none"} />
         <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
           {category.isPublished ? "Publicado" : "Oculto"}
         </p>
@@ -40,7 +40,7 @@ const Category = ({ category, fetchData }) => (
             </p>
             <div className="space-x-4 flex flex-row justify-center items-center">
               <EditProduct  productId={product} />
-              <Delete categoryId={"none"} productId={product} reloadData={fetchData} />
+              <Delete categoryId={"none"} productId={product} />
               <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
                 {product.isPublished ? "Publicado" : "Oculto"}
               </p>

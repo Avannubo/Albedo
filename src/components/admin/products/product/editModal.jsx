@@ -187,7 +187,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
             // Upload images and related files
             const imagePaths = await uploadImages();
             const relatedFilePaths = await uploadRelatedFiles();
-            
+
             // console.log(relatedFilePaths);
             // Combine new and existing image paths and file paths
             const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
@@ -233,7 +233,9 @@ export default function EditModal({ isOpen, onClose, productId }) {
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-6xl bg-white shadow-lg rounded-md p-6 relative">
                 {loading && <div className="absolute inset-0 flex justify-center items-center bg-gray-200 bg-opacity-75 z-[1000]">
-                    <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+                    <div className="flex-col gap-4 w-full flex items-center justify-center">
+                        <div className="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full"></div>
+                    </div>
                 </div>}
                 <svg onClick={onClose} xmlns="http://www.w3.org/2000/svg" className="w-3.5 cursor-pointer shrink-0 fill-black hover:fill-red-500 float-right" viewBox="0 0 320.591 320.591">
                     <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z" data-original="#000000"></path>

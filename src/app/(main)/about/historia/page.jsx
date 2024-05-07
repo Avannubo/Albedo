@@ -1,13 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import Layout from "@/app/(main)/WebLayout";
 
 export default function page() {
     return (
-        <div>
-            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+        <Layout>
+            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700 mt-10" />
             <div className="flex justify-center my-4">
-                <h1 className="text-3xl font-bold">Historia de la empresa</h1>
+                <h1 className="text-3xl font-bold text-center">Historia de la empresa</h1>
             </div>
             <div className='text-xl space-y-4 mb-4'>
 
@@ -18,7 +19,7 @@ export default function page() {
                         className="float-left rounded-lg mr-4"
                         width="130"
                         height="50"
-                        priority
+                        priority="true"
                     />
                     Albedo Design SL nace a principios de 2004 e inicia sus actividades en Junio de 2004. A pesar de su corta edad, en la empresa se acumulan más de 40 años de experiencia en el sector electrónico profesional.
                     <br />Dicha experiencia procede de la larga trayectoria profesional de algunos de los socios fundadores de Albedo Design S.L.: <b className='font-bold'>Juan Beneyto</b>  y <b className='font-bold'>Juan Luis Montore</b> (<Link className='text-[#304590]' href="/mas">más información...</Link>).
@@ -30,7 +31,7 @@ export default function page() {
                         className="float-right rounded-lg ml-4"
                         width="170"
                         height="50"
-                        priority
+                        priority="true"
                     /> ICT pasó posteriormente a telecom2 formar parte del grupo Trend Communications bajo la denominación Trend Communications SL. <br />
                     ICT electronics fue durante largos años lider mundial en el sector de la Instrumentación para Telecomunicaciones.
                     <br />
@@ -44,6 +45,6 @@ export default function page() {
                 <p><b className='font-bold'>2006</b> : Creamos la nueva división, <Link className='font-bold text-[#304590]' href="https://www.instruments.albedo.biz/">ALBEDO instruments</Link>, dedicada a la comercialización de instrumentos de medida para el mercado español.</p>
                 <p><b className='font-bold'>2008</b> : En colaboración con un antiguo colaborador de la época de ICT electronics, Pepe Caballero, iniciamos las actividades de la división cuya misión es la asesoría, consultorio, formación y, en general cualquier actividad relacionada con el mundo de las Telecomunicaciones profesionales, <Link className='font-bold text-[#304590]' href="https://www.albedotelecom.com/">ALBEDO Telecom</Link> .</p>
             </div>
-        </div>
+        </Layout>
     )
 }

@@ -1,53 +1,24 @@
 "use server"
-
 import { promises as fs } from 'fs';
+import jwt from 'jsonwebtoken';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
-
 import path from 'path';
-
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
-
-const filePath = isLocal ? path.resolve('public/data/data.json') : '/data/data.json';
-
-// const filePath = 'public/data/data.json';
-
-
-let cachedData = null;
-let lastModifiedTime = null;
-/// Get the current date and time
+const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
+const filePathActiveOrders = isLocal ? path.resolve('public/data/ClientOrdersActive.json') : '/data/ClientOrdersActive.json';
+const filePathInactiveOrders = isLocal ? path.resolve('public/data/ClientOrdersInactive.json') : '/data/ClientOrdersInactive.json';
+const filePathParameters = isLocal ? path.resolve('public/data/Parameters.json') : '/data/Parameters.json';
 const currentdate = new Date();
-
-// Get the timezone offset for the EU timezone
-// const euTimezoneOffset = new Date().getTimezoneOffset(); // This will give the offset in minutes, considering daylight saving time
-
-// // Calculate the current time in the EU timezone
-// const euTime = new Date(currentDate.getTime() - (euTimezoneOffset * 60000)); // Convert minutes to milliseconds
-
-// Format the date and time for the EU timezone
-const euFormattedDateTime =  currentdate.getDate() + "/"
-    + (currentdate.getMonth() + 1) + "/"
-    + currentdate.getFullYear() + "   "
-    + (currentdate.getHours() + 2)+":"
-    + currentdate.getMinutes() + ":"
-    + currentdate.getSeconds();
-
-// Convert the EU date and time to a string
-// const euFormattedDateTime = euDateTimeFormat.format(euTime);
-
-// // console.log(euFormattedDateTime); // Output the current time in the EU timezone
-
-
+const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+let cachedContent = null;
 export async function requireContent() {
-    const stats = await fs.stat(filePath);
-    if (stats.mtimeMs !== lastModifiedTime) {
-        lastModifiedTime = stats.mtimeMs;
+    if (!cachedContent) {
         const res = await fs.readFile(filePath, 'utf8');
-        cachedData = JSON.parse(res);
+        cachedContent = JSON.parse(res);
     }
-    return cachedData;
+    return cachedContent;
 }
-
 export async function getCategories() {
     const content = await requireContent();
     if (content) {
@@ -57,25 +28,100 @@ export async function getCategories() {
         return []; // Return an empty array if categories don't exist
     }
 }
-
-// export async function getUsers() {//para usuarios
-//     const {
-//         users
-
-//     } = await requireContent();
-
-//     return users
-
-// }
-
-export async function deleteElement(categoryId, productId) {
+// Parallel loading of content and categories
+export async function loadData() {
+    const [content, categories] = await Promise.all([requireContent(), getCategories()]);
+    return { content, categories };
+}
+export async function getParameters() {
+    try {
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data);
+        console.log(JSON.stringify(jsonData));
+        return jsonData;
+    } catch (error) {
+        console.error("Error getting Parameters:", error);
+        return [];
+    }
+}
+export async function updatePassword(currentPassword, newPassword) {
+    try {
+        // Read data from file
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data);
+        // Check if the current password matches the stored password
+        if (currentPassword !== jsonData.Password) {
+            throw new Error("Current password does not match.");
+        }
+        // Update the password
+        jsonData.Password = newPassword;
+        // Write the updated JSON back to the file
+        await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
+        return jsonData;
+    } catch (error) {
+        throw new Error("Error updating password: " + error.message);
+    }
+}
+export async function updateShippingPrices(spainPrice, euPrice, internationalPrice) {
+    try {
+        // Read data from file
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data);
+        jsonData.EnvioES = spainPrice;
+        jsonData.EnviosUE = euPrice;
+        jsonData.EnviosINT = internationalPrice;
+        // Write the updated JSON back to the file
+        await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
+        return jsonData;
+    } catch (error) {
+        throw new Error("Error updating shipping prices: " + error.message);
+    }
+}
+export async function updateIBAN(newIBAN) {
+    try {
+        // Read data from file
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data);
+        // Update IBAN
+        if (newIBAN !== 0 && newIBAN !== null && newIBAN !== undefined) {
+            jsonData.IBAN = newIBAN;
+        }
+        // Write the updated JSON back to the file
+        await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
+        return jsonData;
+    } catch (error) {
+        throw new Error("Error updating IBAN: " + error.message);
+    }
+}
+export async function updateIVA(newIVA) {
+    try {
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data);
+        // Update the IVA field
+        if (newIVA !== 0 && newIVA !== null && newIVA !== undefined) {
+            jsonData.IVA = newIVA;
+        }
+        // Write the updated JSON back to the file
+        await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
+        return jsonData;
+    } catch (error) {
+        console.error("Error updating IVA:", error);
+        return null;
+    }
+}
+/**
+ * Deletes a category or a product based on provided IDs.
+ * @param {object} categoryId - The ID of the category or product to be deleted.
+ * @param {string} productId - The ID of the product to be deleted.
+ * @returns {boolean} Indicates whether the deletion was successful.
+ */
+export async function deleteElement(categoryId) {
     if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
         try {
-            const data = await fs.readFile(filePath, 'utf8');
-            const { categories, deletedContent } = JSON.parse(data);
-
-            if (categoryId.categoryId !== "none") {
-                const categoryToDeleteId = categoryId.categoryId.id;
+            const data = await fs.readFile(filePath, 'utf8');//call file
+            const { categories, deletedContent } = JSON.parse(data);//get object  from json 
+            if (categoryId.categoryId !== "none") {// if there is no cat Id the code will exit and return false
+                const categoryToDeleteId = categoryId.categoryId.id; //save the catId in a var
                 const deleteRecursive = async (categoryList) => {
                     for (let i = 0; i < categoryList.length; i++) {
                         const category = categoryList[i];
@@ -136,32 +182,47 @@ export async function deleteElement(categoryId, productId) {
         }
     }
 }
-export async function addCategory(Code, Url_Id, name, description, body) {
-    // // console.log("New subcategory: " + name + " " + description);
-
+/**
+ * Adds a new category with provided details to the product data.
+ * @param {string} Code - The code of the new category.
+ * @param {string} Url_Id - The URL ID of the new category.
+ * @param {string} name - The name of the new category.
+ * @param {string} description - The description of the new category.
+ * @param {string} body - The body of the new category.
+ * @param {boolean} isPublished - Whether the category is published.
+ * @param {string} imageFile - The file path of the image for the category.
+ * @param {string} pdfFile - The file path of the PDF for the category.
+ * @returns {boolean} Indicates whether the addition was successful.
+ */
+export async function addCategory(Code, Url_Id, name, description, body, isPublished, imagePaths) {
+    console.log("New subcategory: " + imagePaths);
     try {
         const data = await readFile(filePath, 'utf8');
         const jsonData = JSON.parse(data);
         const { categories } = jsonData;
-
+        // Save image and pdf files to assets directory
+        // const savedImageFilePath = await saveFileToAssets(imageFile, name + '_' + Url_Id + '_' + getFileIdNumber(100000, 10000000) + '.jpg');
+        // const savedPdfFilePath = await saveFileToAssets(pdfFile, name + '_' + Url_Id + '.pdf');
         const newCategory = {
             "id": Code.replace(/ /g, "-"),
             "url_Id": Url_Id,
+            "fixedUrl": "",
             "name": name,
             "ALBEDOdescripcion": description,
             "ALBEDOcuerpo": body,
-            "isPublished": false,
+            "isPublished": isPublished,
             "FeachaDeCreacion": euFormattedDateTime,
             "FechaDeModificacion": euFormattedDateTime,
+            "imagens": imagePaths,
+            "archivos": "/assets/archivos/G34304249.pdf",
             "subCategories": [],
-            "products": []
+            "products": [],
+            // "imageFilePath": savedImageFilePath, // Store the path to the saved image file
+            // "pdfFilePath": savedPdfFilePath // Store the path to the saved pdf file
         };
-
-        categories.push(newCategory);
-
+        categories.unshift(newCategory);
         await writeFile(filePath, JSON.stringify(jsonData));
         revalidatePath('/admin/categories');
-
         // console.log("Subcategory added successfully.");
         return true;
     } catch (error) {
@@ -169,18 +230,20 @@ export async function addCategory(Code, Url_Id, name, description, body) {
         return false;
     }
 }
-
 /**
- * Función para agregar una nueva subcategoría con un nombre y descripción dados.
- *
- * @param {string} name - El nombre de la nueva subcategoría.
- * @param {string} description - La descripción de la nueva subcategoría.
- * @returns {boolean} Un valor booleano que indica si la subcategoría se agregó correctamente.
+ * Adds a new subcategory to an existing category.
+ * @param {object} categoryId - The ID of the category to which the subcategory will be added.
+ * @param {string} Code - The code of the new subcategory.
+ * @param {string} Url_Id - The URL ID of the new subcategory.
+ * @param {string} newCategoryName - The name of the new subcategory.
+ * @param {string} Description - The description of the new subcategory.
+ * @param {string} Body - The body of the new subcategory.
+ * @param {boolean} isPublished - Whether the subcategory is published.
+ * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body,) {
+export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body, imagePaths) {
     // // console.log("Adding subcategory to " + categoryId.categoryId.id);
     // // console.log(" subcategory name " + newCategoryName);
-
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -197,16 +260,18 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                     const dataObj = {
                         "id": Code.replace(/ /g, "-"),
                         "url_Id": Url_Id,
+                        "fixedUrl": "",
                         "name": newCategoryName,
                         "description": Description,
                         "ALBEDOcuerpo": Body,
                         "isPublished": false,
-                        "FeachaDeCreacion": new Date().toISOString(),
-                        "FechaDeModificacion": new Date().toISOString(),
+                        "FeachaDeCreacion": euFormattedDateTime,
+                        "FechaDeModificacion": euFormattedDateTime,
+                        "imagens": imagePaths,
                         "subCategories": [],
                         "products": []
                     }
-                    category.subCategories.push(dataObj);
+                    category.subCategories.unshift(dataObj);
                     // console.log("New subcategory added:", dataObj);
                     // console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
@@ -236,9 +301,25 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
         return false;
     }
 }
-
-export async function addproduct(categoryId, productCode, Url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
-    // console.log("New product:" + categoryId.categoryId.id + " " + productCode + " " + Url_Id + "  " + Name + " " + Price + " " + Description + " " + Body + " " + Stock + " " + MinStock + " " + DeliveryTime);
+/**
+ * Adds a new product to an existing category.
+ * @param {object} categoryId - The ID of the category to which the product will be added.
+ * @param {string} productCode - The code of the new product.
+ * @param {string} Url_Id - The URL ID of the new product.
+ * @param {string} Name - The name of the new product.
+ * @param {string} Price - The price of the new product.
+ * @param {string} Description - The description of the new product.
+ * @param {string} Body - The body of the new product.
+ * @param {number} Stock - The stock quantity of the new product.
+ * @param {number} MinStock - The minimum stock quantity of the new product.
+ * @param {string} DeliveryTime - The delivery time of the new product.
+ * @param {boolean} isPublished - Whether the product is published.
+ * @returns {boolean} Indicates whether the addition was successful.
+ */
+export async function addproduct(categoryId, productData) {
+    console.log("New product:" +
+        JSON.stringify(productData));
+    console.log(productData.imagePaths);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -251,21 +332,23 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
                     if (!category.products) {
                         category.products = [];
                     }
+                    console.log(productData.relatedFilePaths);
                     const dataObj = {
-                        "ALBEDOcodigo": productCode.replace(/ /g, "-"),
-                        "url_Id": Url_Id,
-                        "ALBEDOtitulo": Name,
-                        "ALBEDOprecio": parseFloat(Price),
-                        "ALBEDOdescripcion": Description,
-                        "ALBEDOcuerpo": Body,
-                        "ALBEDOstock_minimo": MinStock,
-                        "ALBEDOstock": Stock,
+                        "ALBEDOcodigo": productData.newProductCode,  //productCode.replace(/ /g, "-"),
+                        "url_Id": productData.newProductUrlCode,
+                        "fixedUrl": "",
+                        "ALBEDOtitulo": productData.newProductName,
+                        "ALBEDOprecio": parseFloat(productData.newProductPrice),
+                        "ALBEDOdescripcion": productData.newProductDescription,
+                        "ALBEDOcuerpo": productData.newProductBody,
+                        "ALBEDOstock_minimo": productData.newProductStock,
+                        "ALBEDOstock": productData.newProductStock,
                         "isPublished": false,
-                        "FeachaDeCreacion": new Date().toISOString(),
-                        "FechaDeModificacion": new Date().toISOString(),
-                        "imagen": "/images/ADFSSM100/imagen.png",
-                        "imagen.small": "/images/ADFSSM100/imagen.small.png",
-                        "ALBEDOplazo_entrega": DeliveryTime
+                        "FeachaDeCreacion": euFormattedDateTime,
+                        "FechaDeModificacion": euFormattedDateTime,
+                        "imagens": productData.imagePaths,
+                        "archivos": productData.relatedFilePaths,
+                        "ALBEDOplazo_entrega": productData.newProductDeliveryTime
                     }
                     category.products.push(dataObj);
                     // console.log("New product added:", dataObj);
@@ -297,23 +380,34 @@ export async function addproduct(categoryId, productCode, Url_Id, Name, Price, D
         return false;
     }
 }
-
-export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime) {
-    // console.log("\nNew product data changes:\n" + productCode + " \n" + url_Id + " " + Name + " \n" + Price + " \n" + Description + " \n" + Body + " \n" + Stock + " \n" + MinStock + " \n" + DeliveryTime);
+/**
+ * Edits an existing product's details.
+ * @param {string} productId - The ID of the product to be edited.
+ * @param {string} productCode - The new code of the product.
+ * @param {string} url_Id - The new URL ID of the product.
+ * @param {string} Name - The new name of the product.
+ * @param {string} Price - The new price of the product.
+ * @param {string} Description - The new description of the product.
+ * @param {string} Body - The new body of the product.
+ * @param {number} Stock - The new stock quantity of the product.
+ * @param {number} MinStock - The new minimum stock quantity of the product.
+ * @param {string} DeliveryTime - The new delivery time of the product.
+ * @param {boolean} isPublished - Whether the product is published.
+ * @returns {boolean} Indicates whether the editing was successful.
+ */
+export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
+    console.log('called function editproduct' + productId.productId);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        const productToEdit = productCode;
-        // console.log("\nproduct to EDIT: ", productToEdit);
-
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 for (let j = 0; j < category.products.length; j++) {
                     const product = category.products[j];
-                    // // console.log(productId.productId);
-                    if (product.ALBEDOcodigo === productId.productId) {
-                        // console.log("product found:", product);
+                    // console.log(productId.productId);
+                    if (product.ALBEDOcodigo === productCode) {
+                        console.log("product found:", product);
                         product.ALBEDOcodigo = productCode.replace(/ /g, "-");
                         product.url_Id = url_Id;
                         product.ALBEDOtitulo = Name;
@@ -322,12 +416,14 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         product.ALBEDOcuerpo = Body;
                         product.ALBEDOstock_minimo = MinStock;
                         product.ALBEDOstock = Stock;
-                        product.FechaDeModificacion = new Date().toISOString();
+                        product.FechaDeModificacion = euFormattedDateTime;
                         product.ALBEDOplazo_entrega = DeliveryTime;
-
-                        // console.log("Writing updated data to file...");
+                        product.isPublished = isPublished;
+                        product.imagens = imagePaths;
+                        product.archivos = filePaths;
+                        console.log("Writing updated data to file...");
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                        // console.log("Data written successfully.");
+                        console.log("Data written successfully.");
                         // Assuming revalidatePath is defined somewhere
                         // window.location.reload();
                         //  revalidatePath('/admin/categories');
@@ -335,7 +431,6 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         return true;
                     }
                 }
-
                 if (category.subCategories && category.subCategories.length > 0) {
                     const subcategoryDeleted = await loopRecursive(category.subCategories);
                     if (subcategoryDeleted) return true;
@@ -343,91 +438,104 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
             }
             return false;
         };
-        // console.log("Starting saving process...");
+        console.log("Starting saving process...");
         const product = await loopRecursive(categories);
         if (!product) {
-            // console.log("product not found.");
+            console.log("product not found.");
             return false;
         }
-        // console.log("product saved successfully.");
+        console.log("product saved successfully.");
         return true;
     } catch (error) {
-        // console.log("Error:", error);
+        console.log("Error:", error);
         return false;
     }
 }
-
-
-// Exported async function to edit a category with the given parameters
-export async function editCategory(categoryId, Code, Name, Description, Body) {
+/**
+ * Edits an existing category's details.
+ * @param {object} categoryId - The ID of the category to be edited.
+ * @param {string} Code - The new code of the category.
+ * @param {string} Name - The new name of the category.
+ * @param {string} Description - The new description of the category.
+ * @param {string} Body - The new body of the category.
+ * @param {boolean} isPublished - Whether the category is published.
+ * @returns {boolean} Indicates whether the editing was successful.
+ */
+export async function editCategory(categoryId, Code, Name, Description, Body, isPublished, imagePaths) {
+    console.log('called function editCategory');
     try {
-        // Read the contents of the file as a string
         const data = await fs.readFile(filePath, 'utf8');
-        // Parse the JSON data into an object containing categories and deleted content
         const { categories, deletedContent } = JSON.parse(data);
-        // Recursive function to traverse through categories and update the specified category
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
-                // Log the current category id and the id of the category to be updated
-                // console.log("Checking category:", category.id, "not equal to:", categoryId);
-                // Check if the current category is the one to be updated
                 if (category.id === categoryId.categoryId.id) {
-                    // console.log("Category found:", category);
                     // Update the category properties
                     category.id = Code;
                     category.name = Name;
                     category.ALBEDOdescripcion = Description;
                     category.ALBEDOcuerpo = Body;
-                    category.FechaDeModificacion = new Date().toISOString();
-
-                    // Log that the updated data is being written to the file
-                    // console.log("Writing updated data to file...");
+                    category.isPublished = isPublished;
+                    category.imagens = imagePaths;
+                    category.FechaDeModificacion = euFormattedDateTime;
+                    // Update publishing status of products in the current category
+                    await updateProductsPublishingStatus(category.products, isPublished);
+                    // If the category has children, update their publishing status recursively
+                    if (category.subCategories && category.subCategories.length > 0) {
+                        await updateChildrenPublishingStatus(category.subCategories, isPublished);
+                    }
                     // Write the updated JSON data to the file
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    // Log that the data was written successfully
-                    // console.log("Data written successfully.");
-                    // Log that the path has been revalidated
-                    // console.log("Path revalidated.");
-                    // Return true to indicate that the category was updated
                     return true;
                 }
-                // If the category has subcategories, recursively check them
                 if (category.subCategories && category.subCategories.length > 0) {
-                    // console.log("Checking subcategories for category:", category.id);
                     const subcategorySaved = await loopRecursive(category.subCategories);
-                    // If the subcategory was updated, return true
                     if (subcategorySaved) return true;
                 }
             }
-            // Return false if the category was not found
             return false;
         };
-
-        // Log that the saving process is starting
-        // console.log("Starting saving process...");
-        // Call the recursive function to save the category
+        const updateChildrenPublishingStatus = async (children, parentIsPublished) => {
+            for (let i = 0; i < children.length; i++) {
+                const child = children[i];
+                // Update the publishing status of the child based on the parent's publishing status
+                child.isPublished = parentIsPublished;
+                child.FechaDeModificacion = euFormattedDateTime;
+                // Update publishing status of products in the current category
+                await updateProductsPublishingStatus(child.products, parentIsPublished);
+                // If the child has children, update their publishing status recursively
+                if (child.subCategories && child.subCategories.length > 0) {
+                    await updateChildrenPublishingStatus(child.subCategories, parentIsPublished);
+                }
+            }
+        };
+        const updateProductsPublishingStatus = async (products, publishingStatus) => {
+            for (let i = 0; i < products.length; i++) {
+                const product = products[i];
+                product.isPublished = publishingStatus;
+                product.FechaDeModificacion = euFormattedDateTime;
+            }
+        };
         const categorySaved = await loopRecursive(categories);
-
-        // If the category was not found, log that fact and return false
         if (!categorySaved) {
-            // console.log("Category not found.");
             return false;
         }
+        return true;
     } catch (error) {
-        // Handle any errors that occur during the process
-        // console.log("Error editing category:", error);
+        console.error("Error editing category:", error);
         return false;
     }
 }
-
-
+/**
+ * Retrieves a product based on its ID.
+ * @param {string} productId - The ID of the product to retrieve.
+ * @returns {Object} The product data.
+ */
 export async function getProductById(productId) {
     // // console.log(productId);
     try { // Provide correct file path
         const data = await fs.readFile(filePath, 'utf8');
         const { categories } = JSON.parse(data); // Destructure categories directly
-
         const productToEdit = productId.productId;
         // // console.log(productToEdit);
         const findProduct = async (categoryList) => {
@@ -447,7 +555,6 @@ export async function getProductById(productId) {
             }
             return null; // Return null if product not found
         };
-
         const product = await findProduct(categories);
         if (!product) {
             // console.log("Product not found.");
@@ -459,7 +566,11 @@ export async function getProductById(productId) {
         throw error; // Rethrow error
     }
 }
-
+/**
+ * Retrieves a category based on its ID.
+ * @param {object} categoryId - The ID of the category to retrieve.
+ * @returns {Object} The category data.
+ */
 export async function getCategoryById(categoryId) {
     // Check if the categoryId is provided and has an id field 
     try {
@@ -468,7 +579,6 @@ export async function getCategoryById(categoryId) {
         }
         // Log the category ID to be searched for 
         // console.log("Searching for category with ID:", categoryId.categoryId.id);
-
         // Read the contents of the JSON file
         const data = await fs.readFile(filePath, 'utf8');
         // Parse the JSON file contents into JavaScript object
@@ -505,4 +615,368 @@ export async function getCategoryById(categoryId) {
         console.error("Error occurred:", error);
         return false;
     }
+}
+/**
+ * Returns the category data based on the given URL IDs.
+ * @param {string[]} slugIds - The array of URL IDs.
+ * @returns {Category | { subCategory: Category, products: Product[] }} - The category data.
+ */
+export async function getDataByUrlId(slugIds) {
+    try {
+        // Read the JSON file
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories } = JSON.parse(data);
+        // Check if slugIds is provided and is a valid array
+        if (!Array.isArray(slugIds) || slugIds.length === 0) {
+            throw new Error("Invalid slugIds");
+        }
+        let currentData = categories; // Start from the top level of categories
+        // Iterate through each ID in the slugIds except the last one
+        for (let i = 0; i < slugIds.length - 1; i++) {
+            const id = slugIds[i];
+            // Find the category with the current ID in the currentData
+            const category = currentData.find(cat => cat.url_Id === id);
+            if (!category) {
+                throw new Error(`Category with ID ${id} not found`);
+            }
+            // If the category has subcategories, update currentData to the subcategories
+            if (category.subCategories && category.subCategories.length > 0) {
+                currentData = category.subCategories;
+            } else {
+                // If there are no subcategories, return the current category
+                return category;
+            }
+        }
+        // Get the last ID in slugIds
+        const lastId = slugIds[slugIds.length - 1];
+        // Find the category with the last ID in the currentData
+        const lastCategory = currentData.find(cat => cat.url_Id === lastId);
+        if (!lastCategory) {
+            throw new Error(`Category with ID ${lastId} not found`);
+        }
+        // Check if the last category has products
+        if (lastCategory.products && lastCategory.products.length > 0) {
+            // Return the last subcategory and its products
+            return { subCategory: lastCategory, products: lastCategory.products };
+        } else {
+            // Return only the last subcategory
+            return { subCategory: lastCategory };
+        }
+        // console.log(JSON.stringify(lastCategory));
+        return lastCategory;
+    } catch (error) {
+        console.error("Error occurred:", error);
+        return false;
+    }
+}
+//function to save new orders on checkout page
+/**
+ * Saves a new order to the system.
+ * @param {Object} orderData - The data of the new order.
+ * @returns {boolean} Indicates whether the addition was successful.
+ */
+export async function saveNewOrder(orderData) {
+    console.log(orderData);
+    try {
+        const data = await readFile(filePathActiveOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { ClientOrders } = jsonData;
+        const orderDataWithState = { ...orderData, orderState: 'Pendiente', createdAt: euFormattedDateTime };
+        // Add orderState field with default value
+        ClientOrders.unshift(orderDataWithState);
+        await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
+        revalidatePath('/');
+        // console.log("Subcategory added successfully.");
+        return true;
+    } catch (error) {
+        console.error("Error saving new Client Order:", error);
+        return false;
+    }
+}
+//functions to /admin/orders
+/**
+ * Retrieves all orders.
+ * @returns {Array} An array of order objects.
+ */
+export async function getAllActiveOrders() {
+    try {
+        const data = await readFile(filePathActiveOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { ActiveOrders } = jsonData;
+        return ActiveOrders;
+    } catch (error) {
+        console.error("Error getting all Client Orders:", error);
+        return [];
+    }
+}
+export async function getAllInactiveOrders() {
+    try {
+        const data = await readFile(filePathInactiveOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { InactiveOrders } = jsonData;
+        return InactiveOrders;
+    } catch (error) {
+        console.error("Error getting all Client Orders:", error);
+        return [];
+    }
+}
+//to get individual order by id to get the state of the order for teh client
+/**
+ * Retrieves an order based on its index.
+ * @param {number} orderIndex - The index of the order to retrieve.
+ * @returns {Object | null} The order data, or null if not found.
+ */
+export async function getActiveOrderByIndex(orderIndex) {
+    try {
+        const data = await readFile(filePathActiveOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { ActiveOrders } = jsonData;
+        if (orderIndex < 0 || orderIndex >= ActiveOrders.length) {
+            throw new Error("Invalid order index");
+        }
+        return ActiveOrders[orderIndex];
+    } catch (error) {
+        console.error("Error getting order by index:", error);
+        return null;
+    }
+}
+export async function getInactiveOrderByIndex(orderIndex) {
+    try {
+        const data = await readFile(filePathInactiveOrders, 'utf8');
+        const jsonData = JSON.parse(data);
+        const { InactiveOrders } = jsonData;
+        if (orderIndex < 0 || orderIndex >= InactiveOrders.length) {
+            throw new Error("Invalid order index");
+        }
+        return InactiveOrders[orderIndex];
+    } catch (error) {
+        console.error("Error getting order by index:", error);
+        return null;
+    }
+}
+//to update the state of the order in the Modal
+/**
+ * Updates the state of an order.
+ * @param {number} orderId - The ID of the order to update.
+ * @param {string} newState - The new state of the order.
+ * @returns {boolean} Indicates whether the update was successful.
+ */
+export async function updateActiveOrder(orderId, newState) {
+    if (newState === 'Cancelado' || newState === 'Facturado') {
+        console.log('Update active order: moving to inactive JSON');
+        try {
+            const inactiveData = await readFile(filePathInactiveOrders, 'utf8');
+            const activeData = await readFile(filePathActiveOrders, 'utf8');
+            const inactiveJsonData = JSON.parse(inactiveData);
+            const activeJsonData = JSON.parse(activeData);
+            const { InactiveOrders } = inactiveJsonData;
+            const { ActiveOrders } = activeJsonData;
+            const orderToUpdate = ActiveOrders[orderId];
+            if (!orderToUpdate) {
+                throw new Error("Order not found in ActiveOrders.");
+            }
+            orderToUpdate.orderState = newState;
+            console.log(orderId);
+            ActiveOrders.splice(orderId, 1);
+            // Add the updated order object to InactiveOrders
+            InactiveOrders.push(orderToUpdate);
+            // Write changes back to files
+            await Promise.all([
+                await writeFile(filePathInactiveOrders, JSON.stringify({ InactiveOrders })),
+                await writeFile(filePathActiveOrders, JSON.stringify({ ActiveOrders }))
+            ]);
+            return true;
+        } catch (error) {
+            console.error("Error updating active order state:", error);
+            return false;
+        }
+    } else {
+        console.log('Update active order: staying in the same JSON');
+        try {
+            const data = await readFile(filePathActiveOrders, 'utf8');
+            const jsonData = JSON.parse(data);
+            const { ActiveOrders } = jsonData;
+            ActiveOrders[orderId].orderState = newState;
+            await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+}
+export async function updateInactiveOrder(orderId, newState) {
+    if (newState === 'Pendiente' || newState === 'Confirmado' || newState === 'Procesando' || newState === 'Enviado') {
+        console.log('Update inactive order: moving to active JSON');
+        try {
+            const inactiveData = await readFile(filePathInactiveOrders, 'utf8');
+            const activeData = await readFile(filePathActiveOrders, 'utf8');
+            const inactiveJsonData = JSON.parse(inactiveData);
+            const activeJsonData = JSON.parse(activeData);
+            const { InactiveOrders } = inactiveJsonData;
+            const { ActiveOrders } = activeJsonData;
+            const orderToUpdate = InactiveOrders[orderId];
+            if (!orderToUpdate) {
+                throw new Error("Order not found in InactiveOrders.");
+            }
+            orderToUpdate.orderState = newState;
+            console.log(orderId);
+            InactiveOrders.splice(orderId, 1);
+            // Add the updated order object to ActiveOrders
+            ActiveOrders.push(orderToUpdate);
+            // Write changes back to files
+            await Promise.all([
+                await writeFile(filePathInactiveOrders, JSON.stringify({ InactiveOrders })),
+                await writeFile(filePathActiveOrders, JSON.stringify({ ActiveOrders }))
+            ]);
+            return true;
+        } catch (error) {
+            console.error("Error updating inactive order state:", error);
+            return false;
+        }
+    } else {
+        console.log('Update inactive order: staying in the same JSON');
+        try {
+            const data = await readFile(filePathInactiveOrders, 'utf8');
+            const jsonData = JSON.parse(data);
+            const { InactiveOrders } = jsonData;
+            InactiveOrders[orderId].orderState = newState;
+            await writeFile(filePathInactiveOrders, JSON.stringify(jsonData));
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+}
+export async function deleteOrder(index) {
+    console.log(index);
+    try {
+        console.log("Reading file...");
+        const data = await readFile(filePathInactiveOrders, 'utf8');
+        console.log("File read successfully.");
+        console.log("Parsing JSON...");
+        const jsonData = JSON.parse(data);
+        console.log("JSON parsed successfully.");
+        let { InactiveOrders } = jsonData;
+        // Check if the index is valid
+        if (index >= 0 && index < InactiveOrders.length) {
+            console.log("Deleting order at index:", index);
+            // Splice the array to remove the order at the given index
+            InactiveOrders.splice(index, 1);
+            console.log("Order deleted successfully.");
+            console.log("Writing to file...");
+            await writeFile(filePathInactiveOrders, JSON.stringify(jsonData));
+            console.log("File updated successfully.");
+            return true; // Return true to indicate successful deletion
+        } else {
+            console.error("Invalid index provided.");
+            return false; // Return false to indicate failure
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return false; // Return false to indicate failure
+    }
+}
+export async function getHashPassword() {
+    return new Promise((resolve, reject) => {
+        const storedPassword = process.env.PASSWORD_HASH;
+        if (storedPassword) {
+            resolve(storedPassword);
+        } else {
+            reject(new Error("Stored password not found in environment variables."));
+        }
+    });
+}
+async function getStoredPassword() {
+    // Fetch the stored password from your database or wherever it's stored
+    // For now, returning a hardcoded password for demonstration
+    try {
+        // Read data from file
+        const data = await readFile(filePathParameters, 'utf8');
+        const jsonData = JSON.parse(data);
+        // Write the updated JSON back to the file  
+        return jsonData.Password;
+    } catch (error) {
+        throw new Error("Error updating password: " + error.message);
+    }
+}
+export async function login(userInput) {
+    try {
+        const storedPassword = await getStoredPassword();
+        if (userInput === storedPassword) {
+            // Passwords match, generate token
+            const token = generateToken();
+            return { token };
+        } else {
+            return { error: 'Contraseña incorrecta. Inténtelo de nuevo.' };
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        return { error: 'Error during login. Please try again.' };
+    }
+}
+function generateToken() {
+    const secretKey = getSecKey();
+    const token = jwt.sign({ user: 'username' }, secretKey, { expiresIn: '1h' });
+    return token;
+}
+function getSecKey() {
+    const key = process.env.SECRET_KEY;
+    if (key) {
+        return key;
+    } else {
+        throw new Error("Stored secret key not found in environment variables.");
+    }
+}
+export async function saveImage(base64Image, imagePath) {
+    // Remove the data URI prefix
+    const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
+    // Create a buffer from the base64 string
+    const buffer = Buffer.from(base64Data, 'base64');
+    // Write the buffer to the file
+    fs.writeFile(imagePath, buffer, (err) => {
+        if (err) {
+            console.error('Error saving image:', err);
+        } else {
+            console.log('Image saved successfully.');
+        }
+    });
+}
+export async function saveFile(fileData, filePath) {
+    // Decode base64 file data
+    const decodedFileData = Buffer.from(fileData.replace(/^data:\w+\/\w+;base64,/, ''), 'base64');
+    // Write the file to the server
+    fs.writeFile(filePath, decodedFileData, (error) => {
+        if (error) {
+            reject(error);
+        } else {
+            console.log('File saved successfully.');
+            resolve(); // Resolve without returning any path
+        }
+    });
+}
+export async function deleteImages(imagePathsToDelete) {
+    return new Promise((resolve, reject) => {
+        // Loop through each image path and delete it
+        const deletePromises = imagePathsToDelete.map(imagePath => {
+            console.log(imagePath);
+            return new Promise((resolveDelete, rejectDelete) => {
+                // Delete the image file
+                fs.unlink(imagePath, (err) => {
+                    if (err) {
+                        console.error('Error deleting image:', err);
+                        rejectDelete(err);
+                    } else {
+                        console.log(`Image deleted successfully: ${imagePath}`);
+                        resolveDelete();
+                    }
+                });
+            });
+        });
+        // Resolve or reject the promise based on the completion of deletion
+        Promise.all(deletePromises)
+            .then(() => resolve())
+            .catch(error => reject(error));
+    });
 }

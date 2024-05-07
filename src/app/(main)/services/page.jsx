@@ -1,12 +1,14 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Layout from "@/app/(main)/WebLayout";
+
 export default function page() {
     return (
-        <div>
-            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+        <Layout>
+            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700 mt-10" />
             <div className="flex justify-center my-4">
-                <h1 className="text-2xl font-bold">Diseñamos y producimos sus productos electrónicos</h1>
+                <h1 className="text-2xl font-bold text-center">Diseñamos y producimos sus productos electrónicos</h1>
             </div>
             <div className=''>
                 <p className='text-lg text-justify '>
@@ -14,32 +16,32 @@ export default function page() {
                 </p>
             </div>
             <div className="flex justify-center my-4">
-                <h1 className="text-xl font-bold">Diseño de productos electrónicos</h1>
+                <h1 className="text-xl font-bold text-center">Diseño de productos electrónicos</h1>
             </div>
             <Link href="/services/design" className='flex justify-center'>
                 <Image
                     src="/images/servicio_diseño_01.jpg"
                     alt="Vercel Logo"
-                    className="self-center"
+                    className="self-center rounded-lg"
                     width={1100}
                     height={700}
-                    priority
-                /> 
-            </Link>
-            
-            <div className="flex justify-center my-4 mt-2">
-                <h1 className="text-xl font-bold">Fabricación de prototipos, preseries y series</h1>
-            </div>
-            <Link href='/services/manufacturing/' className='flex justify-center my-5'>
-            <Image
-                    src="/images/servicio_fabricacion_01.jpg"
-                    alt="Vercel Logo"
-                    className="self-center"
-                    width={1100}
-                    height={700}
-                    priority
+                    priority="true"
                 />
             </Link>
-        </div>
+
+            <div className="flex justify-center my-4 mt-2">
+                <h1 className="text-xl font-bold text-center">Fabricación de prototipos, preseries y series</h1>
+            </div>
+            <Link href='/services/manufacturing/' className='flex justify-center my-5'>
+                <Image
+                    src="/images/servicio_fabricacion_01.jpg"
+                    alt="Vercel Logo"
+                    className="self-center rounded-lg"
+                    width={1100}
+                    height={700}
+                    priority="true"
+                />
+            </Link>
+        </Layout>
     )
 }

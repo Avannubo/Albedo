@@ -22,7 +22,9 @@ export default function Dropdown() {
     async function fetchData() {
       try {
         const data = await getCategories();
-        setCategories(data);
+        const Categories = data.filter(category => category.isPublished === true);
+
+        setCategories(Categories);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -48,7 +50,7 @@ export default function Dropdown() {
   };
 
   return (
-    <div className="w-full py-6 pb-8 z-[999]">
+    <div className="w-full py-2 z-[999] ">
       <div className="relative inline-block" ref={dropdownRef}>
         <button
           type="button"
@@ -74,16 +76,16 @@ export default function Dropdown() {
         </button>
 
         {isOpen && (
-          <div className="origin-top-left absolute left-0 mt-2 w-44 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+          <div className=" absolute left-0 w-auto rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 h-auto overflow-y-scroll no-scrollbar">
             <ul>
-              <li className="px-4 py-2 text-md text-gray-700 hover:bg-gray-100 rounded-lg">
-                <Link href="/categorias">Gama de productos</Link>
+              <li className="px-2 py-1.5 text-md text-gray-700 hover:bg-gray-100 rounded-lg">
+                <Link href="/products" className="whitespace-nowrap">Gama de productos</Link>
               </li>
               {categories.map((category, index) => (
                 <li key={index} className="relative">
                   <Link
-                    href={`/categorias/${category.id}`}
-                    className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 rounded-lg"
+                    href={`/products/${category.url_Id}`}
+                    className="block px-2 py-1.5 text-md text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap"
                     onMouseEnter={() => handleCategoryHover(index)}
                     onMouseLeave={handleCategoryLeave}
                   >
@@ -97,7 +99,7 @@ export default function Dropdown() {
                         {category.subcategories.map((subCategory, subIndex) => (
                           <li
                             key={subIndex}
-                            className="px-4 py-2 text-md text-gray-700"
+                            className="px-2 py-1.5 text-md text-gray-700 whitespace-nowrap"
                           >
                             {subCategory.name}
                           </li>

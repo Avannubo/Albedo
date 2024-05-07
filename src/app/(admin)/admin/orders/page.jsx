@@ -51,9 +51,9 @@ export default function page() {
         <div className="flex flex-col">
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8 space-y-6">
-              <div className={`overflow-y-scroll h-[400px] ${Active && Active.length <= 5 ? 'no-scrollbar' : ''}`}>
-                <h1 className="font-bold text-xl">Pedidos Activos</h1>
-                {Active.length > 0 && (
+              <h1 className="font-bold text-xl">Pedidos Activos</h1>
+              {Active.length > 0 && (
+                <div className={`overflow-y-scroll h-[350px] ${Active && Active.length <= 5 ? 'no-scrollbar' : ''}`}>
                   <table className="min-w-full text-left text-md font-light text-surface">
                     <thead className="border-b border-neutral-200 font-medium">
                       <tr>
@@ -86,12 +86,12 @@ export default function page() {
                       ))}
                     </tbody>
                   </table>
-                )}
-              </div>
-              <div className={`overflow-y-scroll h-[400px] ${Inactive && Inactive.length <= 5 ? 'no-scrollbar' : ''}`}>
-                {Inactive.length > 0 && (
-                  <h1 className="font-bold text-xl">Pedidos Cancelado/Facturados</h1>
-                )}
+                </div>
+              )}
+              {Inactive.length > 0 && (
+                <h1 className="font-bold text-xl">Pedidos Cancelado/Facturados</h1>
+              )}
+              <div className={`overflow-y-scroll h-[350px] ${Inactive && Inactive.length <= 5 ? 'no-scrollbar' : ''}`}>
                 {Inactive.length > 0 && (
                   <table className="min-w-full text-left text-md font-light text-surface">
                     <thead className="border-b border-neutral-200 font-medium">

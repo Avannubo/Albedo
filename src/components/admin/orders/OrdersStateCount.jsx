@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect, useMemo } from 'react';
-import { getAllOrders } from '@/lib/data';
+import { getAllActiveOrders } from '@/lib/data';
 
 export default function OrdersStateCount() {
     const [orders, setOrders] = useState([]);
@@ -9,7 +9,7 @@ export default function OrdersStateCount() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const fetchedOrders = await getAllOrders();
+                const fetchedOrders = await getAllActiveOrders();
                 setOrders(fetchedOrders);
             } catch (error) {
                 console.error("Error fetching orders:", error);

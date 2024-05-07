@@ -1,7 +1,6 @@
 "use server"
 import { promises as fs } from 'fs';
 import jwt from 'jsonwebtoken';
-import Bcrypt from 'bcryptjs';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
@@ -10,25 +9,9 @@ const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Pr
 const filePathActiveOrders = isLocal ? path.resolve('public/data/ClientOrdersActive.json') : '/data/ClientOrdersActive.json';
 const filePathInactiveOrders = isLocal ? path.resolve('public/data/ClientOrdersInactive.json') : '/data/ClientOrdersInactive.json';
 const filePathParameters = isLocal ? path.resolve('public/data/Parameters.json') : '/data/Parameters.json';
-let cachedData = null;
-let lastModifiedTime = null;
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-/**
- * Reads the content of a JSON file containing product data.
- * @returns {Object} The parsed JSON content of the file.
- */
-// export async function requireContent() {
-//     const stats = await fs.stat(filePath);
-//     if (stats.mtimeMs !== lastModifiedTime) {
-//         lastModifiedTime = stats.mtimeMs;
-//         const res = await fs.readFile(filePath, 'utf8');
-//         cachedData = JSON.parse(res);
-//     }
-//     return cachedData;
-// }
 let cachedContent = null;
-
 export async function requireContent() {
     if (!cachedContent) {
         const res = await fs.readFile(filePath, 'utf8');
@@ -36,7 +19,6 @@ export async function requireContent() {
     }
     return cachedContent;
 }
-
 export async function getCategories() {
     const content = await requireContent();
     if (content) {
@@ -46,14 +28,11 @@ export async function getCategories() {
         return []; // Return an empty array if categories don't exist
     }
 }
-
 // Parallel loading of content and categories
 export async function loadData() {
     const [content, categories] = await Promise.all([requireContent(), getCategories()]);
     return { content, categories };
 }
-
-
 export async function getParameters() {
     try {
         const data = await readFile(filePathParameters, 'utf8');
@@ -418,7 +397,6 @@ export async function addproduct(categoryId, productData) {
  */
 export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
     console.log('called function editproduct' + productId.productId);
-
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -638,8 +616,6 @@ export async function getCategoryById(categoryId) {
         return false;
     }
 }
-
-
 /**
  * Returns the category data based on the given URL IDs.
  * @param {string[]} slugIds - The array of URL IDs.
@@ -693,9 +669,6 @@ export async function getDataByUrlId(slugIds) {
         return false;
     }
 }
-
-
-
 //function to save new orders on checkout page
 /**
  * Saves a new order to the system.
@@ -876,31 +849,25 @@ export async function updateInactiveOrder(orderId, newState) {
         }
     }
 }
-
 export async function deleteOrder(index) {
     console.log(index);
     try {
         console.log("Reading file...");
         const data = await readFile(filePathInactiveOrders, 'utf8');
         console.log("File read successfully.");
-
         console.log("Parsing JSON...");
         const jsonData = JSON.parse(data);
         console.log("JSON parsed successfully.");
-
         let { InactiveOrders } = jsonData;
-
         // Check if the index is valid
         if (index >= 0 && index < InactiveOrders.length) {
             console.log("Deleting order at index:", index);
             // Splice the array to remove the order at the given index
             InactiveOrders.splice(index, 1);
             console.log("Order deleted successfully.");
-
             console.log("Writing to file...");
             await writeFile(filePathInactiveOrders, JSON.stringify(jsonData));
             console.log("File updated successfully.");
-
             return true; // Return true to indicate successful deletion
         } else {
             console.error("Invalid index provided.");

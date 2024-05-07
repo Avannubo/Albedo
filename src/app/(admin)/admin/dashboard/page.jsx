@@ -1,9 +1,27 @@
+"use client"
+import { useEffect, useState } from 'react';
+
 import Layout from "@/app/(admin)/admin/AdminLayout";
 import OrdersStateCount from "@/components/admin/orders/OrdersStateCount";
 import OrdersChart from "@/components/admin/panel/ordersChart";
-import { getAllOrders } from "@/lib/data";
-export default async function page() {
-  const orders = await getAllOrders();
+import { getAllInactiveOrders, getAllActiveOrders } from "@/lib/data";
+export default function page() {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    async function fetchOrders() {
+      try {
+        const inactiveOrders = await getAllInactiveOrders();
+        const activeOrders = await getAllActiveOrders();
+        const fetchedOrders = [...inactiveOrders, ...activeOrders];
+        setOrders(fetchedOrders);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        // Handle error if necessary
+      }
+    }
+    fetchOrders();
+  }, []);
 
   // Function to get total order count
   const getOrderCount = () => orders.length;
@@ -106,8 +124,8 @@ export default async function page() {
               </div>
             </div>
           </div>
-          <div className="flex flex-row justify-between space-x-6 "> 
-              <OrdersStateCount /> 
+          <div className="flex flex-row justify-between space-x-6 ">
+            <OrdersStateCount />
             <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
               <h1 className="font-semibold text-slate-600 text-xl">Pedidos Por transacciones</h1>
               <hr />
@@ -117,15 +135,6 @@ export default async function page() {
                 <p className="text-xl font-medium">Bizum: {bizumCount}</p>
               </div>
             </div>
-            {/* <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
-              <h1 className="font-semibold text-slate-600 text-xl">Pedidos por Provencias</h1>
-              <hr />
-              <div>
-                <p className="text-xl font-medium">Barcelona: 12</p>
-                <p className="text-xl font-medium">Madrid: 12</p>
-                <p className="text-xl font-medium">qwerty: 12</p>
-              </div>
-            </div> */}
             <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
               <h1 className="font-semibold text-slate-600 text-xl">Productos mas vendidos</h1>
               <hr />
@@ -140,7 +149,7 @@ export default async function page() {
             </div>
           </div>
           <div className="flex flex-row justify-between space-x-2">
-            
+
             <div className="grow">
               <OrdersChart />
             </div>

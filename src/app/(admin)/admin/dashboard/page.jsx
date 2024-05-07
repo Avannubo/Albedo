@@ -1,13 +1,11 @@
 "use client"
 import { useEffect, useState } from 'react';
-
 import Layout from "@/app/(admin)/admin/AdminLayout";
 import OrdersStateCount from "@/components/admin/orders/OrdersStateCount";
 import OrdersChart from "@/components/admin/panel/ordersChart";
 import { getAllInactiveOrders, getAllActiveOrders } from "@/lib/data";
 export default function page() {
   const [orders, setOrders] = useState([]);
-
   useEffect(() => {
     async function fetchOrders() {
       try {
@@ -22,25 +20,20 @@ export default function page() {
     }
     fetchOrders();
   }, []);
-
   // Function to get total order count
   const getOrderCount = () => orders.length;
-
   // Function to get total products sold count
   const getTotalSoldCount = () => {
     return orders.reduce((total, order) => total + order.cartProducts.reduce((acc, product) => acc + product.quantity, 0), 0);
   };
-
   // Function to get total revenue generated
   const getTotalRevenue = () => {
     return orders.reduce((total, order) => total + order.totalPedido, 0);
   };
-
   // Function to get order count by payment type
   const getOrderCountByPaymentType = (paymentType) => {
     return orders.filter(order => order.selectedPayment === paymentType).length;
   };
-
   const getTopMostSoldProducts = () => {
     const productsSold = {};
     orders.forEach(order => {
@@ -52,20 +45,16 @@ export default function page() {
         }
       });
     });
-
     // Convert productsSold object to an array of objects
     const soldProductsArray = Object.keys(productsSold).map(productName => ({
       name: productName,
       quantity: productsSold[productName]
     }));
-
     // Sort the array by quantity in descending order
     soldProductsArray.sort((a, b) => b.quantity - a.quantity);
-
     // Return the top 3 most sold products
     return soldProductsArray.slice(0, 3);
   };
-
   const orderCount = getOrderCount();
   const totalSoldCount = getTotalSoldCount();
   const totalRevenue = getTotalRevenue().toFixed(2);
@@ -73,7 +62,6 @@ export default function page() {
   const visaMastercardCount = getOrderCountByPaymentType('Visa-Mastercard');
   const bizumCount = getOrderCountByPaymentType('Bizum');
   const topMostSoldProducts = getTopMostSoldProducts();
-
   return (
     <Layout>
       <div>
@@ -144,12 +132,10 @@ export default function page() {
                     <p key={index} className="text-xl font-medium">{top.name}: {top.quantity}</p>
                   ))
                 )}
-
               </div>
             </div>
           </div>
           <div className="flex flex-row justify-between space-x-2">
-
             <div className="grow">
               <OrdersChart />
             </div>

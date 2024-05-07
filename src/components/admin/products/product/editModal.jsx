@@ -1,4 +1,3 @@
-// addModal.js
 "use client";
 import React, { useState, useEffect } from 'react';
 import { editproduct, getProductById, saveImage, saveFile } from '@/lib/data';
@@ -18,53 +17,25 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(productId.productId.isPublished);
     const [productImages, setProductImages] = useState(productId.productId.imagens);
     const [productFiles, setProductFiles] = useState(productId.productId.archivos);
-
-
     const [selectedImages, setSelectedImages] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
     useEffect(() => {
-        setNewProductName(productId.productId.ALBEDOtitulo);
-        setNewProductCode(productId.productId.ALBEDOcodigo);
-        setNewProductUrlCode(productId.productId.url_Id);
-        setNewProductPrice(productId.productId.ALBEDOprecio);
-        setNewProductDescription(productId.productId.ALBEDOdescripcion);
-        setNewProductBody(productId.productId.ALBEDOcuerpo);
-        setNewProductStock(productId.productId.ALBEDOstock);
-        setNewCategoryIsPublished(productId.productId.isPublished);
-        setNewProductMinStock(productId.productId.ALBEDOstock_minimo);
-        setNewProductDeliveryTime(productId.productId.ALBEDOplazo_entrega);
-        setProductImages(productId.productId.imagens);
-        setProductFiles(productId.productId.archivos);
-        // const fetchData = async () => {
-        //     try {
-        //         const data = await getProductById(productId.productId);
-        //         console.log("front:", data);
-        //         if (data) {
-        //             const product = JSON.parse(data); // Parse the JSON string
-        //             setNewProductName(product.ALBEDOtitulo);
-        //             setNewProductCode(product.ALBEDOcodigo);
-        //             setNewProductUrlCode(product.url_Id);
-        //             setNewProductPrice(product.ALBEDOprecio);
-        //             setNewProductDescription(product.ALBEDOdescripcion);
-        //             setNewProductBody(product.ALBEDOcuerpo);
-        //             setNewProductStock(product.ALBEDOstock);
-        //             setNewCategoryIsPublished(product.isPublished);
-        //             setNewProductMinStock(product.ALBEDOstock_minimo);
-        //             setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
-        //             setProductImages(product.imagens);
-        //             setProductFiles(product.archivos);
-        //             console.log(product.archivos[0])
-        //         } else {
-        //             console.log("Product not found.");
-        //         }
-        //     } catch (error) {
-        //         console.error('Error fetching product data:', error);
-        //     }
-        // };
-        // if (isOpen) {
-        //     fetchData();
-        // }
+        if (isOpen && productId) {
+            setNewProductName(productId.productId.ALBEDOtitulo);
+            setNewProductCode(productId.productId.ALBEDOcodigo);
+            setNewProductUrlCode(productId.productId.url_Id);
+            setNewProductPrice(productId.productId.ALBEDOprecio);
+            setNewProductDescription(productId.productId.ALBEDOdescripcion);
+            setNewProductBody(productId.productId.ALBEDOcuerpo);
+            setNewProductStock(productId.productId.ALBEDOstock);
+            setNewCategoryIsPublished(productId.productId.isPublished);
+            setNewProductMinStock(productId.productId.ALBEDOstock_minimo);
+            setNewProductDeliveryTime(productId.productId.ALBEDOplazo_entrega);
+            setProductImages(productId.productId.imagens);
+            setProductFiles(productId.productId.archivos);
+        }
     }, [isOpen, productId]);
+
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -168,7 +139,6 @@ export default function EditModal({ isOpen, onClose, productId }) {
                 });
         });
     };
-
     const uploadRelatedFiles = () => {
         return new Promise((resolve, reject) => {
             const filesPaths = [];
@@ -209,7 +179,6 @@ export default function EditModal({ isOpen, onClose, productId }) {
                 });
         });
     };
-
     const handleAddProduct = async () => {
         try {
             // Upload images and related files
@@ -233,9 +202,8 @@ export default function EditModal({ isOpen, onClose, productId }) {
                 newCategoryIsPublished,
                 uniqueImagePaths,
                 uniqueFilePaths);
-            setProductImages(uniqueImagePaths); // Update productImages state
+            setProductImages(uniqueImagePaths);
             setProductFiles(uniqueFilePaths);
-
             // setNewProductName('');
             // setNewProductCode('');
             // setNewProductUrlCode('');

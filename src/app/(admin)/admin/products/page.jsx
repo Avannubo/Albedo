@@ -9,7 +9,7 @@ import AddNewProduct from "@/components/admin/products/product/add";
 import EditProduct from "@/components/admin/products/product/edit";
 import EditCatedory from "@/components/admin/products/category/edit";
 import Layout from "@/app/(admin)/admin/AdminLayout";
-const Category = ({ category, fetchData }) => (
+const Category = ({ category }) => (
   <div key={category.id} className="space-y-2 w-full">
     <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
       <p className="h-auto  self-center">{category.url_Id} : {category.name}</p>
@@ -38,7 +38,7 @@ const Category = ({ category, fetchData }) => (
               {product.url_Id} : {product.ALBEDOtitulo}
             </p>
             <div className="space-x-4 flex flex-row justify-center items-center">
-              <EditProduct productId={product} />
+              <EditProduct productId={product}  />
               <Delete categoryId={"none"} productId={product} />
               <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
                 {product.isPublished ? "Publicado" : "Oculto"}
@@ -62,11 +62,9 @@ export default function Page() {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     fetchData();
   }, []); // Fetch data only once on component mount
-
   const fetchData = async () => {
     setIsLoading(true);
     try {
@@ -78,7 +76,9 @@ export default function Page() {
       setIsLoading(false);
     }
   };
-
+  const refetchData = async () => {
+    fetchData();
+  }
   const filteredCategories = categories.filter(category => {
     if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {
       return false;
@@ -88,13 +88,7 @@ export default function Page() {
     }
     return true;
   });
-
-  const getCategoryNames = () => {
-    return categories.map(category => category.name);
-  };
-
   const categoryOptions = isPublishedFilter === true ? categories.filter(category => category.isPublished === true) : categories.filter(category => category.isPublished === false);
-
   return (
     <Layout>
       <div className="flex flex-row justify-between mb-8">
@@ -126,7 +120,6 @@ export default function Page() {
               </option>
             ))}
           </select>
-
         </div>
       </div>
       {isLoading ? (
@@ -138,7 +131,7 @@ export default function Page() {
         filteredCategories.length > 0 ? (
           filteredCategories.map((category) => (
             <div key={category.id} className="my-10">
-              <Category category={category} />
+              <Category category={category} refetchData={refetchData} />
             </div>
           ))
         ) : (

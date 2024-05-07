@@ -24,20 +24,6 @@ export default function page() {
   const refetchData = async () => {
     fetchData();
   }
-  // const handleModalClose = async () => {
-  //   setIsLoading(true);
-  //   const active = await getAllActiveOrders();
-  //   setActive(active);
-  //   const inactive = await getAllInactiveOrders();
-  //   setInactive(inactive);
-  //   setIsLoading(false);
-  // };
-  // useEffect(() => {
-  //   const activeOrders = orders.filter(order => order.orderState !== 'Cancelado' && order.orderState !== 'Facturado');
-  //   setActive(activeOrders);
-  //   const inActiveOrders = orders.filter(order => order.orderState === 'Cancelado' || order.orderState === 'Facturado');
-  //   setInactive(inActiveOrders);
-  // }, [orders]);
   return (
     <Layout>
       <div className='-mt-10'>

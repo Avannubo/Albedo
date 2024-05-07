@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { editproduct, getProductById, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
-export default function EditModal({ isOpen, onClose, productId, reloadData }) {
+export default function EditModal({ isOpen, onClose, productId }) {
     // console.log(productId.productId);
     const [newProductName, setNewProductName] = useState(productId.productId.ALBEDOtitulo);
     const [newProductCode, setNewProductCode] = useState(productId.productId.ALBEDOcodigo);
@@ -234,7 +234,8 @@ export default function EditModal({ isOpen, onClose, productId, reloadData }) {
                 uniqueImagePaths,
                 uniqueFilePaths);
             setProductImages(uniqueImagePaths); // Update productImages state
-            setProductFiles(uniqueFilePaths)
+            setProductFiles(uniqueFilePaths);
+
             // setNewProductName('');
             // setNewProductCode('');
             // setNewProductUrlCode('');
@@ -249,7 +250,6 @@ export default function EditModal({ isOpen, onClose, productId, reloadData }) {
             // setSelectedImages([]);
             // setSelectedFiles([]);
             // setProductFiles([]);
-            reloadData();
             onClose();
         } catch (error) {
             console.error("Error uploading images:", error);

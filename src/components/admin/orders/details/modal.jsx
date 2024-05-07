@@ -13,11 +13,11 @@ export default function modal({ isOpen, onClose, order }) {
           <div className=''>
             {order && (
               <div className='flex flex-row'>
-                <div className='flex-1 mr-6 bg-gray-50 p-2'>
+                <div className='flex-1 mr-6 bg-gray-50 rounded-lg p-2' >
                   <h1 className="mb-4 text-start text-2xl font-bold">
                     Pedido:
                   </h1>
-                  <div className={`h-[270px] overflow-y-scroll ${order.cartProducts && order.cartProducts.length <= 4 ? 'no-scrollbar' : ''}`}>
+                  <div className={`h-[270px] overflow-y-scroll  ${order.cartProducts && order.cartProducts.length <= 4 ? 'no-scrollbar' : ''}`}>
                     {order.cartProducts && order.cartProducts.length > 0 && (
                       order.cartProducts.map((product, index) => (
                         <div className='flex flex-col mr-2' key={index}>
@@ -42,7 +42,7 @@ export default function modal({ isOpen, onClose, order }) {
                     )}
                   </div>
                 </div>
-                <div className='grow bg-gray-50 p-2'>
+                <div className='grow bg-gray-50 p-2 rounded-lg'>
                   <h1 className="mb-4 text-start text-2xl font-bold">
                     Datos de Cliente:
                   </h1>

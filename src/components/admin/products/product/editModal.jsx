@@ -19,22 +19,22 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const [productFiles, setProductFiles] = useState(productId.productId.archivos);
     const [selectedImages, setSelectedImages] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
-    useEffect(() => {
-        if (isOpen && productId) {
-            setNewProductName(productId.productId.ALBEDOtitulo);
-            setNewProductCode(productId.productId.ALBEDOcodigo);
-            setNewProductUrlCode(productId.productId.url_Id);
-            setNewProductPrice(productId.productId.ALBEDOprecio);
-            setNewProductDescription(productId.productId.ALBEDOdescripcion);
-            setNewProductBody(productId.productId.ALBEDOcuerpo);
-            setNewProductStock(productId.productId.ALBEDOstock);
-            setNewCategoryIsPublished(productId.productId.isPublished);
-            setNewProductMinStock(productId.productId.ALBEDOstock_minimo);
-            setNewProductDeliveryTime(productId.productId.ALBEDOplazo_entrega);
-            setProductImages(productId.productId.imagens);
-            setProductFiles(productId.productId.archivos);
-        }
-    }, [isOpen, productId]);
+    // useEffect(() => {
+    //     if (isOpen && productId) {
+    //         setNewProductName(productId.productId.ALBEDOtitulo);
+    //         setNewProductCode(productId.productId.ALBEDOcodigo);
+    //         setNewProductUrlCode(productId.productId.url_Id);
+    //         setNewProductPrice(productId.productId.ALBEDOprecio);
+    //         setNewProductDescription(productId.productId.ALBEDOdescripcion);
+    //         setNewProductBody(productId.productId.ALBEDOcuerpo);
+    //         setNewProductStock(productId.productId.ALBEDOstock);
+    //         setNewCategoryIsPublished(productId.productId.isPublished);
+    //         setNewProductMinStock(productId.productId.ALBEDOstock_minimo);
+    //         setNewProductDeliveryTime(productId.productId.ALBEDOplazo_entrega);
+    //         setProductImages(productId.productId.imagens);
+    //         setProductFiles(productId.productId.archivos);
+    //     }
+    // }, [isOpen, productId]);
 
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);

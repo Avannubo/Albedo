@@ -14,30 +14,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(categoryId.categoryId.isPublished);
     const [categoryImages, setCategoryImages] = useState(categoryId.categoryId.imagens);
     const [selectedImages, setSelectedImages] = useState([]);
-    // useEffect(() => {
-    //     setNewCategoryCode(categoryId.categoryId.id);
-    //     setNewCategoryName(categoryId.categoryId.name);
-    //     setNewCategoryDescription(categoryId.categoryId.ALBEDOdescripcion);
-    //     setNewCategoryBody(categoryId.categoryId.ALBEDOcuerpo);
-    //     setNewCategoryIsPublished(categoryId.categoryId.isPublished);
-    //     setCategoryImages(categoryId.categoryId.imagens);
-    //     // const fetchData = async () => {
-    //     //     try {
-    //     //         // const data = await getCategoryById(categoryId);
-    //     //         const data = categoryId.categoryId;
-    //     //         console.log("client:", data);
-    //     //         if (data) {
-                    
-    //     //             // console.log(data.imagen);
-    //     //         } else {
-    //     //             console.log("category not found.");
-    //     //         }
-    //     //     } catch (error) {
-    //     //         console.error('Error fetching category data:', error);
-    //     //     }
-    //     // }; 
-    //     //     fetchData(); 
-    // }, [isOpen, categoryId]);
+    
     //change listeners  for inputs
     const handleInputChangeName = (event) => {
         setNewCategoryName(event.target.value);
@@ -154,13 +131,13 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                                 {/* <textarea onChange={handleInputChangeBody} value={newCategoryBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' /> */}
                                 <QuillEditor value={newCategoryBody} onChange={handleInputChangeBody} />
                             </div>
-                            
+
                             {/* <div className='flex flex-row  justify-between space-x-4'> */}
-                                <div className="grow mb-4">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
-                                    <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
-                                </div>
-                                {/* <div className="grow mb-4">
+                            <div className="grow mb-4">
+                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
+                                <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
+                            </div>
+                            {/* <div className="grow mb-4">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Archivos Relacionados</label>
                                     <input type="file" className="sshadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div> */}

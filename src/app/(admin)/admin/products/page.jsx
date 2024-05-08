@@ -135,7 +135,7 @@ export default function Page() {
             </div>
           ))
         ) : (
-          <p>No se encontraron categorías que coincidan con los filtros seleccionados.</p>
+          <p></p>
         )
       )}
       <Modal />

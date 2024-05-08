@@ -4,7 +4,7 @@ import Details from '@/components/admin/orders/details/btn';
 import Delete from '@/components/admin/orders/delete/btn';
 import State from '@/components/admin/orders/state/btn';
 import Layout from "@/app/(admin)/admin/AdminLayout";
-import { getAllActiveOrders, getAllInactiveOrders } from '@/lib/data';
+import { getAllActiveOrders, getAllInactiveOrders } from '@/lib/data'; 
 export default function page() {
   const [isLoading, setIsLoading] = useState(false);
   // const [orders, setOrders] = useState([]);

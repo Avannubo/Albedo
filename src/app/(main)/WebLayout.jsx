@@ -5,8 +5,8 @@ export default function layout({ children }) {
   return (
     <div className="flex flex-col justify-center">
       <Header />
-      <div className="w-full flex justify-center">
-        <div className="w-full pt-16 px-6 sm:px-6 md:px-14 lg:px-26 xl:px-48">
+      <div className="w-full flex justify-center px-2 sm:px-6 md:px-12 lg:px-20 xl:px-40">
+        <div className="w-[1150px] self-center pt-16 ">
           {children}
         </div>
       </div>

@@ -38,13 +38,30 @@ export default function page() {
         }
         return products;
     }
+    function findProductPath(categories, codeToFind, currentPath = '') {
+        for (const category of categories) {
+            const newPath = `${currentPath}/${category.url_Id}`;
+            const product = category.products.find(product => product.ALBEDOcodigo === codeToFind);
+            if (product) {
+                return `${newPath}/${product.url_Id}`;
+            }
+            if (category.subCategories && category.subCategories.length > 0) {
+                const foundInSubCategory = findProductPath(category.subCategories, codeToFind, newPath);
+                if (foundInSubCategory) {
+                    return foundInSubCategory;
+                }
+            }
+        }
+        return null;
+    }
+
 
     const allPublishedProducts = GetPublishedProducts(data);
     const last4PublishedProducts = allPublishedProducts.slice(-4);
 
     return (
         <Layout>
-            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+            <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700 mt-10" />
             <div className="flex justify-center my-4">
                 <h1 className="text-2xl font-bold">Gama de productos</h1>
             </div>
@@ -127,7 +144,7 @@ export default function page() {
                         <div className="flex flex-row flex-wrap items-center justify-center ">
                         {last4PublishedProducts.map((product) => (
                             <div className="lg:w-[250px] flex flex-col p-2 m-4  rounded-lg box-shadow justify-between" key={product.ALBEDOcodigo}>
-                                <Link href={product.fixedUrl}>
+                                <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
                                     <ProductItem product={product} />
                                 </Link>
                                 <AddToCart producto={product} />

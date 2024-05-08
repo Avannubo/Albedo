@@ -56,8 +56,8 @@ export default function ProductItem({ product }) {
         src={product.imagens[0]}
         alt="Vercel Logo"
         className="self-center h-[150px] w-full object-cover rounded-lg"
-        width={200}
-        height={150}
+        width={500}
+        height={550}
       />
       <p className="text-sm text-center" dangerouslySetInnerHTML={{ __html: sanitizeHTML(truncateText(product.ALBEDOdescripcion, 65)) }} />
     </div>

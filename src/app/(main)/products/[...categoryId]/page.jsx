@@ -165,7 +165,7 @@ export default function PageContent() {
                                         <div className='pl-[15px] hidden md:flex' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />}
                                     <QuillTextDisplay value={productData.ALBEDOcuerpo} />
                                     {
-                                        productData.archivos && (
+                                        productData.archivos.length>0 && (
                                             <div className='flex flex-col md:pl-[15px]'>
                                                 <p className='font-semibold'>Más información / Hoja de características del {productData.ALBEDOtitulo}</p>
                                                 {productData.archivos.map((archivo, index) => (

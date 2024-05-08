@@ -33,6 +33,23 @@ export default function Home() {
     }
     return products;
   }
+  function findProductPath(categories, codeToFind, currentPath = '') {
+    for (const category of categories) {
+      const newPath = `${currentPath}/${category.url_Id}`;
+      const product = category.products.find(product => product.ALBEDOcodigo === codeToFind);
+      if (product) {
+        return `${newPath}/${product.url_Id}`;
+      }
+      if (category.subCategories && category.subCategories.length > 0) {
+        const foundInSubCategory = findProductPath(category.subCategories, codeToFind, newPath);
+        if (foundInSubCategory) {
+          return foundInSubCategory;
+        }
+      }
+    }
+    return null;
+  }
+
   const allPublishedProducts = GetPublishedProducts(data);
   const last4PublishedProducts = allPublishedProducts.slice(-4);
 
@@ -63,7 +80,7 @@ export default function Home() {
             alt="Vercel Logo"
             className="self-center"
             width={400}
-            height={24}
+            height={240}
             priority="true"
           />
         </div>
@@ -124,7 +141,7 @@ export default function Home() {
             <div className="flex flex-row flex-wrap items-center justify-center ">
               {last4PublishedProducts.map((product) => (
                 <div key={product.ALBEDOcodigo} className="lg:w-[250px] flex flex-col p-2 m-4  rounded-lg box-shadow justify-between">
-                  <Link href={product.fixedUrl}  >
+                  <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
                     <ProductItem product={product} /></Link>
                   <AddToCart producto={product} />
                 </div>

@@ -97,10 +97,11 @@ export default function page() {
                     </div>
                 ) : (
                     data.length && data.length > 0 ? (
-                        <div className='flex flex-row flex-wrap space-x-2 md:space-x-6  justify-center  mt-2 '>
+                        <div className='flex flex-row flex-wrap space-x-1 md:space-x-4  justify-center  mt-2 '>
                                 {data.slice(1).map((category, index) => (
-                                <Link key={index} href={`/products/${category.url_Id}`} className="block mb-4  text-md text-gray-700 rounded-lg ">
-                                    <Image src={category.imagens[0]} alt="Vercel Logo" className="self-center w-[150px] h-[120px] rounded-lg" width={100} height={240} />
+                                    <Link key={index} href={`/products/${category.url_Id}`} className=" mb-4 p-2 box-shadow text-md text-gray-700 rounded-lg ">
+                                        <Image src={category.imagens[0]} alt="Vercel Logo" className="self-center w-[135px] h-auto rounded-lg"
+                                            width={500} height={400} />
                                     <p className='text-center font-semibold text-md'>
                                         {category.name.split(" ").length > 2 ? category.name.split(" ")[0] : category.name}
                                     </p>

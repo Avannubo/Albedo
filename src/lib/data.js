@@ -115,13 +115,14 @@ export async function updateIVA(newIVA) {
  * @param {string} productId - The ID of the product to be deleted.
  * @returns {boolean} Indicates whether the deletion was successful.
  */
-export async function deleteElement(categoryId) {
-    if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
+export async function deleteElement(categoryId, product) {
+    console.log(categoryId, product);
+    if (categoryId !== "none" || product !== "none") {
         try {
             const data = await fs.readFile(filePath, 'utf8');//call file
             const { categories, deletedContent } = JSON.parse(data);//get object  from json 
-            if (categoryId.categoryId !== "none") {// if there is no cat Id the code will exit and return false
-                const categoryToDeleteId = categoryId.categoryId.id; //save the catId in a var
+            if (categoryId !== "none") {// if there is no cat Id the code will exit and return false
+                const categoryToDeleteId = categoryId.id; //save the catId in a var
                 const deleteRecursive = async (categoryList) => {
                     for (let i = 0; i < categoryList.length; i++) {
                         const category = categoryList[i];
@@ -147,7 +148,7 @@ export async function deleteElement(categoryId) {
                 // console.log("Category deleted successfully.");
                 return true;
             } else {
-                const productToDelete = categoryId.productId.ALBEDOcodigo;
+                const productToDelete = product.ALBEDOcodigo;
                 const deleteRecursive = async (categoryList) => {
                     for (let i = 0; i < categoryList.length; i++) {
                         const category = categoryList[i];

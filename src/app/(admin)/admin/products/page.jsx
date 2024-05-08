@@ -21,7 +21,7 @@ const Category = ({ category, refetchData }) => (
         {/* edit svg */}
         <EditCatedory categoryId={category} refetchData={refetchData} />
         {/* delete svg */}
-        <Delete categoryId={category} productId={"none"} refetchData={refetchData} />
+        <Delete category={category} product={"none"} refetchData={refetchData} />
         <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
           {category.isPublished ? "Publicado" : "Oculto"}
         </p>
@@ -39,7 +39,7 @@ const Category = ({ category, refetchData }) => (
             </p>
             <div className="space-x-4 flex flex-row justify-center items-center">
               <EditProduct product={product} refetchData={refetchData} />
-              <Delete categoryId={"none"} productId={product} refetchData={refetchData} />
+              <Delete category={"none"} product={product} refetchData={refetchData} />
               <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
                 {product.isPublished ? "Publicado" : "Oculto"}
               </p>

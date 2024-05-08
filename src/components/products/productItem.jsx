@@ -55,7 +55,7 @@ export default function ProductItem({ product }) {
       <Image
         src={product.imagens[0]}
         alt="Vercel Logo"
-        className="self-center h-[150px] w-full object-cover rounded-lg"
+        className="self-center h-[150px] w-full object-contain rounded-lg"
         width={500}
         height={550}
       />

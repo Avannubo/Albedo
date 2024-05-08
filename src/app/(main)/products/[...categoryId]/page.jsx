@@ -119,15 +119,15 @@ export default function PageContent() {
                     {productData && (
                         <div className='grow'>
                             <div className='flex flex-col md:flex-row  justify-between my-10'>
-                                    <div className='md:w-1/3  md:mr-6 sm:mr-3'>
-                                    <div className='md:top-28 md:sticky flex flex-col sm:flex-row md:flex-col  sm:space-x-2 md:space-x-0'>
+                                <div className='md:w-1/3  md:mr-6 sm:mr-3'>
+                                    <div className='md:top-3w-36 md:sticky flex flex-col sm:flex-row md:flex-col  sm:space-x-2 md:space-x-0'>
                                         {/* <Image className='rounded-lg w-full m-0 sm:mr-4 sm:mb-4' src={productData.imagens[0]} alt={productData.ALBEDOtitulo} width={300} height={350} /> */}
                                         {/* Map over each image in productData.imagens */}
                                         <div className='flex flex-col '>
                                             {productData.imagens.map((image, index) => (
                                                 <Image
                                                     key={index} // Make sure to provide a unique key for each image
-                                                    className={` md:h-[400px] sm:h-[270px] h-[300px] md:w-[550px] object-cover rounded-lg ${index !== currentImageIndex ? 'hidden' : ''}`}
+                                                    className={` md:h-[400px] sm:h-[270px] h-[300px] md:w-[550px] object-contain rounded-lg ${index !== currentImageIndex ? 'hidden' : ''}`}
                                                     src={image}
                                                     alt={`Image ${index + 1}`} // Alt text can be dynamic if needed
                                                     width={4000}
@@ -139,11 +139,11 @@ export default function PageContent() {
                                                 {productData.imagens.map((image, index) => (
                                                     <div key={index} onClick={() => setCurrentImageIndex(index)} className={`space-x-4 h-auto w-auto overflow-hidden  border-2 border-transparent text-center cursor-pointer ${index === currentImageIndex ? 'border-gray-900' : ''}`}>
                                                         <Image
-                                                            className="rounded-lg w-[100px] h-auto mr-1"
+                                                            className="rounded-lg w-[150px] h-[80px] mr-1 object-contain"
                                                             src={image}
                                                             alt={`Thumbnail ${index + 1}`}
-                                                            width={1000}
-                                                            height={1000}
+                                                            width={500}
+                                                            height={500}
                                                         />
                                                     </div>
                                                 ))}
@@ -165,7 +165,7 @@ export default function PageContent() {
                                         <div className='pl-[15px] hidden md:flex' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />}
                                     <QuillTextDisplay value={productData.ALBEDOcuerpo} />
                                     {
-                                        productData.archivos.length>0 && (
+                                        productData.archivos.length > 0 && (
                                             <div className='flex flex-col md:pl-[15px]'>
                                                 <p className='font-semibold'>Más información / Hoja de características del {productData.ALBEDOtitulo}</p>
                                                 {productData.archivos.map((archivo, index) => (
@@ -176,6 +176,56 @@ export default function PageContent() {
                                             </div>
                                         )
                                     }
+                                </div>
+                            </div>
+                            <div className='flex flex-col my-2'>
+                                <h1 className='font-extrabold text-xl mt-4 md:mt-0 pl-[15px] '>Productos relacionados que pueden ser de su interés:</h1>
+
+                                    <div className='flex flex-row flex-wrap items-center justify-center md:items-start md:justify-start mr-0 md:mr-4 xl:space-x-4 mt-4 '>
+                                    <div className="w-[250px] h-auto flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse mb-8 mr-6">
+                                        <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
+                                            <div className='rounded-lg h-6 w-28 self-center bg-slate-200 animate-pulse'></div>
+                                            <div className='rounded-lg h-6 w-36 self-center bg-slate-200 animate-pulse'></div>
+                                            <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
+                                            <div className='flex flex-row justify-between space-x-4 '>
+                                                <div className='rounded-lg h-6 w-8 self-center bg-slate-200 animate-pulse'></div>
+                                                <div className='rounded-lg h-6 grow self-center bg-slate-200 animate-pulse'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="w-[250px] h-auto flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse mb-8 mr-6">
+                                        <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
+                                            <div className='rounded-lg h-6 w-28 self-center bg-slate-200 animate-pulse'></div>
+                                            <div className='rounded-lg h-6 w-36 self-center bg-slate-200 animate-pulse'></div>
+                                            <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
+                                            <div className='flex flex-row justify-between space-x-4 '>
+                                                <div className='rounded-lg h-6 w-8 self-center bg-slate-200 animate-pulse'></div>
+                                                <div className='rounded-lg h-6 grow self-center bg-slate-200 animate-pulse'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="w-[250px] h-auto flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse mb-8 mr-6">
+                                        <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
+                                            <div className='rounded-lg h-6 w-28 self-center bg-slate-200 animate-pulse'></div>
+                                            <div className='rounded-lg h-6 w-36 self-center bg-slate-200 animate-pulse'></div>
+                                            <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
+                                            <div className='flex flex-row justify-between space-x-4 '>
+                                                <div className='rounded-lg h-6 w-8 self-center bg-slate-200 animate-pulse'></div>
+                                                <div className='rounded-lg h-6 grow self-center bg-slate-200 animate-pulse'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="w-[250px] h-auto flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse mb-8 mr-6">
+                                        <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
+                                            <div className='rounded-lg h-6 w-28 self-center bg-slate-200 animate-pulse'></div>
+                                            <div className='rounded-lg h-6 w-36 self-center bg-slate-200 animate-pulse'></div>
+                                            <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
+                                            <div className='flex flex-row justify-between space-x-4 '>
+                                                <div className='rounded-lg h-6 w-8 self-center bg-slate-200 animate-pulse'></div>
+                                                <div className='rounded-lg h-6 grow self-center bg-slate-200 animate-pulse'></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

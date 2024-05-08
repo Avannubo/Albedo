@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Modal from '@/components/admin/products/subcategory/addModal';
 
-export default function addCategory(categoryId) {
+export default function addCategory({ categoryId, refetchData }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -16,7 +16,7 @@ export default function addCategory(categoryId) {
                 </svg>
                 <h1>Subcategoria</h1>
             </div>
-            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} />
+            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} refetchData={refetchData} />
         </div>
     )
 }

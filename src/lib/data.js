@@ -247,7 +247,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        const categoryToModifyId = categoryId.categoryId.id;
+        const categoryToModifyId = categoryId.id;
         const addSubcategoryRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
@@ -323,7 +323,7 @@ export async function addproduct(categoryId, productData) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        const categoryToModifyId = categoryId.categoryId.id;
+        const categoryToModifyId = categoryId.id;
         const addProductRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];

@@ -178,7 +178,7 @@ export default function PageContent() {
                                     }
                                 </div>
                             </div>
-                            <div className='flex flex-col my-2'>
+                            {/* <div className='flex flex-col my-2'>
                                 <h1 className='font-extrabold text-xl mt-4 md:mt-0 pl-[15px] '>Productos relacionados que pueden ser de su interés:</h1>
 
                                     <div className='flex flex-row flex-wrap items-center justify-center md:items-start md:justify-start mr-0 md:mr-4 xl:space-x-4 mt-4 '>
@@ -227,7 +227,7 @@ export default function PageContent() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     )}
                 </>

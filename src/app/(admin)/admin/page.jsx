@@ -30,7 +30,7 @@ export default function Page() {
                 setError(response.error);
             }
         } catch (error) {
-            console.error('Error during login:', error);
+            console.error('Error during login:', error); 
             setError('Error during login. Please try again.');
         }
     };

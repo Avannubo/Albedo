@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 export default function ordersChart() {
     const [orders, setOrders] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(false);
+    const [loading, setLoading] = useState(true); // Add loading state
 
     useEffect(() => {
         async function fetchOrders() {
@@ -13,11 +14,12 @@ export default function ordersChart() {
                 const inactiveOrders = await getAllInactiveOrders();
                 const activeOrders = await getAllActiveOrders();
                 const fetchedOrders = [...inactiveOrders, ...activeOrders];
-                console.log(fetchedOrders);
                 setOrders(fetchedOrders);
                 setDataLoaded(true); // Set dataLoaded to true after data retrieval
             } catch (error) {
                 console.error('Error fetching orders:', error);
+            } finally {
+                setLoading(false); // Set loading to false after data retrieval
             }
         }
         fetchOrders();
@@ -138,6 +140,11 @@ export default function ordersChart() {
     }, [orders, dataLoaded]);
     return (
         <div className="relative flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+            {loading && (
+                <div className="flex items-center justify-center h-[320px]">
+                    <span className="text-gray-500">Cargando Datos...</span>
+                </div>
+            )}
             {dataLoaded && (
                 <div className="relative mx-4 mt-4 flex flex-col gap-4 overflow-hidden rounded-none bg-transparent bg-clip-border text-gray-700 shadow-none md:flex-row md:items-center">
                     <div className="w-max rounded-lg bg-[#3a55af] p-5 text-white">

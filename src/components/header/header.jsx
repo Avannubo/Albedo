@@ -77,7 +77,7 @@ export default function Header() {
                   </button>
                   {showServiciosDropdown && (
                     <div className="absolute left-0 mt-2 bg-white text-gray-700 rounded-lg shadow" id="dropdown">
-                      <ul className="">
+                      <ul className="m-1">
                         <li>
                           <Link href="/services" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md">Le ofrecemos</Link>
                         </li>
@@ -117,7 +117,7 @@ export default function Header() {
                   </button>
                   {showSobreDropdown && (
                     <div className="absolute left-5 mt-2 bg-white text-gray-700 shadow rounded-lg" id="dropdown2">
-                      <ul className="">
+                      <ul className="m-1">
                         <li>
                           <Link href="/about/historia" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md">Quienes somos</Link>
                         </li>

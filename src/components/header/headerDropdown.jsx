@@ -77,7 +77,7 @@ export default function Dropdown() {
 
         {isOpen && (
           <div className=" absolute left-0 w-auto rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 h-auto overflow-y-scroll no-scrollbar">
-            <ul>
+            <ul className="m-1">
               <li className="px-2 py-1.5 text-md text-gray-700 hover:bg-gray-100 rounded-lg">
                 <Link href="/products" className="whitespace-nowrap">Gama de productos</Link>
               </li>

@@ -29,16 +29,16 @@ const Category = ({ category, refetchData }) => (
     </div>
     {category.products && category.products.length > 0 && (
       <div>
-        {category.products.reverse().map((product) => (
+        {category.products.map((product, index) => (//.reverse()
           <div
-            key={product.ALBEDOcodigo}
+            key={index}
             className="ml-14 flex flex-row justify-between border bg-slate-50 rounded-lg p-2 mb-1"
           >
             <p className="h-auto w-full self-center ">
               {product.url_Id} : {product.ALBEDOtitulo}
             </p>
             <div className="space-x-4 flex flex-row justify-center items-center">
-              <EditProduct productId={product} refetchData={refetchData} />
+              <EditProduct product={product} refetchData={refetchData} />
               <Delete categoryId={"none"} productId={product} refetchData={refetchData} />
               <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
                 {product.isPublished ? "Publicado" : "Oculto"}

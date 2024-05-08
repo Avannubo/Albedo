@@ -396,7 +396,7 @@ export async function addproduct(categoryId, productData) {
  * @returns {boolean} Indicates whether the editing was successful.
  */
 export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
-    console.log('called function editproduct' + productId.productId);
+    console.log('called function editproduct' + productId);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);

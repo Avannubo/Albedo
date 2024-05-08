@@ -3,23 +3,23 @@ import React, { useState, useEffect } from 'react';
 import { editproduct, getProductById, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
-export default function EditModal({ isOpen, onClose, productId }) {
-    // console.log(productId.productId);
+export default function EditModal({ isOpen, onClose, product, refetchData }) {
+    console.log(product);
     const [loading, setLoading] = useState(false);
-    const [newProductName, setNewProductName] = useState(productId.productId.ALBEDOtitulo);
-    const [newProductCode, setNewProductCode] = useState(productId.productId.ALBEDOcodigo);
-    const [newProductUrlCode, setNewProductUrlCode] = useState(productId.productId.url_Id);
-    const [newProductPrice, setNewProductPrice] = useState(productId.productId.ALBEDOprecio);
-    const [newProductDescription, setNewProductDescription] = useState(productId.productId.ALBEDOdescripcion);
-    const [newProductBody, setNewProductBody] = useState(productId.productId.ALBEDOcuerpo);
-    const [newProductStock, setNewProductStock] = useState(productId.productId.ALBEDOstock);
-    const [newProductMinStock, setNewProductMinStock] = useState(productId.productId.ALBEDOstock_minimo);
-    const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(productId.productId.ALBEDOplazo_entrega);
-    const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(productId.productId.isPublished);
-    const [productImages, setProductImages] = useState(productId.productId.imagens);
-    const [productFiles, setProductFiles] = useState(productId.productId.archivos);
+    const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
+    const [newProductCode, setNewProductCode] = useState(product.ALBEDOcodigo);
+    const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);
+    const [newProductPrice, setNewProductPrice] = useState(product.ALBEDOprecio);
+    const [newProductDescription, setNewProductDescription] = useState(product.ALBEDOdescripcion);
+    const [newProductBody, setNewProductBody] = useState(product.ALBEDOcuerpo);
+    const [newProductStock, setNewProductStock] = useState(product.ALBEDOstock);
+    const [newProductMinStock, setNewProductMinStock] = useState(product.ALBEDOstock_minimo);
+    const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(product.ALBEDOplazo_entrega);
+    const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(product.isPublished);
+    const [productImages, setProductImages] = useState(product.imagens);
+    const [productFiles, setProductFiles] = useState(product.archivos);
     const [selectedImages, setSelectedImages] = useState([]);
-    const [selectedFiles, setSelectedFiles] = useState([]); 
+    const [selectedFiles, setSelectedFiles] = useState([]);
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -174,7 +174,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
             const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
             const uniqueFilePaths = Array.from(new Set([...relatedFilePaths, ...productFiles]));
             console.log(uniqueFilePaths);
-            await editproduct(productId,
+            await editproduct(product,
                 newProductCode,
                 newProductUrlCode,
                 newProductName,
@@ -205,6 +205,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
             // setSelectedFiles([]);
             // setProductFiles([]);
             onClose();
+            refetchData();
         } catch (error) {
             console.error("Error uploading images:", error);
             setLoading(false);
@@ -346,7 +347,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div >
     ) : null;

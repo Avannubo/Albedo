@@ -6,7 +6,6 @@ import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, productId }) {
     // console.log(productId.productId);
     const [loading, setLoading] = useState(false);
-
     const [newProductName, setNewProductName] = useState(productId.productId.ALBEDOtitulo);
     const [newProductCode, setNewProductCode] = useState(productId.productId.ALBEDOcodigo);
     const [newProductUrlCode, setNewProductUrlCode] = useState(productId.productId.url_Id);
@@ -20,24 +19,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
     const [productImages, setProductImages] = useState(productId.productId.imagens);
     const [productFiles, setProductFiles] = useState(productId.productId.archivos);
     const [selectedImages, setSelectedImages] = useState([]);
-    const [selectedFiles, setSelectedFiles] = useState([]);
-    // useEffect(() => {
-    //     if (isOpen && productId) {
-    //         setNewProductName(productId.productId.ALBEDOtitulo);
-    //         setNewProductCode(productId.productId.ALBEDOcodigo);
-    //         setNewProductUrlCode(productId.productId.url_Id);
-    //         setNewProductPrice(productId.productId.ALBEDOprecio);
-    //         setNewProductDescription(productId.productId.ALBEDOdescripcion);
-    //         setNewProductBody(productId.productId.ALBEDOcuerpo);
-    //         setNewProductStock(productId.productId.ALBEDOstock);
-    //         setNewCategoryIsPublished(productId.productId.isPublished);
-    //         setNewProductMinStock(productId.productId.ALBEDOstock_minimo);
-    //         setNewProductDeliveryTime(productId.productId.ALBEDOplazo_entrega);
-    //         setProductImages(productId.productId.imagens);
-    //         setProductFiles(productId.productId.archivos);
-    //     }
-    // }, [isOpen, productId]);
-
+    const [selectedFiles, setSelectedFiles] = useState([]); 
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -187,7 +169,6 @@ export default function EditModal({ isOpen, onClose, productId }) {
             // Upload images and related files
             const imagePaths = await uploadImages();
             const relatedFilePaths = await uploadRelatedFiles();
-
             // console.log(relatedFilePaths);
             // Combine new and existing image paths and file paths
             const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
@@ -365,7 +346,7 @@ export default function EditModal({ isOpen, onClose, productId }) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
         </div >
     ) : null;

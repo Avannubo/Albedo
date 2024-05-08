@@ -9,7 +9,7 @@ import AddNewProduct from "@/components/admin/products/product/add";
 import EditProduct from "@/components/admin/products/product/edit";
 import EditCatedory from "@/components/admin/products/category/edit";
 import Layout from "@/app/(admin)/admin/AdminLayout";
-const Category = ({ category }) => (
+const Category = ({ category, refetchData }) => (
   <div key={category.id} className="space-y-2 w-full">
     <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
       <p className="h-auto  self-center">{category.url_Id} : {category.name}</p>
@@ -19,7 +19,7 @@ const Category = ({ category }) => (
         {/* addSubCat svg */}
         <AddSubCategory categoryId={category} />
         {/* edit svg */}
-        <EditCatedory categoryId={category} />
+        <EditCatedory categoryId={category} refetchData={refetchData} />
         {/* delete svg */}
         <Delete categoryId={category} productId={"none"} />
         <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
@@ -72,7 +72,7 @@ export default function Page() {
       setCategories(fetchedCategories);
     } catch (error) {
       console.error('Error fetching categories:', error);
-    } finally {
+    } finally { 
       setIsLoading(false);
     }
   };

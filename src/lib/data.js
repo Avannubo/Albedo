@@ -13,11 +13,11 @@ const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 let cachedContent = null;
 export async function requireContent() {
-    if (!cachedContent) {
+    // if (!cachedContent) {
         const res = await fs.readFile(filePath, 'utf8');
-        cachedContent = JSON.parse(res);
-    }
-    return cachedContent;
+        // cachedContent = JSON.parse(res);
+    // }
+    return JSON.parse(res);
 }
 export async function getCategories() {
     const content = await requireContent();
@@ -469,7 +469,7 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
-                if (category.id === categoryId.categoryId.id) {
+                if (category.id === categoryId) {
                     // Update the category properties
                     category.id = Code;
                     category.name = Name;

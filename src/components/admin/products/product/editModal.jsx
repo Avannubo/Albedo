@@ -241,9 +241,7 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
         } catch (error) {
             console.error("Error uploading images:", error);
             setLoading(false);
-        } finally {
-            setLoading(false);
-        }
+        } fina
     };
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:max-h-screen before:bg-[rgba(0,0,0,0.5)] overflow-y-scroll font-[sans-serif]">

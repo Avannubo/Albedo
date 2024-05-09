@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { editCategory, getCategoryById, saveImage } from '@/lib/data';
+import { editCategory, getCategories, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, categoryId, refetchData }) {
     // const productData = getProductById(productId);
     //console.log(categoryId);
+    const [data, setData] = useState();
     const [newCategoryName, setNewCategoryName] = useState(categoryId.name);
-    const [newCategoryCode, setNewCategoryCode] = useState(categoryId.id);
     const [newCategoryUrlId, setNewCategoryUrlId] = useState(categoryId.url_Id);
     const [newCategoryDescription, setNewCategoryDescription] = useState(categoryId.ALBEDOdescripcion);
     const [newCategoryBody, setNewCategoryBody] = useState(categoryId.ALBEDOcuerpo);
@@ -15,14 +15,14 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
     const [categoryImages, setCategoryImages] = useState(categoryId.imagens);
     const [selectedImages, setSelectedImages] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    // State variables for error handling
+    const [nameError, setNameError] = useState(false);
+    const [descriptionError, setDescriptionError] = useState(false);
+    const [urlCodeError, setUrlCodeError] = useState(false);
     //console.log(categoryImages);
     //change listeners  for inputs 
     const handleInputChangeName = (event) => {
         setNewCategoryName(event.target.value);
-    };
-    const handleInputChangeCode = (event) => {
-        setNewCategoryCode(event.target.value);
     };
     const handleInputChangeUrlId = (event) => {
         setNewCategoryUrlId(event.target.value);
@@ -83,28 +83,50 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
                 .catch(error => reject(error));
         });
     };
+    useEffect(() => {
+        async function fetchData() {
+            const categories = await getCategories();
+            // console.log(categories);
+            setData(categories);
+        }
+        fetchData();
+    }, [])
     //server Action here
     const handleAddProduct = async () => {
-        setLoading(true);
 
+        setUrlCodeError(!newCategoryUrlId.trim());
+        setNameError(!newCategoryName.trim());
+        setDescriptionError(!newCategoryDescription.trim());
+        if (!newCategoryName.trim() || !newCategoryUrlId.trim() || !newCategoryDescription.trim()) {
+            return;
+        }
+        const urlIdExists = data.some(category => category.url_Id === newCategoryUrlId); // Use 'url_Id' for comparison
+
+        if (urlIdExists) {
+            setUrlCodeError(true);
+            return;
+        }
+        setLoading(true);
         const imagePaths = await uploadImages();
         const allImagePaths = [...imagePaths, ...categoryImages];
         const uniqueImagePaths = Array.from(new Set(allImagePaths));
         //console.log(uniqueImagePaths, categoryId.id, newCategoryCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished, uniqueImagePaths);
-        await editCategory(categoryId.id, 
+        await editCategory(categoryId.id,
             newCategoryUrlId,
             newCategoryName,
             newCategoryDescription,
             newCategoryBody,
             newCategoryIsPublished,
             uniqueImagePaths);
-
         setNewCategoryName('');
         setNewCategoryIsPublished('');
         setNewCategoryBody('');
+        setNewCategoryUrlId('');
         setNewCategoryDescription('');
-        setNewCategoryCode('');
         setCategoryImages(uniqueImagePaths);
+        setNameError(false);
+        setDescriptionError(false);
+        setUrlCodeError(false);
         setLoading(false);
         onClose();
         refetchData();
@@ -140,17 +162,19 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
                                     <input onChange={handleInputChangeName} value={newCategoryName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="category" required />
+                                    {nameError && <span className="text-red-500 italic text-xs">El nombre de la categoría es requerido</span>}
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
-                                    <input onChange={handleInputChangeUrlId}  value={newCategoryUrlId} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Url Id" required />
+                                    <input onChange={handleInputChangeUrlId} value={newCategoryUrlId} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Url Id" required />
+                                    {urlCodeError && <span className="text-red-500 italic text-xs"> El código URL es obligatorio y no duplicado. </span>}
                                 </div>
-
                             </div>
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
                                 {/* <input onChange={handleInputChangeDescription} value={newCategoryDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
                                 <QuillEditor value={newCategoryDescription} onChange={handleInputChangeDescription} />
+                                {descriptionError && <span className="text-red-500 italic text-xs">La descripción de la categoría es requerida</span>}
                             </div>
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>

@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { editproduct, getProductById, saveImage, saveFile } from '@/lib/data';
+import { editproduct, getCategories, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
-export default function EditModal({ isOpen, onClose, product, refetchData }) {
+export default function EditModal({ isOpen, onClose, category, product, refetchData }) {
     //console.log(product);
     const [loading, setLoading] = useState(false);
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
@@ -20,6 +20,14 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
     const [productFiles, setProductFiles] = useState(product.archivos);
     const [selectedImages, setSelectedImages] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const [data, setData] = useState();
+
+
+    const [nameError, setNameError] = useState(false);
+    const [urlCodeError, setUrlCodeError] = useState(false);
+    const [descriptionError, setDescriptionError] = useState(false);
+
+
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -163,7 +171,32 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
                 });
         });
     };
+
+    useEffect(() => {
+        async function fetchData() {
+            const categories = await getCategories();
+            // console.log(categories);
+            setData(categories);
+        }
+        fetchData();
+    }, [])
+
     const handleAddProduct = async () => {
+        setUrlCodeError(!newProductUrlCode.trim());
+        setNameError(!newProductName.trim());
+        setDescriptionError(!newProductDescription.trim());
+        if (!newProductName.trim() || !newProductUrlCode.trim() || !newProductDescription.trim()) {
+            return;
+        }
+
+        const urlIdExists = category.products.some(category => category.url_Id === newProductUrlCode); // Use 'url_Id' for comparison
+
+
+        if (urlIdExists) {
+            setUrlCodeError(true);
+            return;
+        }
+
         try {
             setLoading(true);
             // Upload images and related files
@@ -209,7 +242,7 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
         } catch (error) {
             console.error("Error uploading images:", error);
             setLoading(false);
-        }
+        } fina
     };
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:max-h-screen before:bg-[rgba(0,0,0,0.5)] overflow-y-scroll font-[sans-serif]">
@@ -249,10 +282,13 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} value={newProductUrlCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
+                                    {urlCodeError && <span className="text-red-500 italic text-xs"> El código URL es obligatorio y no duplicado. </span>}
+
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
                                     <input onChange={handleInputChangeProduct} value={newProductName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="product" required />
+                                    {nameError && <span className="text-red-500 italic text-xs">El nombre de producto es requerido</span>}
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Precio de producto</label>
@@ -265,6 +301,8 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
                                 <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
+                                {descriptionError && <span className="text-red-500 italic text-xs"> La descripción de producto es requerida</span>}
+
                                 {/* <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
                             </div>
                             <div className="mb-4">

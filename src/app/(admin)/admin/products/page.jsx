@@ -38,7 +38,7 @@ const Category = ({ category, refetchData }) => (
             </p>
             <div className="space-x-4 flex flex-row justify-center items-center">
               <Duplicate category={category} product={product} refetchData={refetchData} />
-              <EditProduct product={product} refetchData={refetchData} />
+              <EditProduct category={category}  product={product} refetchData={refetchData} />
               <Delete category={"none"} product={product} refetchData={refetchData} />
               <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
                 {product.isPublished ? "Publicado" : "Oculto"}

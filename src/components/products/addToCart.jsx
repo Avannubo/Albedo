@@ -14,12 +14,12 @@ function AddToCart({ producto }) {
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     let foundDuplicate = false;
 
-    console.log("Current Cart:", carrito);
+    //console.log("Current Cart:", carrito);
 
     // Check if the product already exists in the cart
     carrito.forEach((item) => {
       if (item.ALBEDOcodigo === producto.ALBEDOcodigo) {
-        console.log("Found Duplicate:", item);
+        //console.log("Found Duplicate:", item);
         // Increment the quantity based on input value or add 1 if input is not used
         item.quantity += quantity;
         foundDuplicate = true;
@@ -28,7 +28,7 @@ function AddToCart({ producto }) {
 
     // If not found, add the product to the cart
     if (!foundDuplicate) {
-      console.log("Adding New Product:", producto);
+      //console.log("Adding New Product:", producto);
       // Add the product with the specified quantity
       carrito.push({ ...producto, quantity });
     }
@@ -38,7 +38,7 @@ function AddToCart({ producto }) {
       localStorage.setItem("carrito", JSON.stringify(carrito));
     }
 
-    console.log("Updated Cart:", carrito);
+    //console.log("Updated Cart:", carrito);
     // window.location.reload();
     setQuantity(1);
   };

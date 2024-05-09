@@ -12,8 +12,7 @@ export default function AddModal({ isOpen, onClose, refetchData }) {
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
     // State variables for error handling
     const [nameError, setNameError] = useState(false);
-    const [descriptionError, setDescriptionError] = useState(false);
-    const [codeError, setCodeError] = useState(false);
+    const [descriptionError, setDescriptionError] = useState(false); 
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]); 
 
@@ -33,7 +32,7 @@ export default function AddModal({ isOpen, onClose, refetchData }) {
         setNewCategoryDescription(value);
     };
     const handleInputChangeBody = (value) => {
-        setNewCategoryBody(value);
+        setNewCategoryBody(value); 
     };
 
     const handleImageChange = (event) => {
@@ -77,8 +76,7 @@ export default function AddModal({ isOpen, onClose, refetchData }) {
 
 
     const handleAddCategory = async () => {
-        // Set errors for all fields that don't meet the requirements
-        setCodeError(!newCategoryCode.trim());
+        // Set errors for all fields that don't meet the requirements 
         setUrlCodeError(!newCategoryUrlCode.trim());
         setNameError(!newCategoryName.trim());
         setDescriptionError(!newCategoryDescription.trim());
@@ -119,8 +117,7 @@ export default function AddModal({ isOpen, onClose, refetchData }) {
         setNewCategoryUrlCode('');
         setNewCategoryIsPublished(false);
         setNameError(false);
-        setDescriptionError(false);
-        setCodeError(false);
+        setDescriptionError(false); 
         setUrlCodeError(false);
         setSelectedImages([]);
         refetchData();

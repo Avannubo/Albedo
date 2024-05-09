@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Modal from '@/components/admin/products/category/editModal';
 
 export default function editCategory({ categoryId, refetchData }) {
-    console.log(categoryId);
+    //console.log(categoryId);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {

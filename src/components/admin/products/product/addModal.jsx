@@ -76,12 +76,12 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
                         const fileData = reader.result;
                         const filePath = `./public/assets/archivos/${file.name}`;
                         const filePathToSave = `/assets/archivos/${file.name}`;
-                        console.log("Uploading file:", filePath);
+                        //console.log("Uploading file:", filePath);
                         try {
                             // Assuming saveFile is asynchronous and returns a promise
                             await saveFile(fileData, filePath.replace(/ /g, "_"));
                             filesPaths.push(filePathToSave.replace(/ /g, "_"));
-                            console.log("File uploaded:", filePath.replace(/ /g, "_"));
+                            //console.log("File uploaded:", filePath.replace(/ /g, "_"));
                             resolveFile();
                         } catch (error) {
                             console.error("Error uploading file:", error);
@@ -97,7 +97,7 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
             });
             Promise.all(uploadPromises)
                 .then(() => {
-                    console.log("All files uploaded successfully" + filesPaths);
+                    //console.log("All files uploaded successfully" + filesPaths);
                     resolve(filesPaths);
                 })
                 .catch(error => {
@@ -156,8 +156,8 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
         try {
             const imagePaths = await uploadImages();
             const relatedFilePaths = await uploadRelatedFiles();
-            console.log(imagePaths);
-            console.log(relatedFilePaths);
+            //console.log(imagePaths);
+            //console.log(relatedFilePaths);
             const productData = {
                 newProductCode: newProductCode,
                 newProductUrlCode: newProductUrlCode,
@@ -171,7 +171,7 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
                 imagePaths: imagePaths,
                 relatedFilePaths: relatedFilePaths,
             };
-            console.log(productData);
+            //console.log(productData);
             // Ensure addproduct is awaited
             await addproduct(
                 categoryId,

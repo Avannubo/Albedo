@@ -4,17 +4,17 @@ export default function Modal({ isOpen, onClose, orderId, orderState, onModalClo
     const [newOrderState, setNewOrderState] = useState(orderState);
     const availableStates = ["Pendiente", "Confirmado", "Procesando", "Enviado", "Facturado", "Cancelado"];
     const handleStateUpdate = async () => {
-        console.log('Current order state: ' + orderState);
-        console.log('New order state: ' + newOrderState);
+        //console.log('Current order state: ' + orderState);
+        //console.log('New order state: ' + newOrderState);
         if (orderState === 'Pendiente' || orderState === 'Confirmado' || orderState === 'Procesando' || orderState === 'Enviado') {
             //handle order updated and moved to inactive json  
-            console.log('Updating state to inactive...');
+            //console.log('Updating state to inactive...');
             await updateActiveOrder(orderId, newOrderState);
-            console.log('State updated to inactive');
+            //console.log('State updated to inactive');
         } else {
-            console.log('Updating state to active...');
+            //console.log('Updating state to active...');
             await updateInactiveOrder(orderId, newOrderState);
-            console.log('State updated to active');
+            //console.log('State updated to active');
         }
         onClose(); // Close the modal after successful update
         onModalClose(); // Callback to inform the parent component about modal close

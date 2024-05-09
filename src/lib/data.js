@@ -37,7 +37,7 @@ export async function getParameters() {
     try {
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-        console.log(JSON.stringify(jsonData));
+        //console.log(JSON.stringify(jsonData));
         return jsonData;
     } catch (error) {
         console.error("Error getting Parameters:", error);
@@ -116,7 +116,7 @@ export async function updateIVA(newIVA) {
  * @returns {boolean} Indicates whether the deletion was successful.
  */
 export async function deleteElement(categoryId, product) {
-    console.log(categoryId, product);
+    //console.log(categoryId, product);
     if (categoryId !== "none" || product !== "none") {
         try {
             const data = await fs.readFile(filePath, 'utf8');//call file
@@ -142,10 +142,10 @@ export async function deleteElement(categoryId, product) {
                 };
                 const categoryDeleted = await deleteRecursive(categories);
                 if (!categoryDeleted) {
-                    // console.log("Category not found.");
+                    // //console.log("Category not found.");
                     return false;
                 }
-                // console.log("Category deleted successfully.");
+                // //console.log("Category deleted successfully.");
                 return true;
             } else {
                 const productToDelete = product.ALBEDOcodigo;
@@ -171,10 +171,10 @@ export async function deleteElement(categoryId, product) {
                 };
                 const productDeleted = await deleteRecursive(categories);
                 if (!productDeleted) {
-                    // console.log("Product not found.");
+                    // //console.log("Product not found.");
                     return false;
                 }
-                // console.log("Product deleted successfully.");
+                // //console.log("Product deleted successfully.");
                 return true;
             }
         } catch (error) {
@@ -196,7 +196,7 @@ export async function deleteElement(categoryId, product) {
  * @returns {boolean} Indicates whether the addition was successful.
  */
 export async function addCategory(Code, Url_Id, name, description, body, isPublished, imagePaths) {
-    console.log("New subcategory: " + imagePaths);
+    //console.log("New subcategory: " + imagePaths);
     try {
         const data = await readFile(filePath, 'utf8');
         const jsonData = JSON.parse(data);
@@ -224,7 +224,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
         categories.unshift(newCategory);
         await writeFile(filePath, JSON.stringify(jsonData));
         revalidatePath('/admin/categories');
-        // console.log("Subcategory added successfully.");
+        // //console.log("Subcategory added successfully.");
         return true;
     } catch (error) {
         console.error("Error adding subcategory:", error);
@@ -243,8 +243,8 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
  * @returns {boolean} Indicates whether the addition was successful.
  */
 export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body, imagePaths) {
-    // // console.log("Adding subcategory to " + categoryId.categoryId.id);
-    // // console.log(" subcategory name " + newCategoryName);
+    // // //console.log("Adding subcategory to " + categoryId.categoryId.id);
+    // // //console.log(" subcategory name " + newCategoryName);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -252,9 +252,9 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
         const addSubcategoryRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
-                // // console.log("Checking category:", category);
+                // // //console.log("Checking category:", category);
                 if (category.id === categoryToModifyId) {
-                    // // console.log("Category found:", category);
+                    // // //console.log("Category found:", category);
                     if (!category.subCategories) {
                         category.subCategories = [];
                     }
@@ -273,29 +273,29 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         "products": []
                     }
                     category.subCategories.unshift(dataObj);
-                    // console.log("New subcategory added:", dataObj);
-                    // console.log("Writing updated data to file...");
+                    // //console.log("New subcategory added:", dataObj);
+                    // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    // console.log("Data written successfully.");
+                    // //console.log("Data written successfully.");
                     revalidatePath('/admin/categories');
-                    // console.log("Path revalidated.");
+                    // //console.log("Path revalidated.");
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
-                    // console.log("Checking subcategories of:", category);
+                    // //console.log("Checking subcategories of:", category);
                     const subcategoryAdded = await addSubcategoryRecursive(category.subCategories);
                     if (subcategoryAdded) return true;
                 }
             }
             return false;
         };
-        // console.log("Starting adding subcategory process...");
+        // //console.log("Starting adding subcategory process...");
         const subcategoryAdded = await addSubcategoryRecursive(categories);
         if (!subcategoryAdded) {
-            // console.log("Category not found.");
+            // //console.log("Category not found.");
             return false;
         }
-        // console.log("Subcategory added successfully.");
+        // //console.log("Subcategory added successfully.");
         return true;
     } catch (error) {
         console.error("Error adding subcategory:", error);
@@ -318,9 +318,8 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
  * @returns {boolean} Indicates whether the addition was successful.
  */
 export async function addproduct(categoryId, productData) {
-    console.log("New product:" +
-        JSON.stringify(productData));
-    console.log(productData.imagePaths);
+    //console.log("New product:" +  JSON.stringify(productData));
+    //console.log(productData.imagePaths);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -329,11 +328,11 @@ export async function addproduct(categoryId, productData) {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 if (category.id === categoryToModifyId) {
-                    // console.log("Category found:", category);
+                    // //console.log("Category found:", category);
                     if (!category.products) {
                         category.products = [];
                     }
-                    console.log(productData.relatedFilePaths);
+                    //console.log(productData.relatedFilePaths);
                     const dataObj = {
                         "ALBEDOcodigo": productData.newProductCode,  //productCode.replace(/ /g, "-"),
                         "url_Id": productData.newProductUrlCode,
@@ -352,29 +351,29 @@ export async function addproduct(categoryId, productData) {
                         "ALBEDOplazo_entrega": productData.newProductDeliveryTime
                     }
                     category.products.push(dataObj);
-                    // console.log("New product added:", dataObj);
-                    // console.log("Writing updated data to file...");
+                    // //console.log("New product added:", dataObj);
+                    // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    // console.log("Data written successfully.");
+                    // //console.log("Data written successfully.");
                     revalidatePath('/admin/categories');
-                    // console.log("Path revalidated.");
+                    // //console.log("Path revalidated.");
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
-                    // console.log("Checking products in subcategories of:", category.subCategories);
+                    // //console.log("Checking products in subcategories of:", category.subCategories);
                     const productAdded = await addProductRecursive(category.subCategories);
                     if (productAdded) return true;
                 }
             }
             return false;
         };
-        // console.log("Starting adding product process...");
+        // //console.log("Starting adding product process...");
         const productAdded = await addProductRecursive(categories);
         if (!productAdded) {
-            // console.log("Category not found.");
+            // //console.log("Category not found.");
             return false;
         }
-        // console.log("product added successfully.");
+        // //console.log("product added successfully.");
         return true;
     } catch (error) {
         console.error("Error adding product:", error);
@@ -397,7 +396,7 @@ export async function addproduct(categoryId, productData) {
  * @returns {boolean} Indicates whether the editing was successful.
  */
 export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
-    console.log('called function editproduct' + productId);
+    //console.log('called function editproduct' + productId);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -406,9 +405,9 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                 const category = categoryList[i];
                 for (let j = 0; j < category.products.length; j++) {
                     const product = category.products[j];
-                    // console.log(productId.productId);
+                    // //console.log(productId.productId);
                     if (product.ALBEDOcodigo === productCode) {
-                        console.log("product found:", product);
+                        //console.log("product found:", product);
                         product.ALBEDOcodigo = productCode.replace(/ /g, "-");
                         product.url_Id = url_Id;
                         product.ALBEDOtitulo = Name;
@@ -422,13 +421,13 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         product.isPublished = isPublished;
                         product.imagens = imagePaths;
                         product.archivos = filePaths;
-                        console.log("Writing updated data to file...");
+                        //console.log("Writing updated data to file...");
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                        console.log("Data written successfully.");
+                        //console.log("Data written successfully.");
                         // Assuming revalidatePath is defined somewhere
                         // window.location.reload();
                         //  revalidatePath('/admin/categories');
-                        // // console.log("Path revalidated.");
+                        // // //console.log("Path revalidated.");
                         return true;
                     }
                 }
@@ -439,16 +438,16 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
             }
             return false;
         };
-        console.log("Starting saving process...");
+        //console.log("Starting saving process...");
         const product = await loopRecursive(categories);
         if (!product) {
-            console.log("product not found.");
+            //console.log("product not found.");
             return false;
         }
-        console.log("product saved successfully.");
+        //console.log("product saved successfully.");
         return true;
     } catch (error) {
-        console.log("Error:", error);
+        //console.log("Error:", error);
         return false;
     }
 }
@@ -463,7 +462,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
  * @returns {boolean} Indicates whether the editing was successful.
  */
 export async function editCategory(categoryId, Code, Name, Description, Body, isPublished, imagePaths) {
-    console.log('called function editCategory');
+    //console.log('called function editCategory');
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -533,19 +532,19 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
  * @returns {Object} The product data.
  */
 export async function getProductById(productId) {
-    // // console.log(productId);
+    // // //console.log(productId);
     try { // Provide correct file path
         const data = await fs.readFile(filePath, 'utf8');
         const { categories } = JSON.parse(data); // Destructure categories directly
         const productToEdit = productId.productId;
-        // // console.log(productToEdit);
+        // // //console.log(productToEdit);
         const findProduct = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 for (let j = 0; j < category.products.length; j++) {
                     const product = category.products[j];
                     if (product.ALBEDOcodigo === productToEdit) {
-                        // console.log("\nProduct found(back):", JSON.stringify(product));
+                        // //console.log("\nProduct found(back):", JSON.stringify(product));
                         return JSON.stringify(product); // Return product when found
                     }
                 }
@@ -558,12 +557,12 @@ export async function getProductById(productId) {
         };
         const product = await findProduct(categories);
         if (!product) {
-            // console.log("Product not found.");
+            // //console.log("Product not found.");
             return null; // Return null if product not found
         }
         return product; // Return found product
     } catch (error) {
-        // console.log("Error:", error); // Log error
+        // //console.log("Error:", error); // Log error
         throw error; // Rethrow error
     }
 }
@@ -579,7 +578,7 @@ export async function getCategoryById(categoryId) {
             throw new Error("Invalid categoryId");
         }
         // Log the category ID to be searched for 
-        // console.log("Searching for category with ID:", categoryId.categoryId.id);
+        // //console.log("Searching for category with ID:", categoryId.categoryId.id);
         // Read the contents of the JSON file
         const data = await fs.readFile(filePath, 'utf8');
         // Parse the JSON file contents into JavaScript object
@@ -594,13 +593,13 @@ export async function getCategoryById(categoryId) {
                 // If the category ID matches, return the category and its data
                 if (category.id === categoryToDeleteId) {
                     // revalidatePath('/admin/categories');
-                    // // console.log("cat found in back: "+ JSON.stringify(category));
+                    // // //console.log("cat found in back: "+ JSON.stringify(category));
                     return category; // Return category and its data
                 }
                 // If the category has subcategories, search for the ID within those subcategories
                 if (category.subCategories && category.subCategories.length > 0) {
                     const subcategory = await Recursive(category.subCategories);
-                    // // console.log("subCat found in back: "+ JSON.stringify(category));
+                    // // //console.log("subCat found in back: "+ JSON.stringify(category));
                     if (subcategory) return subcategory;
                 }
             }
@@ -608,7 +607,7 @@ export async function getCategoryById(categoryId) {
         };
         const categoryFound = await Recursive(categories);
         if (!categoryFound) {
-            // console.log("Category not found.");
+            // //console.log("Category not found.");
             return false;
         }
         return categoryFound; // Return the found category along with its data
@@ -663,7 +662,7 @@ export async function getDataByUrlId(slugIds) {
             // Return only the last subcategory
             return { subCategory: lastCategory };
         }
-        // console.log(JSON.stringify(lastCategory));
+        // //console.log(JSON.stringify(lastCategory));
         return lastCategory;
     } catch (error) {
         console.error("Error occurred:", error);
@@ -677,7 +676,7 @@ export async function getDataByUrlId(slugIds) {
  * @returns {boolean} Indicates whether the addition was successful.
  */
 export async function saveNewOrder(orderData) {
-    console.log(orderData);
+    //console.log(orderData);
     try {
         const data = await readFile(filePathActiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
@@ -687,7 +686,7 @@ export async function saveNewOrder(orderData) {
         ClientOrders.unshift(orderDataWithState);
         await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
         revalidatePath('/');
-        // console.log("Subcategory added successfully.");
+        // //console.log("Subcategory added successfully.");
         return true;
     } catch (error) {
         console.error("Error saving new Client Order:", error);
@@ -764,7 +763,7 @@ export async function getInactiveOrderByIndex(orderIndex) {
  */
 export async function updateActiveOrder(orderId, newState) {
     if (newState === 'Cancelado' || newState === 'Facturado') {
-        console.log('Update active order: moving to inactive JSON');
+        //console.log('Update active order: moving to inactive JSON');
         try {
             const inactiveData = await readFile(filePathInactiveOrders, 'utf8');
             const activeData = await readFile(filePathActiveOrders, 'utf8');
@@ -777,7 +776,7 @@ export async function updateActiveOrder(orderId, newState) {
                 throw new Error("Order not found in ActiveOrders.");
             }
             orderToUpdate.orderState = newState;
-            console.log(orderId);
+            //console.log(orderId);
             ActiveOrders.splice(orderId, 1);
             // Add the updated order object to InactiveOrders
             InactiveOrders.push(orderToUpdate);
@@ -792,7 +791,7 @@ export async function updateActiveOrder(orderId, newState) {
             return false;
         }
     } else {
-        console.log('Update active order: staying in the same JSON');
+        //console.log('Update active order: staying in the same JSON');
         try {
             const data = await readFile(filePathActiveOrders, 'utf8');
             const jsonData = JSON.parse(data);
@@ -801,14 +800,14 @@ export async function updateActiveOrder(orderId, newState) {
             await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
             return true;
         } catch (error) {
-            console.log(error);
+            //console.log(error);
             return false;
         }
     }
 }
 export async function updateInactiveOrder(orderId, newState) {
     if (newState === 'Pendiente' || newState === 'Confirmado' || newState === 'Procesando' || newState === 'Enviado') {
-        console.log('Update inactive order: moving to active JSON');
+        //console.log('Update inactive order: moving to active JSON');
         try {
             const inactiveData = await readFile(filePathInactiveOrders, 'utf8');
             const activeData = await readFile(filePathActiveOrders, 'utf8');
@@ -821,7 +820,7 @@ export async function updateInactiveOrder(orderId, newState) {
                 throw new Error("Order not found in InactiveOrders.");
             }
             orderToUpdate.orderState = newState;
-            console.log(orderId);
+            //console.log(orderId);
             InactiveOrders.splice(orderId, 1);
             // Add the updated order object to ActiveOrders
             ActiveOrders.push(orderToUpdate);
@@ -836,7 +835,7 @@ export async function updateInactiveOrder(orderId, newState) {
             return false;
         }
     } else {
-        console.log('Update inactive order: staying in the same JSON');
+        //console.log('Update inactive order: staying in the same JSON');
         try {
             const data = await readFile(filePathInactiveOrders, 'utf8');
             const jsonData = JSON.parse(data);
@@ -845,30 +844,30 @@ export async function updateInactiveOrder(orderId, newState) {
             await writeFile(filePathInactiveOrders, JSON.stringify(jsonData));
             return true;
         } catch (error) {
-            console.log(error);
+            //console.log(error);
             return false;
         }
     }
 }
 export async function deleteOrder(index) {
-    console.log(index);
+    //console.log(index);
     try {
-        console.log("Reading file...");
+        //console.log("Reading file...");
         const data = await readFile(filePathInactiveOrders, 'utf8');
-        console.log("File read successfully.");
-        console.log("Parsing JSON...");
+        //console.log("File read successfully.");
+        //console.log("Parsing JSON...");
         const jsonData = JSON.parse(data);
-        console.log("JSON parsed successfully.");
+        //console.log("JSON parsed successfully.");
         let { InactiveOrders } = jsonData;
         // Check if the index is valid
         if (index >= 0 && index < InactiveOrders.length) {
-            console.log("Deleting order at index:", index);
+            //console.log("Deleting order at index:", index);
             // Splice the array to remove the order at the given index
             InactiveOrders.splice(index, 1);
-            console.log("Order deleted successfully.");
-            console.log("Writing to file...");
+            //console.log("Order deleted successfully.");
+            //console.log("Writing to file...");
             await writeFile(filePathInactiveOrders, JSON.stringify(jsonData));
-            console.log("File updated successfully.");
+            //console.log("File updated successfully.");
             return true; // Return true to indicate successful deletion
         } else {
             console.error("Invalid index provided.");
@@ -940,7 +939,7 @@ export async function saveImage(base64Image, imagePath) {
         if (err) {
             console.error('Error saving image:', err);
         } else {
-            console.log('Image saved successfully.');
+            //console.log('Image saved successfully.');
         }
     });
 }
@@ -952,7 +951,7 @@ export async function saveFile(fileData, filePath) {
         if (error) {
             reject(error);
         } else {
-            console.log('File saved successfully.');
+            //console.log('File saved successfully.');
             resolve(); // Resolve without returning any path
         }
     });
@@ -961,7 +960,7 @@ export async function deleteImages(imagePathsToDelete) {
     return new Promise((resolve, reject) => {
         // Loop through each image path and delete it
         const deletePromises = imagePathsToDelete.map(imagePath => {
-            console.log(imagePath);
+            //console.log(imagePath);
             return new Promise((resolveDelete, rejectDelete) => {
                 // Delete the image file
                 fs.unlink(imagePath, (err) => {
@@ -969,7 +968,7 @@ export async function deleteImages(imagePathsToDelete) {
                         console.error('Error deleting image:', err);
                         rejectDelete(err);
                     } else {
-                        console.log(`Image deleted successfully: ${imagePath}`);
+                        //console.log(`Image deleted successfully: ${imagePath}`);
                         resolveDelete();
                     }
                 });
@@ -980,4 +979,29 @@ export async function deleteImages(imagePathsToDelete) {
             .then(() => resolve())
             .catch(error => reject(error));
     });
+}
+
+export async function duplicateProduct(category,product) {
+    try {
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories, deletedContent } = JSON.parse(data);
+        const categoryToModifyId = category.id;
+        // Assuming product is an object containing product data
+        const duplicateData = { ...product }; // Shallow copy of the product data
+
+        // Generate a new ID for the duplicated product
+        duplicateData.id = generateUniqueId();
+
+        // Optionally modify any other data in duplicateData if needed
+
+        // Insert the duplicated product into the category
+        if (!category.products) {
+            category.products = [];
+        }
+        category.products.push(duplicateData);
+        return true; // Successfully duplicated and inserted product
+    } catch (error) {
+        console.error("Error duplicating product:", error);
+        return false; // Failed to duplicate product
+    }
 }

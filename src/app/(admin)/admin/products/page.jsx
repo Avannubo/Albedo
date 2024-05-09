@@ -8,6 +8,7 @@ import AddNewCategoryModal from "@/components/admin/products/category/add";
 import AddNewProduct from "@/components/admin/products/product/add";
 import EditProduct from "@/components/admin/products/product/edit";
 import EditCatedory from "@/components/admin/products/category/edit";
+import Duplicate from '@/components/admin/products/product/duplicate';
 import Layout from "@/app/(admin)/admin/AdminLayout";
 const Category = ({ category, refetchData }) => (
   <div key={category.id} className="space-y-2 w-full">
@@ -15,9 +16,9 @@ const Category = ({ category, refetchData }) => (
       <p className="h-auto  self-center">{category.url_Id} : {category.name}</p>
       <div className="space-x-4 flex flex-row justify-center items-center">
         {/* <p>{category.isPublished ? "Publicado" : "Oculto"}</p> */}
-        <AddNewProduct categoryId={category} refetchData={refetchData}/>
+        <AddNewProduct categoryId={category} refetchData={refetchData} />
         {/* addSubCat svg */}
-        <AddSubCategory categoryId={category} refetchData={refetchData}/>
+        <AddSubCategory categoryId={category} refetchData={refetchData} />
         {/* edit svg */}
         <EditCatedory categoryId={category} refetchData={refetchData} />
         {/* delete svg */}
@@ -30,21 +31,24 @@ const Category = ({ category, refetchData }) => (
     {category.products && category.products.length > 0 && (
       <div>
         {category.products.map((product, index) => (//.reverse()
-          <div
-            key={index}
-            className="ml-14 flex flex-row justify-between border bg-slate-50 rounded-lg p-2 mb-1"
-          >
-            <p className="h-auto w-full self-center ">
-              {product.url_Id} : {product.ALBEDOtitulo}
-            </p>
-            <div className="space-x-4 flex flex-row justify-center items-center">
-              <EditProduct product={product} refetchData={refetchData} />
-              <Delete category={"none"} product={product} refetchData={refetchData} />
-              <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
-                {product.isPublished ? "Publicado" : "Oculto"}
+          <>
+            <div
+              key={index}
+              className="ml-14 flex flex-row justify-between border bg-slate-50 rounded-lg p-2 mb-1"
+            >
+              <p className="h-auto w-full self-center ">
+                {product.url_Id} : {product.ALBEDOtitulo}
               </p>
+              <div className="space-x-4 flex flex-row justify-center items-center">
+                <Duplicate category={category} product={product} refetchData={refetchData} />
+                <EditProduct product={product} refetchData={refetchData} />
+                <Delete category={"none"} product={product} refetchData={refetchData} />
+                <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
+                  {product.isPublished ? "Publicado" : "Oculto"}
+                </p>
+              </div>
             </div>
-          </div>
+          </>
         ))}
       </div>
     )}
@@ -72,7 +76,7 @@ export default function Page() {
       setCategories(fetchedCategories);
     } catch (error) {
       console.error('Error fetching categories:', error);
-    } finally { 
+    } finally {
       setIsLoading(false);
     }
   };
@@ -135,10 +139,10 @@ export default function Page() {
             </div>
           ))
         ) : (
-      <div className="flex-col gap-4 w-full flex items-center justify-center">
-        <div className="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full">
-        </div>
-      </div>
+          <div className="flex-col gap-4 w-full flex items-center justify-center">
+            <div className="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full">
+            </div>
+          </div>
         )
       )}
       <Modal />

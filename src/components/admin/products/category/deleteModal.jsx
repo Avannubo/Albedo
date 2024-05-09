@@ -2,10 +2,10 @@
 "use client"
 import React, { useState } from 'react';
 
-import { deleteElement } from '@/lib/data'; 
+import { deleteElement } from '@/lib/data';
 
 export default function DeleteModal({ isOpen, onClose, category, product, refetchData }) {
-  console.log(category, product);
+  //console.log(category, product);
   const [loading, setLoading] = useState(false);
 
   const handleAddProduct = async () => {
@@ -17,7 +17,7 @@ export default function DeleteModal({ isOpen, onClose, category, product, refetc
       // Refetch data
       refetchData();
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     } finally {
       setLoading(false);
     }

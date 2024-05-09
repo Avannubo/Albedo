@@ -31,31 +31,27 @@ const Category = ({ category, refetchData }) => (
     {category.products && category.products.length > 0 && (
       <div>
         {category.products.map((product, index) => (//.reverse()
-          <>
-            <div
-              key={index}
-              className="ml-14 flex flex-row justify-between border bg-slate-50 rounded-lg p-2 mb-1"
-            >
-              <p className="h-auto w-full self-center ">
-                {product.url_Id} : {product.ALBEDOtitulo}
+          <div key={index} className="ml-14 flex flex-row justify-between border bg-slate-50 rounded-lg p-2 mb-1"
+          >
+            <p className="h-auto w-full self-center ">
+              {product.url_Id} : {product.ALBEDOtitulo}
+            </p>
+            <div className="space-x-4 flex flex-row justify-center items-center">
+              <Duplicate category={category} product={product} refetchData={refetchData} />
+              <EditProduct product={product} refetchData={refetchData} />
+              <Delete category={"none"} product={product} refetchData={refetchData} />
+              <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
+                {product.isPublished ? "Publicado" : "Oculto"}
               </p>
-              <div className="space-x-4 flex flex-row justify-center items-center">
-                <Duplicate category={category} product={product} refetchData={refetchData} />
-                <EditProduct product={product} refetchData={refetchData} />
-                <Delete category={"none"} product={product} refetchData={refetchData} />
-                <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
-                  {product.isPublished ? "Publicado" : "Oculto"}
-                </p>
-              </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
     )}
     {category.subCategories &&
       category.subCategories.length > 0 &&
-      category.subCategories.map((subCategory) => (//reverse()
-        <div key={subCategory.id} className="ml-14">
+      category.subCategories.map((subCategory, index) => (//reverse()
+        <div key={index} className="ml-14">
           <Category category={subCategory} refetchData={refetchData} />
         </div>
       ))}
@@ -133,8 +129,8 @@ export default function Page() {
         </div>
       ) : (
         filteredCategories.length > 0 ? (
-          filteredCategories.map((category) => (
-            <div key={category.id} className="my-10">
+          filteredCategories.map((category, index) => (
+            <div key={index} className="my-10">
               <Category category={category} refetchData={refetchData} />
             </div>
           ))

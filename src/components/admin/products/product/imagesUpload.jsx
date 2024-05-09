@@ -12,7 +12,7 @@ export default function ImagesUpload() {
 
         uploadFiles(formData)
             .then(response => {
-                console.log(response); // Log or handle the response as needed
+                //console.log(response); // Log or handle the response as needed
             })
             .catch(error => {
                 console.error('Error uploading files:', error);

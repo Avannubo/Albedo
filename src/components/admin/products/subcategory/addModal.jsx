@@ -10,12 +10,12 @@ export default function AddSubcategory({ isOpen, onClose, categoryId, refetchDat
     const [newCategoryDescription, setNewCategoryDescription] = useState('');
     const [newCategoryBody, setNewCategoryBody] = useState('');
     const [newCategoryCode, setNewCategoryCode] = useState('');
-    const [newCategoryUrlCode, setNewCategoryUrlCode] = useState(''); 
+    const [newCategoryUrlCode, setNewCategoryUrlCode] = useState('');
     const [nameError, setNameError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
     const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
-    const [selectedImages, setSelectedImages] = useState([]); 
+    const [selectedImages, setSelectedImages] = useState([]);
     useEffect(() => {
         function fetchData() {
             // Assuming getCategories() returns a promise categoryId.categoryId
@@ -83,18 +83,18 @@ export default function AddSubcategory({ isOpen, onClose, categoryId, refetchDat
         if (!newCategoryCode.trim() || !newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
             return;
         }
-        console.log('categoryId:', categoryId.id);
+        //console.log('categoryId:', categoryId.id);
         // Recursive function to search for category by categoryId
         const findCategoryRecursive = (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 // console.log("Checking category:", category);
                 if (category.id === categoryId.id) {
-                    console.log("Category found:", category);
+                    //console.log("Category found:", category);
                     return category;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
-                    console.log("Checking subcategories of:", category);
+                    //console.log("Checking subcategories of:", category);
                     const foundCategory = findCategoryRecursive(category.subCategories);
                     if (foundCategory) return foundCategory;
                 }
@@ -103,8 +103,8 @@ export default function AddSubcategory({ isOpen, onClose, categoryId, refetchDat
         };
         // Find the category by categoryId using recursive function
         const catObj = findCategoryRecursive(data);
-        console.log('page cat :' + JSON.stringify(categoryId.id));
-        console.log('cat obj: ' + JSON.stringify(catObj));
+        //console.log('page cat :' + JSON.stringify(categoryId.id));
+        //console.log('cat obj: ' + JSON.stringify(catObj));
         // If category is not found, log an error and return
         if (!catObj) {
             console.error("Category not found.");
@@ -186,7 +186,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId, refetchDat
                                 <div className="flex-1 mb-4">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes</label>
                                     <input onChange={handleImageChange} multiple type="file" className="shadow-sm rounded-md w-full border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
-                                </div> 
+                                </div>
                             </div>
                             <div className='flex justify-center mt-4'>
                                 <button onClick={handleAddCategory} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">

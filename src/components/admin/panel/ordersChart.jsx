@@ -33,7 +33,7 @@ export default function ordersChart() {
 
         // Process orders data to count orders by month
         orders.forEach(order => {
-            console.log(order);
+            //console.log(order);
             const monthIndex = parseInt(order.createdAt.split('/')[1], 10) - 1; // Extract and convert month to zero-based index
             ordersByMonth[monthIndex]++;
         });

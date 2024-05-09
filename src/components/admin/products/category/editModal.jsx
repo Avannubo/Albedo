@@ -5,7 +5,7 @@ import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, categoryId, refetchData }) {
     // const productData = getProductById(productId);
-    console.log(categoryId);
+    //console.log(categoryId);
     const [newCategoryName, setNewCategoryName] = useState(categoryId.name);
     const [newCategoryCode, setNewCategoryCode] = useState(categoryId.id);
     const [newCategoryDescription, setNewCategoryDescription] = useState(categoryId.ALBEDOdescripcion);
@@ -15,7 +15,7 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
     const [selectedImages, setSelectedImages] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    console.log(categoryImages);
+    //console.log(categoryImages);
     //change listeners  for inputs 
     const handleInputChangeName = (event) => {
         setNewCategoryName(event.target.value);
@@ -40,11 +40,11 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
         try {
             const currentImages = [...categoryImages];
             currentImages.splice(index, 1);
-            console.log(currentImages);
+            //console.log(currentImages);
             setCategoryImages(currentImages); // Update categoryImages state
             // Call deleteImages function to delete the image
             // await deleteImages([imagePathToDelete]);
-            console.log('Image deleted successfully');
+            //console.log('Image deleted successfully');
         } catch (error) {
             console.error('Error deleting image:', error);
             // You might want to handle errors here, e.g., show an error message
@@ -86,7 +86,7 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
         const imagePaths = await uploadImages();
         const allImagePaths = [...imagePaths, ...categoryImages];
         const uniqueImagePaths = Array.from(new Set(allImagePaths));
-        console.log(uniqueImagePaths, categoryId.id, newCategoryCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished, uniqueImagePaths);
+        //console.log(uniqueImagePaths, categoryId.id, newCategoryCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished, uniqueImagePaths);
         await editCategory(categoryId.id,
             newCategoryCode,
             newCategoryName,
@@ -94,7 +94,7 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
             newCategoryBody,
             newCategoryIsPublished,
             uniqueImagePaths);
-        
+
         setNewCategoryName('');
         setNewCategoryIsPublished('');
         setNewCategoryBody('');

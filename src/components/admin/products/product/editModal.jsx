@@ -4,7 +4,7 @@ import { editproduct, getProductById, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, product, refetchData }) {
-    console.log(product);
+    //console.log(product);
     const [loading, setLoading] = useState(false);
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
     const [newProductCode, setNewProductCode] = useState(product.ALBEDOcodigo);
@@ -62,11 +62,11 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
         try {
             const currentImages = [...productImages];
             currentImages.splice(index, 1);
-            console.log(currentImages);
+            //console.log(currentImages);
             setProductImages(currentImages); // Update productImages state
             // Call deleteImages function to delete the image
             // await deleteImages([imagePathToDelete]);
-            console.log('Image deleted successfully');
+            //console.log('Image deleted successfully');
         } catch (error) {
             console.error('Error deleting image:', error);
             // You might want to handle errors here, e.g., show an error message
@@ -77,7 +77,7 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
             const updatedFiles = [...productFiles];
             updatedFiles.splice(index, 1);
             setProductFiles(updatedFiles); // Update productFiles state
-            console.log('File deleted successfully' + updatedFiles);
+            //console.log('File deleted successfully' + updatedFiles);
         } catch (error) {
             console.error('Error deleting file:', error);
             // You might want to handle errors here, e.g., show an error message
@@ -93,12 +93,12 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
                         const base64Image = reader.result;
                         const imagePath = `./public/assets/images/${image.name}`;
                         const imagePathToSave = `/assets/images/${image.name}`;
-                        console.log("Uploading image:", imagePath);
+                        //console.log("Uploading image:", imagePath);
                         try {
                             // Assuming saveImage is asynchronous and returns a promise
                             await saveImage(base64Image, imagePath.replace(/ /g, "_"));
                             imagePaths.push(imagePathToSave.replace(/ /g, "_"));
-                            console.log("Image uploaded:", imagePathToSave.replace(/ /g, "_"));
+                            //console.log("Image uploaded:", imagePathToSave.replace(/ /g, "_"));
                             resolveImage();
                         } catch (error) {
                             console.error("Error uploading image:", error);
@@ -114,7 +114,7 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
             });
             Promise.all(uploadPromises)
                 .then(() => {
-                    console.log("All images uploaded successfully " + uploadPromises);
+                    //console.log("All images uploaded successfully " + uploadPromises);
                     resolve(imagePaths);
                 })
                 .catch(error => {
@@ -133,12 +133,12 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
                         const fileData = reader.result;
                         const filePath = `./public/assets/archivos/${file.name}`;
                         const filePathToSave = `/assets/archivos/${file.name}`;
-                        console.log("Uploading file:", filePath);
+                        //console.log("Uploading file:", filePath);
                         try {
                             // Assuming saveFile is asynchronous and returns a promise
                             await saveFile(fileData, filePath.replace(/ /g, "_"));
                             filesPaths.push(filePathToSave.replace(/ /g, "_"));
-                            console.log("File uploaded:", filePath.replace(/ /g, "_"));
+                            //console.log("File uploaded:", filePath.replace(/ /g, "_"));
                             resolveFile();
                         } catch (error) {
                             console.error("Error uploading file:", error);
@@ -154,7 +154,7 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
             });
             Promise.all(uploadPromises)
                 .then(() => {
-                    console.log("All files uploaded successfully" + filesPaths);
+                    //console.log("All files uploaded successfully" + filesPaths);
                     resolve(filesPaths);
                 })
                 .catch(error => {
@@ -173,7 +173,7 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
             // Combine new and existing image paths and file paths
             const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
             const uniqueFilePaths = Array.from(new Set([...relatedFilePaths, ...productFiles]));
-            console.log(uniqueFilePaths);
+            //console.log(uniqueFilePaths);
             await editproduct(product,
                 newProductCode,
                 newProductUrlCode,

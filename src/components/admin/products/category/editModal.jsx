@@ -93,6 +93,7 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
     }, [])
     //server Action here
     const handleAddProduct = async () => {
+        const abortController = new AbortController();
 
         setUrlCodeError(!newCategoryUrlId.trim());
         setNameError(!newCategoryName.trim());
@@ -100,12 +101,14 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
         if (!newCategoryName.trim() || !newCategoryUrlId.trim() || !newCategoryDescription.trim()) {
             return;
         }
-        const urlIdExists = data.some(category => category.url_Id === newCategoryUrlId); // Use 'url_Id' for comparison
+        // const urlIdExists = data
+        //     .filter(category => category.id !== newCategoryUrlId) // Exclude the current category's id
+        //     .some(category => category.url_Id === newCategoryUrlId);
 
-        if (urlIdExists) {
-            setUrlCodeError(true);
-            return;
-        }
+        // if (urlIdExists) {
+        //     // setUrlCodeError(true);
+        //     return;
+        // }
         setLoading(true);
         const imagePaths = await uploadImages();
         const allImagePaths = [...imagePaths, ...categoryImages];

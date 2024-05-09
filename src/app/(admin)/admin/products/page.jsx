@@ -9,7 +9,7 @@ import AddNewProduct from "@/components/admin/products/product/add";
 import EditProduct from "@/components/admin/products/product/edit";
 import EditCatedory from "@/components/admin/products/category/edit";
 import Duplicate from '@/components/admin/products/product/duplicate';
-import Layout from "@/app/(admin)/admin/AdminLayout";
+import Layout from "@/app/(admin)/admin/AdminLayout"; 
 const Category = ({ category, refetchData }) => (
   <div key={category.id} className="space-y-2 w-full">
     <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
@@ -78,7 +78,7 @@ export default function Page() {
   };
   const refetchData = async () => {
     setIsLoading(true);
-    fetchData();
+    await fetchData();
   }
   const filteredCategories = categories.filter(category => {
     if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {

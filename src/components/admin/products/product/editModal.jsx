@@ -188,15 +188,11 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
         if (!newProductName.trim() || !newProductUrlCode.trim() || !newProductDescription.trim()) {
             return;
         }
-
-        const urlIdExists = category.products.some(category => category.url_Id === newProductUrlCode); // Use 'url_Id' for comparison
-
-
-        if (urlIdExists) {
-            setUrlCodeError(true);
-            return;
-        }
-
+        // const urlIdExists = category.products.some(category => category.url_Id === newProductUrlCode); // Use 'url_Id' for comparison
+        // if (urlIdExists) {
+        //     setUrlCodeError(true);
+        //     return;
+        // }
         try {
             setLoading(true);
             // Upload images and related files
@@ -223,6 +219,9 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
             setProductImages(uniqueImagePaths);
             setProductFiles(uniqueFilePaths);
             setLoading(false);
+            setNameError(false);
+            setDescriptionError(false);
+            setUrlCodeError(false);
             // setNewProductName('');
             // setNewProductCode('');
             // setNewProductUrlCode('');
@@ -348,6 +347,8 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
                                                 >
                                                     X
                                                 </button>
+                                                
+
                                             </div>
                                         ))
                                     )}
@@ -376,15 +377,17 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
                                                     >
                                                         X
                                                     </button>
+                                                    
                                                 </div>
                                             ))}
                                         </div>
                                     )}
                             </div>
-                            < div className='flex justify-center mt-6'>
+                            < div className='flex flex-col space-y-2 items-center justify-center mt-6'>
                                 <button onClick={handleAddProduct} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">
                                     Guardar
                                 </button>
+                                {(descriptionError || urlCodeError || nameError) && <span className="text-red-500 italic text-xs">¡Hay algunos errores en el formulario!</span>}
                             </div>
                         </div>
                     </div>

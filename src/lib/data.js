@@ -13,11 +13,11 @@ const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 let cachedContent = null;
 export async function requireContent() {
-    if (!cachedContent) {
+    // if (!cachedContent) {
         const res = await fs.readFile(filePath, 'utf8');
-        cachedContent = JSON.parse(res);
-    }
-    return cachedContent;
+        // cachedContent = JSON.parse(res);
+    // }
+    return JSON.parse(res);
 }
 export async function getCategories() {
     const content = await requireContent();
@@ -115,13 +115,14 @@ export async function updateIVA(newIVA) {
  * @param {string} productId - The ID of the product to be deleted.
  * @returns {boolean} Indicates whether the deletion was successful.
  */
-export async function deleteElement(categoryId) {
-    if (categoryId.categoryId !== "none" || categoryId.productId !== "none") {
+export async function deleteElement(categoryId, product) {
+    console.log(categoryId, product);
+    if (categoryId !== "none" || product !== "none") {
         try {
             const data = await fs.readFile(filePath, 'utf8');//call file
             const { categories, deletedContent } = JSON.parse(data);//get object  from json 
-            if (categoryId.categoryId !== "none") {// if there is no cat Id the code will exit and return false
-                const categoryToDeleteId = categoryId.categoryId.id; //save the catId in a var
+            if (categoryId !== "none") {// if there is no cat Id the code will exit and return false
+                const categoryToDeleteId = categoryId.id; //save the catId in a var
                 const deleteRecursive = async (categoryList) => {
                     for (let i = 0; i < categoryList.length; i++) {
                         const category = categoryList[i];
@@ -147,7 +148,7 @@ export async function deleteElement(categoryId) {
                 // console.log("Category deleted successfully.");
                 return true;
             } else {
-                const productToDelete = categoryId.productId.ALBEDOcodigo;
+                const productToDelete = product.ALBEDOcodigo;
                 const deleteRecursive = async (categoryList) => {
                     for (let i = 0; i < categoryList.length; i++) {
                         const category = categoryList[i];
@@ -247,7 +248,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        const categoryToModifyId = categoryId.categoryId.id;
+        const categoryToModifyId = categoryId.id;
         const addSubcategoryRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
@@ -323,7 +324,7 @@ export async function addproduct(categoryId, productData) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        const categoryToModifyId = categoryId.categoryId.id;
+        const categoryToModifyId = categoryId.id;
         const addProductRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
@@ -396,7 +397,7 @@ export async function addproduct(categoryId, productData) {
  * @returns {boolean} Indicates whether the editing was successful.
  */
 export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
-    console.log('called function editproduct' + productId.productId);
+    console.log('called function editproduct' + productId);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -469,7 +470,7 @@ export async function editCategory(categoryId, Code, Name, Description, Body, is
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
-                if (category.id === categoryId.categoryId.id) {
+                if (category.id === categoryId) {
                     // Update the category properties
                     category.id = Code;
                     category.name = Name;

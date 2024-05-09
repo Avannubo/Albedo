@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { addCategory, getCategories, saveImage } from '@/lib/data'; // Import the addCategory function from the data.js file
 import QuillEditor from "@/components/admin/products/QuillEditor"
-export default function AddModal({ isOpen, onClose }) {
+export default function AddModal({ isOpen, onClose, refetchData }) {
     const [data, setData] = useState();
     const [newCategoryName, setNewCategoryName] = useState('');
     const [newCategoryDescription, setNewCategoryDescription] = useState('');
@@ -123,6 +123,7 @@ export default function AddModal({ isOpen, onClose }) {
         setCodeError(false);
         setUrlCodeError(false);
         setSelectedImages([]);
+        refetchData();
         onClose();
     };
     return isOpen ? (

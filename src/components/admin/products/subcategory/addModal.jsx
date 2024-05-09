@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import { addSubcategory, getCategories, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
-export default function AddSubcategory({ isOpen, onClose, categoryId }) {
+export default function AddSubcategory({ isOpen, onClose, categoryId, refetchData }) {
     const [data, setData] = useState([]);
     const [newCategoryName, setNewCategoryName] = useState('');
     const [newCategoryDescription, setNewCategoryDescription] = useState('');
@@ -18,7 +18,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
     const [selectedImages, setSelectedImages] = useState([]); 
     useEffect(() => {
         function fetchData() {
-            // Assuming getCategories() returns a promise
+            // Assuming getCategories() returns a promise categoryId.categoryId
             getCategories()
                 .then(categories => {
                     setData(categories);
@@ -83,13 +83,13 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
         if (!newCategoryCode.trim() || !newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
             return;
         }
-        console.log('categoryId:', categoryId.categoryId.id);
+        console.log('categoryId:', categoryId.id);
         // Recursive function to search for category by categoryId
         const findCategoryRecursive = (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 // console.log("Checking category:", category);
-                if (category.id === categoryId.categoryId.id) {
+                if (category.id === categoryId.id) {
                     console.log("Category found:", category);
                     return category;
                 }
@@ -103,7 +103,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
         };
         // Find the category by categoryId using recursive function
         const catObj = findCategoryRecursive(data);
-        console.log('page cat :' + JSON.stringify(categoryId.categoryId.id));
+        console.log('page cat :' + JSON.stringify(categoryId.id));
         console.log('cat obj: ' + JSON.stringify(catObj));
         // If category is not found, log an error and return
         if (!catObj) {
@@ -123,7 +123,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
         }
         try {
             const imagePaths = await uploadImages();
-            addSubcategory(categoryId, newCategoryCode, newCategoryUrlCode, newCategoryName, newCategoryDescription, newCategoryBody, imagePaths);
+            await addSubcategory(categoryId, newCategoryCode, newCategoryUrlCode, newCategoryName, newCategoryDescription, newCategoryBody, imagePaths);
         } catch (error) {
             console.error("Error uploading images:", error);
         }
@@ -136,6 +136,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
         setNewCategoryUrlCode('');
         setUrlCodeError(false);
         setSelectedImages([]);
+        refetchData();
         onClose();
     };
     return isOpen ? (

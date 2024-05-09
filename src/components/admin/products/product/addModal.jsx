@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { addproduct, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
-export default function AddModal({ isOpen, onClose, categoryId }) {
+export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
     const [newProductName, setNewProductName] = useState('');
     const [newProductCode, setNewProductCode] = useState('');
     const [newProductUrlCode, setNewProductUrlCode] = useState('');
@@ -20,7 +20,6 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const [selectedImages, setSelectedImages] = useState([]);
     const [relatedFiles, setRelatedFiles] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
-
     // const [priceError, setPriceError] = useState(false);
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
@@ -138,7 +137,6 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
         setUrlCodeError(!newProductUrlCode.trim());
         setNameError(!newProductName.trim());
         setDescriptionError(!newProductDescription.trim());
-
         // If any field doesn't meet the requirements, stop execution
         if (!newProductCode.trim() ||
             !newProductUrlCode.trim() ||
@@ -146,24 +144,20 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
             !newProductDescription.trim()) {
             return;
         }
-
         //check for duplicate product Ids
         // console.log('Products:', categoryId.categoryId.products);
         // Check if the urlId exists in subCategories
-        const urlIdExists = categoryId.categoryId.products.some(product => product.url_Id === newProductUrlCode);
+        const urlIdExists = categoryId.products.some(product => product.url_Id === newProductUrlCode);
         // If urlId exists, setUrlCodeError and return
         if (urlIdExists) {
             setUrlCodeError(true);
             return;
         }
-
         try {
             const imagePaths = await uploadImages();
             const relatedFilePaths = await uploadRelatedFiles();
-
             console.log(imagePaths);
             console.log(relatedFilePaths);
-
             const productData = {
                 newProductCode: newProductCode,
                 newProductUrlCode: newProductUrlCode,
@@ -178,13 +172,11 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                 relatedFilePaths: relatedFilePaths,
             };
             console.log(productData);
-
             // Ensure addproduct is awaited
             await addproduct(
                 categoryId,
                 productData
             );
-
             //reset fields
             setNewProductCode('');
             setNewProductUrlCode('');
@@ -197,13 +189,12 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
             setNewProductDeliveryTime(0);
             setSelectedImages([]);
             setRelatedFiles([]);
+            refetchData();
             onClose();
         } catch (error) {
             console.error("Error adding product:", error);
         }
     };
-
-
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             <div className="w-full max-w-6xl bg-white shadow-lg rounded-md p-6 relative">

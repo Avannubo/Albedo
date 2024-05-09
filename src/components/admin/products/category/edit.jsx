@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import Modal from '@/components/admin/products/category/editModal';
 
-export default function editCategory(categoryId) {
+export default function editCategory({ categoryId, refetchData }) {
+    console.log(categoryId);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -16,7 +17,7 @@ export default function editCategory(categoryId) {
                 </svg>
                 <h1>Editar</h1>
             </div>
-            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} />
+            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} refetchData={refetchData} />
         </div>
     )
 }

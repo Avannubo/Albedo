@@ -137,7 +137,7 @@ export default function page() {
           </div>
           <div className="flex flex-row justify-between space-x-2">
             <div className="grow">
-              <Order  sChart />
+              <OrdersChart />
             </div>
           </div>
         </div>

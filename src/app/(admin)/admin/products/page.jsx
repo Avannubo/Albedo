@@ -77,6 +77,7 @@ export default function Page() {
     }
   };
   const refetchData = async () => {
+    setIsLoading(true);
     fetchData();
   }
   const filteredCategories = categories.filter(category => {

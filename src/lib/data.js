@@ -14,8 +14,8 @@ const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth(
 let cachedContent = null;
 export async function requireContent() {
     // if (!cachedContent) {
-        const res = await fs.readFile(filePath, 'utf8');
-        // cachedContent = JSON.parse(res);
+    const res = await fs.readFile(filePath, 'utf8');
+    // cachedContent = JSON.parse(res);
     // }
     return JSON.parse(res);
 }
@@ -981,24 +981,66 @@ export async function deleteImages(imagePathsToDelete) {
     });
 }
 
-export async function duplicateProduct(category,product) {
+export async function duplicateProduct(category, product) {
+    console.log('duplicate function' + JSON.stringify(category.products) + JSON.stringify(product));
+
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
         const categoryToModifyId = category.id;
-        // Assuming product is an object containing product data
-        const duplicateData = { ...product }; // Shallow copy of the product data
-
-        // Generate a new ID for the duplicated product
-        duplicateData.id = generateUniqueId();
-
-        // Optionally modify any other data in duplicateData if needed
-
+        // Assuming product is an object containing product data 
+        const addProductRecursive = async (categoryList) => {
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                if (category.id === categoryToModifyId) {
+                    console.log("Category found:", category);
+                    if (!category.products) {
+                        category.products = [];
+                    }
+                    const dataObj = {
+                        "ALBEDOcodigo": product.ALBEDOcodigo+"(copia)",  //productCode.replace(/ /g, "-"),
+                        "url_Id": product.url_Id, 
+                        "ALBEDOtitulo": product.ALBEDOtitulo+"(copia)",
+                        "ALBEDOprecio": product.ALBEDOprecio,
+                        "ALBEDOdescripcion": product.ALBEDOdescripcion,
+                        "ALBEDOcuerpo": product.ALBEDOcuerpo,
+                        "ALBEDOstock_minimo": product.ALBEDOstock_minimo,
+                        "ALBEDOstock": product.ALBEDOstock,
+                        "isPublished": product.isPublished,
+                        "FeachaDeCreacion": euFormattedDateTime,
+                        "FechaDeModificacion": euFormattedDateTime,
+                        "imagens": product.imagens,
+                        "archivos": product.archivos,
+                        "ALBEDOplazo_entrega": product.ALBEDOplazo_entrega
+                    }
+                    category.products.push(dataObj);
+                    console.log("New product added:", dataObj);
+                    console.log("Writing updated data to file...");
+                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                    console.log("Data written successfully.");
+                    revalidatePath('/admin/categories');
+                    console.log("Path revalidated.");
+                    return true;
+                }
+                if (category.subCategories && category.subCategories.length > 0) {
+                    //console.log("Checking products in subcategories of:", category.subCategories);
+                    const productAdded = await addProductRecursive(category.subCategories);
+                    if (productAdded) return true;
+                }
+            }
+            return false;
+        };
+        console.log("Starting adding product process...");
+        const productAdded = await addProductRecursive(categories);
+        if (!productAdded) {
+            console.log("Category not found.");
+            return false;
+        }
         // Insert the duplicated product into the category
         if (!category.products) {
             category.products = [];
         }
-        category.products.push(duplicateData);
+        // category.products.push(duplicateData);
         return true; // Successfully duplicated and inserted product
     } catch (error) {
         console.error("Error duplicating product:", error);

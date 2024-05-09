@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { duplicateProduct } from '@/lib/data';
 export default function duplicate({ category, product, refetchData }) {
     // const [isModalOpen, setIsModalOpen] = useState(false);
     // const toggleModal = () => {
@@ -6,6 +7,10 @@ export default function duplicate({ category, product, refetchData }) {
     // };
     const handleDuplicate = async () => {
         console.log("duplicate: " + JSON.stringify(product));
+        const success = await duplicateProduct(category, product);
+        if (success) {
+            await refetchData();
+        }
     }
     return (
         <>

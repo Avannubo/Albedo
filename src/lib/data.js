@@ -336,7 +336,6 @@ export async function addproduct(categoryId, productData) {
                     const dataObj = {
                         "ALBEDOcodigo": productData.newProductCode,  //productCode.replace(/ /g, "-"),
                         "url_Id": productData.newProductUrlCode,
-                        "fixedUrl": "",
                         "ALBEDOtitulo": productData.newProductName,
                         "ALBEDOprecio": parseFloat(productData.newProductPrice),
                         "ALBEDOdescripcion": productData.newProductDescription,
@@ -396,7 +395,7 @@ export async function addproduct(categoryId, productData) {
  * @returns {boolean} Indicates whether the editing was successful.
  */
 export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
-    //console.log('called function editproduct' + productId);
+    // console.log('called function editproduct' + JSON.stringify());
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -406,7 +405,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                 for (let j = 0; j < category.products.length; j++) {
                     const product = category.products[j];
                     // //console.log(productId.productId);
-                    if (product.ALBEDOcodigo === productCode) {
+                    if (product.ALBEDOcodigo === productId.ALBEDOcodigo) {
                         //console.log("product found:", product);
                         product.ALBEDOcodigo = productCode.replace(/ /g, "-");
                         product.url_Id = url_Id;
@@ -461,18 +460,20 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
  * @param {boolean} isPublished - Whether the category is published.
  * @returns {boolean} Indicates whether the editing was successful.
  */
-export async function editCategory(categoryId, Code, Name, Description, Body, isPublished, imagePaths) {
+export async function editCategory(categoryId, UrlCode, Name, Description, Body, isPublished, imagePaths) {
     //console.log('called function editCategory');
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
+        
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 if (category.id === categoryId) {
                     // Update the category properties
-                    category.id = Code;
+                    // category.id = Code;
                     category.name = Name;
+                    category.url_Id = UrlCode;
                     category.ALBEDOdescripcion = Description;
                     category.ALBEDOcuerpo = Body;
                     category.isPublished = isPublished;
@@ -982,25 +983,40 @@ export async function deleteImages(imagePathsToDelete) {
 }
 
 export async function duplicateProduct(category, product) {
-    console.log('duplicate function' + JSON.stringify(category.products) + JSON.stringify(product));
+    //console.log('duplicate function' + JSON.stringify(category.products) + JSON.stringify(product));
 
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
         const categoryToModifyId = category.id;
-        // Assuming product is an object containing product data 
+        // Assuming product is an object containing product data
+
+        // Function to generate a string of category IDs in the hierarchy
+        // const getCategoryPath = (currentCategory, path = []) => {
+        //     if (currentCategory.parent) {
+        //         path.unshift(currentCategory.ALBEDOcodigo);
+        //         return getCategoryPath(currentCategory.parent, path);
+        //     }
+        //     return path;
+        // };
+
+        
+        
         const addProductRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 if (category.id === categoryToModifyId) {
-                    console.log("Category found:", category);
+                    //console.log("Category found:", category);
                     if (!category.products) {
                         category.products = [];
                     }
+                    const nextUrlId = String(Number(product.url_Id) + 1).padStart(3, '0');
+                    // const categoryPath = getCategoryPath(category).join('.');
+                    // console.log(categoryPath);
                     const dataObj = {
-                        "ALBEDOcodigo": product.ALBEDOcodigo+"(copia)",  //productCode.replace(/ /g, "-"),
-                        "url_Id": product.url_Id, 
-                        "ALBEDOtitulo": product.ALBEDOtitulo+"(copia)",
+                        "ALBEDOcodigo": product.ALBEDOcodigo + "(copia)",  //productCode.replace(/ /g, "-"),
+                        "url_Id": nextUrlId,
+                        "ALBEDOtitulo": product.ALBEDOtitulo + "(copia)",
                         "ALBEDOprecio": product.ALBEDOprecio,
                         "ALBEDOdescripcion": product.ALBEDOdescripcion,
                         "ALBEDOcuerpo": product.ALBEDOcuerpo,
@@ -1014,12 +1030,12 @@ export async function duplicateProduct(category, product) {
                         "ALBEDOplazo_entrega": product.ALBEDOplazo_entrega
                     }
                     category.products.push(dataObj);
-                    console.log("New product added:", dataObj);
-                    console.log("Writing updated data to file...");
+                    //console.log("New product added:", dataObj);
+                    //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    console.log("Data written successfully.");
+                    //console.log("Data written successfully.");
                     revalidatePath('/admin/categories');
-                    console.log("Path revalidated.");
+                    //console.log("Path revalidated.");
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
@@ -1030,10 +1046,10 @@ export async function duplicateProduct(category, product) {
             }
             return false;
         };
-        console.log("Starting adding product process...");
+        //console.log("Starting adding product process...");
         const productAdded = await addProductRecursive(categories);
         if (!productAdded) {
-            console.log("Category not found.");
+            //.log("Category not found.");
             return false;
         }
         // Insert the duplicated product into the category

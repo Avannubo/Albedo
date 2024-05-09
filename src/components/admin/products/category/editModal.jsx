@@ -8,6 +8,7 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
     //console.log(categoryId);
     const [newCategoryName, setNewCategoryName] = useState(categoryId.name);
     const [newCategoryCode, setNewCategoryCode] = useState(categoryId.id);
+    const [newCategoryUrlId, setNewCategoryUrlId] = useState(categoryId.url_Id);
     const [newCategoryDescription, setNewCategoryDescription] = useState(categoryId.ALBEDOdescripcion);
     const [newCategoryBody, setNewCategoryBody] = useState(categoryId.ALBEDOcuerpo);
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(categoryId.isPublished);
@@ -22,6 +23,9 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
     };
     const handleInputChangeCode = (event) => {
         setNewCategoryCode(event.target.value);
+    };
+    const handleInputChangeUrlId = (event) => {
+        setNewCategoryUrlId(event.target.value);
     };
     const handleInputChangeDescription = (value) => {
         setNewCategoryDescription(value);
@@ -87,8 +91,8 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
         const allImagePaths = [...imagePaths, ...categoryImages];
         const uniqueImagePaths = Array.from(new Set(allImagePaths));
         //console.log(uniqueImagePaths, categoryId.id, newCategoryCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished, uniqueImagePaths);
-        await editCategory(categoryId.id,
-            newCategoryCode,
+        await editCategory(categoryId.id, 
+            newCategoryUrlId,
             newCategoryName,
             newCategoryDescription,
             newCategoryBody,
@@ -134,13 +138,14 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
                         <div className='flex flex-col'>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
-                                    <input onChange={handleInputChangeCode} disabled value={newCategoryCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
-                                </div>
-                                <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
                                     <input onChange={handleInputChangeName} value={newCategoryName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="category" required />
                                 </div>
+                                <div className="mb-4 flex-1">
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
+                                    <input onChange={handleInputChangeUrlId}  value={newCategoryUrlId} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Url Id" required />
+                                </div>
+
                             </div>
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>

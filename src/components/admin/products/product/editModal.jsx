@@ -239,16 +239,17 @@ export default function EditModal({ isOpen, onClose, product, refetchData }) {
                         </div>
                         <div className='flex flex-col'>
                             <div className='flex flex-row justify-between space-x-4'>
-                                <div className="mb-4 flex-1">
+                                {/* <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} disabled value={newProductCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
-                                </div>
+                                </div> */}
+                                
+                            </div>
+                            <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} value={newProductUrlCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                 </div>
-                            </div>
-                            <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
                                     <input onChange={handleInputChangeProduct} value={newProductName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="product" required />

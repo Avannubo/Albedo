@@ -45,9 +45,9 @@ export default function ProductItem({ product }) {
     <div className="h-auto flex flex-col justify-between cursor-pointer space-y-2">
       <h2 className="text-[#304590] font-bold text-center max-h-[32px]">
         {truncatedTitle}
-        {calculateSimilarity(product.ALBEDOtitulo, product.ALBEDOcodigo) < similarityThreshold && (
+        {/* {calculateSimilarity(product.ALBEDOtitulo, product.ALBEDOcodigo) < similarityThreshold && (
           <b className="font-semibold ml-1 whitespace-nowrap">( {product.ALBEDOcodigo} )</b>
-        )}
+        )} */}
       </h2>
       <p className="text-md self-center">
         <strong>Precio:</strong> {product.ALBEDOprecio}€ + IVA

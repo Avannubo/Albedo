@@ -78,7 +78,7 @@ export default function Page() {
   };
   const refetchData = async () => {
     setIsLoading(true);
-    await fetchData();
+    fetchData();
   }
   const filteredCategories = categories.filter(category => {
     if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {

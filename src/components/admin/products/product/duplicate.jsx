@@ -9,7 +9,7 @@ export default function duplicate({ category, product, refetchData }) {
         console.log("duplicate: " + JSON.stringify(product));
         const success = await duplicateProduct(category, product);
         if (success) {
-            await refetchData();
+            refetchData();
         }
     }
     return (

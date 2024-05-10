@@ -23,6 +23,7 @@ export async function getCategories() {
     const content = await requireContent();
     if (content) {
         const { categories } = content;
+        revalidatePath('/admin/products');
         return categories;
     } else {
         return []; // Return an empty array if categories don't exist

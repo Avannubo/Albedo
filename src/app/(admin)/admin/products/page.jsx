@@ -67,14 +67,14 @@ export default function Page() {
   }, []); // Fetch data only once on component mount
   const fetchData = async () => {
     setIsLoading(true);
-    try {
+    // try {
       const fetchedCategories = await getCategories();
       setCategories(fetchedCategories);
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    } finally {
+    // } catch (error) {
+    //   console.error('Error fetching categories:', error);
+    // } finally {
       setIsLoading(false);
-    }
+    // }
   };
   const refetchData = async () => {
     setIsLoading(true);

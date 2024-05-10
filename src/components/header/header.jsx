@@ -3,18 +3,40 @@ import Image from "next/image";
 import Link from "next/link";
 import Dropdown from "@/components/header/headerDropdown";
 import CartLength from "./cartLength";
-import { useState, useRef, useEffect } from 'react'; 
+import { useState, useRef, useEffect } from 'react';
+import { getCategories } from "@/lib/data";
 
 export default function Header() {
   const [showMobileDropdown, setShowMobileDropdown] = useState(false);
   const [showServiciosDropdown, setShowServiciosDropdown] = useState(false);
   const [showSobreDropdown, setShowSobreDropdown] = useState(false);
+  const [showMobileServiciosDropdown, setShowMobileServiciosDropdown] = useState(false);
+  const [showMobileProductDropdown, setShowMobileProductDropdown] = useState(false);
+  const [showMobileSobreDropdown, setShowMobileSobreDropdown] = useState(false);
+  const [categories, setCategories] = useState([]);
   const dropdownRefServicios = useRef(null);
   const dropdownRefSobre = useRef(null);
 
   const toggleMobileDropdown = () => setShowMobileDropdown(!showMobileDropdown);
   const toggleServiciosDropdown = () => setShowServiciosDropdown(!showServiciosDropdown);
   const toggleSobreDropdown = () => setShowSobreDropdown(!showSobreDropdown);
+  const toggleMobileServiciosDropdown = () => setShowMobileServiciosDropdown(!showMobileServiciosDropdown);
+  const toggleMobileProductDropdown = () => setShowMobileProductDropdown(!showMobileProductDropdown);
+  const toggleMobileSobreDropdown = () => setShowMobileSobreDropdown(!showMobileSobreDropdown);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getCategories();
+        const Categories = data.filter(category => category.isPublished === true);
+
+        setCategories(Categories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -190,16 +212,24 @@ export default function Header() {
                 <svg className="self-center" width="36px" height="36px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 6H20M4 12H20M4 18H20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
               </button>
               {showMobileDropdown && (
-                <div className="absolute left-0 top-20 bg-white w-full text-base z-50 divide-y divide-gray-100 shadow" id="mobileDropdown">
-                  <MobileMenuItem title="Servicios" onClick={toggleServiciosDropdown} isOpen={showServiciosDropdown}>
-                    <MobileSubmenu isOpen={showServiciosDropdown}>
+                <div className="absolute left-0 top-20 h-auto overflow-y-auto bg-white w-full text-base z-50 divide-y divide-gray-100 shadow" id="mobileDropdown">
+                  <MobileMenuItem title="Productos" onClick={toggleMobileProductDropdown} isOpen={showMobileProductDropdown}>
+                    <MobileSubmenu isOpen={showMobileProductDropdown}>
+                      {categories.map((category, index) => (
+                        <Link key={index} href={`/products/${category.url_Id}`} className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">{category.name.split(" ").length > 2
+                          ? category.name.split(" ")[0]
+                          : category.name}</Link>))}
+                    </MobileSubmenu>
+                  </MobileMenuItem>
+                  <MobileMenuItem title="Servicios" onClick={toggleMobileServiciosDropdown} isOpen={showMobileServiciosDropdown}>
+                    <MobileSubmenu isOpen={showMobileServiciosDropdown}>
                       <Link href="/services" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">Le ofrecemos</Link>
                       <Link href="/services/design/" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">Diseño</Link>
                       <Link href="/services/manufacturing/" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">Fabricación</Link>
                     </MobileSubmenu>
                   </MobileMenuItem>
-                  <MobileMenuItem title="Sobre Nosotros" onClick={toggleSobreDropdown} isOpen={showSobreDropdown}>
-                    <MobileSubmenu isOpen={showSobreDropdown}>
+                  <MobileMenuItem title="Sobre Nosotros" onClick={toggleMobileSobreDropdown} isOpen={showMobileSobreDropdown}>
+                    <MobileSubmenu isOpen={showMobileSobreDropdown}>
                       <Link href="/about/historia" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">Quienes somos</Link>
                       <Link href="/about/contacto" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">Contacto</Link>
                       <Link href="/about/faq" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">FAQ</Link>
@@ -235,7 +265,7 @@ function MobileMenuItem({ title, onClick, isOpen, children }) {
 // Component for mobile submenus
 function MobileSubmenu({ isOpen, children }) {
   return (
-    <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
+    <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-screen' : ''}`}>
       {children}
     </div>
   );

@@ -59,7 +59,7 @@ export default function ProductItem({ product }) {
         width={500}
         height={550}
       />
-      <p className="text-sm text-center" dangerouslySetInnerHTML={{ __html: sanitizeHTML(truncateText(product.ALBEDOdescripcion, 65)) }} />
+      <p className="text-sm text-center" dangerouslySetInnerHTML={{ __html: sanitizeHTML(truncateText(product.ALBEDOdescripcion, 60)) }} />
     </div>
   );
 }

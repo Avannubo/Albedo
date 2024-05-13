@@ -16,10 +16,12 @@ const sanitizeHTML = (html) => {
 };
 export default function PageContent() {
     const slugArrayHook = useCategoryId();
+    // console.log(slugArrayHook.slice(0, -1));
     const [pageData, setPageData] = useState(null);
     const [productData, setProductData] = useState(null);
     const [loading, setLoading] = useState(true); // State for loading status
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [relatedProducts, setRelatedProducts] = useState(0);
     // Function to handle switching to the previous image
     const prevImage = () => {
         setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? productData.imagens.length - 1 : prevIndex - 1));
@@ -38,9 +40,19 @@ export default function PageContent() {
                     if (data.subCategory) {
                         setPageData(data.subCategory);
                     } else if (data.products) {
+                        setRelatedProducts(data.products);
                         const foundProduct = data.products.find(prod => prod.url_Id === productId.toString());
                         if (foundProduct) {
                             setProductData(foundProduct);
+                            // Filter out the current product from relatedProducts
+                            setRelatedProducts(prevRelatedProducts => {
+                                let filteredProducts = prevRelatedProducts.filter(product => product.url_Id !== foundProduct.url_Id);
+                                // Randomize the array if it has more than 4 elements
+                                if (filteredProducts.length > 4) {
+                                    filteredProducts = filteredProducts.sort(() => Math.random() - 0.5).slice(0, 4);
+                                }
+                                return filteredProducts;
+                            });
                         }
                     }
                 }
@@ -51,6 +63,8 @@ export default function PageContent() {
         }
         fetchData();
     }, [slugArrayHook]);
+
+
     return (
         <Layout>
             {loading ? (
@@ -120,18 +134,18 @@ export default function PageContent() {
                         <div className='grow'>
                             <div className='flex flex-col md:flex-row  justify-between my-10'>
                                 <div className='md:w-1/3  md:mr-6 sm:mr-3'>
-                                    <div className='md:top-3w-36 md:sticky flex flex-col sm:flex-row md:flex-col  sm:space-x-2 md:space-x-0'>
+                                    <div className='md:top-18 w-full md:sticky flex flex-col sm:flex-row md:flex-col  sm:space-x-2 md:space-x-0'>
                                         {/* <Image className='rounded-lg w-full m-0 sm:mr-4 sm:mb-4' src={productData.imagens[0]} alt={productData.ALBEDOtitulo} width={300} height={350} /> */}
                                         {/* Map over each image in productData.imagens */}
-                                        <div className='flex flex-col '>
+                                        <div className='flex flex-col w-full'>
                                             {productData.imagens.map((image, index) => (
                                                 <Image
                                                     key={index} // Make sure to provide a unique key for each image
                                                     className={` md:h-[400px] sm:h-[270px] h-[300px] md:w-[550px] object-contain rounded-lg ${index !== currentImageIndex ? 'hidden' : ''}`}
                                                     src={image}
                                                     alt={`Image ${index + 1}`} // Alt text can be dynamic if needed
-                                                    width={4000}
-                                                    height={5050}
+                                                    width={1000}
+                                                    height={1050}
                                                 />
                                             ))}
                                             <div className="flex flex-row items-start mt-2 ">
@@ -178,56 +192,20 @@ export default function PageContent() {
                                     }
                                 </div>
                             </div>
-                            {/* <div className='flex flex-col my-2'>
-                                <h1 className='font-extrabold text-xl mt-4 md:mt-0 pl-[15px] '>Productos relacionados que pueden ser de su interés:</h1>
 
-                                    <div className='flex flex-row flex-wrap items-center justify-center md:items-start md:justify-start mr-0 md:mr-4 xl:space-x-4 mt-4 '>
-                                    <div className="w-[250px] h-auto flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse mb-8 mr-6">
-                                        <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                            <div className='rounded-lg h-6 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                            <div className='rounded-lg h-6 w-36 self-center bg-slate-200 animate-pulse'></div>
-                                            <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                            <div className='flex flex-row justify-between space-x-4 '>
-                                                <div className='rounded-lg h-6 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                                <div className='rounded-lg h-6 grow self-center bg-slate-200 animate-pulse'></div>
+                            {relatedProducts.length > 1 && (
+                                <div className='flex flex-col my-2'>
+                                    <h1 className='md:font-extrabold font-semibold text-xl mt-4 md:mt-0'>Productos relacionados que pueden ser de su interés:</h1>
+                                    <div className={`flex flex-row flex-wrap items-start  ${relatedProducts.length ==4 ? 'justify-between' : 'justify-start'}`}>
+                                        {relatedProducts.map((product) => (
+                                            <div key={product.ALBEDOcodigo} className="lg:w-[270px] md:w-[300px] w-full m-2 p-2 rounded-md box-shadow">
+                                                <Link href={`/products/${slugArrayHook.slice(0, -1).join("/")}/${product.url_Id}`}>
+                                                    <ProductItem product={product} /></Link>
+                                                <AddToCart producto={product} />
                                             </div>
-                                        </div>
+                                        ))}
                                     </div>
-                                    <div className="w-[250px] h-auto flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse mb-8 mr-6">
-                                        <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                            <div className='rounded-lg h-6 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                            <div className='rounded-lg h-6 w-36 self-center bg-slate-200 animate-pulse'></div>
-                                            <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                            <div className='flex flex-row justify-between space-x-4 '>
-                                                <div className='rounded-lg h-6 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                                <div className='rounded-lg h-6 grow self-center bg-slate-200 animate-pulse'></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="w-[250px] h-auto flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse mb-8 mr-6">
-                                        <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                            <div className='rounded-lg h-6 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                            <div className='rounded-lg h-6 w-36 self-center bg-slate-200 animate-pulse'></div>
-                                            <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                            <div className='flex flex-row justify-between space-x-4 '>
-                                                <div className='rounded-lg h-6 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                                <div className='rounded-lg h-6 grow self-center bg-slate-200 animate-pulse'></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="w-[250px] h-auto flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse mb-8 mr-6">
-                                        <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                            <div className='rounded-lg h-6 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                            <div className='rounded-lg h-6 w-36 self-center bg-slate-200 animate-pulse'></div>
-                                            <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                            <div className='flex flex-row justify-between space-x-4 '>
-                                                <div className='rounded-lg h-6 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                                <div className='rounded-lg h-6 grow self-center bg-slate-200 animate-pulse'></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
+                                </div>)}
                         </div>
                     )}
                 </>

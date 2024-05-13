@@ -1,4 +1,4 @@
-// FilterSection.js
+"use client"
 import React from 'react';
 import FilterSelect from './FilterSelect'; // Make sure this path is correct
 

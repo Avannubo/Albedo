@@ -13,10 +13,10 @@ const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 let cachedContent = null;
 export async function requireContent() {
-   // if (!cachedContent) {
-        const res = await fs.readFile(filePath, 'utf8');
-       // cachedContent = JSON.parse(res);
-   // }
+    // if (!cachedContent) {
+    const res = await fs.readFile(filePath, 'utf8');
+    // cachedContent = JSON.parse(res);
+    // }
     return JSON.parse(res);
 }
 export async function getCategories() {
@@ -131,7 +131,7 @@ export async function deleteElement(categoryId, product) {
                             const deletedObject = categoryList.splice(i, 1)[0];
                             deletedContent.push(deletedObject);
                             await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                            revalidatePath('/admin/categories');
+                            revalidatePath('/admin/products');
                             return true;
                         }
                         if (category.subCategories && category.subCategories.length > 0) {
@@ -159,7 +159,7 @@ export async function deleteElement(categoryId, product) {
                                 const deletedObject = category.products.splice(j, 1)[0];
                                 deletedContent.push(deletedObject);
                                 await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                                revalidatePath('/admin/categories');
+                                revalidatePath('/admin/products');
                                 return true;
                             }
                         }
@@ -224,7 +224,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
         };
         categories.unshift(newCategory);
         await writeFile(filePath, JSON.stringify(jsonData));
-        revalidatePath('/admin/categories');
+        revalidatePath('/admin/products');
         // //console.log("Subcategory added successfully.");
         return true;
     } catch (error) {
@@ -278,7 +278,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                     // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     // //console.log("Data written successfully.");
-                    revalidatePath('/admin/categories');
+                    revalidatePath('/admin/products');
                     // //console.log("Path revalidated.");
                     return true;
                 }
@@ -355,7 +355,7 @@ export async function addproduct(categoryId, productData) {
                     // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     // //console.log("Data written successfully.");
-                    revalidatePath('/admin/categories');
+                    revalidatePath('/admin/products');
                     // //console.log("Path revalidated.");
                     return true;
                 }
@@ -426,7 +426,7 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         //console.log("Data written successfully.");
                         // Assuming revalidatePath is defined somewhere
                         // window.location.reload();
-                        //  revalidatePath('/admin/categories');
+                        revalidatePath('/admin/products');
                         // // //console.log("Path revalidated.");
                         return true;
                     }
@@ -488,6 +488,8 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
                     }
                     // Write the updated JSON data to the file
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                    revalidatePath('/admin/products');
+
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
@@ -528,96 +530,166 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
         return false;
     }
 }
+export async function duplicateProduct(category, product) {
+    //console.log('duplicate function' + JSON.stringify(category.products) + JSON.stringify(product));
+
+    try {
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories, deletedContent } = JSON.parse(data);
+        const categoryToModifyId = category.id; 
+        const addProductRecursive = async (categoryList) => {
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                if (category.id === categoryToModifyId) {
+                    //console.log("Category found:", category);
+                    if (!category.products) {
+                        category.products = [];
+                    }
+                    const nextUrlId = String(Number(product.url_Id) + 1).padStart(3, '0');
+                    // const categoryPath = getCategoryPath(category).join('.');
+                    // console.log(categoryPath);
+                    const dataObj = {
+                        "ALBEDOcodigo": product.ALBEDOcodigo + "(copia)",  //productCode.replace(/ /g, "-"),
+                        "url_Id": nextUrlId,
+                        "ALBEDOtitulo": product.ALBEDOtitulo + "(copia)",
+                        "ALBEDOprecio": product.ALBEDOprecio,
+                        "ALBEDOdescripcion": product.ALBEDOdescripcion,
+                        "ALBEDOcuerpo": product.ALBEDOcuerpo,
+                        "ALBEDOstock_minimo": product.ALBEDOstock_minimo,
+                        "ALBEDOstock": product.ALBEDOstock,
+                        "isPublished": product.isPublished,
+                        "FeachaDeCreacion": euFormattedDateTime,
+                        "FechaDeModificacion": euFormattedDateTime,
+                        "imagens": product.imagens,
+                        "archivos": product.archivos,
+                        "ALBEDOplazo_entrega": product.ALBEDOplazo_entrega
+                    }
+                    category.products.push(dataObj);
+                    //console.log("New product added:", dataObj);
+                    //console.log("Writing updated data to file...");
+                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                    //console.log("Data written successfully.");
+                    revalidatePath('/admin/categories');
+                    //console.log("Path revalidated.");
+                    return true;
+                }
+                if (category.subCategories && category.subCategories.length > 0) {
+                    //console.log("Checking products in subcategories of:", category.subCategories);
+                    const productAdded = await addProductRecursive(category.subCategories);
+                    if (productAdded) return true;
+                }
+            }
+            return false;
+        };
+        //console.log("Starting adding product process...");
+        const productAdded = await addProductRecursive(categories);
+        if (!productAdded) {
+            //.log("Category not found.");
+            return false;
+        }
+        // Insert the duplicated product into the category
+        if (!category.products) {
+            category.products = [];
+        }
+        // category.products.push(duplicateData);
+        return true; // Successfully duplicated and inserted product
+    } catch (error) {
+        console.error("Error duplicating product:", error);
+        return false; // Failed to duplicate product
+    }
+}
 /**
  * Retrieves a product based on its ID.
  * @param {string} productId - The ID of the product to retrieve.
  * @returns {Object} The product data.
  */
-export async function getProductById(productId) {
-    // // //console.log(productId);
-    try { // Provide correct file path
-        const data = await fs.readFile(filePath, 'utf8');
-        const { categories } = JSON.parse(data); // Destructure categories directly
-        const productToEdit = productId.productId;
-        // // //console.log(productToEdit);
-        const findProduct = async (categoryList) => {
-            for (let i = 0; i < categoryList.length; i++) {
-                const category = categoryList[i];
-                for (let j = 0; j < category.products.length; j++) {
-                    const product = category.products[j];
-                    if (product.ALBEDOcodigo === productToEdit) {
-                        // //console.log("\nProduct found(back):", JSON.stringify(product));
-                        return JSON.stringify(product); // Return product when found
-                    }
-                }
-                if (category.subCategories && category.subCategories.length > 0) {
-                    const foundProduct = await findProduct(category.subCategories);
-                    if (foundProduct) return foundProduct; // Return product when found
-                }
-            }
-            return null; // Return null if product not found
-        };
-        const product = await findProduct(categories);
-        if (!product) {
-            // //console.log("Product not found.");
-            return null; // Return null if product not found
-        }
-        return product; // Return found product
-    } catch (error) {
-        // //console.log("Error:", error); // Log error
-        throw error; // Rethrow error
-    }
-}
+// export async function getProductById(productId) {
+//     // // //console.log(productId);
+//     try { // Provide correct file path
+//         const data = await fs.readFile(filePath, 'utf8');
+//         const { categories } = JSON.parse(data); // Destructure categories directly
+//         const productToEdit = productId.productId;
+//         // // //console.log(productToEdit);
+//         const findProduct = async (categoryList) => {
+//             for (let i = 0; i < categoryList.length; i++) {
+//                 const category = categoryList[i];
+//                 for (let j = 0; j < category.products.length; j++) {
+//                     const product = category.products[j];
+//                     if (product.ALBEDOcodigo === productToEdit) {
+//                         // //console.log("\nProduct found(back):", JSON.stringify(product));
+//                         revalidatePath('/admin/products');
+
+//                         return JSON.stringify(product); // Return product when found
+//                     }
+//                 }
+//                 if (category.subCategories && category.subCategories.length > 0) {
+//                     const foundProduct = await findProduct(category.subCategories);
+//                     if (foundProduct) return foundProduct; // Return product when found
+//                 }
+//             }
+//             return null; // Return null if product not found
+//         };
+//         const product = await findProduct(categories);
+//         if (!product) {
+//             // //console.log("Product not found.");
+//             return null; // Return null if product not found
+//         }
+//         return product; // Return found product
+//     } catch (error) {
+//         // //console.log("Error:", error); // Log error
+//         throw error; // Rethrow error
+//     }
+// }
 /**
  * Retrieves a category based on its ID.
  * @param {object} categoryId - The ID of the category to retrieve.
  * @returns {Object} The category data.
  */
-export async function getCategoryById(categoryId) {
-    // Check if the categoryId is provided and has an id field 
-    try {
-        if (!categoryId || !categoryId.categoryId || !categoryId.categoryId.id) {
-            throw new Error("Invalid categoryId");
-        }
-        // Log the category ID to be searched for 
-        // //console.log("Searching for category with ID:", categoryId.categoryId.id);
-        // Read the contents of the JSON file
-        const data = await fs.readFile(filePath, 'utf8');
-        // Parse the JSON file contents into JavaScript object
-        const { categories } = JSON.parse(data);
-        // Get the category ID to be searched for
-        const categoryToDeleteId = categoryId.categoryId.id;
-        // Recursive function to search for a category by ID in the given category list
-        const Recursive = async (categoryList) => {
-            // Loop through the category list 
-            for (let i = 0; i < categoryList.length; i++) {
-                const category = categoryList[i];
-                // If the category ID matches, return the category and its data
-                if (category.id === categoryToDeleteId) {
-                    // revalidatePath('/admin/categories');
-                    // // //console.log("cat found in back: "+ JSON.stringify(category));
-                    return category; // Return category and its data
-                }
-                // If the category has subcategories, search for the ID within those subcategories
-                if (category.subCategories && category.subCategories.length > 0) {
-                    const subcategory = await Recursive(category.subCategories);
-                    // // //console.log("subCat found in back: "+ JSON.stringify(category));
-                    if (subcategory) return subcategory;
-                }
-            }
-            return false;
-        };
-        const categoryFound = await Recursive(categories);
-        if (!categoryFound) {
-            // //console.log("Category not found.");
-            return false;
-        }
-        return categoryFound; // Return the found category along with its data
-    } catch (error) {
-        console.error("Error occurred:", error);
-        return false;
-    }
-}
+// export async function getCategoryById(categoryId) {
+//     // Check if the categoryId is provided and has an id field 
+//     try {
+//         if (!categoryId || !categoryId.categoryId || !categoryId.categoryId.id) {
+//             throw new Error("Invalid categoryId");
+//         }
+//         // Log the category ID to be searched for 
+//         // //console.log("Searching for category with ID:", categoryId.categoryId.id);
+//         // Read the contents of the JSON file
+//         const data = await fs.readFile(filePath, 'utf8');
+//         // Parse the JSON file contents into JavaScript object
+//         const { categories } = JSON.parse(data);
+//         // Get the category ID to be searched for
+//         const categoryToDeleteId = categoryId.categoryId.id;
+//         // Recursive function to search for a category by ID in the given category list
+//         const Recursive = async (categoryList) => {
+//             // Loop through the category list 
+//             for (let i = 0; i < categoryList.length; i++) {
+//                 const category = categoryList[i];
+//                 // If the category ID matches, return the category and its data
+//                 if (category.id === categoryToDeleteId) {
+//                     // revalidatePath('/admin/categories');
+//                     // // //console.log("cat found in back: "+ JSON.stringify(category));
+//                     return category; // Return category and its data
+//                 }
+//                 // If the category has subcategories, search for the ID within those subcategories
+//                 if (category.subCategories && category.subCategories.length > 0) {
+//                     const subcategory = await Recursive(category.subCategories);
+//                     // // //console.log("subCat found in back: "+ JSON.stringify(category));
+//                     if (subcategory) return subcategory;
+//                 }
+//             }
+//             return false;
+//         };
+//         const categoryFound = await Recursive(categories);
+//         if (!categoryFound) {
+    //             // //console.log("Category not found.");
+    //             return false;
+    //         }
+    //         return categoryFound; // Return the found category along with its data
+//     } catch (error) {
+//         console.error("Error occurred:", error);
+//         return false;
+//     }
+// }
 /**
  * Returns the category data based on the given URL IDs.
  * @param {string[]} slugIds - The array of URL IDs.
@@ -646,6 +718,7 @@ export async function getDataByUrlId(slugIds) {
                 currentData = category.subCategories;
             } else {
                 // If there are no subcategories, return the current category
+                revalidatePath('/admin/products');
                 return category;
             }
         }
@@ -687,7 +760,7 @@ export async function saveNewOrder(orderData) {
         // Add orderState field with default value
         ClientOrders.unshift(orderDataWithState);
         await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
-        revalidatePath('/');
+        revalidatePath('/admin/orders');
         // //console.log("Subcategory added successfully.");
         return true;
     } catch (error) {
@@ -705,6 +778,8 @@ export async function getAllActiveOrders() {
         const data = await readFile(filePathActiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
         const { ActiveOrders } = jsonData;
+        revalidatePath('/admin/orders');
+
         return ActiveOrders;
     } catch (error) {
         console.error("Error getting all Client Orders:", error);
@@ -716,6 +791,8 @@ export async function getAllInactiveOrders() {
         const data = await readFile(filePathInactiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
         const { InactiveOrders } = jsonData;
+        revalidatePath('/admin/orders');
+
         return InactiveOrders;
     } catch (error) {
         console.error("Error getting all Client Orders:", error);
@@ -736,6 +813,8 @@ export async function getActiveOrderByIndex(orderIndex) {
         if (orderIndex < 0 || orderIndex >= ActiveOrders.length) {
             throw new Error("Invalid order index");
         }
+        revalidatePath('/admin/orders');
+
         return ActiveOrders[orderIndex];
     } catch (error) {
         console.error("Error getting order by index:", error);
@@ -750,6 +829,8 @@ export async function getInactiveOrderByIndex(orderIndex) {
         if (orderIndex < 0 || orderIndex >= InactiveOrders.length) {
             throw new Error("Invalid order index");
         }
+        revalidatePath('/admin/orders');
+
         return InactiveOrders[orderIndex];
     } catch (error) {
         console.error("Error getting order by index:", error);
@@ -787,6 +868,7 @@ export async function updateActiveOrder(orderId, newState) {
                 await writeFile(filePathInactiveOrders, JSON.stringify({ InactiveOrders })),
                 await writeFile(filePathActiveOrders, JSON.stringify({ ActiveOrders }))
             ]);
+            revalidatePath('/admin/orders');
             return true;
         } catch (error) {
             console.error("Error updating active order state:", error);
@@ -831,6 +913,7 @@ export async function updateInactiveOrder(orderId, newState) {
                 await writeFile(filePathInactiveOrders, JSON.stringify({ InactiveOrders })),
                 await writeFile(filePathActiveOrders, JSON.stringify({ ActiveOrders }))
             ]);
+            revalidatePath('/admin/orders');
             return true;
         } catch (error) {
             console.error("Error updating inactive order state:", error);
@@ -870,6 +953,7 @@ export async function deleteOrder(index) {
             //console.log("Writing to file...");
             await writeFile(filePathInactiveOrders, JSON.stringify(jsonData));
             //console.log("File updated successfully.");
+            revalidatePath('/admin/orders');
             return true; // Return true to indicate successful deletion
         } else {
             console.error("Invalid index provided.");
@@ -981,86 +1065,4 @@ export async function deleteImages(imagePathsToDelete) {
             .then(() => resolve())
             .catch(error => reject(error));
     });
-}
-
-export async function duplicateProduct(category, product) {
-    //console.log('duplicate function' + JSON.stringify(category.products) + JSON.stringify(product));
-
-    try {
-        const data = await fs.readFile(filePath, 'utf8');
-        const { categories, deletedContent } = JSON.parse(data);
-        const categoryToModifyId = category.id;
-        // Assuming product is an object containing product data
-
-        // Function to generate a string of category IDs in the hierarchy
-        // const getCategoryPath = (currentCategory, path = []) => {
-        //     if (currentCategory.parent) {
-        //         path.unshift(currentCategory.ALBEDOcodigo);
-        //         return getCategoryPath(currentCategory.parent, path);
-        //     }
-        //     return path;
-        // };
-
-
-
-        const addProductRecursive = async (categoryList) => {
-            for (let i = 0; i < categoryList.length; i++) {
-                const category = categoryList[i];
-                if (category.id === categoryToModifyId) {
-                    //console.log("Category found:", category);
-                    if (!category.products) {
-                        category.products = [];
-                    }
-                    const nextUrlId = String(Number(product.url_Id) + 1).padStart(3, '0');
-                    // const categoryPath = getCategoryPath(category).join('.');
-                    // console.log(categoryPath);
-                    const dataObj = {
-                        "ALBEDOcodigo": product.ALBEDOcodigo + "(copia)",  //productCode.replace(/ /g, "-"),
-                        "url_Id": nextUrlId,
-                        "ALBEDOtitulo": product.ALBEDOtitulo + "(copia)",
-                        "ALBEDOprecio": product.ALBEDOprecio,
-                        "ALBEDOdescripcion": product.ALBEDOdescripcion,
-                        "ALBEDOcuerpo": product.ALBEDOcuerpo,
-                        "ALBEDOstock_minimo": product.ALBEDOstock_minimo,
-                        "ALBEDOstock": product.ALBEDOstock,
-                        "isPublished": product.isPublished,
-                        "FeachaDeCreacion": euFormattedDateTime,
-                        "FechaDeModificacion": euFormattedDateTime,
-                        "imagens": product.imagens,
-                        "archivos": product.archivos,
-                        "ALBEDOplazo_entrega": product.ALBEDOplazo_entrega
-                    }
-                    category.products.push(dataObj);
-                    //console.log("New product added:", dataObj);
-                    //console.log("Writing updated data to file...");
-                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    //console.log("Data written successfully.");
-                    revalidatePath('/admin/categories');
-                    //console.log("Path revalidated.");
-                    return true;
-                }
-                if (category.subCategories && category.subCategories.length > 0) {
-                    //console.log("Checking products in subcategories of:", category.subCategories);
-                    const productAdded = await addProductRecursive(category.subCategories);
-                    if (productAdded) return true;
-                }
-            }
-            return false;
-        };
-        //console.log("Starting adding product process...");
-        const productAdded = await addProductRecursive(categories);
-        if (!productAdded) {
-            //.log("Category not found.");
-            return false;
-        }
-        // Insert the duplicated product into the category
-        if (!category.products) {
-            category.products = [];
-        }
-        // category.products.push(duplicateData);
-        return true; // Successfully duplicated and inserted product
-    } catch (error) {
-        console.error("Error duplicating product:", error);
-        return false; // Failed to duplicate product
-    }
 }

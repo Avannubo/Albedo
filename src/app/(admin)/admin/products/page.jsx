@@ -53,6 +53,7 @@ export default function Page() {
           <AddNewCategoryModal refetchData={refetchData} />
         </div>
         <FilterSection
+          category={categories}
           isPublishedFilter={isPublishedFilter}
           categoryFilter={categoryFilter}
           onPublishedChange={setIsPublishedFilter}

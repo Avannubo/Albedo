@@ -1,6 +1,3 @@
-// FilterSelect.js
-import React from 'react';
-
 export default function FilterSelect({ value, onChange, options }) {
     return (
         <select

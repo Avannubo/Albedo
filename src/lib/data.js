@@ -1066,3 +1066,5 @@ export async function deleteImages(imagePathsToDelete) {
             .catch(error => reject(error));
     });
 }
+
+

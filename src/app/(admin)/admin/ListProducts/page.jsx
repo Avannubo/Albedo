@@ -39,6 +39,7 @@ function List({category}) {
             <div className="space-x-4 flex flex-row justify-center items-center"> 
                 <AddNewProduct categoryId={category} />
                 <AddSubCategory categoryId={category} />
+                <EditCatedory categoryId={category} />
 
                 {/* <EditCatedory categoryId={category} /> */}
                 <Delete category={category} product={"none"} />

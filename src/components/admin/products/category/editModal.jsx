@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { editCategory, getCategories, saveImage } from '@/lib/data';
+import { editCategory, getCategoryDataForListProducts, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
-export default function EditModal({ isOpen, onClose, categoryId, refetchData }) {
+export default function EditModal({ isOpen, onClose, categoryId }) {
     // const productData = getProductById(productId);
     //console.log(categoryId);
     const [data, setData] = useState();
@@ -83,32 +83,14 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
                 .catch(error => reject(error));
         });
     };
-    useEffect(() => {
-        async function fetchData() {
-            const categories = await getCategories();
-            // console.log(categories);
-            setData(categories);
-        }
-        fetchData();
-    }, [])
-    //server Action here
+    
     const handleAddProduct = async () => {
-        const abortController = new AbortController();
-
         setUrlCodeError(!newCategoryUrlId.trim());
         setNameError(!newCategoryName.trim());
         setDescriptionError(!newCategoryDescription.trim());
         if (!newCategoryName.trim() || !newCategoryUrlId.trim() || !newCategoryDescription.trim()) {
             return;
         }
-        // const urlIdExists = data
-        //     .filter(category => category.id !== newCategoryUrlId) // Exclude the current category's id
-        //     .some(category => category.url_Id === newCategoryUrlId);
-
-        // if (urlIdExists) {
-        //     // setUrlCodeError(true);
-        //     return;
-        // }
         setLoading(true);
         const imagePaths = await uploadImages();
         const allImagePaths = [...imagePaths, ...categoryImages];
@@ -131,8 +113,7 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
         setDescriptionError(false);
         setUrlCodeError(false);
         setLoading(false);
-        onClose();
-        refetchData();
+        onClose(); 
     };
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">

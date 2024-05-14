@@ -19,12 +19,12 @@ export default async function page() {
             <Suspense fallback={<Loading />}>
                 <div className="flex flex-row">
                     <h1 className="font-semibold text-4xl">Productos</h1>
-                    <AddNewCategory/>
+                    <AddNewCategory />
                 </div>
                 <ul>
                     {list.map((category, index) => (
                         <div key={index} className="my-10">
-                            <List category={category}/>
+                            <List category={category} />
                         </div>
                     ))}
                 </ul>
@@ -32,16 +32,14 @@ export default async function page() {
         </Layout >
     )
 }
-function List({category}) {
-    return <div  className="space-y-2 w-full">
+function List({ category }) {
+    return <div className="space-y-2 w-full">
         <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
             <p className="h-auto  self-center">{category.url_Id} : {category.name}</p>
-            <div className="space-x-4 flex flex-row justify-center items-center"> 
+            <div className="space-x-4 flex flex-row justify-center items-center">
                 <AddNewProduct categoryId={category} />
                 <AddSubCategory categoryId={category} />
                 <EditCatedory categoryId={category} />
-
-                {/* <EditCatedory categoryId={category} /> */}
                 <Delete category={category} product={"none"} />
                 <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
                     {category.isPublished ? "Publicado" : "Oculto"}
@@ -56,10 +54,9 @@ function List({category}) {
                         <p className="h-auto w-full self-center ">
                             {product.url_Id} : {product.ALBEDOtitulo}
                         </p>
-                        <div className="space-x-4 flex flex-row justify-center items-center"> 
-                            {/* <EditProduct category={category} product={product} /> */}
-
+                        <div className="space-x-4 flex flex-row justify-center items-center">
                             <Duplicate category={category} product={product} />
+                            <EditProduct category={category} product={product} />
                             <Delete category={"none"} product={product} />
                             <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
                                 {product.isPublished ? "Publicado" : "Oculto"}

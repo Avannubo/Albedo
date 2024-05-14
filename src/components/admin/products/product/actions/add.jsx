@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Modal from '@/components/admin/products/product/actions/addModal';
 
-export default function addproduct({ categoryId, refetchData }) {
+export default function addproduct({ categoryId }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -17,7 +17,7 @@ export default function addproduct({ categoryId, refetchData }) {
                 </svg>
                 <div className="">Producto</div>
             </div>
-            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} refetchData={refetchData} />
+            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} />
         </div>
     )
 }

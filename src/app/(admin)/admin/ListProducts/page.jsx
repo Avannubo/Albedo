@@ -37,6 +37,8 @@ function List({category}) {
         <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
             <p className="h-auto  self-center">{category.url_Id} : {category.name}</p>
             <div className="space-x-4 flex flex-row justify-center items-center"> 
+                <AddNewProduct categoryId={category} />
+
                 {/* <EditCatedory categoryId={category} /> */}
                 <Delete category={category} product={"none"} />
                 <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>

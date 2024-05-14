@@ -1,8 +1,8 @@
 // deleteModal.js
 "use client"
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import React from 'react';
-import { addSubcategory, getCategories, saveImage } from '@/lib/data';
+import { addSubcategory, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 export default function AddSubcategory({ isOpen, onClose, categoryId }) {
     //console.log(categoryId);

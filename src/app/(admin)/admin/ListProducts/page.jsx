@@ -1,7 +1,9 @@
 import React, { Suspense } from 'react'
+//Admin Pages Layout
 import Layout from "@/app/(admin)/admin/AdminLayout";
-// import List from '@/components/admin/products/product/comps/productList';
+//Server Action
 import { getCategoryDataForListProducts } from '@/lib/data';
+//components
 import Delete from "@/components/admin/products/category/delete";
 import AddSubCategory from "@/components/admin/products/subcategory/add";
 import AddNewProduct from "@/components/admin/products/product/actions/add";
@@ -9,26 +11,23 @@ import EditProduct from "@/components/admin/products/product/actions/edit";
 import EditCatedory from "@/components/admin/products/category/edit";
 import Duplicate from '@/components/admin/products/product/actions/duplicate';
 import AddNewCategory from "@/components/admin/products/category/add";
-
 export default async function page() {
-    // console.log(getCategoryDataForListProducts);
     const list = await getCategoryDataForListProducts();
-    //console.log(List);
     return (
         <Layout>
-            <Suspense fallback={<Loading />}>
-                <div className="flex flex-row">
-                    <h1 className="font-semibold text-4xl">Productos</h1>
-                    <AddNewCategory />
-                </div>
-                <ul>
-                    {list.map((category, index) => (
-                        <div key={index} className="my-10">
+            <div className="flex flex-row">
+                <h1 className="font-semibold text-4xl">Productos</h1>
+                <AddNewCategory />
+            </div>
+            <ul>
+                {list.map((category, index) => (
+                    <div key={index} className="my-10">
+                        <Suspense fallback={<Loading />}>
                             <List category={category} />
-                        </div>
-                    ))}
-                </ul>
-            </Suspense>
+                        </Suspense>
+                    </div>
+                ))}
+            </ul>
         </Layout >
     )
 }

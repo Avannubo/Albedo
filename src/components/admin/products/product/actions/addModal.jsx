@@ -50,17 +50,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
     const handleRelatedFilesChange = (event) => {
         const files = Array.from(event.target.files);
         setSelectedFiles(files);
-    };
-    // const readFileAsBase64 = (file) => {
-    //     return new Promise((resolve, reject) => {
-    //         const reader = new FileReader();
-    //         reader.onload = () => {
-    //             resolve(reader.result);
-    //         };
-    //         reader.onerror = reject;
-    //         reader.readAsDataURL(file);
-    //     });
-    // }; 
+    }; 
     const uploadRelatedFiles = () => {
         return new Promise((resolve, reject) => {
             const filesPaths = [];

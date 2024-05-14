@@ -4,35 +4,17 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import { addSubcategory, getCategories, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
-export default function AddSubcategory({ isOpen, onClose, categoryId, refetchData }) {
-    const [data, setData] = useState([]);
+export default function AddSubcategory({ isOpen, onClose, categoryId }) {
+    //console.log(categoryId);
     const [newCategoryName, setNewCategoryName] = useState('');
     const [newCategoryDescription, setNewCategoryDescription] = useState('');
     const [newCategoryBody, setNewCategoryBody] = useState('');
-    const [newCategoryCode, setNewCategoryCode] = useState('');
     const [newCategoryUrlCode, setNewCategoryUrlCode] = useState('');
     const [nameError, setNameError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
-    const [codeError, setCodeError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
-    useEffect(() => {
-        function fetchData() {
-            // Assuming getCategories() returns a promise categoryId.categoryId
-            getCategories()
-                .then(categories => {
-                    setData(categories);
-                })
-                .catch(error => {
-                    console.error('Error fetching categories:', error);
-                    // Handle errors if necessary
-                });
-        }
-        fetchData();
-    }, []);
-    const handleInputChangeCode = (event) => {
-        setNewCategoryCode(event.target.value);
-    };
+
     const handleInputChangeUrlCode = (event) => {
         setNewCategoryUrlCode(event.target.value);
     };
@@ -74,48 +56,17 @@ export default function AddSubcategory({ isOpen, onClose, categoryId, refetchDat
         });
     };
     const handleAddCategory = async () => {
-        // Check if any of the required fields are empty
-        setCodeError(!newCategoryCode.trim());
+        // Check if any of the required fields are empty 
         setUrlCodeError(!newCategoryUrlCode.trim());
         setNameError(!newCategoryName.trim());
         setDescriptionError(!newCategoryDescription.trim());
         // If any of the required fields are empty, return early
-        if (!newCategoryCode.trim() || !newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
+        if (!newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
             return;
         }
-        //console.log('categoryId:', categoryId.id);
-        // Recursive function to search for category by categoryId
-        const findCategoryRecursive = (categoryList) => {
-            for (let i = 0; i < categoryList.length; i++) {
-                const category = categoryList[i];
-                // console.log("Checking category:", category);
-                if (category.id === categoryId.id) {
-                    //console.log("Category found:", category);
-                    return category;
-                }
-                if (category.subCategories && category.subCategories.length > 0) {
-                    //console.log("Checking subcategories of:", category);
-                    const foundCategory = findCategoryRecursive(category.subCategories);
-                    if (foundCategory) return foundCategory;
-                }
-            }
-            return null;
-        };
-        // Find the category by categoryId using recursive function
-        const catObj = findCategoryRecursive(data);
-        //console.log('page cat :' + JSON.stringify(categoryId.id));
-        //console.log('cat obj: ' + JSON.stringify(catObj));
-        // If category is not found, log an error and return
-        if (!catObj) {
-            console.error("Category not found.");
-            return;
-        }
-        // Ensure subCategories array exists
-        if (!catObj.subCategories) {
-            catObj.subCategories = [];
-        }
+
         // Check if the urlId exists in subCategories
-        const urlIdExists = catObj.subCategories.some(category => category.url_Id === newCategoryUrlCode);
+        const urlIdExists = categoryId.subCategories.some(category => category.url_Id === newCategoryUrlCode);
         // If urlId exists, setUrlCodeError and return
         if (urlIdExists) {
             setUrlCodeError(true);
@@ -123,21 +74,27 @@ export default function AddSubcategory({ isOpen, onClose, categoryId, refetchDat
         }
         try {
             const imagePaths = await uploadImages();
-            await addSubcategory(categoryId, newCategoryCode, newCategoryUrlCode, newCategoryName, newCategoryDescription, newCategoryBody, imagePaths);
+            const subCategoryData = { 
+                newCategoryUrlCode: newCategoryUrlCode,
+                newCategoryName: newCategoryName,
+                newCategoryDescription: newCategoryDescription,
+                newCategoryBody: newCategoryBody,
+                imagePaths: imagePaths
+            };
+            await addSubcategory(categoryId, subCategoryData);
+            // If everything is valid, add the subcategory
+            // Clear input fields and close modal
+            setNewCategoryName('');
+            setNewCategoryDescription('');
+            setNewCategoryBody('');
+            setNewCategoryUrlCode('');
+            setUrlCodeError(false);
+            setSelectedImages([]);
+            onClose();
         } catch (error) {
             console.error("Error uploading images:", error);
         }
-        // If everything is valid, add the subcategory
-        // Clear input fields and close modal
-        setNewCategoryName('');
-        setNewCategoryDescription('');
-        setNewCategoryBody('');
-        setNewCategoryCode('');
-        setNewCategoryUrlCode('');
-        setUrlCodeError(false);
-        setSelectedImages([]);
-        refetchData();
-        onClose();
+
     };
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
@@ -154,17 +111,10 @@ export default function AddSubcategory({ isOpen, onClose, categoryId, refetchDat
                         <div className='flex flex-col'>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de Subcategoría</label>
-                                    <input onChange={handleInputChangeCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
-                                    {codeError && <span className="text-red-500 italic text-xs ">El código de categoría es requerido</span>}
-                                </div>
-                                <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo URL ej. 001" required />
                                     {urlCodeError && <span className="text-red-500 italic text-xs"> El código URL es obligatorio y no duplicado. </span>}
                                 </div>
-                            </div>
-                            <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Subcategoría</label>
                                     <input onChange={handleInputChangeName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Subcategoría" required />

@@ -254,7 +254,7 @@ export async function addCategory(Url_Id, name, description, body, isPublished, 
  * @param {boolean} isPublished - Whether the subcategory is published.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body, imagePaths) {
+export async function addSubcategory(categoryId, subCategoryData) {
     // // //console.log("Adding subcategory to " + categoryId.categoryId.id);
     // // //console.log(" subcategory name " + newCategoryName);
     try {
@@ -271,16 +271,15 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         category.subCategories = [];
                     }
                     const dataObj = {
-                        "id": Code.replace(/ /g, "-"),
-                        "url_Id": Url_Id,
-                        "fixedUrl": "",
-                        "name": newCategoryName,
-                        "description": Description,
-                        "ALBEDOcuerpo": Body,
+                        "id": subCategoryData.newCategoryName.replace(/ /g, "-"),
+                        "url_Id": subCategoryData.newCategoryUrlCode, 
+                        "name": subCategoryData.newCategoryName,
+                        "description": subCategoryData.newCategoryDescription,
+                        "ALBEDOcuerpo": subCategoryData.newCategoryBody,
                         "isPublished": false,
+                        "imagens": subCategoryData.imagePaths,
                         "FeachaDeCreacion": euFormattedDateTime,
                         "FechaDeModificacion": euFormattedDateTime,
-                        "imagens": imagePaths,
                         "subCategories": [],
                         "products": []
                     }

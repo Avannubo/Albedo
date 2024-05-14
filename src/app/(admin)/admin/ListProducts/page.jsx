@@ -13,7 +13,7 @@ import AddNewCategory from "@/components/admin/products/category/add";
 export default async function page() {
     // console.log(getCategoryDataForListProducts);
     const list = await getCategoryDataForListProducts();
-    console.log(List);
+    //console.log(List);
     return (
         <Layout>
             <Suspense fallback={<Loading />}>
@@ -38,6 +38,7 @@ function List({category}) {
             <p className="h-auto  self-center">{category.url_Id} : {category.name}</p>
             <div className="space-x-4 flex flex-row justify-center items-center"> 
                 <AddNewProduct categoryId={category} />
+                <AddSubCategory categoryId={category} />
 
                 {/* <EditCatedory categoryId={category} /> */}
                 <Delete category={category} product={"none"} />

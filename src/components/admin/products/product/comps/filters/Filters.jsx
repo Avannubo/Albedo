@@ -1,31 +1,36 @@
 "use client"
 import React, { useState } from 'react';
+import { getFiltersListProducts } from '@/lib/data'; 
 export default function Filters({ list }) {
     const [isPublishedFilter, setIsPublishedFilter] = useState(true); // Default filter value
     const [categoryFilter, setCategoryFilter] = useState(''); // Default category filter value
-    const filteredCategories = list.filter(category => {
-        if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {
-            return false;
-        }
-        if (categoryFilter && category.name !== categoryFilter) {
-            return false;
-        }
-        return true;
-    });
+
     const categoryOptions = isPublishedFilter === true ? list.filter(category => category.isPublished === true) : list.filter(category => category.isPublished === false);
-    const onCategoryChange = (value) => {
-        setCategoryFilter(value);
+
+    const onCategoryChange = async (value) => {
+        if (value === "") {
+            setCategoryFilter(value);
+            getFiltersListProducts(isPublishedFilter, '');
+        } else {
+            setCategoryFilter(value);
+            getFiltersListProducts(isPublishedFilter, value);
+        }
     };
-    console.log(filteredCategories);
+
+    const onFilterChange = (value) => {
+        setIsPublishedFilter(value === "true" ? true : false);
+        getFiltersListProducts(value === "true", categoryFilter);
+    };
+
     return (
-        <div className="flex flex-row space-x-4">
+        <div className="flex flex-row justify-end space-x-4 w-auto">
             <select
-                value={isPublishedFilter === true ? "" : isPublishedFilter}
-                onChange={(e) => setIsPublishedFilter(e.target.value === "" ? true : e.target.value === 'true')}
+                value={isPublishedFilter === true ? "" : isPublishedFilter.toString()}
+                onChange={(e) => onFilterChange(e.target.value)}
                 className="px-1.5 py-1 border-2 border-[#304590] rounded-lg focus:outline-none focus:border-[#304590] "
-            >
-                <option value={true}>Publicado</option>
-                <option value={false}>Borrador</option>
+            > 
+                <option value="true">Publicado</option>
+                <option value="false">Borrador</option>
             </select>
             <select
                 value={categoryFilter}

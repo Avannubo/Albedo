@@ -32,13 +32,34 @@ export async function getCategories() {
 export async function getCategoryDataForListProducts() {
     const content = await requireContent();
     if (content) {
-        const { categories } = content;
+        const { categories } = content;  
         revalidatePath('/admin/ListProducts');
         return categories;
     } else {
         return []; // Return an empty array if categories don't exist
     }
 }
+
+
+export async function getFiltersListProducts(isPublishedFilter, categoryFilter) {
+    // console.log(isPublishedFilter, categoryFilter);
+    const content = await requireContent();
+    const { categories } = content; 
+    const filteredCategories = categories.filter(category => {
+        if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {
+            return false;
+        }
+        if (categoryFilter && category.name !== categoryFilter) {
+            return false;
+        }
+        return true;
+    });
+    revalidatePath('/admin/ListProducts');
+    return filteredCategories; 
+}
+
+
+
 
 // Parallel loading of content and categories
 // export async function loadData() {

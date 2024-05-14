@@ -207,7 +207,7 @@ export async function deleteElement(categoryId, product) {
  * @param {string} pdfFile - The file path of the PDF for the category.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addCategory(Code, Url_Id, name, description, body, isPublished, imagePaths) {
+export async function addCategory(Url_Id, name, description, body, isPublished, imagePaths) {
     //console.log("New subcategory: " + imagePaths);
     try {
         const data = await readFile(filePath, 'utf8');
@@ -217,7 +217,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
         // const savedImageFilePath = await saveFileToAssets(imageFile, name + '_' + Url_Id + '_' + getFileIdNumber(100000, 10000000) + '.jpg');
         // const savedPdfFilePath = await saveFileToAssets(pdfFile, name + '_' + Url_Id + '.pdf');
         const newCategory = {
-            "id": Code.replace(/ /g, "-"),
+            "id": name.replace(/ /g, "-"),
             "url_Id": Url_Id,
             "fixedUrl": "",
             "name": name,
@@ -580,7 +580,7 @@ export async function duplicateProduct(category, product) {
                     //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     //console.log("Data written successfully.");
-                    revalidatePath('/admin/categories');
+                    revalidatePath('/admin/ListProducts');
                     //console.log("Path revalidated.");
                     return true;
                 }
@@ -609,98 +609,6 @@ export async function duplicateProduct(category, product) {
         return false; // Failed to duplicate product
     }
 }
-/**
- * Retrieves a product based on its ID.
- * @param {string} productId - The ID of the product to retrieve.
- * @returns {Object} The product data.
- */
-// export async function getProductById(productId) {
-//     // // //console.log(productId);
-//     try { // Provide correct file path
-//         const data = await fs.readFile(filePath, 'utf8');
-//         const { categories } = JSON.parse(data); // Destructure categories directly
-//         const productToEdit = productId.productId;
-//         // // //console.log(productToEdit);
-//         const findProduct = async (categoryList) => {
-//             for (let i = 0; i < categoryList.length; i++) {
-//                 const category = categoryList[i];
-//                 for (let j = 0; j < category.products.length; j++) {
-//                     const product = category.products[j];
-//                     if (product.ALBEDOcodigo === productToEdit) {
-//                         // //console.log("\nProduct found(back):", JSON.stringify(product));
-//                         revalidatePath('/admin/products');
-
-//                         return JSON.stringify(product); // Return product when found
-//                     }
-//                 }
-//                 if (category.subCategories && category.subCategories.length > 0) {
-//                     const foundProduct = await findProduct(category.subCategories);
-//                     if (foundProduct) return foundProduct; // Return product when found
-//                 }
-//             }
-//             return null; // Return null if product not found
-//         };
-//         const product = await findProduct(categories);
-//         if (!product) {
-//             // //console.log("Product not found.");
-//             return null; // Return null if product not found
-//         }
-//         return product; // Return found product
-//     } catch (error) {
-//         // //console.log("Error:", error); // Log error
-//         throw error; // Rethrow error
-//     }
-// }
-/**
- * Retrieves a category based on its ID.
- * @param {object} categoryId - The ID of the category to retrieve.
- * @returns {Object} The category data.
- */
-// export async function getCategoryById(categoryId) {
-//     // Check if the categoryId is provided and has an id field 
-//     try {
-//         if (!categoryId || !categoryId.categoryId || !categoryId.categoryId.id) {
-//             throw new Error("Invalid categoryId");
-//         }
-//         // Log the category ID to be searched for 
-//         // //console.log("Searching for category with ID:", categoryId.categoryId.id);
-//         // Read the contents of the JSON file
-//         const data = await fs.readFile(filePath, 'utf8');
-//         // Parse the JSON file contents into JavaScript object
-//         const { categories } = JSON.parse(data);
-//         // Get the category ID to be searched for
-//         const categoryToDeleteId = categoryId.categoryId.id;
-//         // Recursive function to search for a category by ID in the given category list
-//         const Recursive = async (categoryList) => {
-//             // Loop through the category list 
-//             for (let i = 0; i < categoryList.length; i++) {
-//                 const category = categoryList[i];
-//                 // If the category ID matches, return the category and its data
-//                 if (category.id === categoryToDeleteId) {
-//                     // revalidatePath('/admin/categories');
-//                     // // //console.log("cat found in back: "+ JSON.stringify(category));
-//                     return category; // Return category and its data
-//                 }
-//                 // If the category has subcategories, search for the ID within those subcategories
-//                 if (category.subCategories && category.subCategories.length > 0) {
-//                     const subcategory = await Recursive(category.subCategories);
-//                     // // //console.log("subCat found in back: "+ JSON.stringify(category));
-//                     if (subcategory) return subcategory;
-//                 }
-//             }
-//             return false;
-//         };
-//         const categoryFound = await Recursive(categories);
-//         if (!categoryFound) {
-    //             // //console.log("Category not found.");
-    //             return false;
-    //         }
-    //         return categoryFound; // Return the found category along with its data
-//     } catch (error) {
-//         console.error("Error occurred:", error);
-//         return false;
-//     }
-// }
 /**
  * Returns the category data based on the given URL IDs.
  * @param {string[]} slugIds - The array of URL IDs.

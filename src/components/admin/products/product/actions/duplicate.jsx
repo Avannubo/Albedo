@@ -1,17 +1,9 @@
-"use client"
-import React, { useState } from 'react'
+"use client" 
 import { duplicateProduct } from '@/lib/data';
-export default function duplicate({ category, product, refetchData }) {
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-    // const toggleModal = () => {
-    //     setIsModalOpen(!isModalOpen);
-    // };
+export default function duplicate({ category, product }) { 
     const handleDuplicate = async () => {
         console.log("duplicate: " + JSON.stringify(product));
-        const success = await duplicateProduct(category, product);
-        if (success) {
-            refetchData();
-        }
+        await duplicateProduct(category, product); 
     }
     return (
         <>

@@ -1,4 +1,4 @@
-"use client"
+
 import Delete from "@/components/admin/products/category/delete";
 import AddSubCategory from "@/components/admin/products/subcategory/add";
 import AddNewProduct from "@/components/admin/products/product/actions/add";
@@ -6,8 +6,9 @@ import EditProduct from "@/components/admin/products/product/actions/edit";
 import EditCatedory from "@/components/admin/products/category/edit";
 import Duplicate from '@/components/admin/products/product/actions/duplicate';
 
-export default function Category({ category, refetchData }) {
-    return (<div key={category.id} className="space-y-2 w-full">
+export default function Category({ category }) {
+    return (
+        <div key={category.id} className="space-y-2 w-full">
         <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
             <p className="h-auto  self-center">{category.url_Id} : {category.name}</p>
             <div className="space-x-4 flex flex-row justify-center items-center">
@@ -51,5 +52,6 @@ export default function Category({ category, refetchData }) {
                     <Category category={subCategory} />
                 </div>
             ))}
-    </div>)
+        </div>
+    )
 };

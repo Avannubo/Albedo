@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { addCategory, getCategories, saveImage } from '@/lib/data'; // Import the addCategory function from the data.js file
 import QuillEditor from "@/components/admin/products/QuillEditor"
-export default function AddModal({ isOpen, onClose, refetchData }) {
-    const [data, setData] = useState();
+export default function AddModal({ isOpen, onClose }) {
+    const [data, setData] = useState([]);
     const [newCategoryName, setNewCategoryName] = useState('');
     const [newCategoryDescription, setNewCategoryDescription] = useState('');
     const [newCategoryBody, setNewCategoryBody] = useState('');
-    const [newCategoryCode, setNewCategoryCode] = useState('');
+    // const [newCategoryCode, setNewCategoryCode] = useState('');
     const [newCategoryUrlCode, setNewCategoryUrlCode] = useState('');
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
     // State variables for error handling
@@ -16,9 +16,9 @@ export default function AddModal({ isOpen, onClose, refetchData }) {
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]); 
 
-    const handleInputChangeCode = (event) => {
-        setNewCategoryCode(event.target.value);
-    };
+    // const handleInputChangeCode = (event) => {
+    //     setNewCategoryCode(event.target.value);
+    // };
     const handleInputChangeUrlCode = (event) => {
         setNewCategoryUrlCode(event.target.value);
     };
@@ -81,7 +81,7 @@ export default function AddModal({ isOpen, onClose, refetchData }) {
         setNameError(!newCategoryName.trim());
         setDescriptionError(!newCategoryDescription.trim());
         // If any field doesn't meet the requirements, stop execution
-        if (!newCategoryCode.trim() || !newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
+        if ( !newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
             return;
         }
         // Check if the URL ID already exists 
@@ -94,8 +94,7 @@ export default function AddModal({ isOpen, onClose, refetchData }) {
 
         try {
             const imagePaths = await uploadImages(); 
-            addCategory(
-                newCategoryCode,
+            await addCategory( 
                 newCategoryUrlCode,
                 newCategoryName,
                 newCategoryDescription,
@@ -112,15 +111,13 @@ export default function AddModal({ isOpen, onClose, refetchData }) {
         // Reset form and close modal
         setNewCategoryName('');
         setNewCategoryDescription('');
-        setNewCategoryBody('');
-        setNewCategoryCode('');
+        setNewCategoryBody(''); 
         setNewCategoryUrlCode('');
         setNewCategoryIsPublished(false);
         setNameError(false);
         setDescriptionError(false); 
         setUrlCodeError(false);
-        setSelectedImages([]);
-        refetchData();
+        setSelectedImages([]); 
         onClose();
     };
     return isOpen ? (
@@ -148,19 +145,16 @@ export default function AddModal({ isOpen, onClose, refetchData }) {
                     <div className="w-full rounded-md  p-10">
                         <div className='flex flex-col'>
                             <div className='flex flex-row justify-between space-x-4'>
-                                <div className="mb-4 flex-1">
+                                {/* <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de Categoría</label>
                                     <input onChange={handleInputChangeCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                     {codeError && <span className="text-red-500 italic text-xs ">El código de categoría es requerido</span>}
-                                </div>
+                                </div> */}
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo URL ej. 001" required />
                                     {urlCodeError && <span className="text-red-500 italic text-xs"> El código URL es obligatorio y no duplicado. </span>}
-                                </div>
-                            </div>
-                            <div className='flex flex-row justify-between space-x-4'>
-                                <div className="mb-4 flex-1">
+                                </div><div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Categoría</label>
                                     <input onChange={handleInputChangeName} rows="2" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Categoría" required />
                                     {nameError && <span className="text-red-500 italic text-xs">El nombre de la categoría es requerido</span>}

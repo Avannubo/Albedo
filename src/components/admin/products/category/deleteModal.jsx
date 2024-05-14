@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import { deleteElement } from '@/lib/data';
 
-export default function DeleteModal({ isOpen, onClose, category, product, refetchData }) {
+export default function DeleteModal({ isOpen, onClose, category, product }) {
   //console.log(category, product);
   const [loading, setLoading] = useState(false);
 
@@ -14,8 +14,7 @@ export default function DeleteModal({ isOpen, onClose, category, product, refetc
       await deleteElement(category, product);
       // Close modal after successful deletion
       onClose();
-      // Refetch data
-      refetchData();
+      // Refetch data 
     } catch (error) {
       //console.log(error);
     } finally {

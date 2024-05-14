@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 import { duplicateProduct } from '@/lib/data';
 export default function duplicate({ category, product, refetchData }) {

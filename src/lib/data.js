@@ -11,7 +11,7 @@ const filePathInactiveOrders = isLocal ? path.resolve('public/data/ClientOrdersI
 const filePathParameters = isLocal ? path.resolve('public/data/Parameters.json') : '/data/Parameters.json';
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-let cachedContent = null;
+ 
 export async function requireContent() {
     // if (!cachedContent) {
     const res = await fs.readFile(filePath, 'utf8');
@@ -29,6 +29,17 @@ export async function getCategories() {
         return []; // Return an empty array if categories don't exist
     }
 }
+export async function getCategoryDataForListProducts() {
+    const content = await requireContent();
+    if (content) {
+        const { categories } = content;
+        revalidatePath('/admin/ListProducts');
+        return categories;
+    } else {
+        return []; // Return an empty array if categories don't exist
+    }
+}
+
 // Parallel loading of content and categories
 // export async function loadData() {
 //     const [content, categories] = await Promise.all([requireContent(), getCategories()]);

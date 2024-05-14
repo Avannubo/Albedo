@@ -1,3 +1,4 @@
+"use client"
 import Delete from "@/components/admin/products/category/delete";
 import AddSubCategory from "@/components/admin/products/subcategory/add";
 import AddNewProduct from "@/components/admin/products/product/actions/add";
@@ -11,13 +12,13 @@ export default function Category({ category, refetchData }) {
             <p className="h-auto  self-center">{category.url_Id} : {category.name}</p>
             <div className="space-x-4 flex flex-row justify-center items-center">
                 {/* <p>{category.isPublished ? "Publicado" : "Oculto"}</p> */}
-                <AddNewProduct categoryId={category} refetchData={refetchData} />
+                <AddNewProduct categoryId={category} />
                 {/* addSubCat svg */}
-                <AddSubCategory categoryId={category} refetchData={refetchData} />
+                <AddSubCategory categoryId={category} />
                 {/* edit svg */}
-                <EditCatedory categoryId={category} refetchData={refetchData} />
+                <EditCatedory categoryId={category} />
                 {/* delete svg */}
-                <Delete category={category} product={"none"} refetchData={refetchData} />
+                <Delete category={category} product={"none"} />
                 <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
                     {category.isPublished ? "Publicado" : "Oculto"}
                 </p>
@@ -32,9 +33,9 @@ export default function Category({ category, refetchData }) {
                             {product.url_Id} : {product.ALBEDOtitulo}
                         </p>
                         <div className="space-x-4 flex flex-row justify-center items-center">
-                            <Duplicate category={category} product={product} refetchData={refetchData} />
-                            <EditProduct category={category} product={product} refetchData={refetchData} />
-                            <Delete category={"none"} product={product} refetchData={refetchData} />
+                            <Duplicate category={category} product={product} />
+                            <EditProduct category={category} product={product} />
+                            <Delete category={"none"} product={product} />
                             <p className={`flex justify-center  px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium  text-green-500' : 'select-none font-medium text-red-500'}`}>
                                 {product.isPublished ? "Publicado" : "Oculto"}
                             </p>
@@ -47,7 +48,7 @@ export default function Category({ category, refetchData }) {
             category.subCategories.length > 0 &&
             category.subCategories.map((subCategory, index) => (//reverse()
                 <div key={index} className="ml-14">
-                    <Category category={subCategory} refetchData={refetchData} />
+                    <Category category={subCategory} />
                 </div>
             ))}
     </div>)

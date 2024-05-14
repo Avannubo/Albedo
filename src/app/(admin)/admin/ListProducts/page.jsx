@@ -11,13 +11,19 @@ import EditProduct from "@/components/admin/products/product/actions/edit";
 import EditCatedory from "@/components/admin/products/category/edit";
 import Duplicate from '@/components/admin/products/product/actions/duplicate';
 import AddNewCategory from "@/components/admin/products/category/add";
+import Filters from '@/components/admin/products/product/comps/filters/Filters';
 export default async function page() {
     const list = await getCategoryDataForListProducts();
     return (
         <Layout>
+            <div className="flex flex-row justify-between mb-8">
             <div className="flex flex-row">
                 <h1 className="font-semibold text-4xl">Productos</h1>
                 <AddNewCategory />
+            </div>
+                <div className="flex flex-row space-x-4">
+                    <Filters list={list} />
+            </div>
             </div>
             <ul>
                 {list.map((category, index) => (

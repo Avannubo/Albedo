@@ -11,7 +11,7 @@ const filePathInactiveOrders = isLocal ? path.resolve('public/data/ClientOrdersI
 const filePathParameters = isLocal ? path.resolve('public/data/Parameters.json') : '/data/Parameters.json';
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
- 
+var filteredProductList = [];
 export async function requireContent() {
     // if (!cachedContent) {
     const res = await fs.readFile(filePath, 'utf8');
@@ -32,15 +32,27 @@ export async function getCategories() {
 export async function getCategoryDataForListProducts() {
     const content = await requireContent();
     if (content) {
-        const { categories } = content;  
+        const { categories } = content;   
         revalidatePath('/admin/ListProducts');
         return categories;
     } else {
         return []; // Return an empty array if categories don't exist
     }
 }
-
-
+export async function getListProductsFiltered() {
+    const content = await requireContent();
+    if (content) {
+        const { categories } = content; 
+        console.log(filteredProductList.length);
+        if (filteredProductList.length == 0) {
+            revalidatePath('/admin/ListProducts');
+            return categories;
+        } else {
+            revalidatePath('/admin/ListProducts');
+            return filteredProductList;
+        }
+    } 
+}
 export async function getFiltersListProducts(isPublishedFilter, categoryFilter) {
     // console.log(isPublishedFilter, categoryFilter);
     const content = await requireContent();
@@ -54,13 +66,11 @@ export async function getFiltersListProducts(isPublishedFilter, categoryFilter) 
         }
         return true;
     });
+    //console.log(filteredCategories);
     revalidatePath('/admin/ListProducts');
-    return filteredCategories; 
+    filteredProductList = filteredCategories; 
+    //console.log( filteredProductList.length);
 }
-
-
-
-
 // Parallel loading of content and categories
 // export async function loadData() {
 //     const [content, categories] = await Promise.all([requireContent(), getCategories()]);
@@ -490,7 +500,6 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
@@ -513,7 +522,6 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
                     // Write the updated JSON data to the file
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     revalidatePath('/admin/ListProducts');
-
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
@@ -556,7 +564,6 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
 }
 export async function duplicateProduct(category, product) {
     //console.log('duplicate function' + JSON.stringify(category.products) + JSON.stringify(product));
-
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -711,7 +718,6 @@ export async function getAllActiveOrders() {
         const jsonData = JSON.parse(data);
         const { ActiveOrders } = jsonData;
         revalidatePath('/admin/orders');
-
         return ActiveOrders;
     } catch (error) {
         console.error("Error getting all Client Orders:", error);
@@ -724,7 +730,6 @@ export async function getAllInactiveOrders() {
         const jsonData = JSON.parse(data);
         const { InactiveOrders } = jsonData;
         revalidatePath('/admin/orders');
-
         return InactiveOrders;
     } catch (error) {
         console.error("Error getting all Client Orders:", error);
@@ -746,7 +751,6 @@ export async function getActiveOrderByIndex(orderIndex) {
             throw new Error("Invalid order index");
         }
         revalidatePath('/admin/orders');
-
         return ActiveOrders[orderIndex];
     } catch (error) {
         console.error("Error getting order by index:", error);
@@ -762,7 +766,6 @@ export async function getInactiveOrderByIndex(orderIndex) {
             throw new Error("Invalid order index");
         }
         revalidatePath('/admin/orders');
-
         return InactiveOrders[orderIndex];
     } catch (error) {
         console.error("Error getting order by index:", error);
@@ -998,5 +1001,3 @@ export async function deleteImages(imagePathsToDelete) {
             .catch(error => reject(error));
     });
 }
-
-

@@ -15,7 +15,9 @@ import Filters from '@/components/admin/products/product/comps/filters/Filters';
 export default async function page() {
     const list = await getCategoryDataForListProducts();
     const filteredList = await getListProductsFiltered();
+    console.log("//////////////////////////////");
     console.log(filteredList);
+
     return (
         <Layout>
             <div className="flex flex-row justify-between mb-8">
@@ -31,7 +33,7 @@ export default async function page() {
                 {filteredList.map((category, index) => (
                     <div key={index} className="my-10">
                         <Suspense fallback={<Loading />}>
-                            <List category={category} filteredList={filteredList} />
+                            <List category={category} />
                         </Suspense>
                     </div>
                 ))}
@@ -39,7 +41,7 @@ export default async function page() {
         </Layout >
     )
 }
-function List({ category, filteredList }) {
+function List({ category }) {
     return (
         <div className="space-y-2 w-full">
             <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
@@ -54,9 +56,9 @@ function List({ category, filteredList }) {
                     </p>
                 </div>
             </div>
-            {filteredList.products && filteredList.products.length > 0 && (
+            {category.products && category.products.length > 0 && (
                 <>
-                    {filteredList.products.map((product, index) => (
+                    {category.products.map((product, index) => (
                         <div key={index} className="ml-14 flex flex-row justify-between border bg-slate-50 rounded-lg p-2 mb-1">
                             <p className="h-auto w-full self-center">
                                 {product.url_Id} : {product.ALBEDOtitulo}
@@ -73,10 +75,10 @@ function List({ category, filteredList }) {
                     ))}
                 </>
             )}
-            {filteredList.subCategories &&
-                filteredList.subCategories.length > 0 && (
+            {category.subCategories &&
+                category.subCategories.length > 0 && (
                     <div className="ml-14">
-                        {filteredList.subCategories.map((subCategory, index) => (
+                    {category.subCategories.map((subCategory, index) => (
                             <List key={index} category={subCategory} filteredList={subCategory} />
                         ))}
                     </div>

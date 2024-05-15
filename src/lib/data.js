@@ -43,17 +43,18 @@ export async function getListProductsFiltered() {
     const content = await requireContent();
     if (content) {
         const { categories } = content; 
-        console.log(filteredProductList.length);
+        // console.log(filteredProductList);
         if (filteredProductList.length == 0) {
             revalidatePath('/admin/ListProducts');
             return categories;
         } else {
             revalidatePath('/admin/ListProducts');
+            
             return filteredProductList;
         }
     } 
 }
-export async function getFiltersListProducts(isPublishedFilter, categoryFilter) {
+export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = '') {
     // console.log(isPublishedFilter, categoryFilter);
     const content = await requireContent();
     const { categories } = content; 
@@ -67,15 +68,9 @@ export async function getFiltersListProducts(isPublishedFilter, categoryFilter) 
         return true;
     });
     //console.log(filteredCategories);
-    revalidatePath('/admin/ListProducts');
     filteredProductList = filteredCategories; 
-    //console.log( filteredProductList.length);
-}
-// Parallel loading of content and categories
-// export async function loadData() {
-//     const [content, categories] = await Promise.all([requireContent(), getCategories()]);
-//     return { content, categories };
-// }
+    revalidatePath('/admin/ListProducts'); 
+} 
 export async function getParameters() {
     try {
         const data = await readFile(filePathParameters, 'utf8');

@@ -4,7 +4,6 @@ import Modal from '@/components/admin/products/product/actions/editModal';
 
 export default function editProduct({ category, product }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };

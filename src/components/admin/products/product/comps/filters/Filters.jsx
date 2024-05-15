@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { getFiltersListProducts } from '@/lib/data'; 
 export default function Filters({ list }) {
     const [isPublishedFilter, setIsPublishedFilter] = useState(true); // Default filter value
-    const [categoryFilter, setCategoryFilter] = useState(''); // Default category filter value
+    const [categoryFilter, setCategoryFilter] = useState(""); // Default category filter value
 
     const categoryOptions = isPublishedFilter === true ? list.filter(category => category.isPublished === true) : list.filter(category => category.isPublished === false);
 
@@ -25,12 +25,13 @@ export default function Filters({ list }) {
     return (
         <div className="flex flex-row justify-end space-x-4 w-auto">
             <select
-                value={isPublishedFilter === true ? "" : isPublishedFilter.toString()}
+                value={isPublishedFilter === true ? "" : isPublishedFilter}
                 onChange={(e) => onFilterChange(e.target.value)}
                 className="px-1.5 py-1 border-2 border-[#304590] rounded-lg focus:outline-none focus:border-[#304590] "
             > 
-                <option value="true">Publicado</option>
-                <option value="false">Borrador</option>
+                
+                <option value={true}>Publicado</option>
+                <option value={false}>Borrador</option>
             </select>
             <select
                 value={categoryFilter}

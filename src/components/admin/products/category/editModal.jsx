@@ -5,7 +5,7 @@ import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, categoryId }) {
     // const productData = getProductById(productId);
-    //console.log(categoryId);
+    console.log(categoryId.id);
     const [data, setData] = useState();
     const [newCategoryName, setNewCategoryName] = useState(categoryId.name);
     const [newCategoryUrlId, setNewCategoryUrlId] = useState(categoryId.url_Id);

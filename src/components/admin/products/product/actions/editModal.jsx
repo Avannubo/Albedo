@@ -4,7 +4,9 @@ import { editproduct, getCategories, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, category, product }) {
-    //console.log(product);
+    
+    //console.log("btn edit prod: " + JSON.stringify(category.id));
+
     const [loading, setLoading] = useState(false);
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo); 
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);

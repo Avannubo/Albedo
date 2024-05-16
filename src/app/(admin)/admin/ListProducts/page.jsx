@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react'
 //Admin Pages Layout
 import Layout from "@/app/(admin)/admin/AdminLayout";
@@ -15,8 +16,8 @@ import Filters from '@/components/admin/products/product/comps/filters/Filters';
 export default async function page() {
     const list = await getCategoryDataForListProducts();
     const filteredList = await getListProductsFiltered();
-    console.log("//////////////////////////////");
-    console.log(filteredList);
+    // console.log("//////////////////////////////");
+    // console.log(filteredList);
 
     return (
         <Layout>
@@ -41,7 +42,7 @@ export default async function page() {
         </Layout >
     )
 }
-function List({ category }) {
+function List({ category, filteredList }) {
     return (
         <div className="space-y-2 w-full">
             <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
@@ -49,7 +50,7 @@ function List({ category }) {
                 <div className="space-x-4 flex flex-row justify-center items-center">
                     <AddNewProduct categoryId={category} />
                     <AddSubCategory categoryId={category} />
-                    <EditCatedory categoryId={category} />
+                    <EditCatedory categoryId={category} filteredList={filteredList} />
                     <Delete category={category} product={"none"} />
                     <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
                         {category.isPublished ? "Publicado" : "Oculto"}

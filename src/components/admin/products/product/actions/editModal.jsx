@@ -245,7 +245,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 <div className="flex flex-col">
                     <div className="w-full rounded-md p-10">
                         <div className='flex space-x-6 mb-4'>
-                            <h1 className='font-bold text-xl'>Editar Producto</h1>
+                            <h1 className='font-bold text-xl'>Editar Producto {product.ALBEDOtitulo}</h1>
                             <div className='flex justify-start '>
                                 <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
                                 {/* <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}

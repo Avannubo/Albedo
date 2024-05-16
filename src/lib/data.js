@@ -32,7 +32,7 @@ export async function getCategories() {
 export async function getCategoryDataForListProducts() {
     const content = await requireContent();
     if (content) {
-        const { categories } = content;   
+        const { categories } = content;
         revalidatePath('/admin/ListProducts');
         return categories;
     } else {
@@ -42,22 +42,22 @@ export async function getCategoryDataForListProducts() {
 export async function getListProductsFiltered() {
     const content = await requireContent();
     if (content) {
-        const { categories } = content; 
+        const { categories } = content;
         // console.log(filteredProductList);
         if (filteredProductList.length == 0) {
             revalidatePath('/admin/ListProducts');
             return categories;
         } else {
             revalidatePath('/admin/ListProducts');
-            
+
             return filteredProductList;
         }
-    } 
+    }
 }
 export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = '') {
     // console.log(isPublishedFilter, categoryFilter);
     const content = await requireContent();
-    const { categories } = content; 
+    const { categories } = content;
     const filteredCategories = categories.filter(category => {
         if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {
             return false;
@@ -68,9 +68,9 @@ export async function getFiltersListProducts(isPublishedFilter = true, categoryF
         return true;
     });
     //console.log(filteredCategories);
-    filteredProductList = filteredCategories; 
-    revalidatePath('/admin/ListProducts'); 
-} 
+    filteredProductList = filteredCategories;
+    revalidatePath('/admin/ListProducts');
+}
 export async function getParameters() {
     try {
         const data = await readFile(filePathParameters, 'utf8');
@@ -298,7 +298,7 @@ export async function addSubcategory(categoryId, subCategoryData) {
                     }
                     const dataObj = {
                         "id": subCategoryData.newCategoryName.replace(/ /g, "-"),
-                        "url_Id": subCategoryData.newCategoryUrlCode, 
+                        "url_Id": subCategoryData.newCategoryUrlCode,
                         "name": subCategoryData.newCategoryName,
                         "description": subCategoryData.newCategoryDescription,
                         "ALBEDOcuerpo": subCategoryData.newCategoryBody,
@@ -431,7 +431,7 @@ export async function addproduct(categoryId, productData) {
  * @param {boolean} isPublished - Whether the product is published.
  * @returns {boolean} Indicates whether the editing was successful.
  */
-export async function editproduct(productId,  url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
+export async function editproduct(productId, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
     // console.log('called function editproduct' + JSON.stringify());
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -442,7 +442,7 @@ export async function editproduct(productId,  url_Id, Name, Price, Description, 
                 for (let j = 0; j < category.products.length; j++) {
                     const product = category.products[j];
                     // //console.log(productId.productId);
-                    if (product.ALBEDOcodigo === productId.ALBEDOcodigo) { 
+                    if (product.ALBEDOcodigo === productId.ALBEDOcodigo) {
                         product.url_Id = url_Id;
                         product.ALBEDOtitulo = Name;
                         product.ALBEDOprecio = parseFloat(Price);
@@ -454,9 +454,9 @@ export async function editproduct(productId,  url_Id, Name, Price, Description, 
                         product.ALBEDOplazo_entrega = DeliveryTime;
                         product.isPublished = isPublished;
                         product.imagens = imagePaths;
-                        product.archivos = filePaths; 
-                        await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent })); 
-                        revalidatePath('/admin/ListProducts'); 
+                        product.archivos = filePaths;
+                        await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                        revalidatePath('/admin/ListProducts');
                         return true;
                     }
                 }
@@ -557,12 +557,55 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
         return false;
     }
 }
+export async function getCategoryById(categoryId) {
+    // Check if the categoryId is provided and has an id field 
+    try {
+        if (!categoryId || !categoryId.id) {
+            throw new Error("Invalid categoryId");
+        }
+        // Log the category ID to be searched for 
+        // console.log("Searching for category with ID:", categoryId.categoryId.id);
+        // Read the contents of the JSON file
+        const data = await fs.readFile(filePath, 'utf8');
+        // Parse the JSON file contents into JavaScript object
+        const { categories } = JSON.parse(data);
+        // Get the category ID to be searched for 
+        // Recursive function to search for a category by ID in the given category list
+        const Recursive = async (categoryList) => {
+            // Loop through the category list 
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                // If the category ID matches, return the category and its data
+                if (category.id === categoryId.id) {
+                    revalidatePath('/admin/ListPr');
+                    return category; // Return category and its data
+                }
+                // If the category has subcategories, search for the ID within those subcategories
+                if (category.subCategories && category.subCategories.length > 0) {
+                    const subcategory = await Recursive(category.subCategories);
+                    // // console.log("subCat found in back: "+ JSON.stringify(category));
+                    if (subcategory) return subcategory;
+                }
+            }
+            return false;
+        };
+        const categoryFound = await Recursive(categories);
+        if (!categoryFound) {
+            // console.log("Category not found.");
+            return false;
+        }
+        return categoryFound; // Return the found category along with its data
+    } catch (error) {
+        console.error("Error occurred:", error);
+        return false;
+    }
+}
 export async function duplicateProduct(category, product) {
     //console.log('duplicate function' + JSON.stringify(category.products) + JSON.stringify(product));
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        const categoryToModifyId = category.id; 
+        const categoryToModifyId = category.id;
         const addProductRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];

@@ -27,7 +27,10 @@ export default async function page() {
                 <AddNewCategory />
             </div>
                 <div className="flex flex-row space-x-4">
-                    <Filters list={list} />
+                    <Suspense> 
+                        <Filters list={list} />
+                        {/* after update/edit a categry the filter needs to be reselected to load new data  */}
+                        </Suspense>
             </div>
             </div>
             <ul>
@@ -42,7 +45,7 @@ export default async function page() {
         </Layout >
     )
 }
-function List({ category, filteredList }) {
+function List({ category }) {
     return (
         <div className="space-y-2 w-full">
             <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
@@ -50,7 +53,8 @@ function List({ category, filteredList }) {
                 <div className="space-x-4 flex flex-row justify-center items-center">
                     <AddNewProduct categoryId={category} />
                     <AddSubCategory categoryId={category} />
-                    <EditCatedory categoryId={category} filteredList={filteredList} />
+                    {/* after update/edit a categry the filter needs to be reselected to load new data  */}
+                    <EditCatedory categoryId={category}  />
                     <Delete category={category} product={"none"} />
                     <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
                         {category.isPublished ? "Publicado" : "Oculto"}
@@ -80,7 +84,7 @@ function List({ category, filteredList }) {
                 category.subCategories.length > 0 && (
                     <div className="ml-14">
                     {category.subCategories.map((subCategory, index) => (
-                            <List key={index} category={subCategory} filteredList={subCategory} />
+                            <List key={index} category={subCategory} />
                         ))}
                     </div>
                 )}

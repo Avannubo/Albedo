@@ -5,7 +5,7 @@ import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, categoryId }) {
     // const productData = getProductById(productId);
-    console.log('\n' + JSON.stringify(categoryId));
+    //console.log('\n' + JSON.stringify(categoryId));
 
     // const [data, setData] = useState();
     const [newCategoryName, setNewCategoryName] = useState('');
@@ -106,25 +106,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                 .catch(error => reject(error));
         });
     };
-
-    let hasFetchedData = false;
-
-    // const fetchData = async () => {
-    //     try {
-    //         if (!hasFetchedData) {
-    //             hasFetchedData = true;
-    //             const categoryData = await getCategoryById(categoryId);
-    //             setData(categoryData);
-    //             console.log(categoryData);
-    //         } else {
-    //             console.log('Data has already been fetched.');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching category data:', error);
-    //     }
-    // };
-
-
     const handleAddProduct = async () => {
         setUrlCodeError(!newCategoryUrlId.trim());
         setNameError(!newCategoryName.trim());
@@ -222,7 +203,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                                             <Image
                                                 src={imagePath}
                                                 alt={`Product Image ${index + 1}`}
-                                                className="h-[100px] w-[150px] object-cover rounded-lg mb-2 border-2 border-gray-200"
+                                                className="h-[100px] w-[150px] object-contain rounded-lg mb-2 border-2 border-gray-200"
                                                 width="350"
                                                 height="80"
                                             />

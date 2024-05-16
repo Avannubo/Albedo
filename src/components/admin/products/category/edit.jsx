@@ -1,13 +1,14 @@
 "use client"
 import React, { useState } from 'react';
 import Modal from '@/components/admin/products/category/editModal';
-
+// import { useRouter } from "next/navigation";
 export default function editCategory({ categoryId }) {
-    //console.log(categoryId);
+    // const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
+        // router.replace(router.asPath);
     };
     return (
         <div className='self-center'>

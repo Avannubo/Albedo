@@ -67,8 +67,8 @@ export default function page() {
       <div>
         <h1 className="font-semibold text-4xl">Admin Panel</h1>
         <div className="flex flex-col space-y-6 my-4">
-          <div className="flex flex-row justify-between space-x-6 ">
-            <div className="grow h-auto box-shadow rounded-lg p-2 space-y-2">
+          <div className="grid grid-cols-3 gap-6 ">
+            <div className="grow h-auto shadow rounded-lg p-2 space-y-2">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col justify-center">
                   <h1 className="font-semibold text-slate-600 text-xl">Pedidos Totales</h1>
@@ -89,7 +89,7 @@ export default function page() {
                 </div>
               </div>
             </div>
-            <div className="grow h-auto box-shadow rounded-lg p-2 space-y-2">
+            <div className="grow h-auto shadow rounded-lg p-2 space-y-2">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col justify-center">
                   <h1 className="font-semibold text-slate-600 text-xl">Productos Vendidos</h1>
@@ -100,7 +100,7 @@ export default function page() {
                 </div>
               </div>
             </div>
-            <div className="grow h-auto box-shadow rounded-lg p-2 space-y-2">
+            <div className="grow h-auto shadow rounded-lg p-2 space-y-2">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col justify-center">
                   <h1 className="font-semibold text-slate-600 text-xl">Total Facturado</h1>
@@ -112,29 +112,40 @@ export default function page() {
               </div>
             </div>
           </div>
-          <div className="flex flex-row justify-between space-x-6 ">
-            <OrdersStateCount />
-            <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
-              <h1 className="font-semibold text-slate-600 text-xl">Pedidos Por transacciones</h1>
+          <div class="grid grid-cols-3 gap-6">
+            <div class="flex-grow h-auto shadow rounded-lg p-3 ">
+              <OrdersStateCount />
+            </div>
+            <div class="flex-grow h-auto shadow rounded-lg p-3 space-y-2">
+              <h1 class="font-semibold text-slate-600 text-xl">Pedidos Por transacciones</h1>
               <hr />
-              <div>
-                <p className="text-xl font-medium">Transferencia: {transferCount}</p>
-                <p className="text-xl font-medium">Visa-Mastercard: {visaMastercardCount}</p>
-                <p className="text-xl font-medium">Bizum: {bizumCount}</p>
+              <div> 
+                  <p class="text-xl font-medium">Transferencia: {transferCount}</p>
+                <p class="text-xl font-medium">Visa-Mastercard: {visaMastercardCount}</p>
+                <p class="text-xl font-medium">Bizum: {bizumCount}</p>
               </div>
             </div>
-            <div className="grow h-auto box-shadow rounded-lg p-3 space-y-2">
-              <h1 className="font-semibold text-slate-600 text-xl">Productos mas vendidos</h1>
+            <div class="flex-grow h-auto shadow rounded-lg p-3 space-y-2">
+              <h1 class="font-semibold text-slate-600 text-xl">Productos mas vendidos</h1>
               <hr />
               <div>
                 {topMostSoldProducts && topMostSoldProducts.length > 0 && (
                   topMostSoldProducts.map((top, index) => (
-                    <p key={index} className="text-xl font-medium">{top.name}: {top.quantity}</p>
+                    <div key={index} className='flex flex-row space-x-2'>
+                      {/* <img
+                        src={top.imagens[0]}
+                        alt="product-image"
+                        className="w-[60px] h-[40px] object-cover rounded-lg"
+                        priority="true"
+                      /> */}
+                      <p  class="text-xl font-medium">{top.name}: {top.quantity}</p>
+                    </div>
                   ))
                 )}
               </div>
             </div>
           </div>
+
           <div className="flex flex-row justify-between space-x-2">
             <div className="grow">
               <OrdersChart />

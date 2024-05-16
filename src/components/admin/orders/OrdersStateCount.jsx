@@ -44,7 +44,7 @@ export default function OrdersStateCount() {
     };
 
     return (
-        <div className='grow h-auto box-shadow p-3 space-y-2 rounded-lg box-shadow min-h-[155px]'>
+        <div className='space-y-2'>
             <h1 className="font-semibold text-slate-500 text-xl">Estados de Pedidos</h1>
             <hr />
             {loading ? (

@@ -4,14 +4,13 @@ import React, { useEffect } from 'react';
 
 import { deleteOrder } from '@/lib/data';
 
-export default function DeleteModal({ isOpen, onClose, index, refetchData }) {
+export default function DeleteModal({ isOpen, onClose, index }) {
     const handleDelete = async () => {
         // Call the deleteOrder function
         const success = await deleteOrder(index);
         // Check if deletion was successful
         if (success) {
-            // If successful, close the modal
-            refetchData();
+            // If successful, close the modal 
             onClose();
             
         } else {

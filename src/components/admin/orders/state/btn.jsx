@@ -2,7 +2,7 @@
 import Modal from "@/components/admin/orders/state/modal";
 import { getActiveOrderByIndex, getInactiveOrderByIndex } from "@/lib/data";
 import React, { useState, useEffect } from 'react';
-export default function Btn({ orderState, orderId, refetchData }) {
+export default function Btn({ orderState, orderId  }) {
     // console.log(orderState);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [orderDataStateUpdated, setOrderDataStateUpdated] = useState(null); // State to store fetched order data
@@ -33,7 +33,7 @@ export default function Btn({ orderState, orderId, refetchData }) {
     }, []);
     const handleModalClose = () => {
         setIsModalOpen(false);
-        refetchData();
+        // refetchData();
         fetchOrderData();
     };
     const stateColors = {

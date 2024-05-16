@@ -90,7 +90,7 @@ export default function page() {
     <Layout>
       {/* Display update message and loading bar if there's a message */}
       {updateMessage && (
-        <div className="absolute top-5 right-5 rounded-lg border-2 animate-bounce border-green-500  bg-green-200 text-slate-800 py-2 px-4 z-10">
+        <div className="absolute top-5 right-5 rounded-lg border-2  border-green-500  bg-green-200 text-slate-800 py-2 px-4 z-10">
           {updateMessage}
           {/* {loading && <div className="h-1 bg-green-600 mt-1" style={{ width: '100%', borderRadius: '0.25rem' }} />} */}
         </div>
@@ -101,7 +101,7 @@ export default function page() {
           {loading && (<div className="h-1 bg-red-600 mt-1" style={{ width: '100%', borderRadius: '0.25rem' }} />)}
         </div>
       )}
-      <h1 className="font-semibold text-4xl">Parametros Globales</h1>
+      <h1 className="font-semibold text-4xl mb-6">Parametros Globales</h1>
       <div className="flex flex-col space-y-6 my-4">
         <div className="flex flex-row justify-between space-x-6 ">
           <div className="w-full h-auto bg-slate-50 rounded-lg p-4 space-y-1 border">

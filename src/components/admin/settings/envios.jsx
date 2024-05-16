@@ -24,13 +24,14 @@ export default function envios() {
     return (
         <>
 
-            <div className="w-full h-auto bg-slate-50 rounded-lg p-4 space-y-1 border"> {updateMessage && (
-                <div className="relative top-5 right-5 rounded-lg border-2  border-green-500  bg-green-200 text-slate-800 py-2 px-4 z-10">
+            <div className="w-full h-auto bg-slate-50 rounded-lg p-4 space-y-1 border">
+                {updateMessage && (
+                <div className="relative top-0 rounded-lg border-2  border-green-500  bg-green-200 text-slate-800 py-2 px-4 z-10">
                     {updateMessage}
                 </div>
             )}
                 {errorMessage && (
-                    <div className="relative top-5 right-5 rounded-lg border-2 animate-bounce border-red-600  bg-red-200 text-slate-800 py-2 px-4 z-10">
+                    <div className="relative top-0 rounded-lg border-2 animate-bounce border-red-600  bg-red-200 text-slate-800 py-2 px-4 z-10">
                         {errorMessage}
                     </div>
                 )}

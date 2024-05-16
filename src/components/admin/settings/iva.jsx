@@ -1,12 +1,10 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { updateIVA } from '@/lib/data'; // Import the functions for updating data
-
 export default function iva() {
     const [newIVA, setNewIVA] = useState(0);
     const [updateMessage, setUpdateMessage] = useState(null); // State for update message
     const [errorMessage, setErrorMessage] = useState(null); // State for update message
-
     async function handleIVAUpdate() {
         try {
             if (newIVA > 99) {
@@ -30,17 +28,14 @@ export default function iva() {
     }, [updateMessage, errorMessage]);
     return (
         <>
+            <div className="w-full h-auto bg-slate-50 rounded-lg p-4 space-y-1 border">
 
-            <div className="w-full h-auto bg-slate-50 rounded-lg p-4 space-y-1 border">{updateMessage && (
-                <div className="relative top-5 right-5 rounded-lg border-2  border-green-500  bg-green-200 text-slate-800 py-2 px-4 z-10">
-                    {updateMessage}
-                </div>
-            )}
-                {errorMessage && (
-                    <div className="relative top-5 right-5 rounded-lg border-2 animate-bounce border-red-600  bg-red-200 text-slate-800 py-2 px-4 z-10">
-                        {errorMessage}
+                {updateMessage && (
+                    <div className="relative top-0   rounded-lg border-2  border-green-500  bg-green-200 text-slate-800 py-2 px-4 z-10">
+                        {updateMessage}
                     </div>
                 )}
+
                 <h1 className="font-semibold text-slate-500 text-2xl mb-4">Actualizar IVA</h1>
                 <div>
                     <div className='flex flex-row justify-between space-x-4'>
@@ -50,6 +45,11 @@ export default function iva() {
                         </div>
                     </div>
                 </div>
+                {errorMessage && (
+                    <div className="relative top-0 rounded-lg border-2 animate-bounce border-red-600  bg-red-200 text-slate-800 py-2 px-4 z-10">
+                        {errorMessage}
+                    </div>
+                )}
                 <div className='flex justify-center mt-2'>
                     <button type="button" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-1.5 px-4 rounded-lg" onClick={handleIVAUpdate}>Guardar</button>
                 </div>

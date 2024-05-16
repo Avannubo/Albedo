@@ -46,7 +46,7 @@ export default function iva() {
                     </div>
                 </div>
                 {errorMessage && (
-                    <div className="relative top-0 rounded-lg border-2 animate-bounce border-red-600  bg-red-200 text-slate-800 py-2 px-4 z-10">
+                    <div className="relative top-0 rounded-lg border-2  border-red-600  bg-red-200 text-slate-800 py-2 px-4 z-10">
                         {errorMessage}
                     </div>
                 )}

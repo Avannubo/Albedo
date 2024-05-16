@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import Dropdown from "@/components/header/headerDropdown";
+import Dropdown from "@/components/main/header/headerDropdown";
 import CartLength from "./cartLength";
 import { useState, useRef, useEffect } from 'react';
 import { getCategories } from "@/lib/data";

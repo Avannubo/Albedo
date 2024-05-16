@@ -4,8 +4,8 @@ import useCategoryId from '@/hooks/useCategoryId';
 import { getDataByUrlId } from '@/lib/data';
 import Image from 'next/image';
 import Link from 'next/link';
-import AddToCart from '@/components/products/addToCart';
-import ProductItem from "@/components/products/productItem";
+import AddToCart from '@/components/main/products/addToCart';
+import ProductItem from "@/components/main/products/productItem";
 import DOMPurify from 'dompurify'; // Import DOMPurify for HTML sanitization
 import Layout from "@/app/(main)/WebLayout";
 import QuillTextDisplay from '@/components/admin/products/QuillTextDisplay'
@@ -196,7 +196,7 @@ export default function PageContent() {
                             {relatedProducts.length > 1 && (
                                 <div className='flex flex-col my-2'>
                                     <h1 className='md:font-extrabold font-semibold text-xl mt-4 md:mt-0'>Productos relacionados que pueden ser de su interés:</h1>
-                                    <div className={`flex flex-row flex-wrap items-start  ${relatedProducts.length ==4 ? 'justify-between' : 'justify-start'}`}>
+                                    <div className={`flex flex-row flex-wrap items-start  ${relatedProducts.length == 4 ? 'justify-between' : 'justify-start'}`}>
                                         {relatedProducts.map((product) => (
                                             <div key={product.ALBEDOcodigo} className="lg:w-[270px] md:w-[300px] w-full m-2 p-2 rounded-md box-shadow">
                                                 <Link href={`/products/${slugArrayHook.slice(0, -1).join("/")}/${product.url_Id}`}>

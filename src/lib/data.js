@@ -95,7 +95,7 @@ export async function updatePassword(currentPassword, newPassword) {
         jsonData.Password = newPassword;
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
-        return jsonData;
+        return true;
     } catch (error) {
         throw new Error("Error updating password: " + error.message);
     }

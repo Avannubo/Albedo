@@ -1,8 +1,8 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import CartItem from "@/components/products/cartItem";
+import CartItem from "@/components/main/products/cartItem";
 import Layout from "@/app/(main)/WebLayout";
-import ModalTransference from "@/components/checkout/modalTransference";
+import ModalTransference from "@/components/main/checkout/modalTransference";
 import { getParameters } from '@/lib/data';
 export default function Page() {
   const [parameters, setParameters] = useState(null);

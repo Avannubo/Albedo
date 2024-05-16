@@ -4,8 +4,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getCategories } from "@/lib/data";
-import ProductItem from "@/components/products/productItem";
-import AddToCart from '@/components/products/addToCart';
+import ProductItem from "@/components/main/products/productItem";
+import AddToCart from '@/components/main/products/addToCart';
 import Layout from "@/app/(main)/WebLayout";
 export default function page() {
     const [isLoading, setIsLoading] = useState(false);
@@ -98,10 +98,10 @@ export default function page() {
                 ) : (
                     data && data.length > 0 ? (
                         <div className='flex flex-row flex-wrap space-x-1 md:space-x-4  justify-center  mt-2 '>
-                                {data.slice(1).map((category, index) => (
-                                    <Link key={index} href={`/products/${category.url_Id}`} className=" mb-4 p-2 box-shadow text-md text-gray-700 rounded-lg ">
-                                        <Image src={category.imagens[0]} alt="Vercel Logo" className="self-center w-[135px] h-[100px] object-contain rounded-lg"
-                                            width={500} height={400} />
+                            {data.slice(1).map((category, index) => (
+                                <Link key={index} href={`/products/${category.url_Id}`} className=" mb-4 p-2 box-shadow text-md text-gray-700 rounded-lg ">
+                                    <Image src={category.imagens[0]} alt="Vercel Logo" className="self-center w-[135px] h-[100px] object-contain rounded-lg"
+                                        width={500} height={400} />
                                     <p className='text-center font-semibold text-md'>
                                         {category.name.split(" ").length > 2 ? category.name.split(" ")[0] : category.name}
                                     </p>

@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import { updatePassword } from '@/lib/data';
+import { updateafsadfsafsf } from '@/lib/data';
 export default function password() {
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -16,7 +16,7 @@ export default function password() {
     }, [updateMessage, errorMessage]);
     async function handlePasswordUpdate() {
         try {
-            await updatePassword(currentPassword, newPassword);
+            await updateafsadfsafsf(currentPassword, newPassword);
             setUpdateMessage("Contraseña actualizada correctamente!");
             setCurrentPassword('');
             setNewPassword('');

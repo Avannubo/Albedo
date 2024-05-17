@@ -119,17 +119,17 @@ export async function getIVA() {
     }
 }
 
-export async function updatePassword(currentPassword, newPassword) {
+export async function updateafsadfsafsf(hgjfgjgjgjh, asdfasfvcxz) {
     try {
         // Read data from file
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
         // Check if the current password matches the stored password
-        if (currentPassword !== jsonData.Password) {
-            throw new Error("Current password does not match.");
+        if (hgjfgjgjgjh !== jsonData.icsdbcisbvcs) {
+            throw new Error("It does not match.");
         }
         // Update the password
-        jsonData.Password = newPassword;
+        jsonData.icsdbcisbvcs = asdfasfvcxz;
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
         return true;
@@ -991,7 +991,7 @@ async function getStoredPassword() {
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
         // Write the updated JSON back to the file  
-        return jsonData.Password;
+        return jsonData.icsdbcisbvcs;
     } catch (error) {
         throw new Error("Error updating password: " + error.message);
     }

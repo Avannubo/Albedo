@@ -1,5 +1,6 @@
-
 import React, { Suspense } from 'react'
+import { redirect } from 'next/navigation';
+import cookies from 'js-cookie';
 //Admin Pages Layout
 import Layout from "@/app/(admin)/admin/AdminLayout";
 //Server Action
@@ -14,6 +15,14 @@ import Duplicate from '@/components/admin/products/product/actions/duplicate';
 import AddNewCategory from "@/components/admin/products/category/add";
 import Filters from '@/components/admin/products/product/comps/filters/Filters';
 export default async function page() {
+
+    const token = cookies.get('token');
+    console.log('token: ' + JSON.stringify(token));
+
+    if (!token) {
+        redirect('/admin');
+    }
+
     const list = await getCategoryDataForListProducts();
     const filteredList = await getListProductsFiltered();
     // console.log("//////////////////////////////");
@@ -22,16 +31,16 @@ export default async function page() {
     return (
         <Layout>
             <div className="flex flex-row justify-between mb-8">
-            <div className="flex flex-row">
-                <h1 className="font-semibold text-4xl">Productos</h1>
-                <AddNewCategory />
-            </div>
+                <div className="flex flex-row">
+                    <h1 className="font-semibold text-4xl">Productos</h1>
+                    <AddNewCategory />
+                </div>
                 <div className="flex flex-row space-x-4">
-                    <Suspense> 
+                    <Suspense>
                         <Filters list={list} />
                         {/* after update/edit a categry the filter needs to be reselected to load new data  */}
-                        </Suspense>
-            </div>
+                    </Suspense>
+                </div>
             </div>
             <ul>
                 {filteredList.map((category, index) => (
@@ -54,7 +63,7 @@ function List({ category }) {
                     <AddNewProduct categoryId={category} />
                     <AddSubCategory categoryId={category} />
                     {/* after update/edit a categry the filter needs to be reselected to load new data  */}
-                    <EditCatedory categoryId={category}  />
+                    <EditCatedory categoryId={category} />
                     <Delete category={category} product={"none"} />
                     <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
                         {category.isPublished ? "Publicado" : "Oculto"}
@@ -83,7 +92,7 @@ function List({ category }) {
             {category.subCategories &&
                 category.subCategories.length > 0 && (
                     <div className="ml-14">
-                    {category.subCategories.map((subCategory, index) => (
+                        {category.subCategories.map((subCategory, index) => (
                             <List key={index} category={subCategory} />
                         ))}
                     </div>

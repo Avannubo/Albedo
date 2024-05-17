@@ -24,7 +24,7 @@ export default function Page() {
                 // localStorage.setItem('token', response.token);      //, { expires: 0.5 }
                 cookie.set('token', response.token);
                 // router.push('/admin/dashboard');
-                router.push('/admin/products');
+                router.push('/admin/ListProducts');
             } else {
                 // Error occurred, display error message
                 setError(response.error);

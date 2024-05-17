@@ -112,21 +112,21 @@ export default function page() {
               </div>
             </div>
           </div>
-          <div class="grid grid-cols-3 gap-6">
-            <div class="flex-grow h-auto shadow rounded-lg p-3 ">
+          <div className="grid grid-cols-3 gap-6">
+            <div className="flex-grow h-auto shadow rounded-lg p-3 space-y-2">
               <OrdersStateCount />
             </div>
-            <div class="flex-grow h-auto shadow rounded-lg p-3 space-y-2">
-              <h1 class="font-semibold text-slate-600 text-xl">Pedidos Por transacciones</h1>
+            <div className="flex-grow h-auto shadow rounded-lg p-3 space-y-2">
+              <h1 className="font-semibold text-slate-600 text-xl">Pedidos Por transacciones</h1>
               <hr />
               <div> 
-                  <p class="text-xl font-medium">Transferencia: {transferCount}</p>
-                <p class="text-xl font-medium">Visa-Mastercard: {visaMastercardCount}</p>
-                <p class="text-xl font-medium">Bizum: {bizumCount}</p>
+                  <p className="text-xl font-medium">Transferencia: {transferCount}</p>
+                <p className="text-xl font-medium">Visa-Mastercard: {visaMastercardCount}</p>
+                <p className="text-xl font-medium">Bizum: {bizumCount}</p>
               </div>
             </div>
-            <div class="flex-grow h-auto shadow rounded-lg p-3 space-y-2">
-              <h1 class="font-semibold text-slate-600 text-xl">Productos mas vendidos</h1>
+            <div className="flex-grow h-auto shadow rounded-lg p-3 space-y-2">
+              <h1 className="font-semibold text-slate-600 text-xl">Productos mas vendidos</h1>
               <hr />
               <div>
                 {topMostSoldProducts && topMostSoldProducts.length > 0 && (
@@ -138,7 +138,7 @@ export default function page() {
                         className="w-[60px] h-[40px] object-cover rounded-lg"
                         priority="true"
                       /> */}
-                      <p  class="text-xl font-medium">{top.name}: {top.quantity}</p>
+                      <p  className="text-xl font-medium">{top.name}: {top.quantity}</p>
                     </div>
                   ))
                 )}

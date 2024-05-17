@@ -3,7 +3,16 @@ import Password from '@/components/admin/settings/password';
 import Envios from '@/components/admin/settings/envios';
 import Iban from '@/components/admin/settings/iban';
 import Iva from '@/components/admin/settings/iva';
+import { redirect } from 'next/navigation';
+import cookies from 'js-cookie';
 export default function page() { 
+
+  const token = cookies.get('token');
+  console.log('token: ' + JSON.stringify(token));
+
+  if (!token) {
+    redirect('/admin');
+  }
   return (
     <Layout>
       {/* Display update message and loading bar if there's a message */}

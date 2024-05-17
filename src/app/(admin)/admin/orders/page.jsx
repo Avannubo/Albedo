@@ -3,7 +3,16 @@ import Delete from '@/components/admin/orders/delete/btn';
 import State from '@/components/admin/orders/state/btn';
 import Layout from "@/app/(admin)/admin/AdminLayout";
 import { getAllActiveOrders, getAllInactiveOrders } from '@/lib/data';
+import { redirect } from 'next/navigation';
+import cookies from 'js-cookie';
 export default async function page() {
+
+  const token = cookies.get('token');
+  console.log('token: ' + JSON.stringify(token));
+
+  if (!token) {
+    redirect('/admin');
+  }
   const Active = await getAllActiveOrders();
   const Inactive = await getAllInactiveOrders();
 

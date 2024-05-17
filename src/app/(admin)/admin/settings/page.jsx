@@ -1,17 +1,9 @@
- 
 import Layout from "@/app/(admin)/admin/AdminLayout";
 import Password from '@/components/admin/settings/password';
 import Envios from '@/components/admin/settings/envios';
 import Iban from '@/components/admin/settings/iban';
 import Iva from '@/components/admin/settings/iva';
-export default function page() {
-  
-  // const [loading, setLoading] = useState(false); // State for loading indicator
-
-  
-  
-  
- 
+export default function page() { 
   return (
     <Layout>
       {/* Display update message and loading bar if there's a message */}

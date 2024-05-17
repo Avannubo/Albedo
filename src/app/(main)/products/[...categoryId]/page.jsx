@@ -100,7 +100,7 @@ export default function PageContent() {
                                         <div className='flex flex-row flex-wrap justify-center mt-2'>
                                             {pageData.subCategories.map((subCat, index) => (
                                                 <Link href={`/products/${slugArrayHook.join("/")}/${subCat.url_Id}`} key={index} className='lg:w-[250px] md:w-[300px] w-full flex flex-col justify-between m-2  p-2 rounded-md box-shadow'>
-                                                    <Image src={subCat.imagens[0]} alt="Vercel Logo" className="self-center w-full h-[170px] rounded-lg" width={500} height={500} />
+                                                    <Image src={subCat.imagens[0]} alt="Vercel Logo" className="self-center h-[150px] sm:h-[200px]  md:h-[150px] w-full object-contain rounded-lg" width={500} height={500} />
                                                     <p className='text-center font-bold'>{subCat.name}</p>
                                                     <button className="self-center text-white w-full py-1.5 mt-2 rounded-md bg-[#304590] hover:bg-[#475caa]">Ver Más</button>
                                                 </Link>
@@ -117,7 +117,7 @@ export default function PageContent() {
                                         <hr className="h-1 mb-2 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                                         <div className='flex flex-row flex-wrap justify-center space-x-4'>
                                             {pageData.products.map((product) => (
-                                                <div className='flex flex-col justify-between lg:w-[270px] md:w-[300px] w-full m-2 p-2 rounded-md box-shadow' key={product.ALBEDOcodigo}>
+                                                <div className='flex flex-col justify-between lg:w-[270px] md:w-[300px] w-full m-2 mb-4 p-2 rounded-md box-shadow' key={product.ALBEDOcodigo}>
                                                     <Link href={`/products/${slugArrayHook.join("/")}/${product.url_Id}`} className='mb-1'>
                                                         <ProductItem product={product} />
                                                     </Link>

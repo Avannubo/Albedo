@@ -75,13 +75,50 @@ export async function getParameters() {
     try {
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-        //console.log(JSON.stringify(jsonData));
+        delete jsonData.Password; // Remove the "Password" field 
         return jsonData;
     } catch (error) {
         console.error("Error getting Parameters:", error);
         return [];
     }
 }
+
+export async function getShippingPrices() {
+    try {
+        const data = await getParameters();
+        delete data.Password; // Remove the "Password" field if it exists
+        const { EnvioES, EnviosUE, EnviosINT } = data;
+        return { EnvioES, EnviosUE, EnviosINT }; // Return only shipping-related data
+    } catch (error) {
+        console.error("Error getting shipping prices:", error);
+        return {}; // Return an empty object or handle the error as needed
+    }
+}
+
+export async function getIBAN() {
+    try {
+        const data = await getParameters();
+        delete data.Password; // Remove the "Password" field if it exists
+        const { IBAN } = data;
+        return { IBAN }; // Return only shipping-related data
+    } catch (error) {
+        console.error("Error getting shipping prices:", error);
+        return {}; // Return an empty object or handle the error as needed
+    }
+}
+
+export async function getIVA() {
+    try {
+        const data = await getParameters();
+        delete data.Password; // Remove the "Password" field if it exists
+        const { IVA } = data;
+        return { IVA }; // Return only shipping-related data
+    } catch (error) {
+        console.error("Error getting shipping prices:", error);
+        return {}; // Return an empty object or handle the error as needed
+    }
+}
+
 export async function updatePassword(currentPassword, newPassword) {
     try {
         // Read data from file
@@ -105,9 +142,9 @@ export async function updateShippingPrices(spainPrice, euPrice, internationalPri
         // Read data from file
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-        jsonData.EnvioES = spainPrice;
-        jsonData.EnviosUE = euPrice;
-        jsonData.EnviosINT = internationalPrice;
+        jsonData.EnvioES = spainPrice || 0;
+        jsonData.EnviosUE = euPrice || 0;
+        jsonData.EnviosINT = internationalPrice || 0;
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
         return jsonData;
@@ -136,9 +173,7 @@ export async function updateIVA(newIVA) {
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
         // Update the IVA field
-        if (newIVA !== 0 && newIVA !== null && newIVA !== undefined) {
-            jsonData.IVA = newIVA;
-        }
+        jsonData.IVA = newIVA || 0; // Use newIVA if it's not null or undefined, otherwise default to 0
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
         return jsonData;
@@ -147,6 +182,7 @@ export async function updateIVA(newIVA) {
         return null;
     }
 }
+
 /**
  * Deletes a category or a product based on provided IDs.
  * @param {object} categoryId - The ID of the category or product to be deleted.

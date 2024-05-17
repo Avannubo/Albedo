@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import { updateIBAN } from '@/lib/data'
+import { updateIBAN, getIBAN } from '@/lib/data'
 export default function iban() {
     const [newIBAN, setNewIBAN] = useState("");
     const [updateMessage, setUpdateMessage] = useState(null); // State for update message
@@ -13,6 +13,22 @@ export default function iban() {
         }, 5000);
         return () => clearTimeout(timer);
     }, [updateMessage, errorMessage]);
+
+    //getIBAN 
+    useEffect(() => {
+        async function fetchIBAN() {
+            try {
+                const data = await getIBAN();
+                // console.log(JSON.stringify(data.IBAN));
+                setNewIBAN(data.IBAN || ""); // Set default IBAN, empty string if not available
+            } catch (error) {
+                console.error("Error fetching IBAN:", error);
+                setErrorMessage("Error fetching IBAN");
+            }
+        }
+        fetchIBAN();
+    }, []);
+    
     async function handleIBANUpdate() {
         try {
             const ibanRegex = /^ES34\d{22}$/;
@@ -20,8 +36,7 @@ export default function iban() {
                 throw new Error("El IBAN debe tener el formato 'ES34' seguido de 22 dígitos.");
             }
             await updateIBAN(newIBAN);
-            setUpdateMessage("¡IBAN actualizado correctamente!");
-            setNewIBAN('');
+            setUpdateMessage("¡IBAN actualizado correctamente!"); 
         } catch (error) {
             // console.error("Error updating IBAN:", error);
             setErrorMessage(error.message);

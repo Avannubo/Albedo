@@ -1,8 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import { updateShippingPrices } from '@/lib/data';
-
+import { updateShippingPrices, getShippingPrices } from '@/lib/data';
 export default function envios() {
+    //getShippingPrices to set default onload data of the prices
     const [spainPrice, setSpainPrice] = useState(0);
     const [euPrice, setEuPrice] = useState(0);
     const [internationalPrice, setInternationalPrice] = useState(0);
@@ -16,13 +16,24 @@ export default function envios() {
         }, 5000);
         return () => clearTimeout(timer);
     }, [updateMessage, errorMessage]);
+    useEffect(() => {
+        async function fetchShippingPrices() {
+            try {
+                const prices = await getShippingPrices();
+                setSpainPrice(prices.EnvioES || 0);
+                setEuPrice(prices.EnviosUE || 0);
+                setInternationalPrice(prices.EnviosINT || 0);
+            } catch (error) {
+                console.error("Error fetching shipping prices:", error);
+                setErrorMessage("Error fetching shipping prices");
+            }
+        }
+        fetchShippingPrices();
+    }, []);
     async function handleShippingPricesUpdate() {
         try {
             await updateShippingPrices(spainPrice, euPrice, internationalPrice);
             setUpdateMessage("¡Precios de envío actualizados correctamente!");
-            setSpainPrice(0);
-            setEuPrice(0);
-            setInternationalPrice(0);
         } catch (error) {
             // console.error("Error updating shipping prices:", error);
             setErrorMessage(error.message);
@@ -61,6 +72,5 @@ export default function envios() {
                 </div>
             </div>
         </>
-
     )
 }

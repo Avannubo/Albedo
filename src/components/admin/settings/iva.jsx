@@ -1,18 +1,30 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import { updateIVA } from '@/lib/data'; // Import the functions for updating data
+import { updateIVA, getIVA } from '@/lib/data'; // Import the functions for updating data
 export default function iva() {
     const [newIVA, setNewIVA] = useState(0);
     const [updateMessage, setUpdateMessage] = useState(null); // State for update message
     const [errorMessage, setErrorMessage] = useState(null); // State for update message
+    useEffect(() => {
+        async function fetchIVA() {
+            try {
+                const data = await getIVA();
+                setNewIVA(data.IVA || 0); // Set default IVA, 0 if not available
+            } catch (error) {
+                console.error("Error fetching IVA:", error);
+                setErrorMessage("Error fetching IVA");
+            }
+        }
+        fetchIVA();
+    }, []);
+
     async function handleIVAUpdate() {
         try {
             if (newIVA > 99) {
                 throw new Error("El IVA debe ser inferior al 99%.");
             }
             await updateIVA(newIVA);
-            setUpdateMessage("¡IVA actualizado correctamente!");
-            setNewIVA('');
+            setUpdateMessage("¡IVA actualizado correctamente!"); 
         } catch (error) {
             // console.error("Error updating IVA:", error);
             setErrorMessage(error.message);

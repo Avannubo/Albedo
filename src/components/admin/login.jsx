@@ -17,8 +17,6 @@ export default function loginComp() {
             const response = await login(password);
             if (response.token) {
                 cookie.set('token', response.token);
-                localStorage.setItem('token', response.token); // Set token in local storage
-                // router.push('/admin/dashboard');
                 router.push('/admin/dashboard');
             } else {
                 // Error occurred, display error message

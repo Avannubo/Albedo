@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import { redirect } from 'next/navigation';
-import cookies from 'js-cookie';
+import { cookies } from 'next/headers'
 //Admin Pages Layout
 import Layout from "@/app/(admin)/admin/AdminLayout";
 //Server Action
@@ -15,19 +15,13 @@ import Duplicate from '@/components/admin/products/product/actions/duplicate';
 import AddNewCategory from "@/components/admin/products/category/add";
 import Filters from '@/components/admin/products/product/comps/filters/Filters';
 export default async function page() {
-
-    const token = cookies.get('token');
-    console.log('token: ' + JSON.stringify(token));
-
+    const cookieStore = cookies()
+    const token = cookieStore.has('token');
     if (!token) {
         redirect('/admin');
     }
-
     const list = await getCategoryDataForListProducts();
-    const filteredList = await getListProductsFiltered();
-    // console.log("//////////////////////////////");
-    // console.log(filteredList);
-
+    const filteredList = await getListProductsFiltered(); 
     return (
         <Layout>
             <div className="flex flex-row justify-between mb-8">
@@ -100,7 +94,6 @@ function List({ category }) {
         </div>
     );
 }
-
 function Loading() {
     <div className="flex-col gap-4 w-full flex items-center justify-center">
         <div className="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full"></div>

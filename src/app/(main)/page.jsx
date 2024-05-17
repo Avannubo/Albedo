@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import Image from "next/image";
 import { getCategories } from "@/lib/data";
-import ProductItem from "@/components/products/productItem";
-import AddToCart from '@/components/products/addToCart';
+import ProductItem from "@/components/main/products/productItem";
+import AddToCart from '@/components/main/products/addToCart';
 import Layout from "@/app/(main)/WebLayout";
 import Link from "next/link";
 export default function Home() {

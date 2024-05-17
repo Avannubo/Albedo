@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { editproduct, getCategories, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
-export default function EditModal({ isOpen, onClose, category, product, refetchData }) {
-    //console.log(product);
+export default function EditModal({ isOpen, onClose, category, product }) {
+    
+    //console.log("btn edit prod: " + JSON.stringify(category.id));
+
     const [loading, setLoading] = useState(false);
-    const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
-    const [newProductCode, setNewProductCode] = useState(product.ALBEDOcodigo);
+    const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo); 
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);
     const [newProductPrice, setNewProductPrice] = useState(product.ALBEDOprecio);
     const [newProductDescription, setNewProductDescription] = useState(product.ALBEDOdescripcion);
@@ -20,20 +21,14 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
     const [productFiles, setProductFiles] = useState(product.archivos);
     const [selectedImages, setSelectedImages] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
-    const [data, setData] = useState();
 
 
     const [nameError, setNameError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
-
-
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
-    };
-    const handleInputChangeCode = (event) => {
-        setNewProductCode(event.target.value);
-    };
+    }; 
     const handleInputChangeUrlCode = (event) => {
         setNewProductUrlCode(event.target.value);
     };
@@ -172,14 +167,6 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
         });
     };
 
-    useEffect(() => {
-        async function fetchData() {
-            const categories = await getCategories();
-            // console.log(categories);
-            setData(categories);
-        }
-        fetchData();
-    }, [])
 
     const handleAddProduct = async () => {
         setUrlCodeError(!newProductUrlCode.trim());
@@ -203,8 +190,7 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
             const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
             const uniqueFilePaths = Array.from(new Set([...relatedFilePaths, ...productFiles]));
             //console.log(uniqueFilePaths);
-            await editproduct(product,
-                newProductCode,
+            await editproduct(product, 
                 newProductUrlCode,
                 newProductName,
                 newProductPrice,
@@ -237,7 +223,6 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
             // setSelectedFiles([]);
             // setProductFiles([]);
             onClose();
-            refetchData();
         } catch (error) {
             console.error("Error uploading images:", error);
             setLoading(false);
@@ -260,7 +245,7 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
                 <div className="flex flex-col">
                     <div className="w-full rounded-md p-10">
                         <div className='flex space-x-6 mb-4'>
-                            <h1 className='font-bold text-xl'>Editar Producto</h1>
+                            <h1 className='font-bold text-xl'>Editar Producto {product.ALBEDOtitulo}</h1>
                             <div className='flex justify-start '>
                                 <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
                                 {/* <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}
@@ -277,7 +262,7 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} disabled value={newProductCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                 </div> */}
-                                
+
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
@@ -347,7 +332,7 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
                                                 >
                                                     X
                                                 </button>
-                                                
+
 
                                             </div>
                                         ))
@@ -377,7 +362,7 @@ export default function EditModal({ isOpen, onClose, category, product, refetchD
                                                     >
                                                         X
                                                     </button>
-                                                    
+
                                                 </div>
                                             ))}
                                         </div>

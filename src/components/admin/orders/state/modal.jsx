@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
 import { updateActiveOrder, updateInactiveOrder } from "@/lib/data";
 export default function Modal({ isOpen, onClose, orderId, orderState, onModalClose }) {
+    console.log(orderId);
     const [newOrderState, setNewOrderState] = useState(orderState);
     const availableStates = ["Pendiente", "Confirmado", "Procesando", "Enviado", "Facturado", "Cancelado"];
-    const handleStateUpdate = async () => {
-        //console.log('Current order state: ' + orderState);
-        //console.log('New order state: ' + newOrderState);
+    const handleStateUpdate = async () => { 
         if (orderState === 'Pendiente' || orderState === 'Confirmado' || orderState === 'Procesando' || orderState === 'Enviado') {
-            //handle order updated and moved to inactive json  
-            //console.log('Updating state to inactive...');
             await updateActiveOrder(orderId, newOrderState);
-            //console.log('State updated to inactive');
         } else {
-            //console.log('Updating state to active...');
             await updateInactiveOrder(orderId, newOrderState);
-            //console.log('State updated to active');
         }
-        onClose(); // Close the modal after successful update
-        onModalClose(); // Callback to inform the parent component about modal close
+        onClose();
+        onModalClose();
     };
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
@@ -28,11 +22,11 @@ export default function Modal({ isOpen, onClose, orderId, orderState, onModalClo
                 </svg>
                 <h1 className='font-bold text-xl'>Estado de Pedido</h1>
                 <p>Seleccione el estado del pedido:</p>
-                <select
-                    value={newOrderState}
+                <select 
                     onChange={(e) => setNewOrderState(e.target.value)}
                     className="border font-medium p-2 rounded-lg bg-white"
                 >
+                    <option value=""></option>
                     {availableStates.map((state) => (
                         <option key={state} value={state}>
                             {state}

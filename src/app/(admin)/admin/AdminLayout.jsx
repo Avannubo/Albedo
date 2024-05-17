@@ -3,7 +3,7 @@ import AdminRouteGuard from "../AdminGuard";
 
 export default function layout({ children }) {
   return (
-    <AdminRouteGuard >
+    // <AdminRouteGuard >
       <div className="flex flex-row justify-start">
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <SideNav />
@@ -13,6 +13,6 @@ export default function layout({ children }) {
           </div>
         </div>
       </div>
-    </AdminRouteGuard>
+    // </AdminRouteGuard>
   );
 }

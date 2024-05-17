@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Modal from '@/components/admin/products/category/deleteModal';
 
-export default function Delete({ category, product, refetchData }) {
+export default function Delete({ category, product }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -27,7 +27,7 @@ export default function Delete({ category, product, refetchData }) {
                 </svg>
             </div>
             <h1 className=''>Eliminar</h1>
-            <Modal isOpen={isModalOpen} onClose={toggleModal} category={category} product={product} refetchData={refetchData} />
+            <Modal isOpen={isModalOpen} onClose={toggleModal} category={category} product={product} />
         </div>
     );
 }

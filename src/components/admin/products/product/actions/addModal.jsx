@@ -3,9 +3,8 @@
 import { useState } from 'react';
 import { addproduct, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
-export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
-    const [newProductName, setNewProductName] = useState('');
-    const [newProductCode, setNewProductCode] = useState('');
+export default function AddModal({ isOpen, onClose, categoryId }) {
+    const [newProductName, setNewProductName] = useState(''); 
     const [newProductUrlCode, setNewProductUrlCode] = useState('');
     const [newProductPrice, setNewProductPrice] = useState(0);
     const [newProductDescription, setNewProductDescription] = useState('');
@@ -14,8 +13,7 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
     const [newProductMinStock, setNewProductMinStock] = useState(0);
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(0);
     const [nameError, setNameError] = useState(false);
-    const [descriptionError, setDescriptionError] = useState(false);
-    const [codeError, setCodeError] = useState(false);
+    const [descriptionError, setDescriptionError] = useState(false); 
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
     const [relatedFiles, setRelatedFiles] = useState([]);
@@ -26,10 +24,7 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
     };
     const handleInputChangeUrlCode = (event) => {
         setNewProductUrlCode(event.target.value);
-    };
-    const handleInputChangeCode = (event) => {
-        setNewProductCode(event.target.value);
-    };
+    }; 
     const handleInputChangePrice = (event) => {
         setNewProductPrice(event.target.value);
     };
@@ -55,17 +50,7 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
     const handleRelatedFilesChange = (event) => {
         const files = Array.from(event.target.files);
         setSelectedFiles(files);
-    };
-    // const readFileAsBase64 = (file) => {
-    //     return new Promise((resolve, reject) => {
-    //         const reader = new FileReader();
-    //         reader.onload = () => {
-    //             resolve(reader.result);
-    //         };
-    //         reader.onerror = reject;
-    //         reader.readAsDataURL(file);
-    //     });
-    // }; 
+    }; 
     const uploadRelatedFiles = () => {
         return new Promise((resolve, reject) => {
             const filesPaths = [];
@@ -132,14 +117,12 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
     };
     // State variables for error handling
     const handleAddProduct = async () => {
-        // Set errors for all fields that don't meet the requirements
-        setCodeError(!newProductCode.trim());
+        // Set errors for all fields that don't meet the requirements 
         setUrlCodeError(!newProductUrlCode.trim());
         setNameError(!newProductName.trim());
         setDescriptionError(!newProductDescription.trim());
         // If any field doesn't meet the requirements, stop execution
-        if (!newProductCode.trim() ||
-            !newProductUrlCode.trim() ||
+        if ( !newProductUrlCode.trim() ||
             !newProductName.trim() ||
             !newProductDescription.trim()) {
             return;
@@ -158,8 +141,7 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
             const relatedFilePaths = await uploadRelatedFiles();
             //console.log(imagePaths);
             //console.log(relatedFilePaths);
-            const productData = {
-                newProductCode: newProductCode,
+            const productData = { 
                 newProductUrlCode: newProductUrlCode,
                 newProductName: newProductName,
                 newProductPrice: newProductPrice,
@@ -177,8 +159,7 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
                 categoryId,
                 productData
             );
-            //reset fields
-            setNewProductCode('');
+            //reset fields 
             setNewProductUrlCode('');
             setNewProductName('');
             setNewProductPrice('');
@@ -188,8 +169,7 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
             setNewProductMinStock(0);
             setNewProductDeliveryTime(0);
             setSelectedImages([]);
-            setRelatedFiles([]);
-            refetchData();
+            setRelatedFiles([]); 
             onClose();
         } catch (error) {
             console.error("Error adding product:", error);
@@ -209,18 +189,19 @@ export default function AddModal({ isOpen, onClose, categoryId, refetchData }) {
                     <div className="w-full rounded-md  p-4">
                         <div className='flex flex-col'>
                             <div className='flex flex-row justify-between space-x-4'>
-                                <div className="mb-4 flex-1">
+                                {/* <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                     {codeError && <span className="text-red-500 italic text-xs ">El código de categoría es requerido</span>}
-                                </div>
+                                </div> */}
+                                
+                            </div>
+                            <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} min="0" type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo URL ej. 001" required />
                                     {urlCodeError && <span className="text-red-500 italic text-xs "> El Codigo de URL es requerido y no duplicado</span>}
                                 </div>
-                            </div>
-                            <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
                                     <input onChange={handleInputChangeProduct} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="product" required />

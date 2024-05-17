@@ -1,26 +1,49 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { editCategory, getCategories, saveImage } from '@/lib/data';
+import { editCategory, getCategoryById, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
-export default function EditModal({ isOpen, onClose, categoryId, refetchData }) {
+export default function EditModal({ isOpen, onClose, categoryId }) {
     // const productData = getProductById(productId);
-    //console.log(categoryId);
-    const [data, setData] = useState();
-    const [newCategoryName, setNewCategoryName] = useState(categoryId.name);
-    const [newCategoryUrlId, setNewCategoryUrlId] = useState(categoryId.url_Id);
-    const [newCategoryDescription, setNewCategoryDescription] = useState(categoryId.ALBEDOdescripcion);
-    const [newCategoryBody, setNewCategoryBody] = useState(categoryId.ALBEDOcuerpo);
-    const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(categoryId.isPublished);
-    const [categoryImages, setCategoryImages] = useState(categoryId.imagens);
+    //console.log('\n' + JSON.stringify(categoryId));
+
+    // const [data, setData] = useState();
+    const [newCategoryName, setNewCategoryName] = useState('');
+    const [newCategoryUrlId, setNewCategoryUrlId] = useState('');
+    const [newCategoryDescription, setNewCategoryDescription] = useState('');
+    const [newCategoryBody, setNewCategoryBody] = useState('');
+    const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
+    const [categoryImages, setCategoryImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    // Initialize state variables based on categoryId
+    useEffect(() => {
+        resetState();
+    }, [categoryId]);
+
+    // Function to reset state variables based on categoryId
+    const resetState = () => {
+        setNewCategoryName(categoryId.name || '');
+        setNewCategoryUrlId(categoryId.url_Id || '');
+        setNewCategoryDescription(categoryId.ALBEDOdescripcion || '');
+        setNewCategoryBody(categoryId.ALBEDOcuerpo || '');
+        setNewCategoryIsPublished(categoryId.isPublished || false);
+        setCategoryImages(categoryId.imagens || []);
+    };
+
     // State variables for error handling
     const [nameError, setNameError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     //console.log(categoryImages);
     //change listeners  for inputs 
+
+    // if (typeof filteredList === 'object' && !Array.isArray(filteredList) && filteredList !== null) {
+    //     console.log('filtered list: ' + JSON.stringify(filteredList));
+    //     //setNewCategoryName(filteredList.name);
+    // }
+
     const handleInputChangeName = (event) => {
         setNewCategoryName(event.target.value);
     };
@@ -83,32 +106,13 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
                 .catch(error => reject(error));
         });
     };
-    useEffect(() => {
-        async function fetchData() {
-            const categories = await getCategories();
-            // console.log(categories);
-            setData(categories);
-        }
-        fetchData();
-    }, [])
-    //server Action here
     const handleAddProduct = async () => {
-        const abortController = new AbortController();
-
         setUrlCodeError(!newCategoryUrlId.trim());
         setNameError(!newCategoryName.trim());
         setDescriptionError(!newCategoryDescription.trim());
         if (!newCategoryName.trim() || !newCategoryUrlId.trim() || !newCategoryDescription.trim()) {
             return;
         }
-        // const urlIdExists = data
-        //     .filter(category => category.id !== newCategoryUrlId) // Exclude the current category's id
-        //     .some(category => category.url_Id === newCategoryUrlId);
-
-        // if (urlIdExists) {
-        //     // setUrlCodeError(true);
-        //     return;
-        // }
         setLoading(true);
         const imagePaths = await uploadImages();
         const allImagePaths = [...imagePaths, ...categoryImages];
@@ -121,18 +125,17 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
             newCategoryBody,
             newCategoryIsPublished,
             uniqueImagePaths);
-        setNewCategoryName('');
-        setNewCategoryIsPublished('');
-        setNewCategoryBody('');
-        setNewCategoryUrlId('');
-        setNewCategoryDescription('');
-        setCategoryImages(uniqueImagePaths);
+        // setNewCategoryName('');
+        // setNewCategoryIsPublished('');
+        // setNewCategoryBody('');
+        // setNewCategoryUrlId('');
+        // setNewCategoryDescription('');
+        // setCategoryImages(uniqueImagePaths);
         setNameError(false);
         setDescriptionError(false);
         setUrlCodeError(false);
         setLoading(false);
         onClose();
-        refetchData();
     };
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
@@ -149,7 +152,7 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
                 <div className="flex flex-col">
                     <div className="w-full rounded-md p-10">
                         <div className='flex space-x-6 mb-4'>
-                            <h1 className='font-bold text-xl'>Editar Categoria</h1>
+                            <h1 className='font-bold text-xl'>Editar Categoria {categoryId.name}</h1>
                             <div className='flex justify-start '>
                                 <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
                                 {/* <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}
@@ -200,7 +203,7 @@ export default function EditModal({ isOpen, onClose, categoryId, refetchData }) 
                                             <Image
                                                 src={imagePath}
                                                 alt={`Product Image ${index + 1}`}
-                                                className="h-[100px] w-[150px] object-cover rounded-lg mb-2 border-2 border-gray-200"
+                                                className="h-[100px] w-[150px] object-contain rounded-lg mb-2 border-2 border-gray-200"
                                                 width="350"
                                                 height="80"
                                             />

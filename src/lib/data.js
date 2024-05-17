@@ -11,7 +11,7 @@ const filePathInactiveOrders = isLocal ? path.resolve('public/data/ClientOrdersI
 const filePathParameters = isLocal ? path.resolve('public/data/Parameters.json') : '/data/Parameters.json';
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-let cachedContent = null;
+var filteredProductList = [];
 export async function requireContent() {
     // if (!cachedContent) {
     const res = await fs.readFile(filePath, 'utf8');
@@ -23,28 +23,102 @@ export async function getCategories() {
     const content = await requireContent();
     if (content) {
         const { categories } = content;
-        revalidatePath('/admin/products');
+        revalidatePath('/admin/ListProducts');
         return categories;
     } else {
         return []; // Return an empty array if categories don't exist
     }
 }
-// Parallel loading of content and categories
-// export async function loadData() {
-//     const [content, categories] = await Promise.all([requireContent(), getCategories()]);
-//     return { content, categories };
-// }
+export async function getCategoryDataForListProducts() {
+    const content = await requireContent();
+    if (content) {
+        const { categories } = content;
+        revalidatePath('/admin/ListProducts');
+        return categories;
+    } else {
+        return []; // Return an empty array if categories don't exist
+    }
+}
+export async function getListProductsFiltered() {
+    const content = await requireContent();
+    if (content) {
+        const { categories } = content;
+        // console.log(filteredProductList);
+        if (filteredProductList.length == 0) {
+            revalidatePath('/admin/ListProducts');
+            return categories;
+        } else {
+            revalidatePath('/admin/ListProducts');
+
+            return filteredProductList;
+        }
+    }
+}
+export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = '') {
+    // console.log(isPublishedFilter, categoryFilter);
+    const content = await requireContent();
+    const { categories } = content;
+    const filteredCategories = categories.filter(category => {
+        if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {
+            return false;
+        }
+        if (categoryFilter && category.name !== categoryFilter) {
+            return false;
+        }
+        return true;
+    });
+    //console.log(filteredCategories);
+    filteredProductList = filteredCategories;
+    revalidatePath('/admin/ListProducts');
+}
 export async function getParameters() {
     try {
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-        //console.log(JSON.stringify(jsonData));
+        delete jsonData.Password; // Remove the "Password" field 
         return jsonData;
     } catch (error) {
         console.error("Error getting Parameters:", error);
         return [];
     }
 }
+
+export async function getShippingPrices() {
+    try {
+        const data = await getParameters();
+        delete data.Password; // Remove the "Password" field if it exists
+        const { EnvioES, EnviosUE, EnviosINT } = data;
+        return { EnvioES, EnviosUE, EnviosINT }; // Return only shipping-related data
+    } catch (error) {
+        console.error("Error getting shipping prices:", error);
+        return {}; // Return an empty object or handle the error as needed
+    }
+}
+
+export async function getIBAN() {
+    try {
+        const data = await getParameters();
+        delete data.Password; // Remove the "Password" field if it exists
+        const { IBAN } = data;
+        return { IBAN }; // Return only shipping-related data
+    } catch (error) {
+        console.error("Error getting shipping prices:", error);
+        return {}; // Return an empty object or handle the error as needed
+    }
+}
+
+export async function getIVA() {
+    try {
+        const data = await getParameters();
+        delete data.Password; // Remove the "Password" field if it exists
+        const { IVA } = data;
+        return { IVA }; // Return only shipping-related data
+    } catch (error) {
+        console.error("Error getting shipping prices:", error);
+        return {}; // Return an empty object or handle the error as needed
+    }
+}
+
 export async function updatePassword(currentPassword, newPassword) {
     try {
         // Read data from file
@@ -58,7 +132,7 @@ export async function updatePassword(currentPassword, newPassword) {
         jsonData.Password = newPassword;
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
-        return jsonData;
+        return true;
     } catch (error) {
         throw new Error("Error updating password: " + error.message);
     }
@@ -68,9 +142,9 @@ export async function updateShippingPrices(spainPrice, euPrice, internationalPri
         // Read data from file
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
-        jsonData.EnvioES = spainPrice;
-        jsonData.EnviosUE = euPrice;
-        jsonData.EnviosINT = internationalPrice;
+        jsonData.EnvioES = spainPrice || 0;
+        jsonData.EnviosUE = euPrice || 0;
+        jsonData.EnviosINT = internationalPrice || 0;
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
         return jsonData;
@@ -99,9 +173,7 @@ export async function updateIVA(newIVA) {
         const data = await readFile(filePathParameters, 'utf8');
         const jsonData = JSON.parse(data);
         // Update the IVA field
-        if (newIVA !== 0 && newIVA !== null && newIVA !== undefined) {
-            jsonData.IVA = newIVA;
-        }
+        jsonData.IVA = newIVA || 0; // Use newIVA if it's not null or undefined, otherwise default to 0
         // Write the updated JSON back to the file
         await writeFile(filePathParameters, JSON.stringify(jsonData, null, 2));
         return jsonData;
@@ -110,6 +182,7 @@ export async function updateIVA(newIVA) {
         return null;
     }
 }
+
 /**
  * Deletes a category or a product based on provided IDs.
  * @param {object} categoryId - The ID of the category or product to be deleted.
@@ -131,7 +204,7 @@ export async function deleteElement(categoryId, product) {
                             const deletedObject = categoryList.splice(i, 1)[0];
                             deletedContent.push(deletedObject);
                             await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                            revalidatePath('/admin/products');
+                            revalidatePath('/admin/ListProducts');
                             return true;
                         }
                         if (category.subCategories && category.subCategories.length > 0) {
@@ -159,7 +232,7 @@ export async function deleteElement(categoryId, product) {
                                 const deletedObject = category.products.splice(j, 1)[0];
                                 deletedContent.push(deletedObject);
                                 await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                                revalidatePath('/admin/products');
+                                revalidatePath('/admin/ListProducts');
                                 return true;
                             }
                         }
@@ -196,7 +269,7 @@ export async function deleteElement(categoryId, product) {
  * @param {string} pdfFile - The file path of the PDF for the category.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addCategory(Code, Url_Id, name, description, body, isPublished, imagePaths) {
+export async function addCategory(Url_Id, name, description, body, isPublished, imagePaths) {
     //console.log("New subcategory: " + imagePaths);
     try {
         const data = await readFile(filePath, 'utf8');
@@ -206,7 +279,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
         // const savedImageFilePath = await saveFileToAssets(imageFile, name + '_' + Url_Id + '_' + getFileIdNumber(100000, 10000000) + '.jpg');
         // const savedPdfFilePath = await saveFileToAssets(pdfFile, name + '_' + Url_Id + '.pdf');
         const newCategory = {
-            "id": Code.replace(/ /g, "-"),
+            "id": name.replace(/ /g, "-"),
             "url_Id": Url_Id,
             "fixedUrl": "",
             "name": name,
@@ -224,7 +297,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
         };
         categories.unshift(newCategory);
         await writeFile(filePath, JSON.stringify(jsonData));
-        revalidatePath('/admin/products');
+        revalidatePath('/admin/ListProducts');
         // //console.log("Subcategory added successfully.");
         return true;
     } catch (error) {
@@ -243,7 +316,7 @@ export async function addCategory(Code, Url_Id, name, description, body, isPubli
  * @param {boolean} isPublished - Whether the subcategory is published.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, Description, Body, imagePaths) {
+export async function addSubcategory(categoryId, subCategoryData) {
     // // //console.log("Adding subcategory to " + categoryId.categoryId.id);
     // // //console.log(" subcategory name " + newCategoryName);
     try {
@@ -260,16 +333,15 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                         category.subCategories = [];
                     }
                     const dataObj = {
-                        "id": Code.replace(/ /g, "-"),
-                        "url_Id": Url_Id,
-                        "fixedUrl": "",
-                        "name": newCategoryName,
-                        "description": Description,
-                        "ALBEDOcuerpo": Body,
+                        "id": subCategoryData.newCategoryName.replace(/ /g, "-"),
+                        "url_Id": subCategoryData.newCategoryUrlCode,
+                        "name": subCategoryData.newCategoryName,
+                        "description": subCategoryData.newCategoryDescription,
+                        "ALBEDOcuerpo": subCategoryData.newCategoryBody,
                         "isPublished": false,
+                        "imagens": subCategoryData.imagePaths,
                         "FeachaDeCreacion": euFormattedDateTime,
                         "FechaDeModificacion": euFormattedDateTime,
-                        "imagens": imagePaths,
                         "subCategories": [],
                         "products": []
                     }
@@ -278,7 +350,7 @@ export async function addSubcategory(categoryId, Code, Url_Id, newCategoryName, 
                     // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     // //console.log("Data written successfully.");
-                    revalidatePath('/admin/products');
+                    revalidatePath('/admin/ListProducts');
                     // //console.log("Path revalidated.");
                     return true;
                 }
@@ -355,7 +427,7 @@ export async function addproduct(categoryId, productData) {
                     // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     // //console.log("Data written successfully.");
-                    revalidatePath('/admin/products');
+                    revalidatePath('/admin/ListProducts');
                     // //console.log("Path revalidated.");
                     return true;
                 }
@@ -395,7 +467,7 @@ export async function addproduct(categoryId, productData) {
  * @param {boolean} isPublished - Whether the product is published.
  * @returns {boolean} Indicates whether the editing was successful.
  */
-export async function editproduct(productId, productCode, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
+export async function editproduct(productId, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
     // console.log('called function editproduct' + JSON.stringify());
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -407,8 +479,6 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                     const product = category.products[j];
                     // //console.log(productId.productId);
                     if (product.ALBEDOcodigo === productId.ALBEDOcodigo) {
-                        //console.log("product found:", product);
-                        product.ALBEDOcodigo = productCode.replace(/ /g, "-");
                         product.url_Id = url_Id;
                         product.ALBEDOtitulo = Name;
                         product.ALBEDOprecio = parseFloat(Price);
@@ -421,13 +491,8 @@ export async function editproduct(productId, productCode, url_Id, Name, Price, D
                         product.isPublished = isPublished;
                         product.imagens = imagePaths;
                         product.archivos = filePaths;
-                        //console.log("Writing updated data to file...");
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                        //console.log("Data written successfully.");
-                        // Assuming revalidatePath is defined somewhere
-                        // window.location.reload();
-                        revalidatePath('/admin/products');
-                        // // //console.log("Path revalidated.");
+                        revalidatePath('/admin/ListProducts');
                         return true;
                     }
                 }
@@ -466,7 +531,6 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
@@ -488,8 +552,7 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
                     }
                     // Write the updated JSON data to the file
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    revalidatePath('/admin/products');
-
+                    revalidatePath('/admin/ListProducts');
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
@@ -530,13 +593,55 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
         return false;
     }
 }
+export async function getCategoryById(categoryId) {
+    // Check if the categoryId is provided and has an id field 
+    try {
+        if (!categoryId || !categoryId.id) {
+            throw new Error("Invalid categoryId");
+        }
+        // Log the category ID to be searched for 
+        // console.log("Searching for category with ID:", categoryId.categoryId.id);
+        // Read the contents of the JSON file
+        const data = await fs.readFile(filePath, 'utf8');
+        // Parse the JSON file contents into JavaScript object
+        const { categories } = JSON.parse(data);
+        // Get the category ID to be searched for 
+        // Recursive function to search for a category by ID in the given category list
+        const Recursive = async (categoryList) => {
+            // Loop through the category list 
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                // If the category ID matches, return the category and its data
+                if (category.id === categoryId.id) {
+                    revalidatePath('/admin/ListPr');
+                    return category; // Return category and its data
+                }
+                // If the category has subcategories, search for the ID within those subcategories
+                if (category.subCategories && category.subCategories.length > 0) {
+                    const subcategory = await Recursive(category.subCategories);
+                    // // console.log("subCat found in back: "+ JSON.stringify(category));
+                    if (subcategory) return subcategory;
+                }
+            }
+            return false;
+        };
+        const categoryFound = await Recursive(categories);
+        if (!categoryFound) {
+            // console.log("Category not found.");
+            return false;
+        }
+        return categoryFound; // Return the found category along with its data
+    } catch (error) {
+        console.error("Error occurred:", error);
+        return false;
+    }
+}
 export async function duplicateProduct(category, product) {
     //console.log('duplicate function' + JSON.stringify(category.products) + JSON.stringify(product));
-
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-        const categoryToModifyId = category.id; 
+        const categoryToModifyId = category.id;
         const addProductRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
@@ -569,7 +674,7 @@ export async function duplicateProduct(category, product) {
                     //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     //console.log("Data written successfully.");
-                    revalidatePath('/admin/categories');
+                    revalidatePath('/admin/ListProducts');
                     //console.log("Path revalidated.");
                     return true;
                 }
@@ -599,98 +704,6 @@ export async function duplicateProduct(category, product) {
     }
 }
 /**
- * Retrieves a product based on its ID.
- * @param {string} productId - The ID of the product to retrieve.
- * @returns {Object} The product data.
- */
-// export async function getProductById(productId) {
-//     // // //console.log(productId);
-//     try { // Provide correct file path
-//         const data = await fs.readFile(filePath, 'utf8');
-//         const { categories } = JSON.parse(data); // Destructure categories directly
-//         const productToEdit = productId.productId;
-//         // // //console.log(productToEdit);
-//         const findProduct = async (categoryList) => {
-//             for (let i = 0; i < categoryList.length; i++) {
-//                 const category = categoryList[i];
-//                 for (let j = 0; j < category.products.length; j++) {
-//                     const product = category.products[j];
-//                     if (product.ALBEDOcodigo === productToEdit) {
-//                         // //console.log("\nProduct found(back):", JSON.stringify(product));
-//                         revalidatePath('/admin/products');
-
-//                         return JSON.stringify(product); // Return product when found
-//                     }
-//                 }
-//                 if (category.subCategories && category.subCategories.length > 0) {
-//                     const foundProduct = await findProduct(category.subCategories);
-//                     if (foundProduct) return foundProduct; // Return product when found
-//                 }
-//             }
-//             return null; // Return null if product not found
-//         };
-//         const product = await findProduct(categories);
-//         if (!product) {
-//             // //console.log("Product not found.");
-//             return null; // Return null if product not found
-//         }
-//         return product; // Return found product
-//     } catch (error) {
-//         // //console.log("Error:", error); // Log error
-//         throw error; // Rethrow error
-//     }
-// }
-/**
- * Retrieves a category based on its ID.
- * @param {object} categoryId - The ID of the category to retrieve.
- * @returns {Object} The category data.
- */
-// export async function getCategoryById(categoryId) {
-//     // Check if the categoryId is provided and has an id field 
-//     try {
-//         if (!categoryId || !categoryId.categoryId || !categoryId.categoryId.id) {
-//             throw new Error("Invalid categoryId");
-//         }
-//         // Log the category ID to be searched for 
-//         // //console.log("Searching for category with ID:", categoryId.categoryId.id);
-//         // Read the contents of the JSON file
-//         const data = await fs.readFile(filePath, 'utf8');
-//         // Parse the JSON file contents into JavaScript object
-//         const { categories } = JSON.parse(data);
-//         // Get the category ID to be searched for
-//         const categoryToDeleteId = categoryId.categoryId.id;
-//         // Recursive function to search for a category by ID in the given category list
-//         const Recursive = async (categoryList) => {
-//             // Loop through the category list 
-//             for (let i = 0; i < categoryList.length; i++) {
-//                 const category = categoryList[i];
-//                 // If the category ID matches, return the category and its data
-//                 if (category.id === categoryToDeleteId) {
-//                     // revalidatePath('/admin/categories');
-//                     // // //console.log("cat found in back: "+ JSON.stringify(category));
-//                     return category; // Return category and its data
-//                 }
-//                 // If the category has subcategories, search for the ID within those subcategories
-//                 if (category.subCategories && category.subCategories.length > 0) {
-//                     const subcategory = await Recursive(category.subCategories);
-//                     // // //console.log("subCat found in back: "+ JSON.stringify(category));
-//                     if (subcategory) return subcategory;
-//                 }
-//             }
-//             return false;
-//         };
-//         const categoryFound = await Recursive(categories);
-//         if (!categoryFound) {
-    //             // //console.log("Category not found.");
-    //             return false;
-    //         }
-    //         return categoryFound; // Return the found category along with its data
-//     } catch (error) {
-//         console.error("Error occurred:", error);
-//         return false;
-//     }
-// }
-/**
  * Returns the category data based on the given URL IDs.
  * @param {string[]} slugIds - The array of URL IDs.
  * @returns {Category | { subCategory: Category, products: Product[] }} - The category data.
@@ -718,7 +731,7 @@ export async function getDataByUrlId(slugIds) {
                 currentData = category.subCategories;
             } else {
                 // If there are no subcategories, return the current category
-                revalidatePath('/admin/products');
+                revalidatePath('/admin/ListProducts');
                 return category;
             }
         }
@@ -779,7 +792,6 @@ export async function getAllActiveOrders() {
         const jsonData = JSON.parse(data);
         const { ActiveOrders } = jsonData;
         revalidatePath('/admin/orders');
-
         return ActiveOrders;
     } catch (error) {
         console.error("Error getting all Client Orders:", error);
@@ -792,7 +804,6 @@ export async function getAllInactiveOrders() {
         const jsonData = JSON.parse(data);
         const { InactiveOrders } = jsonData;
         revalidatePath('/admin/orders');
-
         return InactiveOrders;
     } catch (error) {
         console.error("Error getting all Client Orders:", error);
@@ -814,7 +825,6 @@ export async function getActiveOrderByIndex(orderIndex) {
             throw new Error("Invalid order index");
         }
         revalidatePath('/admin/orders');
-
         return ActiveOrders[orderIndex];
     } catch (error) {
         console.error("Error getting order by index:", error);
@@ -830,7 +840,6 @@ export async function getInactiveOrderByIndex(orderIndex) {
             throw new Error("Invalid order index");
         }
         revalidatePath('/admin/orders');
-
         return InactiveOrders[orderIndex];
     } catch (error) {
         console.error("Error getting order by index:", error);

@@ -17,7 +17,7 @@ export default function loginComp() {
             const response = await login(password);
             if (response.token) {
                 cookie.set('token', response.token);
-                router.push('/admin/dashboard');
+                router.push('/admin/ListProducts');
             } else {
                 // Error occurred, display error message
                 setError(response.error);
@@ -36,8 +36,7 @@ export default function loginComp() {
                         alt="Vercel Logo"
                         className="self-center"
                         width={250}
-                        height={100}
-                        priority="true"
+                        height={100} 
                     />
                 </Link>
                 <h2 className="mt-10 text-center text-2xl font-semibold leading-9 tracking-tight text-gray-600">Iniciar sesión en el panel de administración</h2>

@@ -8,16 +8,16 @@ function footer() {
         <div className="flex lg:flex-row flex-col  justify-between lg:items-start items-center space-y-4  py-4 w-[1100px]">
 
           <Link href="/" className="w-1/3 self-center flex justify-center">
-          <Image
-            src="/images/Logo_albedo.png"
-            alt="Vercel Logo"
-            className=" object-contain"
-            width={300}
-            height={24}
-            priority="true"
-          />
+            <Image
+              src="/assets/images/Logo_albedo.png"
+              alt="Vercel Logo"
+              className=" object-contain"
+              width={300}
+              height={24}
+              priority="true"
+            />
           </Link>
-          
+
           <div className=" text-center w-auto flex flex-col justify-between">
             <h1 className="font-bold text-xl ">Textos Legales</h1>
             <p className="cursor-pointer hover:text-[#304590]">

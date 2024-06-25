@@ -11,7 +11,7 @@ export default function aside() {
     <div className="bg-slate-100 w-[400px]  h-[100vh]  shadow-2xl">
       <Link href="/" className="flex flex-col justify-center p-6">
         <Image
-          src="/images/Logo_albedo.png"
+          src="/assets/images/Logo_albedo.png"
           alt="Vercel Logo"
           className="self-center"
           width={250}

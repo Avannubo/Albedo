@@ -32,11 +32,11 @@ export default function loginComp() {
             <div className="sm:mx-auto sm:w-full ">
                 <Link href="/" className="flex flex-col justify-center">
                     <Image
-                        src="/images/Logo_albedo.png"
+                        src="/assets/images/Logo_albedo.png"
                         alt="Vercel Logo"
                         className="self-center"
                         width={250}
-                        height={100} 
+                        height={100}
                     />
                 </Link>
                 <h2 className="mt-10 text-center text-2xl font-semibold leading-9 tracking-tight text-gray-600">Iniciar sesión en el panel de administración</h2>

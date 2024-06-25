@@ -61,7 +61,7 @@ export default function Header() {
         <div className="flex flex-row self-center items-center w-full py-4 h-auto xl:px-48 md:px-14 px-6">
           <Link href="/">
             <Image
-              src="/images/Logo_albedo_blanco.png"
+              src="/assets/images/Logo_albedo_blanco.png"
               alt="Vercel Logo"
               className="h-[50px] self-center mr-6"
               width={150}

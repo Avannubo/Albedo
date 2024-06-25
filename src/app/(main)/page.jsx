@@ -8,7 +8,7 @@ import Layout from "@/app/(main)/WebLayout";
 import Link from "next/link";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState(); 
+  const [data, setData] = useState();
   // const data = await getCategories();
   const fetchData = async () => {
     setIsLoading(true);
@@ -76,7 +76,7 @@ export default function Home() {
         </p>
         <div className="flex justify-center my-4">
           <Image
-            src="/images/home/facebook_portada.png"
+            src="/assets/images/home/facebook_portada.png"
             alt="Vercel Logo"
             className="self-center"
             width={400}
@@ -217,7 +217,7 @@ export default function Home() {
             </p>
             <div className="flex flex-row flex-wrap justify-center my-4">
               <Image
-                src="/images/home/diseño1.png"
+                src="/assets/images/home/diseño1.png"
                 alt="Vercel Logo"
                 className="rounded-lg m-2 w-full h-[200px] md:w-[250px] lg:h-auto object-cover"
                 width={500}
@@ -225,7 +225,7 @@ export default function Home() {
                 priority="true"
               />
               <Image
-                src="/images/home/diseño2.png"
+                src="/assets/images/home/diseño2.png"
                 alt="Vercel Logo"
                 className="rounded-lg m-2 w-full h-[200px] md:w-[250px] lg:h-auto object-cover"
                 width={600}

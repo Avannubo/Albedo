@@ -10,7 +10,7 @@ export default function page() {
       </div>
       <div className='flex flex-row justify-center'>
         <Image
-          src="/images/LowPower.jpg"
+          src="/assets/images/LowPower.jpg"
           alt="Vercel Logo"
           className="self-center rounded-lg"
           width="100"

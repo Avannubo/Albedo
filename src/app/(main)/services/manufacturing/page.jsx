@@ -11,7 +11,7 @@ export default function page() {
                 </div>
                 <div className='flex flex-row justify-center'>
                     <Image
-                        src="/images/100000033.jpg"
+                        src="/assets/images/100000033.jpg"
                         alt="Vercel Logo"
                         className="self-center rounded-lg"
                         width="1200"
@@ -22,7 +22,7 @@ export default function page() {
                 <div className='text-justify text-xl mb-4'>
                     <p className='my-2'>Disponemos de amplias instalaciones destinadas a la producción de equipos electrónicos con tecnología SMD.
                     </p><Image
-                        src="/images/100000908.jpg"
+                        src="/assets/images/100000908.jpg"
                         alt="Vercel Logo"
                         className="float-left rounded-lg m-2"
                         width="150"
@@ -33,7 +33,7 @@ export default function page() {
                         <br />
                         El control sobre todo el proceso es absoluto. Podemos garantizar por tanto la absoluta calidad del producto fabricado. </p><br />
                     <Image
-                        src="/images/100000916.jpg"
+                        src="/assets/images/100000916.jpg"
                         alt="Vercel Logo"
                         className="float-right rounded-lg m-2"
                         width="150"
@@ -46,7 +46,7 @@ export default function page() {
                 </div>
                 <div className='flex flex-row justify-center'>
                     <Image
-                        src="/images/100000132.jpg"
+                        src="/assets/images/100000132.jpg"
                         alt="Vercel Logo"
                         className="self-center rounded-lg"
                         width="1200"
@@ -61,7 +61,7 @@ export default function page() {
                     <div className='flex flex-col my-6'>
                         <div className='flex flex-row flex-wrap justify-evenly'>
                             <Image
-                                src="/images/100000910.jpg"
+                                src="/assets/images/100000910.jpg"
                                 alt="Vercel Logo"
                                 className="float-left rounded-lg m-2 sm:w-[250px] lg:w-[500px] object-cover"
                                 width="350"
@@ -69,7 +69,7 @@ export default function page() {
                                 priority="true"
                             />
                             <Image
-                                src="/images/100000911.jpg"
+                                src="/assets/images/100000911.jpg"
                                 alt="Vercel Logo"
                                 className="float-left rounded-lg m-2 sm:w-[250px] lg:w-[500px] object-cover"
                                 width="350"
@@ -79,7 +79,7 @@ export default function page() {
                         </div>
                         <div className='flex flex-row flex-wrap justify-evenly'>
                             <Image
-                                src="/images/100000912.jpg"
+                                src="/assets/images/100000912.jpg"
                                 alt="Vercel Logo"
                                 className="float-left rounded-lg m-2 sm:w-[250px] lg:w-[500px] object-cover"
                                 width="350"
@@ -87,7 +87,7 @@ export default function page() {
                                 priority="true"
                             />
                             <Image
-                                src="/images/100000913.jpg"
+                                src="/assets/images/100000913.jpg"
                                 alt="Vercel Logo"
                                 className="float-left rounded-lg m-2 sm:w-[250px] lg:w-[500px] object-cover"
                                 width="350"

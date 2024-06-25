@@ -13,7 +13,7 @@ export default function page() {
             </div>
             <div className='text-justify text-xl mb-4'>
                 <Image
-                    src="/images/ferrite.jpg" 
+                    src="/assets/images/ferrite.jpg"
                     alt="Vercel Logo"
                     className="float-start rounded-lg m-2"
                     width="400"

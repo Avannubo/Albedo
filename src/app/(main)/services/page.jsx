@@ -20,7 +20,7 @@ export default function page() {
             </div>
             <Link href="/services/design" className='flex justify-center'>
                 <Image
-                    src="/images/servicio_diseño_01.jpg"
+                    src="/assets/images/servicio_diseño_01.jpg"
                     alt="Vercel Logo"
                     className="self-center rounded-lg"
                     width={1100}
@@ -34,7 +34,7 @@ export default function page() {
             </div>
             <Link href='/services/manufacturing/' className='flex justify-center my-5'>
                 <Image
-                    src="/images/servicio_fabricacion_01.jpg"
+                    src="/assets/images/servicio_fabricacion_01.jpg"
                     alt="Vercel Logo"
                     className="self-center rounded-lg"
                     width={1100}

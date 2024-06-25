@@ -13,7 +13,7 @@ export default function page() {
             <div className='flex flex-row space-x-4 mb-6'>
                 <div className='hidden md:flex'>
                     <Image
-                        src="/images/remote_metro_iso.jpg"
+                        src="/assets/images/remote_metro_iso.jpg"
                         alt="Vercel Logo"
                         className="float-right rounded-lg h-[300px] "
                         width="400"
@@ -34,7 +34,7 @@ export default function page() {
                 </div>
                 <div className='hidden md:flex'>
                     <Image
-                        src="/images/remote_green_imagen2.jpg"
+                        src="/assets/images/remote_green_imagen2.jpg"
                         alt="Vercel Logo"
                         className="float-left rounded-lg h-[300px] "
                         width="400"
@@ -47,7 +47,7 @@ export default function page() {
                 <div className='flex flex-col justify-center md:flex-row space-x-2'>
                     <Link className='self-center' href="/services/design/rf">
                         <Image
-                            src="/images/rf.png"
+                            src="/assets/images/rf.png"
                             alt="Vercel Logo"
                             className="self-center rounded-lg w-[80px] h-[80px]"
                             width="100"
@@ -63,7 +63,7 @@ export default function page() {
                 <div className='flex flex-col justify-center md:flex-row space-x-2'>
                     <Link className='self-center' href="/services/design/ferrite">
                         <Image
-                            src="/images/ferrite.jpg"
+                            src="/assets/images/ferrite.jpg"
                             alt="Vercel Logo"
                             className="self-center rounded-lg w-[80px] h-[80px]"
                             width="100"
@@ -79,7 +79,7 @@ export default function page() {
                 <div className='flex flex-col justify-center md:flex-row space-x-2'>
                     <Link href="/services/design/low_power" className='self-center flex flex-row space-x-2'>
                         <Image
-                            src="/images/LowPower.jpg"
+                            src="/assets/images/LowPower.jpg"
                             alt="Vercel Logo"
                             className="self-center rounded-lg w-[80px] h-[80px]"
                             width="100"

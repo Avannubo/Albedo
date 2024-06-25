@@ -8,7 +8,7 @@ import Layout from "@/app/(main)/WebLayout";
 import Link from "next/link";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState();
+  const [data, setData] = useState(); 
   // const data = await getCategories();
   const fetchData = async () => {
     setIsLoading(true);

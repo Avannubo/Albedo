@@ -422,7 +422,7 @@ export default function Page() {
               ${selectedShipping && selectedShipping.method === 'internacional' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
                     onClick={() => handleShippingSelect('internacional', parameters?.EnviosINT ?? 0)}>
                     Internacional {parameters?.EnviosINT ?? 0}€
-                  </div>
+                  </div> 
                 </div>
                 <div className="flex flex-row justify-start space-x-2 text-sm">
                   <div className={`grow text-center border py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 

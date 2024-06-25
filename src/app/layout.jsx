@@ -1,12 +1,8 @@
-import Link from "next/link";
 import "./globals.css";
-
-
 export const metadata = {
   title: "Albedo Biz",
   description: "Albedo Webapp",
 };
-
 export default function RootLayout({ children }) {
   return (
     <html lang="es">

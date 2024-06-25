@@ -6,7 +6,7 @@ export default function layout({ children }) {
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <SideNav />
         <div className="w-[100%] overflow-y-auto" style={{ maxHeight: '100vh' }}>
-          <div className="mt-24 mx-40">
+          <div className="mt-24 mx-20">
             {children}
           </div>
         </div>

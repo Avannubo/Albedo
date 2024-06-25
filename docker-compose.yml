@@ -2,7 +2,11 @@ version: '3'
 
 services:
   app:
-    image: docker-albedo-dev
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    command: ["npm", "start"]

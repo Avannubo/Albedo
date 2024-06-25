@@ -1,14 +1,22 @@
+# Use Node.js 18 Alpine as base image
 FROM node:18-alpine
 
+# Set the working directory inside the container
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+# Copy package.json and package-lock.json (if present)
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-COPY next.config.js ./next.config.js
+COPY . . 
 
-COPY pages ./pages
-COPY public ./public
-COPY styles ./styles
+RUN npm run build
 
-CMD [ "npm", "dev" ]
+
+# Expose the port Next.js uses (usually 3000)
+EXPOSE 3000
+
+# Command to run the Next.js development server 
+CMD ["npm", "start"]

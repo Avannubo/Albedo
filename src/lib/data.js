@@ -5,10 +5,10 @@ import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
-const filePath = 'public/data/Products.json';
-const filePathActiveOrders = 'public/data/ClientOrdersActive.json';
-const filePathInactiveOrders = 'public/data/ClientOrdersInactive.json';
-const filePathParameters = 'public/data/Parameters.json';
+const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
+const filePathActiveOrders = isLocal ? path.resolve('public/data/ClientOrdersActive.json') : '/data/ClientOrdersActive.json';
+const filePathInactiveOrders = isLocal ? path.resolve('public/data/ClientOrdersInactive.json') : '/data/ClientOrdersInactive.json';
+const filePathParameters = isLocal ? path.resolve('public/data/Parameters.json') : '/data/Parameters.json';
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 var filteredProductList = [];

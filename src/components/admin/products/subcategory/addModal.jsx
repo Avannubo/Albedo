@@ -39,7 +39,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const base64Image = reader.result;
-                        const imagePath = `./public/assets/images/${image.name}`;
+                        const imagePath = `/assets/images/${image.name}`;
                         const imagePathToSave = `/assets/images/${image.name}`;
                         // Assuming saveImage is asynchronous and returns a promise
                         await saveImage(base64Image, imagePath.replace(/ /g, "_"));
@@ -74,7 +74,7 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
         }
         try {
             const imagePaths = await uploadImages();
-            const subCategoryData = { 
+            const subCategoryData = {
                 newCategoryUrlCode: newCategoryUrlCode,
                 newCategoryName: newCategoryName,
                 newCategoryDescription: newCategoryDescription,

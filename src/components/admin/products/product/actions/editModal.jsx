@@ -4,11 +4,11 @@ import { editproduct, getCategories, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, category, product }) {
-    
+
     //console.log("btn edit prod: " + JSON.stringify(category.id));
 
     const [loading, setLoading] = useState(false);
-    const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo); 
+    const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);
     const [newProductPrice, setNewProductPrice] = useState(product.ALBEDOprecio);
     const [newProductDescription, setNewProductDescription] = useState(product.ALBEDOdescripcion);
@@ -28,7 +28,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     const [descriptionError, setDescriptionError] = useState(false);
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
-    }; 
+    };
     const handleInputChangeUrlCode = (event) => {
         setNewProductUrlCode(event.target.value);
     };
@@ -94,7 +94,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const base64Image = reader.result;
-                        const imagePath = `./public/assets/images/${image.name}`;
+                        const imagePath = `/assets/images/${image.name}`;
                         const imagePathToSave = `/assets/images/${image.name}`;
                         //console.log("Uploading image:", imagePath);
                         try {
@@ -134,7 +134,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const fileData = reader.result;
-                        const filePath = `./public/assets/archivos/${file.name}`;
+                        const filePath = `/assets/archivos/${file.name}`;
                         const filePathToSave = `/assets/archivos/${file.name}`;
                         //console.log("Uploading file:", filePath);
                         try {
@@ -190,7 +190,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
             const uniqueFilePaths = Array.from(new Set([...relatedFilePaths, ...productFiles]));
             //console.log(uniqueFilePaths);
-            await editproduct(product, 
+            await editproduct(product,
                 newProductUrlCode,
                 newProductName,
                 newProductPrice,

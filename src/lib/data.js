@@ -1017,7 +1017,7 @@ function generateToken() {
     return token;
 }
 function getSecKey() {
-    const key = process.env.SECRET_KEY;
+    const key = "043950dea0158f162ef41f2a1b6c0fd2246e24c932399f527f3ec3cb685c1667";//process.env.SECRET_KEY
     if (key) {
         return key;
     } else {

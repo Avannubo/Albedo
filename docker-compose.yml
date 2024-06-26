@@ -16,7 +16,7 @@ services:
       context: .
       dockerfile: Dockerfile.nginx
     ports:
-      - "80:80"
+      - "8080:80" # Change this line to use port 8080 on the host
     depends_on:
       - app
     networks:

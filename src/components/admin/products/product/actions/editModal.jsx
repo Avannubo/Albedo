@@ -332,8 +332,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                                 >
                                                     X
                                                 </button>
-
-
                                             </div>
                                         ))
                                     )}

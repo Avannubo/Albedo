@@ -20,9 +20,9 @@ const publicFolderPath = path.resolve(__dirname, 'public');
 
 const filePaths = [
     './public/data/Products.json',
-    '/public/data/ClientOrdersActive.json',
-    '/public/data/ClientOrdersInactive.json',
-    '/public/data/Parameters.json'
+    './public/data/ClientOrdersActive.json',
+    './public/data/ClientOrdersInactive.json',
+    './public/data/Parameters.json'
 ];
 
 function checkFileAvailability() {
@@ -46,11 +46,7 @@ function checkFileAvailability() {
             }
         });
     });
-}
-
-// Call the function to check file availability
-checkFileAvailability();
-
+} 
 
 
 export async function requireContent() {

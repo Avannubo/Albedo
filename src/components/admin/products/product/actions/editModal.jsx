@@ -207,7 +207,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setLoading(false);
             setNameError(false);
             setDescriptionError(false);
-            setUrlCodeError(false); 
+            setUrlCodeError(false);
             onClose();
         } catch (error) {
             console.error("Error uploading images:", error);

@@ -12,9 +12,9 @@ export default function AddModal({ isOpen, onClose }) {
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(false);
     // State variables for error handling
     const [nameError, setNameError] = useState(false);
-    const [descriptionError, setDescriptionError] = useState(false); 
+    const [descriptionError, setDescriptionError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
-    const [selectedImages, setSelectedImages] = useState([]); 
+    const [selectedImages, setSelectedImages] = useState([]);
 
     // const handleInputChangeCode = (event) => {
     //     setNewCategoryCode(event.target.value);
@@ -32,7 +32,7 @@ export default function AddModal({ isOpen, onClose }) {
         setNewCategoryDescription(value);
     };
     const handleInputChangeBody = (value) => {
-        setNewCategoryBody(value); 
+        setNewCategoryBody(value);
     };
 
     const handleImageChange = (event) => {
@@ -48,9 +48,9 @@ export default function AddModal({ isOpen, onClose }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const base64Image = reader.result;
-                        const imagePath = `/assets/images/${image.name}`;
+                        const imagePath = `./public/assets/images/${image.name}`;
                         const imagePathToSave = `/assets/images/${image.name}`;
-                        
+
                         // Assuming saveImage is asynchronous and returns a promise
                         await saveImage(base64Image, imagePath.replace(/ /g, "_"));
                         imagePaths.push(imagePathToSave.replace(/ /g, "_"));
@@ -83,7 +83,7 @@ export default function AddModal({ isOpen, onClose }) {
         setNameError(!newCategoryName.trim());
         setDescriptionError(!newCategoryDescription.trim());
         // If any field doesn't meet the requirements, stop execution
-        if ( !newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
+        if (!newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
             return;
         }
         // Check if the URL ID already exists 
@@ -95,31 +95,31 @@ export default function AddModal({ isOpen, onClose }) {
         }
 
         try {
-            const imagePaths = await uploadImages(); 
-            await addCategory( 
+            const imagePaths = await uploadImages();
+            await addCategory(
                 newCategoryUrlCode,
                 newCategoryName,
                 newCategoryDescription,
                 newCategoryBody,
                 newCategoryIsPublished,
                 imagePaths
-            ); 
+            );
 
         } catch (error) {
             console.error("Error uploading images:", error);
         }
         // If all fields meet the requirements and URL ID is unique, add the category
-        
+
         // Reset form and close modal
         setNewCategoryName('');
         setNewCategoryDescription('');
-        setNewCategoryBody(''); 
+        setNewCategoryBody('');
         setNewCategoryUrlCode('');
         setNewCategoryIsPublished(false);
         setNameError(false);
-        setDescriptionError(false); 
+        setDescriptionError(false);
         setUrlCodeError(false);
-        setSelectedImages([]); 
+        setSelectedImages([]);
         onClose();
     };
     return isOpen ? (
@@ -177,7 +177,7 @@ export default function AddModal({ isOpen, onClose }) {
                                 <div className="grow mb-4">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Images</label>
                                     <input multiple onChange={handleImageChange} type="file" accept="image/*" className="shadow-sm rounded-md w-full  border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
-                                </div> 
+                                </div>
                             </div>
                             <div className='flex justify-center mt-4'>
                                 <button onClick={handleAddCategory} type="submit" className="w-[150px] bg-[#304590] hover:bg-[#475caa] text-white font-bold py-2 px-4 rounded">
@@ -186,7 +186,7 @@ export default function AddModal({ isOpen, onClose }) {
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

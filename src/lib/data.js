@@ -4,15 +4,55 @@ import jwt from 'jsonwebtoken';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
-import nodemailer from 'nodemailer';
-const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
-const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
-const filePathActiveOrders = isLocal ? path.resolve('public/data/ClientOrdersActive.json') : '/data/ClientOrdersActive.json';
-const filePathInactiveOrders = isLocal ? path.resolve('public/data/ClientOrdersInactive.json') : '/data/ClientOrdersInactive.json';
-const filePathParameters = isLocal ? path.resolve('public/data/Parameters.json') : '/data/Parameters.json';
+import nodemailer from 'nodemailer'; 
+
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 var filteredProductList = [];
+
+
+const filePath = '/data/Products.json';
+const filePathActiveOrders = '/data/ClientOrdersActive.json';
+const filePathInactiveOrders = '/data/ClientOrdersInactive.json';
+const filePathParameters = '/data/Parameters.json';
+
+const publicFolderPath = path.resolve(__dirname, 'public');
+
+const filePaths = [
+    '/data/Products.json',
+    '/data/ClientOrdersActive.json',
+    '/data/ClientOrdersInactive.json',
+    '/data/Parameters.json'
+];
+
+function checkFileAvailability() {
+    filePaths.forEach(filePath => {
+        const originalPath = path.resolve(__dirname, filePath);
+
+        // Check if file exists in original path
+        fs.access(originalPath, fs.constants.F_OK, (err) => {
+            if (err) {
+                // File does not exist in original path, try finding it in /public folder
+                const publicPath = path.resolve(publicFolderPath, path.basename(filePath));
+                fs.access(publicPath, fs.constants.F_OK, (err) => {
+                    if (err) {
+                        console.log(`File not found: ${filePath}`);
+                    } else {
+                        console.log(`File found in /public: ${publicPath}`);
+                    }
+                });
+            } else {
+                console.log(`File found: ${originalPath}`);
+            }
+        });
+    });
+}
+
+// Call the function to check file availability
+checkFileAvailability();
+
+
+
 export async function requireContent() {
     // if (!cachedContent) {
     const res = await fs.readFile(filePath, 'utf8');

@@ -20,9 +20,9 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
         // Call saveNewOrder with orderData
         saveNewOrder(orderData);
         //clear local storage 
-        // localStorage.clear();
+         localStorage.clear();
         //change modal div to another to "thank you for your purchase"
-        // setPaymentConfirmed(true);
+         setPaymentConfirmed(true);
     };
     return isOpen ? (
         <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">

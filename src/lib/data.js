@@ -11,15 +11,15 @@ const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth(
 var filteredProductList = [];
 
 
-const filePath = '/public/data/Products.json';
-const filePathActiveOrders = '/public/data/ClientOrdersActive.json';
-const filePathInactiveOrders = '/public/data/ClientOrdersInactive.json';
-const filePathParameters = '/public/data/Parameters.json';
+const filePath = './public/data/Products.json';
+const filePathActiveOrders = './public/data/ClientOrdersActive.json';
+const filePathInactiveOrders = './public/data/ClientOrdersInactive.json';
+const filePathParameters = './public/data/Parameters.json';
 
 const publicFolderPath = path.resolve(__dirname, 'public');
 
 const filePaths = [
-    '/public/data/Products.json',
+    './public/data/Products.json',
     '/public/data/ClientOrdersActive.json',
     '/public/data/ClientOrdersInactive.json',
     '/public/data/Parameters.json'

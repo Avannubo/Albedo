@@ -94,7 +94,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const base64Image = reader.result;
-                        const imagePath = `/assets/images/${image.name}`;
+                        const imagePath = `./public/assets/images/${image.name}`;
                         const imagePathToSave = `/assets/images/${image.name}`;
                         //console.log("Uploading image:", imagePath);
                         try {
@@ -207,21 +207,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setLoading(false);
             setNameError(false);
             setDescriptionError(false);
-            setUrlCodeError(false);
-            // setNewProductName('');
-            // setNewProductCode('');
-            // setNewProductUrlCode('');
-            // setNewProductPrice(0);
-            // setNewProductDescription('');
-            // setNewProductBody('');
-            // setNewProductStock(0);
-            // setNewProductMinStock(0);
-            // setNewProductDeliveryTime(0);
-            // setNewCategoryIsPublished(newCategoryIsPublished);
-            // setProductImages([]);
-            // setSelectedImages([]);
-            // setSelectedFiles([]);
-            // setProductFiles([]);
+            setUrlCodeError(false); 
             onClose();
         } catch (error) {
             console.error("Error uploading images:", error);

@@ -59,7 +59,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const fileData = reader.result;
-                        const filePath = `/assets/archivos/${file.name}`;
+                        const filePath = `./public/assets/archivos/${file.name}`;
                         const filePathToSave = `/assets/archivos/${file.name}`;
                         //console.log("Uploading file:", filePath);
                         try {

@@ -20,16 +20,16 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
         // Call saveNewOrder with orderData
         saveNewOrder(orderData);
         //clear local storage 
-         localStorage.clear();
+        localStorage.clear();
         //change modal div to another to "thank you for your purchase"
-         setPaymentConfirmed(true);
+        setPaymentConfirmed(true);
     };
     return isOpen ? (
         <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             {paymentConfirmed ? ( // Render thank you message if payment is confirmed
                 <div className="w-[1000px] max-w-6xl bg-white shadow-lg rounded-md p-12 relative">
                     <div className='flex justify-center'>
-                        <svg className='w-40 h-40'  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg className='w-40 h-40' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_iconCarrier">
                                 <path opacity="0.4" d="M11.9998 14H12.9998C14.0998 14 14.9998 13.1 14.9998 12V2H5.99976C4.49976 2 3.18977 2.82999 2.50977 4.04999" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                 <path d="M2 17C2 18.66 3.34 20 5 20H6C6 18.9 6.9 18 8 18C9.1 18 10 18.9 10 20H14C14 18.9 14.9 18 16 18C17.1 18 18 18.9 18 20H19C20.66 20 22 18.66 22 17V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L18.58 6.01001C18.22 5.39001 17.56 5 16.84 5H15V12C15 13.1 14.1 14 13 14H12" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -44,12 +44,12 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                     <h1 className="text-3xl font-bold mb-3 text-center">Gracias por la compra!</h1>
                     <h3 className="text-xl font-bold mb-6 text-center">En breve le enviaremos confirmación y seguimiento de su pedido.</h3>
                     <div className='flex flex-row space-x-6 justify-center mt-2'>
-                        <Link href="/"  className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'>
+                        <Link href="/" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'>
                             Inicio
                         </Link>
                         <Link href="/products" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' >
                             Tienda
-                        </Link> 
+                        </Link>
                     </div>
                 </div>
             ) : (

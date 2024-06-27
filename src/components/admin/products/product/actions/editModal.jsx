@@ -312,7 +312,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                             </div>
                             <div className='flex flex-col justify-start'>
                                 <div className='flex flex-col justify-start'>
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">imagenses Del Producto</label>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Imagenes del producto</label>
                                     <input multiple onChange={handleImageChange} type="file" accept="image/*" className="mb-4 shadow-sm rounded-md  border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" required />
                                 </div>
                                 <div className='flex  flex-row justify-start flex-wrap '>

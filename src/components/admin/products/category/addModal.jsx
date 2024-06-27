@@ -39,6 +39,7 @@ export default function AddModal({ isOpen, onClose }) {
         const files = Array.from(event.target.files);
         setSelectedImages(files);
     };
+
     const uploadImages = () => {
         return new Promise((resolve, reject) => {
             const imagePaths = [];
@@ -49,6 +50,7 @@ export default function AddModal({ isOpen, onClose }) {
                         const base64Image = reader.result;
                         const imagePath = `/assets/images/${image.name}`;
                         const imagePathToSave = `/assets/images/${image.name}`;
+                        
                         // Assuming saveImage is asynchronous and returns a promise
                         await saveImage(base64Image, imagePath.replace(/ /g, "_"));
                         imagePaths.push(imagePathToSave.replace(/ /g, "_"));

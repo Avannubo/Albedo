@@ -7,7 +7,7 @@ const publicRoutes = ['/admin', '/signup', '/']
 export function middleware(request) {
 
     let cookie = request.cookies.get('token')
-    console.log(cookie) 
+    //console.log(cookie) 
 
     return NextResponse.redirect(new URL('/', request.url))
 }

@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { saveNewOrder } from '@/lib/data';
+import Image from 'next/image';
 export default function ModalTransference({ isOpen, onClose, orderData }) {
-    // console.log('modal console: ', JSON.stringify(orderData));
+    console.log('modal console: ', JSON.stringify(orderData));
     const [isCopied, setIsCopied] = useState(false);
     const [paymentConfirmed, setPaymentConfirmed] = useState(false); // State to track payment confirmation
 
@@ -19,9 +20,9 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
         // Call saveNewOrder with orderData
         saveNewOrder(orderData);
         //clear local storage 
-        localStorage.clear();
+        // localStorage.clear();
         //change modal div to another to "thank you for your purchase"
-        setPaymentConfirmed(true);
+        // setPaymentConfirmed(true);
     };
     return isOpen ? (
         <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
@@ -46,7 +47,7 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                         <Link href="/"  className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'>
                             Inicio
                         </Link>
-                        <Link href="/productos" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' >
+                        <Link href="/products" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' >
                             Tienda
                         </Link> 
                     </div>
@@ -74,7 +75,7 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                                 <div className='flex flex-col ' key={index}>
                                                     <div className='flex flex-row'>
                                                         <div className='w-[70px] h-auto my-2'>
-                                                            <img
+                                                            <Image
                                                                 src={product.imagen}
                                                                 alt="product-image"
                                                                 className="object-cover rounded-xl"

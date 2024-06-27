@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
+import nodemailer from 'nodemailer';
 const isLocal = typeof window === 'undefined'; // Check if not running in the browser (server-side)
 const filePath = isLocal ? path.resolve('public/data/Products.json') : '/data/Products.json';
 const filePathActiveOrders = isLocal ? path.resolve('public/data/ClientOrdersActive.json') : '/data/ClientOrdersActive.json';
@@ -757,6 +758,8 @@ export async function getDataByUrlId(slugIds) {
         return false;
     }
 }
+
+
 //function to save new orders on checkout page
 /**
  * Saves a new order to the system.
@@ -764,23 +767,125 @@ export async function getDataByUrlId(slugIds) {
  * @returns {boolean} Indicates whether the addition was successful.
  */
 export async function saveNewOrder(orderData) {
-    //console.log(orderData);
+    console.log('Order Data:', orderData);
     try {
-        const data = await readFile(filePathActiveOrders, 'utf8');
+        const data = await fs.readFile(filePathActiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
-        const { ClientOrders } = jsonData;
-        const orderDataWithState = { ...orderData, orderState: 'Pendiente', createdAt: euFormattedDateTime };
-        // Add orderState field with default value
-        ClientOrders.unshift(orderDataWithState);
-        await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
+
+        if (!jsonData.ClientOrders) {
+            jsonData.ClientOrders = [];
+        }
+
+        if (!Array.isArray(jsonData.ClientOrders)) {
+            throw new Error('ClientOrders is not an array');
+        }
+
+        const orderDataWithState = {
+            ...orderData,
+            orderState: 'Pendiente',
+            createdAt: euFormattedDateTime
+        };
+
+        jsonData.ClientOrders.unshift(orderDataWithState);
+
+        await fs.writeFile(filePathActiveOrders, JSON.stringify(jsonData, null, 2), 'utf8');
+        await sendEmail(orderData);
         revalidatePath('/admin/orders');
-        // //console.log("Subcategory added successfully.");
+
+        console.log('Order saved successfully.');
         return true;
     } catch (error) {
-        console.error("Error saving new Client Order:", error);
+        console.error('Error saving new Client Order:', error);
         return false;
     }
 }
+
+export async function sendEmail(orderData) {
+    try {
+        const customerDetails = orderData.userInfo;
+        const products = orderData.cartProducts;
+        const shippingDetails = orderData.selectedShipping;
+
+        let productsText = '';
+        products.forEach(product => {
+            productsText += `
+                Código del Producto: ${product.ALBEDOcodigo}
+                Título del Producto: ${product.ALBEDOtitulo}
+                Descripción: ${product.ALBEDOdescripcion.replace(/<[^>]*>?/gm, '')}
+                Precio: ${product.ALBEDOprecio} EUR
+                Cantidad Pedida: ${product.quantity} 
+                \n`;
+        });
+
+        const emailText = `
+            Información del Pedido:
+
+            Detalles del Cliente:
+            - Nombre: ${customerDetails.firstName}
+            - Apellidos: ${customerDetails.lastName}
+            - DNI: ${customerDetails.dni}
+            - Fecha de Nacimiento: ${customerDetails.dateOfBirth || '[No proporcionado]'}
+            - Empresa: ${customerDetails.company}
+            - CIF: ${customerDetails.cif || '[No proporcionado]'}
+            - Número de Teléfono: ${customerDetails.phoneNumber}
+            - Correo Electrónico: ${customerDetails.email}
+            - Dirección: ${customerDetails.address}
+            - Ciudad: ${customerDetails.city}
+            - Provincia: ${customerDetails.province}
+            - Código Postal: ${customerDetails.zipCode}
+            - Solicitud de Factura: ${customerDetails.invoice ? 'Sí' : 'No'}
+
+            Detalles del Pedido:
+            ${productsText}
+
+            Información de Envío:
+            - Método de Envío: ${shippingDetails.method}
+            - Precio del Envío: ${shippingDetails.price} EUR
+
+            Información de Pago:
+            - Método de Pago: ${orderData.selectedPayment}
+
+            Monto Total del Pedido: ${orderData.totalPedido} EUR
+
+            Factura Requerida: ${orderData.invoice ? 'Sí' : 'No'}
+            `;
+
+        var transporter = nodemailer.createTransport({
+            host: "smtp.office365.com",
+            port: 587,
+            secure: false, // Use `true` for port 465, `false` for all other ports
+            auth: {
+                user: process.env.NODEMAILER_EMAILSENDER,
+                pass: process.env.NODEMAILER_PW,
+            },
+        });
+
+        const mailOptionsOnwer = {
+            from: process.env.NODEMAILER_EMAILSENDER, //process.env.NODEMAILER_EMAIL,"arjun.singh@avannubo.com"
+            to: process.env.NODEMAILER_EMAILSENDER,//process.env.NODEMAILER_EMAILRECEIVER,
+            subject: "Detalles del pedido realizado",
+            text: emailText,
+        };
+        
+        const mailOptionsClient = {
+            from: process.env.NODEMAILER_EMAILSENDER, //process.env.NODEMAILER_EMAIL,"arjun.singh@avannubo.com"
+            to: customerDetails.email,//process.env.NODEMAILER_EMAILRECEIVER,
+            subject: "Detalles del pedido",
+            text: emailText,
+        };
+        const info = await transporter.sendMail(mailOptionsOnwer);
+        const info1 = await transporter.sendMail(mailOptionsClient);
+        console.log("Email Sent:", info.response);
+        return true;
+    } catch (error) {
+        console.error("Error sending email:", error.message);
+        if (error.responseCode === 535) {
+            console.error("Invalid login. Please check your email and password.");
+        }
+        return false;
+    }
+}
+
 //functions to /admin/orders
 /**
  * Retrieves all orders.

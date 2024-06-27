@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env
     ports: 
       - "3000"
     environment:
@@ -12,17 +14,6 @@ services:
     command: ["npm", "start"]
     networks:
       - my-network
-
-  # nginx:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.nginx
-  #   ports:
-  #     - "8080:80" # Change this line to use port 8080 on the host
-  #   depends_on:
-  #     - app
-  #   networks:
-  #     - my-network
 
 networks:
   my-network:

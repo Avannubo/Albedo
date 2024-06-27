@@ -22,7 +22,9 @@ FROM node:18-alpine
 # Set the working directory inside the container
 WORKDIR /app
 
+#COPY .env .env 
 # Copy only the necessary files from the builder stage
+COPY --from=builder .env .env
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public

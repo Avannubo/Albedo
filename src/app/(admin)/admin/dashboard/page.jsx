@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 export default function page() {
   const cookieStore = cookies()
   const token = cookieStore.has('token');
-  console.log(token);
+  //console.log(token);
   if (!token) {
     redirect('/admin');
   }

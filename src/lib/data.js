@@ -1019,20 +1019,20 @@ export async function updateActiveOrder(orderId, newState) {
             const inactiveJsonData = JSON.parse(inactiveData);
             const activeJsonData = JSON.parse(activeData);
             const { InactiveOrders } = inactiveJsonData;
-            const { ActiveOrders } = activeJsonData;
-            const orderToUpdate = ActiveOrders[orderId];
+            const { ClientOrders } = activeJsonData;
+            const orderToUpdate = ClientOrders[orderId];
             if (!orderToUpdate) {
                 throw new Error("Order not found in ActiveOrders.");
             }
             orderToUpdate.orderState = newState;
             //console.log(orderId);
-            ActiveOrders.splice(orderId, 1);
+            ClientOrders.splice(orderId, 1);
             // Add the updated order object to InactiveOrders
             InactiveOrders.push(orderToUpdate);
             // Write changes back to files
             await Promise.all([
                 await writeFile(filePathInactiveOrders, JSON.stringify({ InactiveOrders })),
-                await writeFile(filePathActiveOrders, JSON.stringify({ ActiveOrders }))
+                await writeFile(filePathActiveOrders, JSON.stringify({ ClientOrders }))
             ]);
             revalidatePath('/admin/orders');
             return true;
@@ -1045,8 +1045,8 @@ export async function updateActiveOrder(orderId, newState) {
         try {
             const data = await readFile(filePathActiveOrders, 'utf8');
             const jsonData = JSON.parse(data);
-            const { ActiveOrders } = jsonData;
-            ActiveOrders[orderId].orderState = newState;
+            const { ClientOrders } = jsonData;
+            ClientOrders[orderId].orderState = newState;
             await writeFile(filePathActiveOrders, JSON.stringify(jsonData));
             return true;
         } catch (error) {
@@ -1064,7 +1064,7 @@ export async function updateInactiveOrder(orderId, newState) {
             const inactiveJsonData = JSON.parse(inactiveData);
             const activeJsonData = JSON.parse(activeData);
             const { InactiveOrders } = inactiveJsonData;
-            const { ActiveOrders } = activeJsonData;
+            const { ClientOrders } = activeJsonData;
             const orderToUpdate = InactiveOrders[orderId];
             if (!orderToUpdate) {
                 throw new Error("Order not found in InactiveOrders.");
@@ -1073,11 +1073,11 @@ export async function updateInactiveOrder(orderId, newState) {
             //console.log(orderId);
             InactiveOrders.splice(orderId, 1);
             // Add the updated order object to ActiveOrders
-            ActiveOrders.push(orderToUpdate);
+            ClientOrders.push(orderToUpdate);
             // Write changes back to files
             await Promise.all([
                 await writeFile(filePathInactiveOrders, JSON.stringify({ InactiveOrders })),
-                await writeFile(filePathActiveOrders, JSON.stringify({ ActiveOrders }))
+                await writeFile(filePathActiveOrders, JSON.stringify({ ClientOrders }))
             ]);
             revalidatePath('/admin/orders');
             return true;

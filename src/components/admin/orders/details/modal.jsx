@@ -1,4 +1,5 @@
-"use client"; 
+"use client";
+import Image from "next/image";
 export default function modal({ isOpen, onClose, order }) {
   return isOpen ? (
     <div className="fixed inset-0 p-8 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
@@ -23,10 +24,12 @@ export default function modal({ isOpen, onClose, order }) {
                         <div className='flex flex-col mr-2' key={index}>
                           <div className='flex flex-row'>
                             <div className='w-[70px] h-auto my-2'>
-                              <img
+                              <Image
                                 src={product.imagen}
                                 alt="product-image"
                                 className="object-cover rounded-xl"
+                                width={1000}
+                                height={1000}
                               />
                             </div>
                             <div className='ml-4 my-2'>

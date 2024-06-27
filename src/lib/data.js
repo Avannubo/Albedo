@@ -805,10 +805,15 @@ export async function getDataByUrlId(slugIds) {
 export async function saveNewOrder(orderData) {
     console.log('Order Data:', orderData);
     try {
+        console.log('Reading file:', filePathActiveOrders);
         const data = await fs.readFile(filePathActiveOrders, 'utf8');
+        console.log('File content:', data);
+
         const jsonData = JSON.parse(data);
+        console.log('Parsed JSON:', jsonData);
 
         if (!jsonData.ClientOrders) {
+            console.log('ClientOrders does not exist, creating an empty array.');
             jsonData.ClientOrders = [];
         }
 
@@ -816,17 +821,28 @@ export async function saveNewOrder(orderData) {
             throw new Error('ClientOrders is not an array');
         }
 
+        console.log('Current ClientOrders:', jsonData.ClientOrders);
+
         const orderDataWithState = {
             ...orderData,
             orderState: 'Pendiente',
             createdAt: euFormattedDateTime
         };
 
+        console.log('Order data with state:', orderDataWithState);
+
         jsonData.ClientOrders.unshift(orderDataWithState);
 
+        console.log('Updated ClientOrders:', jsonData.ClientOrders);
+
         await fs.writeFile(filePathActiveOrders, JSON.stringify(jsonData, null, 2), 'utf8');
+        console.log('File written successfully.');
+
         await sendEmail(orderData);
+        console.log('Email sent.');
+
         revalidatePath('/admin/orders');
+        console.log('Path revalidated.');
 
         console.log('Order saved successfully.');
         return true;
@@ -931,9 +947,9 @@ export async function getAllActiveOrders() {
     try {
         const data = await readFile(filePathActiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
-        const { ActiveOrders } = jsonData;
+        const { ClientOrders } = jsonData;
         revalidatePath('/admin/orders');
-        return ActiveOrders;
+        return ClientOrders;
     } catch (error) {
         console.error("Error getting all Client Orders:", error);
         return [];
@@ -961,12 +977,12 @@ export async function getActiveOrderByIndex(orderIndex) {
     try {
         const data = await readFile(filePathActiveOrders, 'utf8');
         const jsonData = JSON.parse(data);
-        const { ActiveOrders } = jsonData;
-        if (orderIndex < 0 || orderIndex >= ActiveOrders.length) {
+        const { ClientOrders } = jsonData;
+        if (orderIndex < 0 || orderIndex >= ClientOrders.length) {
             throw new Error("Invalid order index");
         }
         revalidatePath('/admin/orders');
-        return ActiveOrders[orderIndex];
+        return ClientOrders[orderIndex];
     } catch (error) {
         console.error("Error getting order by index:", error);
         return null;

@@ -27,7 +27,6 @@ export default function password() {
     }
     return (
         <>
-
             <div className="w-full h-auto bg-slate-50 rounded-lg p-4 space-y-1 border">
                 {updateMessage && (
                     <div className="relative top-0 rounded-lg border-2  border-green-500  bg-green-200 text-slate-800 py-2 px-4 z-50">

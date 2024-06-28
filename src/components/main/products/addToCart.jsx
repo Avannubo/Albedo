@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 function AddToCart({ producto }) {
+  console.log(producto.ALBEDOstock);
   // State to store the quantity input value
   const [quantity, setQuantity] = useState(1);
 
@@ -25,19 +26,16 @@ function AddToCart({ producto }) {
         foundDuplicate = true;
       }
     });
-
     // If not found, add the product to the cart
     if (!foundDuplicate) {
       //console.log("Adding New Product:", producto);
       // Add the product with the specified quantity
       carrito.push({ ...producto, quantity });
     }
-
     // Update the cart in localStorage
     if (typeof window !== "undefined") {
       localStorage.setItem("carrito", JSON.stringify(carrito));
     }
-
     //console.log("Updated Cart:", carrito);
     // window.location.reload();
     setQuantity(1);
@@ -50,6 +48,7 @@ function AddToCart({ producto }) {
         type="number"
         className="self-center shadow-sm rounded-md w-1/4 mr-2 p-0 h-[36px] text-center border border-gray-300 focus:outline-2 focus:ring-[#304590] focus:border-[#304590]"
         placeholder="0"
+        max={producto.ALBEDOstock}
         min="1"
         step="1"
         value={quantity}

@@ -153,7 +153,9 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                 imagePaths: imagePaths,
                 relatedFilePaths: relatedFilePaths,
             };
-            //console.log(productData);
+            console.log(newProductStock);
+            console.log(newProductMinStock);
+            console.log(productData);
             // Ensure addproduct is awaited
             await addproduct(
                 categoryId,

@@ -450,8 +450,8 @@ export async function addproduct(categoryId, productData) {
                         "ALBEDOprecio": parseFloat(productData.newProductPrice),
                         "ALBEDOdescripcion": productData.newProductDescription,
                         "ALBEDOcuerpo": productData.newProductBody,
-                        "ALBEDOstock_minimo": productData.newProductStock,
-                        "ALBEDOstock": productData.newProductStock,
+                        "ALBEDOstock": parseInt(productData.newProductStock, 10), // Convert to integer
+                        "ALBEDOstock_minimo": parseInt(productData.newProductMinStock, 10), // Convert to integer
                         "isPublished": false,
                         "FeachaDeCreacion": euFormattedDateTime,
                         "FechaDeModificacion": euFormattedDateTime,

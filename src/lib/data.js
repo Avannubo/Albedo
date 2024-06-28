@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
-import nodemailer from 'nodemailer'; 
+import nodemailer from 'nodemailer';
 
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
@@ -46,7 +46,7 @@ function checkFileAvailability() {
             }
         });
     });
-} 
+}
 
 
 export async function requireContent() {
@@ -91,21 +91,61 @@ export async function getListProductsFiltered() {
         }
     }
 }
-export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = '') {
+export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = '', refillStock) {
     // console.log(isPublishedFilter, categoryFilter);
     const content = await requireContent();
     const { categories } = content;
-    const filteredCategories = categories.filter(category => {
-        if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {
+    if (refillStock) {
+ 
+        try {
+            const data = await fs.readFile(filePath, 'utf8');
+            const { categories } = JSON.parse(data);
+            const loopRecursive = async (categories) => {
+                for (let i = 0; i < categories.length; i++) {
+                    const category = categories[i];
+                    for (let j = 0; j < category.products.length; j++) {
+                        const product = category.products[j];
+                        // //console.log(productId.productId);
+                        if (product.ALBEDOstock < product.ALBEDOstock_minimo) {
+                            filteredProductList.push(product);
+                            return true;
+                        }
+                    }
+                    if (category.subCategories && category.subCategories.length > 0) {
+                        const subcategoryDeleted = await loopRecursive(category.subCategories);
+                        if (subcategoryDeleted) return true;
+                    }
+                }
+                return false;
+            };
+            //console.log("Starting saving process...");
+            const product = await loopRecursive(categories);
+            if (!product) {
+                //console.log("product not found.");
+                return false;
+            }
+            //console.log("product saved successfully.");
+            console.log(JSON.stringify(filteredProductList)); 
+            return true;
+        } catch (error) {
+            //console.log("Error:", error);
             return false;
         }
-        if (categoryFilter && category.name !== categoryFilter) {
-            return false;
-        }
-        return true;
-    });
+
+    } else {
+        const filteredCategories = categories.filter(category => {
+            if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {
+                return false;
+            }
+            if (categoryFilter && category.name !== categoryFilter) {
+                return false;
+            }
+            return true;
+        });
+        filteredProductList = filteredCategories;
+    }
+
     //console.log(filteredCategories);
-    filteredProductList = filteredCategories;
     revalidatePath('/admin/ListProducts');
 }
 export async function getParameters() {
@@ -918,7 +958,7 @@ export async function sendEmail(orderData) {
             subject: "Detalles del pedido realizado",
             text: emailText,
         };
-        
+
         const mailOptionsClient = {
             from: process.env.NODEMAILER_EMAILSENDER, //process.env.NODEMAILER_EMAIL,"arjun.singh@avannubo.com"
             to: customerDetails.email,//process.env.NODEMAILER_EMAILRECEIVER,

@@ -5,30 +5,23 @@ import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import nodemailer from 'nodemailer';
-
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 var filteredProductList = [];
-
-
 const filePath = './public/data/Products.json';
 const filePathActiveOrders = './public/data/ClientOrdersActive.json';
 const filePathInactiveOrders = './public/data/ClientOrdersInactive.json';
 const filePathParameters = './public/data/Parameters.json';
-
 const publicFolderPath = path.resolve(__dirname, 'public');
-
 const filePaths = [
     './public/data/Products.json',
     './public/data/ClientOrdersActive.json',
     './public/data/ClientOrdersInactive.json',
     './public/data/Parameters.json'
 ];
-
 function checkFileAvailability() {
     filePaths.forEach(filePath => {
         const originalPath = path.resolve(__dirname, filePath);
-
         // Check if file exists in original path
         fs.access(originalPath, fs.constants.F_OK, (err) => {
             if (err) {
@@ -47,8 +40,6 @@ function checkFileAvailability() {
         });
     });
 }
-
-
 export async function requireContent() {
     // if (!cachedContent) {
     const res = await fs.readFile(filePath, 'utf8');
@@ -77,76 +68,63 @@ export async function getCategoryDataForListProducts() {
     }
 }
 export async function getListProductsFiltered() {
-    const content = await requireContent();
-    if (content) {
-        const { categories } = content;
-        // console.log(filteredProductList);
-        if (filteredProductList.length == 0) {
-            revalidatePath('/admin/ListProducts');
-            return categories;
-        } else {
-            revalidatePath('/admin/ListProducts');
-
-            return filteredProductList;
-        }
-    }
+    revalidatePath('/admin/ListProducts');
+    console.log(filteredProductList);
+    return filteredProductList;
 }
-export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = '', refillStock) {
-    // console.log(isPublishedFilter, categoryFilter);
+export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = "", refillStock = false) {
+    console.log(isPublishedFilter, categoryFilter, refillStock);
     const content = await requireContent();
     const { categories } = content;
-    if (refillStock) {
- 
-        try {
-            const data = await fs.readFile(filePath, 'utf8');
-            const { categories } = JSON.parse(data);
-            const loopRecursive = async (categories) => {
-                for (let i = 0; i < categories.length; i++) {
-                    const category = categories[i];
-                    for (let j = 0; j < category.products.length; j++) {
-                        const product = category.products[j];
-                        // //console.log(productId.productId);
-                        if (product.ALBEDOstock < product.ALBEDOstock_minimo) {
-                            filteredProductList.push(product);
-                            return true;
-                        }
-                    }
-                    if (category.subCategories && category.subCategories.length > 0) {
-                        const subcategoryDeleted = await loopRecursive(category.subCategories);
-                        if (subcategoryDeleted) return true;
-                    }
-                }
-                return false;
-            };
-            //console.log("Starting saving process...");
-            const product = await loopRecursive(categories);
-            if (!product) {
-                //console.log("product not found.");
-                return false;
-            }
-            //console.log("product saved successfully.");
-            console.log(JSON.stringify(filteredProductList)); 
-            return true;
-        } catch (error) {
-            //console.log("Error:", error);
+
+    const filteredCategories = categories.filter(category => {
+        if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {
             return false;
         }
-
-    } else {
-        const filteredCategories = categories.filter(category => {
-            if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {
-                return false;
-            }
-            if (categoryFilter && category.name !== categoryFilter) {
-                return false;
-            }
-            return true;
-        });
-        filteredProductList = filteredCategories;
-    }
+        if (categoryFilter && category.name !== categoryFilter) {
+            return false;
+        }
+        return true;
+    });
+    filteredProductList = filteredCategories;
 
     //console.log(filteredCategories);
     revalidatePath('/admin/ListProducts');
+}
+
+export async function getRefillStockProducts() {
+    try {
+        const refillProductList = [];
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories } = JSON.parse(data);
+
+        const loopRecursive = async (categories) => {
+            for (let i = 0; i < categories.length; i++) {
+                const category = categories[i];
+                for (let j = 0; j < category.products.length; j++) {
+                    const product = category.products[j];
+                    if (product.ALBEDOstock < product.ALBEDOstock_minimo) {
+                        refillProductList.push(product);
+                    }
+                }
+                if (category.subCategories && category.subCategories.length > 0) {
+                    await loopRecursive(category.subCategories);
+                }
+            }
+        };
+
+        await loopRecursive(categories);
+
+        if (refillProductList.length === 0) {
+            console.log("No products need refilling.");
+            return []; // Return an empty array if no products need refilling
+        }
+
+        return refillProductList; // Return the array of products needing refilling
+    } catch (error) {
+        console.log("Error:", error);
+        return []; // Return an empty array on error
+    }
 }
 export async function getParameters() {
     try {
@@ -159,7 +137,6 @@ export async function getParameters() {
         return [];
     }
 }
-
 export async function getShippingPrices() {
     try {
         const data = await getParameters();
@@ -171,7 +148,6 @@ export async function getShippingPrices() {
         return {}; // Return an empty object or handle the error as needed
     }
 }
-
 export async function getIBAN() {
     try {
         const data = await getParameters();
@@ -183,7 +159,6 @@ export async function getIBAN() {
         return {}; // Return an empty object or handle the error as needed
     }
 }
-
 export async function getIVA() {
     try {
         const data = await getParameters();
@@ -195,7 +170,6 @@ export async function getIVA() {
         return {}; // Return an empty object or handle the error as needed
     }
 }
-
 export async function updateafsadfsafsf(hgjfgjgjgjh, asdfasfvcxz) {
     try {
         // Read data from file
@@ -259,7 +233,6 @@ export async function updateIVA(newIVA) {
         return null;
     }
 }
-
 /**
  * Deletes a category or a product based on provided IDs.
  * @param {object} categoryId - The ID of the category or product to be deleted.
@@ -834,8 +807,6 @@ export async function getDataByUrlId(slugIds) {
         return false;
     }
 }
-
-
 //function to save new orders on checkout page
 /**
  * Saves a new order to the system.
@@ -848,42 +819,30 @@ export async function saveNewOrder(orderData) {
         console.log('Reading file:', filePathActiveOrders);
         const data = await fs.readFile(filePathActiveOrders, 'utf8');
         console.log('File content:', data);
-
         const jsonData = JSON.parse(data);
         console.log('Parsed JSON:', jsonData);
-
         if (!jsonData.ClientOrders) {
             console.log('ClientOrders does not exist, creating an empty array.');
             jsonData.ClientOrders = [];
         }
-
         if (!Array.isArray(jsonData.ClientOrders)) {
             throw new Error('ClientOrders is not an array');
         }
-
         console.log('Current ClientOrders:', jsonData.ClientOrders);
-
         const orderDataWithState = {
             ...orderData,
             orderState: 'Pendiente',
             createdAt: euFormattedDateTime
         };
-
         console.log('Order data with state:', orderDataWithState);
-
         jsonData.ClientOrders.unshift(orderDataWithState);
-
         console.log('Updated ClientOrders:', jsonData.ClientOrders);
-
         await fs.writeFile(filePathActiveOrders, JSON.stringify(jsonData, null, 2), 'utf8');
         console.log('File written successfully.');
-
         await sendEmail(orderData);
         console.log('Email sent.');
-
         revalidatePath('/admin/orders');
         console.log('Path revalidated.');
-
         console.log('Order saved successfully.');
         return true;
     } catch (error) {
@@ -891,13 +850,11 @@ export async function saveNewOrder(orderData) {
         return false;
     }
 }
-
 export async function sendEmail(orderData) {
     try {
         const customerDetails = orderData.userInfo;
         const products = orderData.cartProducts;
         const shippingDetails = orderData.selectedShipping;
-
         let productsText = '';
         products.forEach(product => {
             productsText += `
@@ -908,10 +865,8 @@ export async function sendEmail(orderData) {
                 Cantidad Pedida: ${product.quantity} 
                 \n`;
         });
-
         const emailText = `
             Información del Pedido:
-
             Detalles del Cliente:
             - Nombre: ${customerDetails.firstName}
             - Apellidos: ${customerDetails.lastName}
@@ -926,22 +881,16 @@ export async function sendEmail(orderData) {
             - Provincia: ${customerDetails.province}
             - Código Postal: ${customerDetails.zipCode}
             - Solicitud de Factura: ${customerDetails.invoice ? 'Sí' : 'No'}
-
             Detalles del Pedido:
             ${productsText}
-
             Información de Envío:
             - Método de Envío: ${shippingDetails.method}
             - Precio del Envío: ${shippingDetails.price} EUR
-
             Información de Pago:
             - Método de Pago: ${orderData.selectedPayment}
-
             Monto Total del Pedido: ${orderData.totalPedido} EUR
-
             Factura Requerida: ${orderData.invoice ? 'Sí' : 'No'}
             `;
-
         var transporter = nodemailer.createTransport({
             host: "smtp.office365.com",
             port: 587,
@@ -951,14 +900,12 @@ export async function sendEmail(orderData) {
                 pass: process.env.NODEMAILER_PW,
             },
         });
-
         const mailOptionsOnwer = {
             from: process.env.NODEMAILER_EMAILSENDER, //process.env.NODEMAILER_EMAIL,"arjun.singh@avannubo.com"
             to: process.env.NODEMAILER_EMAILSENDER,//process.env.NODEMAILER_EMAILRECEIVER,
             subject: "Detalles del pedido realizado",
             text: emailText,
         };
-
         const mailOptionsClient = {
             from: process.env.NODEMAILER_EMAILSENDER, //process.env.NODEMAILER_EMAIL,"arjun.singh@avannubo.com"
             to: customerDetails.email,//process.env.NODEMAILER_EMAILRECEIVER,
@@ -977,7 +924,6 @@ export async function sendEmail(orderData) {
         return false;
     }
 }
-
 //functions to /admin/orders
 /**
  * Retrieves all orders.

@@ -106,6 +106,7 @@ export async function getRefillStockProducts() {
                     if (product.ALBEDOstock < product.ALBEDOstock_minimo) {
                         refillProductList.push(product);
                     }
+                    
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
                     await loopRecursive(category.subCategories);

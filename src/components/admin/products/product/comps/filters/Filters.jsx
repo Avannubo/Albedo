@@ -11,26 +11,18 @@ export default function Filters({ list }) {
         autoClickPublished();
     }, []);
 
-    const autoClickPublished = () => {
-        setIsPublishedFilter(true);
-        getFiltersListProducts(true, "", false);
-    };
-
-    const categoryOptions = list.filter(category => category.isPublished === isPublishedFilter);
-
     const onCategoryChange = async (value) => {
         setCategoryFilter(value);
-        getFiltersListProducts(isPublishedFilter, value, false);
+        getFiltersListProducts(isPublishedFilter, value);
     };
 
     const onFilterChange = (value) => {
         setIsPublishedFilter(value === "true");
-        getFiltersListProducts(value === "true", categoryFilter, false);
+        getFiltersListProducts(value === "true", categoryFilter);
     };
 
     return (
         <div className="flex flex-row justify-end space-x-4 w-auto">
-            <Restock/>
             <select
                 value={isPublishedFilter.toString()}
                 onChange={(e) => onFilterChange(e.target.value)}

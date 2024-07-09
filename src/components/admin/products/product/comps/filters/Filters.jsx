@@ -30,7 +30,7 @@ export default function Filters({ list }) {
 
     return (
         <div className="flex flex-row justify-end space-x-4 w-auto">
-            {/* <Restock/> */}
+            <Restock/>
             <select
                 value={isPublishedFilter.toString()}
                 onChange={(e) => onFilterChange(e.target.value)}

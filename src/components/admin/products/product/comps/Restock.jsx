@@ -11,7 +11,6 @@ export default function Restock() {
     useEffect(() => {
         fetchRefillProducts();
         const intervalId = setInterval(fetchRefillProducts, 3000);
-
         document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
@@ -31,7 +30,7 @@ export default function Restock() {
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
-    }; 
+    };
 
     const handleClickOutside = (event) => {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

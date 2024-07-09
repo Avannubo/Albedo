@@ -20,6 +20,7 @@ export default function CartItem() {
       }
       return product;
     });
+    // console.log(product.ALBEDOstock);
     setCartItems(updatedCartItems);
     localStorage.setItem("carrito", JSON.stringify(updatedCartItems));
   };
@@ -59,6 +60,7 @@ export default function CartItem() {
                         className="h-8 w-12 border bg-white text-center text-sm outline-none number-input "
                         type="number"
                         value={product.quantity}
+                        max={product.ALBEDOstock}
                         min="1"
                         onChange={(e) => {
                           const newQuantity = parseInt(e.target.value);

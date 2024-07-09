@@ -1,14 +1,15 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getFiltersListProducts } from '@/lib/data';
-
+import Restock from '@/components/admin/products/product/comps/Restock';
 export default function Filters({ list }) {
     const [isPublishedFilter, setIsPublishedFilter] = useState(true);
     const [categoryFilter, setCategoryFilter] = useState("");
 
-    const categoryOptions = isPublishedFilter === true
-        ? list.filter(category => category.isPublished === true)
-        : list.filter(category => category.isPublished === false);
+    useEffect(() => {
+        // Auto-click the "Publicado" option on component load
+        autoClickPublished();
+    }, []);
 
     const onCategoryChange = async (value) => {
         setCategoryFilter(value);
@@ -23,14 +24,13 @@ export default function Filters({ list }) {
     return (
         <div className="flex flex-row justify-end space-x-4 w-auto">
             <select
-                value={isPublishedFilter === true ? "" : isPublishedFilter.toString()}
+                value={isPublishedFilter.toString()}
                 onChange={(e) => onFilterChange(e.target.value)}
                 className="px-1.5 py-1 border-2 border-[#304590] rounded-lg focus:outline-none focus:border-[#304590]"
             >
                 <option value="true">Publicado</option>
                 <option value="false">Borrador</option>
             </select>
-
             <select
                 value={categoryFilter}
                 onChange={(e) => onCategoryChange(e.target.value)}

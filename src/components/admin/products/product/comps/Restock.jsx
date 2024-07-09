@@ -1,20 +1,25 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react';
 import { getRefillStockProducts } from '@/lib/data'; // Adjust import path as per your project structure
-import Delete from "@/components/admin/products/category/delete";
 import EditProduct from "@/components/admin/products/product/actions/edit";
-import Duplicate from '@/components/admin/products/product/actions/duplicate';
+
 export default function Restock() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [refillProducts, setRefillProducts] = useState([]);
     const dropdownRef = useRef(null);
+
     useEffect(() => {
         fetchRefillProducts();
+        const intervalId = setInterval(fetchRefillProducts, 3000);
+
         document.addEventListener("mousedown", handleClickOutside);
+
         return () => {
+            clearInterval(intervalId);
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
     const fetchRefillProducts = async () => {
         try {
             const products = await getRefillStockProducts(); // Assuming getRefillStockProducts returns an array of products
@@ -23,17 +28,17 @@ export default function Restock() {
             console.error("Error fetching refill products:", error);
         }
     };
+
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
-    };
-    const closeDropdown = () => {
-        setDropdownOpen(false);
-    };
+    }; 
+
     const handleClickOutside = (event) => {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setDropdownOpen(false);
         }
     };
+
     return (
         <div className="relative">
             <button
@@ -59,10 +64,10 @@ export default function Restock() {
                                         </div>
                                     </div>
                                 ))
-                            ) : ( 
-                                    <p className="h-auto w-full self-center whitespace-nowrap">
-                                        Está todo rellenado.
-                                    </p> 
+                            ) : (
+                                <p className="h-auto w-full self-center whitespace-nowrap">
+                                    Está todo rellenado.
+                                </p>
                             )}
                         </div>
                     </div>

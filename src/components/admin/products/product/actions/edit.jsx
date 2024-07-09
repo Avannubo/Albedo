@@ -6,9 +6,9 @@ export default function editProduct({ category, product }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
-        if (isModalOpen) {
-            window.location.reload();
-        }
+        // if (isModalOpen) {
+        //     window.location.reload();
+        // }
     };
     return (
         <>

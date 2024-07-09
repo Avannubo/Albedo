@@ -68,9 +68,9 @@ export async function getCategoryDataForListProducts() {
     }
 }
 export async function getListProductsFiltered() {
-    revalidatePath('/admin/ListProducts');
-    console.log(filteredProductList);
+    //console.log(filteredProductList);
     return filteredProductList;
+    revalidatePath('/admin/ListProducts');
 }
 export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = "", refillStock = false) {
     console.log(isPublishedFilter, categoryFilter, refillStock);
@@ -116,7 +116,7 @@ export async function getRefillStockProducts() {
         await loopRecursive(categories);
 
         if (refillProductList.length === 0) {
-            console.log("No products need refilling.");
+           // console.log("No products need refilling.");
             return []; // Return an empty array if no products need refilling
         }
 
@@ -747,7 +747,9 @@ export async function duplicateProduct(category, product) {
             category.products = [];
         }
         // category.products.push(duplicateData);
+        revalidatePath('/admin/ListProducts');
         return true; // Successfully duplicated and inserted product
+
     } catch (error) {
         console.error("Error duplicating product:", error);
         return false; // Failed to duplicate product

@@ -33,12 +33,6 @@ export default function aside() {
           <p className="flex justify-center font-semibold">Productos</p>
         </Link>
         <Link
-          href="/admin/RellenarStock"
-          className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
-        >
-          <p className="flex justify-center font-semibold">Reponer Stock</p>
-        </Link>
-        <Link
           href="/admin/orders"
           className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
         >

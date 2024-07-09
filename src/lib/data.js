@@ -116,52 +116,6 @@ export async function getRefillStockProducts() {
         await loopRecursive(categories);
 
         if (refillProductList.length === 0) {
-            // console.log("No products need refilling.");
-            return []; // Return an empty array if no products need refilling
-        }
-
-        return refillProductList; // Return the array of products needing refilling
-    } catch (error) {
-        console.log("Error:", error);
-        return []; // Return an empty array on error
-    }
-}
-
-export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = '', refillStock) {
-    // console.log(isPublishedFilter, categoryFilter);
-    const content = await requireContent();
-    const { categories } = content;
-    if (refillStock) {
- 
-        try {
-            const data = await fs.readFile(filePath, 'utf8');
-            const { categories } = JSON.parse(data);
-            const loopRecursive = async (categories) => {
-                for (let i = 0; i < categories.length; i++) {
-                    const category = categories[i];
-                    for (let j = 0; j < category.products.length; j++) {
-                        const product = category.products[j];
-                        // //console.log(productId.productId);
-                        if (product.ALBEDOstock < product.ALBEDOstock_minimo) {
-                            filteredProductList.push(product);
-                            return true;
-                        }
-                    }
-                    if (category.subCategories && category.subCategories.length > 0) {
-                        const subcategoryDeleted = await loopRecursive(category.subCategories);
-                        if (subcategoryDeleted) return true;
-
-                    }
-                }
-                if (category.subCategories && category.subCategories.length > 0) {
-                    await loopRecursive(category.subCategories);
-                }
-            }
-        };
-
-        await loopRecursive(categories);
-
-        if (refillProductList.length === 0) {
            // console.log("No products need refilling.");
             return []; // Return an empty array if no products need refilling
         }

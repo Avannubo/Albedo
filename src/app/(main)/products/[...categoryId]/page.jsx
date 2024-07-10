@@ -63,8 +63,6 @@ export default function PageContent() {
         }
         fetchData();
     }, [slugArrayHook]);
-
-
     return (
         <Layout>
             {loading ? (
@@ -90,7 +88,7 @@ export default function PageContent() {
                                     </div>
                                 )}
                                 <div className='flex flex-col text-center justify-center my-2' dangerouslySetInnerHTML={{ __html: sanitizeHTML(pageData?.ALBEDOcuerpo) }} />
-                                {pageData.subCategories && pageData.subCategories.length > 0 && (
+                            {pageData.subCategories && pageData.subCategories.length > 0 && (
                                     <>
                                         <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                                         <div className='flex justify-center my-2'>
@@ -148,26 +146,32 @@ export default function PageContent() {
                                                     height={1050}
                                                 />
                                             ))}
-                                            <div className="flex flex-row items-start mt-2 ">
-                                                {/* Thumbnails of all images for navigation */}
-                                                {productData.imagens.map((image, index) => (
-                                                    <div key={index} onClick={() => setCurrentImageIndex(index)} className={`space-x-4 h-auto w-auto overflow-hidden  border-2 border-transparent text-center cursor-pointer ${index === currentImageIndex ? 'border-gray-900' : ''}`}>
-                                                        <Image
-                                                            className="rounded-lg w-[150px] h-[80px] mr-1 object-contain"
-                                                            src={image}
-                                                            alt={`Thumbnail ${index + 1}`}
-                                                            width={500}
-                                                            height={500}
-                                                        />
+                                                <div className="flex flex-row items-start mt-2">
+                                                    {/* Scrollable container for thumbnails */}
+                                                    <div className="flex space-x-4 overflow-x-auto w-full">
+                                                        {productData.imagens.map((image, index) => (
+                                                            <div
+                                                                key={index}
+                                                                onClick={() => setCurrentImageIndex(index)}
+                                                                className={`flex-shrink-0 h-auto w-[85px] border-2 border-transparent text-center cursor-pointer ${index === currentImageIndex ? 'border-gray-900' : ''}`}
+                                                            >
+                                                                <Image
+                                                                    className="rounded-lg w-[80px] h-[80px] object-contain"
+                                                                    src={image}
+                                                                    alt={`Thumbnail ${index + 1}`}
+                                                                    width={80}
+                                                                    height={80}
+                                                                />
+                                                            </div>
+                                                        ))}
                                                     </div>
-                                                ))}
-                                            </div>
+                                                </div>
                                         </div>
                                         <div className='my-4 sm:my-0 w-full'>
                                             <h1 className='md:hidden font-extrabold text-2xl'>{productData.ALBEDOtitulo}</h1>
                                             <p className='text-xl font-medium mt-2'><b>Precio: </b>{productData.ALBEDOprecio}€</p>
                                             <div className='md:hidden sm:flex hidden' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />
-                                            <div className='mt-4 w-[250px]'>
+                                            <div className='mt-4 w-full'>
                                                 <AddToCart producto={productData} />
                                             </div>
                                         </div>
@@ -192,7 +196,6 @@ export default function PageContent() {
                                     }
                                 </div>
                             </div>
-
                             {relatedProducts.length > 1 && (
                                 <div className='flex flex-col my-2'>
                                     <h1 className='md:font-extrabold font-semibold text-xl mt-4 md:mt-0'>Productos relacionados que pueden ser de su interés:</h1>

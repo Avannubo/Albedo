@@ -60,7 +60,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                     reader.onload = async () => {
                         const fileData = reader.result;
                         const filePath = `./public/assets/archivos/${file.name}`;
-                        const filePathToSave = `/assets/archivos/${file.name}`;
+                        const filePathToSave = `/public/assets/archivos/${file.name}`;
                         //console.log("Uploading file:", filePath);
                         try {
                             // Assuming saveFile is asynchronous and returns a promise
@@ -100,7 +100,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                     reader.onload = async () => {
                         const base64Image = reader.result;
                         const imagePath = `./public/assets/images/${image.name}`;
-                        const imagePathToSave = `/assets/images/${image.name}`;
+                        const imagePathToSave = `/public/assets/images/${image.name}`;
                         // Assuming saveImage is asynchronous and returns a promise
                         await saveImage(base64Image, imagePath.replace(/ /g, "_"));
                         imagePaths.push(imagePathToSave.replace(/ /g, "_"));

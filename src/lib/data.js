@@ -947,11 +947,9 @@ export async function checkStock(orderData) {
             for (let category of categoryList) {
                 for (let product of category.products) {
                     const cartProduct = orderData.cartProducts.find(cp => cp.ALBEDOcodigo === product.ALBEDOcodigo);
-                    if (cartProduct) {
-                        product.ALBEDOstock -= cartProduct.quantity;
-                        await fs.writeFile(filePath, JSON.stringify({ categories }, null, 2));
+                    if (cartProduct) { 
                         revalidatePath('/admin/ListProducts');
-                        return true;
+                        return product.ALBEDOstock;
                     }
                 }
                 if (category.subCategories && category.subCategories.length > 0) {

@@ -1,20 +1,16 @@
 "use client";
 import React, { useState } from "react";
-
 function AddToCart({ producto }) {
   console.log(producto.ALBEDOstock);
   // State to store the quantity input value
   const [quantity, setQuantity] = useState(1);
-
   const handleQuantityChange = (event) => {
     // Update the quantity state when the input value changes
     setQuantity(parseInt(event.target.value) || 0); // Ensure input is converted to integer or 0 if not valid
   };
-
   const handleClick = () => {
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     let foundDuplicate = false;
-
     // Check if the product already exists in the cart
     carrito.forEach((item) => {
       if (item.ALBEDOcodigo === producto.ALBEDOcodigo) {
@@ -35,9 +31,8 @@ function AddToCart({ producto }) {
     // Reset quantity input to 1
     setQuantity(1);
   };
-
   return (
-    <div className="flex flex-row justify-start items-center space-x-0 md:space-x-2">
+    <div className="flex flex-row justify-center items-center space-x-0 md:space-x-2">
       {producto.ALBEDOstock > 0 ? (
         <>
           {/* Input field to specify quantity */}
@@ -59,11 +54,12 @@ function AddToCart({ producto }) {
             Añadir al carrito
           </button>
         </>
-      ) : (
-        <div className="text-red-500">Producto agotado</div>
+      ) : ( 
+            <p className="text-red-500 text-center w-full">
+            Producto agotado
+          </p> 
       )}
     </div>
   );
 }
-
 export default AddToCart;

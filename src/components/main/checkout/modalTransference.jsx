@@ -1,3 +1,4 @@
+/**
 'use client'
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -185,5 +186,198 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                 </div >
             )}
         </div>
+    ) : null;
+}
+ **/
+'use client'
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { saveNewOrder, checkStock } from '@/lib/data';
+import Image from 'next/image';
+
+export default function ModalTransference({ isOpen, onClose, orderData }) {
+    const [isCopied, setIsCopied] = useState(false);
+    const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+    const [stockCheck, setStockCheck] = useState({ inStock: true, message: '' });
+
+    useEffect(() => {
+        if (isOpen) {
+            checkStock(orderData).then(result => {
+                if (result === 'outOfStock') {
+                    setStockCheck({ inStock: false, message: 'Algunos productos están fuera de stock.' });
+                } else if (result === 'lowStock') {
+                    setStockCheck({ inStock: false, message: 'Algunos productos tienen stock bajo.' });
+                } else {
+                    setStockCheck({ inStock: true, message: '' });
+                }
+            });
+        }
+    }, [isOpen]);
+
+    const copyAccountNumber = () => {
+        const accountNumber = 'ES34 1234 1234 1234 1234';
+        navigator.clipboard.writeText(accountNumber);
+        setIsCopied(true);
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 4000);
+    };
+
+    const handleConfirmPayment = () => {
+        if (stockCheck.inStock) {
+            saveNewOrder(orderData);
+            setPaymentConfirmed(true);
+        }
+    };
+
+    return isOpen ? (
+        <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
+            {paymentConfirmed ? (
+                <div className="w-[1000px] max-w-6xl bg-white shadow-lg rounded-md p-12 relative">
+                    <div className='flex justify-center'>
+                        <svg className='w-40 h-40' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            {/* SVG Path here */}
+                        </svg>
+                    </div>
+                    <h1 className="text-3xl font-bold mb-3 text-center">Gracias por la compra!</h1>
+                    <h3 className="text-xl font-bold mb-6 text-center">En breve le enviaremos confirmación y seguimiento de su pedido.</h3>
+                    <div className='flex flex-row space-x-6 justify-center mt-2'>
+                        <Link href="/" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'>
+                            Inicio
+                        </Link>
+                        <Link href="/products" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' >
+                            Tienda
+                        </Link>
+                    </div>
+                </div>
+            ) : (
+                <div className="w-[1000px] max-w-6xl bg-white shadow-lg rounded-md p-12 relative">
+                    <div className='flex flex-col'>
+                        <div className='flex flex-row justify-end'>
+                            <svg onClick={onClose} xmlns="http://www.w3.org/2000/svg" className="w-3.5 cursor-pointer shrink-0 fill-black hover:fill-red-500 float-right" viewBox="0 0 320.591 320.591">
+                                {/* SVG Path here */}
+                            </svg >
+                        </div >
+                        <div className='flex flex-col space-y-4'>
+                            <div className='flex flex-row'>
+                                <div className='w-1/2 grow mr-6'>
+                                    <h1 className="mb-4 text-start text-2xl font-bold">
+                                        Pedido:
+                                    </h1>
+                                    <div className='overflow-y-scroll h-[200px]'>
+                                        {orderData.cartProducts && orderData.cartProducts.length > 0 && (
+                                            orderData.cartProducts.map((product, index) => (
+                                                <div className='flex flex-col ' key={index}>
+                                                    <div className='flex flex-row'>
+                                                        <div className='w-[80px] my-2'>
+                                                            <Image
+                                                                src={product.imagens[0]}
+                                                                alt="product-image"
+                                                                className="object-cover rounded-xl h-[70px]"
+                                                                width={1200}
+                                                                height={1200}
+                                                            />
+                                                        </div>
+                                                        <div className='ml-4 my-2'>
+                                                            <h1 className='font-bold w-full'>{product.ALBEDOtitulo}({product.ALBEDOcodigo})</h1>
+                                                            <p>{product.quantity} x {product.ALBEDOprecio}€</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className=''>
+                                                        <hr />
+                                                    </div>
+                                                </div>
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
+                                <div className='w-1/2 grow'>
+                                    <h1 className="mb-4 text-start text-2xl font-bold">
+                                        Datos de Usuarios:
+                                    </h1>
+                                    {orderData.userInfo && (
+                                        <div className='flex flex-col space-y-2 text-lg'>
+                                            <div className='flex flex-row '>
+                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
+                                                    <h1 className='font-bold'>Nombre: </h1>
+                                                    <p>{orderData.userInfo.firstName}</p>
+                                                </div>
+                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
+                                                    <h1 className='font-bold'>Apellidos: </h1>
+                                                    <p>{orderData.userInfo.lastName}</p>
+                                                </div>
+                                            </div>
+                                            <div className='flex flex-row '>
+                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
+                                                    <h1 className='font-bold'>DNI/CIF: </h1>
+                                                    <p>{orderData.userInfo.dni}</p>
+                                                </div>
+                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
+                                                    <h1 className='font-bold'>Teléfono: </h1>
+                                                    <p>{orderData.userInfo.phoneNumber}</p>
+                                                </div>
+                                            </div>
+                                            {
+                                                orderData.userInfo.company && (
+                                                    <div className='flex flex-row space-x-2'>
+                                                        <h1 className='font-bold'>Empresa: </h1>
+                                                        <p>{orderData.userInfo.company}</p>
+                                                    </div>
+                                                )}
+                                            <div className='flex flex-row space-x-2'>
+                                                <h1 className='font-bold'>Email: </h1>
+                                                <p>{orderData.userInfo.email}</p>
+                                            </div>
+                                            <div className='flex flex-row space-x-2'>
+                                                <h1 className='font-bold'>Dirección: </h1>
+                                                <p>{orderData.userInfo.address}
+                                                    {orderData.userInfo.zipCode} {orderData.userInfo.city}
+                                                    {orderData.userInfo.province}</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            <div className='flex flex-col justify-center space-y-4 mt-12'><hr />
+                                <h1 className='font-bold text-2xl self-center'>Proceso de Pago Por Transferencia</h1>
+                                <p className='text-center self-center'>Para enviar su pedido, debe enviar el pago del pedido a este número de cuenta y hacer clic para confirmar el pago. Recibirá la confirmación del pedido en 2-3 días hábiles. Cualquier duda ponte en <Link className='text-[#304590] hover:text-[#475caa]' href="/about/contacto">contacto con nosotros</Link>.</p>
+                                <div className='flex flex-row space-x-2 text-xl self-center mt-4 p-2 justify-end w-auto'>
+                                    <h1 className='font-bold'>Precio total de pedido:</h1>
+                                    <p className='flex flex-col justify-end'> {orderData.totalPedido}€ </p>
+                                </div>
+                                <div className='flex flex-row self-center space-x-2'>
+                                    <p className='self-center text-lg'>
+                                        Nº de Cuenta:
+                                    </p>
+                                    <div className='flex flex-row justify-center '>
+                                        <div className='relative'>
+                                            <p className='self-center text-lg p-3 rounded-lg border border-grey flex flex-row hover:border-[#475caa] hover:bg-blue-100' onClick={copyAccountNumber} style={{ cursor: 'pointer' }}>
+                                                ES34 1234 1234 1234 1234
+                                            </p>
+                                            {isCopied &&
+                                                <span className="absolute bottom-[-25px] left-0 p-2 mt-2 text-xs text-white bg-black rounded-md">
+                                                    Copiado al portapapeles
+                                                </span>}
+                                        </div>
+                                    </div>
+                                </div>
+                                {stockCheck.message && (
+                                    <div className='flex flex-row self-center space-x-2'>
+                                        <p className='self-center text-lg text-red-500'>
+                                            {stockCheck.message}
+                                        </p>
+                                    </div>
+                                )}
+                                <div className='flex flex-row self-center'>
+                                    <button onClick={handleConfirmPayment} className='w-[300px] text-center rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa] disabled:opacity-50' disabled={!stockCheck.inStock}>
+                                        Confirmar Pago
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div >
+            )}
+        </div >
     ) : null;
 }

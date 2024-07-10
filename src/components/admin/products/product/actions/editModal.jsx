@@ -95,7 +95,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     reader.onload = async () => {
                         const base64Image = reader.result;
                         const imagePath = `./public/assets/images/${image.name}`;
-                        const imagePathToSave = `/public/assets/images/${image.name}`;
+                        const imagePathToSave = `./public/assets/images/${image.name}`;
                         //console.log("Uploading image:", imagePath);
                         try {
                             // Assuming saveImage is asynchronous and returns a promise

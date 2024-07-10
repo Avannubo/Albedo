@@ -4,9 +4,7 @@ import { editproduct, getCategories, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, category, product }) {
-
     //console.log("btn edit prod: " + JSON.stringify(category.id));
-
     const [loading, setLoading] = useState(false);
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);
@@ -21,8 +19,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     const [productFiles, setProductFiles] = useState(product.archivos);
     const [selectedImages, setSelectedImages] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
-
-
     const [nameError, setNameError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
@@ -95,7 +91,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     reader.onload = async () => {
                         const base64Image = reader.result;
                         const imagePath = `./public/assets/images/${image.name}`;
-                        const imagePathToSave = `/assets/images/${image.name}`;
+                        const imagePathToSave = `/public/assets/images/${image.name}`;
                         //console.log("Uploading image:", imagePath);
                         try {
                             // Assuming saveImage is asynchronous and returns a promise
@@ -117,7 +113,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             });
             Promise.all(uploadPromises)
                 .then(() => {
-                    //console.log("All images uploaded successfully " + uploadPromises);
                     resolve(imagePaths);
                 })
                 .catch(error => {
@@ -134,8 +129,8 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const fileData = reader.result;
-                        const filePath = `/assets/archivos/${file.name}`;
-                        const filePathToSave = `/assets/archivos/${file.name}`;
+                        const filePath = `./public/assets/archivos/${file.name}`;
+                        const filePathToSave = `/public/assets/archivos/${file.name}`;
                         //console.log("Uploading file:", filePath);
                         try {
                             // Assuming saveFile is asynchronous and returns a promise
@@ -166,8 +161,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 });
         });
     };
-
-
     const handleAddProduct = async () => {
         setUrlCodeError(!newProductUrlCode.trim());
         setNameError(!newProductName.trim());
@@ -248,14 +241,12 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} disabled value={newProductCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                 </div> */}
-
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} value={newProductUrlCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                     {urlCodeError && <span className="text-red-500 italic text-xs"> El código URL es obligatorio y no duplicado. </span>}
-
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
@@ -274,7 +265,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
                                 <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
                                 {descriptionError && <span className="text-red-500 italic text-xs"> La descripción de producto es requerida</span>}
-
                                 {/* <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
                             </div>
                             <div className="mb-4">
@@ -346,7 +336,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                                     >
                                                         X
                                                     </button>
-
                                                 </div>
                                             ))}
                                         </div>

@@ -77,6 +77,36 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
             // You might want to handle errors here, e.g., show an error message
         }
     };
+    // const uploadImages = () => {
+    //     return new Promise((resolve, reject) => {
+    //         const imagePaths = [];
+    //         const uploadPromises = selectedImages.map(image => {
+    //             return new Promise((resolveImage, rejectImage) => {
+    //                 const reader = new FileReader();
+    //                 reader.onload = async () => {
+    //                     const base64Image = reader.result;
+    //                     const imagePath = `./public/assets/images/${image.name}`;
+    //                     const imagePathToSave = `/public/assets/images/${image.name}`;
+
+    //                     try {
+    //                         // Assuming saveImage is asynchronous and returns a promise
+    //                         await saveImage(base64Image, imagePath.replace(/ /g, "_"));
+    //                         imagePaths.push(imagePathToSave.replace(/ /g, "_"));
+    //                         resolveImage();
+    //                     } catch (error) {
+    //                         console.error("Error uploading image:", error);
+    //                         rejectImage(error);
+    //                     }
+    //                 };
+    //                 reader.onerror = error => rejectImage(error);
+    //                 reader.readAsDataURL(image);
+    //             });
+    //         });
+    //         Promise.all(uploadPromises)
+    //             .then(() => resolve(imagePaths))
+    //             .catch(error => reject(error));
+    //     });
+    // };
     const uploadImages = () => {
         return new Promise((resolve, reject) => {
             const imagePaths = [];
@@ -84,28 +114,39 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                 return new Promise((resolveImage, rejectImage) => {
                     const reader = new FileReader();
                     reader.onload = async () => {
+                        const base64Image = reader.result;
+                        const imagePath = `./public/assets/images/${image.name}`;
+                        const imagePathToSave = `/public/assets/images/${image.name}`;
+                        //console.log("Uploading image:", imagePath);
                         try {
-                            const base64Image = reader.result;
-                            const imagePath = `./public/assets/images/${image.name}`;
-                            const imagePathToSave = `/assets/images/${image.name}`;
                             // Assuming saveImage is asynchronous and returns a promise
                             await saveImage(base64Image, imagePath.replace(/ /g, "_"));
                             imagePaths.push(imagePathToSave.replace(/ /g, "_"));
+                            //console.log("Image uploaded:", imagePathToSave.replace(/ /g, "_"));
                             resolveImage();
                         } catch (error) {
                             console.error("Error uploading image:", error);
                             rejectImage(error);
                         }
                     };
-                    reader.onerror = error => rejectImage(error);
+                    reader.onerror = error => {
+                        console.error("Error reading image:", error);
+                        rejectImage(error);
+                    };
                     reader.readAsDataURL(image);
                 });
             });
             Promise.all(uploadPromises)
-                .then(() => resolve(imagePaths))
-                .catch(error => reject(error));
+                .then(() => {
+                    resolve(imagePaths);
+                })
+                .catch(error => {
+                    console.error("Error uploading images:", error);
+                    reject(error);
+                });
         });
     };
+    
     const handleAddProduct = async () => {
         setUrlCodeError(!newCategoryUrlId.trim());
         setNameError(!newCategoryName.trim());

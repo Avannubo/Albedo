@@ -1,13 +1,12 @@
 'use client'
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { saveNewOrder } from '@/lib/data';
+import { saveNewOrder, checkStock   } from '@/lib/data';
 import Image from 'next/image';
 export default function ModalTransference({ isOpen, onClose, orderData }) {
     //console.log('modal console: ', JSON.stringify(orderData));
     const [isCopied, setIsCopied] = useState(false);
     const [paymentConfirmed, setPaymentConfirmed] = useState(false); // State to track payment confirmation
-
     const copyAccountNumber = () => {
         const accountNumber = 'ES34 1234 1234 1234 1234'; // Your account number
         navigator.clipboard.writeText(accountNumber);
@@ -24,6 +23,8 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
         //change modal div to another to "thank you for your purchase"
         // setPaymentConfirmed(true);
     };
+
+    
     return isOpen ? (
         <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             {paymentConfirmed ? ( // Render thank you message if payment is confirmed
@@ -57,9 +58,7 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                     <div className='flex flex-col'>
                         <div className='flex flex-row justify-end'>
                             <svg onClick={onClose} xmlns="http://www.w3.org/2000/svg" className="w-3.5 cursor-pointer shrink-0 fill-black hover:fill-red-500 float-right" viewBox="0 0 320.591 320.591">
-
                                 <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z" data-original="#000000"></path>
-
                                 <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z" data-original="#000000"></path>
                             </svg >
                         </div >
@@ -74,11 +73,13 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                             orderData.cartProducts.map((product, index) => (
                                                 <div className='flex flex-col ' key={index}>
                                                     <div className='flex flex-row'>
-                                                        <div className='w-[70px] h-auto my-2'>
+                                                        <div className='w-[80px] my-2'>
                                                             <Image
-                                                                src={product.imagen}
+                                                                src={product.imagens[0]}
                                                                 alt="product-image"
-                                                                className="object-cover rounded-xl"
+                                                                className="object-cover rounded-xl h-[70px]"
+                                                                width={1200}
+                                                                height={1200}
                                                             />
                                                         </div>
                                                         <div className='ml-4 my-2'>
@@ -120,7 +121,6 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                                     <p>{orderData.userInfo.phoneNumber}</p>
                                                 </div>
                                             </div>
-
                                             {
                                                 orderData.userInfo.company && (
                                                     <div className='flex flex-row space-x-2'>
@@ -128,7 +128,6 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                                         <p>{orderData.userInfo.company}</p>
                                                     </div>
                                                 )}
-
                                             <div className='flex flex-row space-x-2'>
                                                 <h1 className='font-bold'>Email: </h1>
                                                 <p>{orderData.userInfo.email}</p>
@@ -148,10 +147,9 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                 <p className='text-center self-center'>Para enviar su pedido, debe enviar el pago del pedido a este número de cuenta y hacer clic para confirmar el pago. Recibirá la confirmación del pedido en 2-3 días hábiles. Cualquier duda ponte en <Link className='text-[#304590] hover:text-[#475caa]' href="/about/contacto">contacto con nosotros</Link>.</p>
                                 <div className='flex flex-row space-x-2 text-xl self-center mt-4 p-2 justify-end w-auto'>
                                     <h1 className='font-bold'>Precio total de pedido:</h1>
-                                    <p> {orderData.totalPedido}€ </p>
+                                    <p className='flex flex-col justify-end'> {orderData.totalPedido}€ </p>
                                 </div>
                                 <div className='flex flex-row self-center space-x-2'>
-
                                     <p className='self-center text-lg'>
                                         Nº de Cuenta:
                                     </p>
@@ -163,24 +161,16 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                             {isCopied &&
                                                 <span className='absolute -right-24 top-2.5  self-center flex flex-row p-1 border border-green-400 rounded-lg bg-green-100'>
                                                     <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
                                                         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-
                                                         <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-
                                                         <g id="SVGRepo_iconCarrier">
-
                                                             <path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="#c0c0c0" strokeWidth="1.5"></path>
-
                                                             <path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="#c0c0c0" strokeWidth="1.5"></path>
                                                         </g>
                                                     </svg>Copiado</span>}
                                         </div>
-
                                     </div>
-
                                 </div>
-
                                 <div className='flex flex-row space-x-6 justify-center mt-2'>
                                     <button onClick={handleConfirmPayment} className='self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' type="button">
                                         Realizar Pedido
@@ -189,7 +179,6 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                         Cancelar
                                     </button>
                                 </div>
-
                             </div>
                         </div>
                     </div >

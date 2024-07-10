@@ -889,51 +889,93 @@ export async function saveNewOrder(orderData) {
         console.error('Error saving new Client Order:', error);
         return false;
     }
-} 
+}
 
-    export async function updateStock(orderData) {
-        try {
-            const data = await fs.readFile(filePath, 'utf8');
-            const { categories } = JSON.parse(data);
+export async function updateStock(orderData) {
+    try {
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories } = JSON.parse(data);
 
-            if (!orderData || !orderData.cartProducts || orderData.cartProducts.length === 0) {
-                console.log("product not available");
-                return false;
-            }
-
-            const updateStockRecursive = async (categoryList) => {
-                for (let category of categoryList) {
-                    for (let product of category.products) {
-                        const cartProduct = orderData.cartProducts.find(cp => cp.ALBEDOcodigo === product.ALBEDOcodigo);
-                        if (cartProduct) {
-                            product.ALBEDOstock -= cartProduct.quantity;
-                            await fs.writeFile(filePath, JSON.stringify({ categories }, null, 2));
-                            revalidatePath('/admin/ListProducts');
-                            return true;
-                        }
-                    }
-                    if (category.subCategories && category.subCategories.length > 0) {
-                        const subcategoryUpdated = await updateStockRecursive(category.subCategories);
-                        if (subcategoryUpdated) return true;
-                    }
-                }
-                return false;
-            };
-
-            const productUpdated = await updateStockRecursive(categories);
-            if (!productUpdated) {
-                console.log("product not found.");
-                return false;
-            }
-
-            console.log("product saved successfully.");
-            return true;
-        } catch (error) {
-            console.error("Error:", error);
+        if (!orderData || !orderData.cartProducts || orderData.cartProducts.length === 0) {
+            console.log("product not available");
             return false;
         }
+
+        const updateStockRecursive = async (categoryList) => {
+            for (let category of categoryList) {
+                for (let product of category.products) {
+                    const cartProduct = orderData.cartProducts.find(cp => cp.ALBEDOcodigo === product.ALBEDOcodigo);
+                    if (cartProduct) {
+                        product.ALBEDOstock -= cartProduct.quantity;
+                        await fs.writeFile(filePath, JSON.stringify({ categories }, null, 2));
+                        revalidatePath('/admin/ListProducts');
+                        return true;
+                    }
+                }
+                if (category.subCategories && category.subCategories.length > 0) {
+                    const subcategoryUpdated = await updateStockRecursive(category.subCategories);
+                    if (subcategoryUpdated) return true;
+                }
+            }
+            return false;
+        };
+
+        const productUpdated = await updateStockRecursive(categories);
+        if (!productUpdated) {
+            console.log("product not found.");
+            return false;
+        }
+
+        console.log("product saved successfully.");
+        return true;
+    } catch (error) {
+        console.error("Error:", error);
+        return false;
+    }
 }
-    
+export async function checkStock(orderData) {
+    try {
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories } = JSON.parse(data);
+
+        if (!orderData || !orderData.cartProducts || orderData.cartProducts.length === 0) {
+            console.log("product not available");
+            return false;
+        }
+
+        const updateStockRecursive = async (categoryList) => {
+            for (let category of categoryList) {
+                for (let product of category.products) {
+                    const cartProduct = orderData.cartProducts.find(cp => cp.ALBEDOcodigo === product.ALBEDOcodigo);
+                    if (cartProduct) {
+                        product.ALBEDOstock -= cartProduct.quantity;
+                        await fs.writeFile(filePath, JSON.stringify({ categories }, null, 2));
+                        revalidatePath('/admin/ListProducts');
+                        return true;
+                    }
+                }
+                if (category.subCategories && category.subCategories.length > 0) {
+                    const subcategoryUpdated = await updateStockRecursive(category.subCategories);
+                    if (subcategoryUpdated) return true;
+                }
+            }
+            return false;
+        };
+
+        const productUpdated = await updateStockRecursive(categories);
+        if (!productUpdated) {
+            console.log("product not found.");
+            return false;
+        }
+
+        console.log("product saved successfully.");
+        return true;
+    } catch (error) {
+        console.error("Error:", error);
+        return false;
+    }
+}
+
 export async function sendEmail(orderData) {
     try {
         const customerDetails = orderData.userInfo;

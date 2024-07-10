@@ -50,8 +50,12 @@ export default function CartItem() {
                   <div className="flex flex-row justify-center items-center space-x-4 ">
                     <div className="flex items-center border-gray-100">
                       <span
-                        onClick={() => updateCartItem(product.ALBEDOcodigo, product.quantity - 1)}
-                        className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-[#304590] hover:text-blue-50"
+                        onClick={() => {
+                          if (product.quantity > 1) {
+                            updateCartItem(product.ALBEDOcodigo, product.quantity - 1);
+                          }
+                        }}
+                        className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-[#304590] hover:text-blue-50 select-none"
                       >
                         {" "}
                         -{" "}
@@ -64,19 +68,24 @@ export default function CartItem() {
                         min="1"
                         onChange={(e) => {
                           const newQuantity = parseInt(e.target.value);
-                          if (!isNaN(newQuantity) && newQuantity >= 1) {
+                          if (!isNaN(newQuantity) && newQuantity >= 1 && newQuantity <= product.ALBEDOstock) {
                             updateCartItem(product.ALBEDOcodigo, newQuantity);
                           }
                         }}
                       />
                       <span
-                        onClick={() => updateCartItem(product.ALBEDOcodigo, product.quantity + 1)}
-                        className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-[#304590] hover:text-blue-50 "
+                        onClick={() => {
+                          if (product.quantity < product.ALBEDOstock) {
+                            updateCartItem(product.ALBEDOcodigo, product.quantity + 1);
+                          }
+                        }}
+                        className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-[#304590] hover:text-blue-50 select-none"
                       >
                         {" "}
                         +{" "}
                       </span>
                     </div>
+
                     <svg
                       onClick={() => deleteCartProduct(product.ALBEDOcodigo)}
                       xmlns="http://www.w3.org/2000/svg"

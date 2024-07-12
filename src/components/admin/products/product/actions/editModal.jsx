@@ -99,7 +99,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
                         const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePathToSave = `/public/assets/images/${uniqueId}.${imageExtension}`;
 
                         // Assuming saveImage is asynchronous and returns a promise
                         await saveImage(base64Image, imagePath);

@@ -377,8 +377,7 @@ export async function addCategory(Url_Id, name, description, body, isPublished, 
             "isPublished": isPublished,
             "FeachaDeCreacion": euFormattedDateTime,
             "FechaDeModificacion": euFormattedDateTime,
-            "imagens": imagePaths,
-            "archivos": "/assets/archivos/G34304249.pdf",
+            "imagens": imagePaths, 
             "subCategories": [],
             "products": [],
             // "imageFilePath": savedImageFilePath, // Store the path to the saved image file
@@ -1291,20 +1290,36 @@ function getSecKey() {
         throw new Error("Stored secret key not found in environment variables.");
     }
 }
+// export async function saveImage(base64Image, imagePath) {
+//     // Remove the data URI prefix
+//     const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
+//     // Create a buffer from the base64 string
+//     const buffer = Buffer.from(base64Data, 'base64');
+//     // Write the buffer to the file
+//     fs.writeFile(imagePath, buffer, (err) => {
+//         if (err) {
+//             console.error('Error saving image:', err);
+//         } else {
+//             //console.log('Image saved successfully.');
+//         }
+//     });
+// }
+
 export async function saveImage(base64Image, imagePath) {
-    // Remove the data URI prefix
-    const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
-    // Create a buffer from the base64 string
-    const buffer = Buffer.from(base64Data, 'base64');
-    // Write the buffer to the file
-    fs.writeFile(imagePath, buffer, (err) => {
-        if (err) {
-            console.error('Error saving image:', err);
-        } else {
-            //console.log('Image saved successfully.');
-        }
+    const base64Data = base64Image.split(',')[1];
+    return new Promise((resolve, reject) => {
+        fs.writeFile(imagePath, base64Data, 'base64', (err) => {
+            if (err) {
+                console.error('Error saving image:', err);
+                reject(err);
+            } else {
+                console.log('Image saved successfully:', imagePath);
+                resolve();
+            }
+        });
     });
-}
+};
+
 export async function saveFile(fileData, filePath) {
     // Decode base64 file data
     const decodedFileData = Buffer.from(fileData.replace(/^data:\w+\/\w+;base64,/, ''), 'base64');

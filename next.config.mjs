@@ -5,6 +5,10 @@ const nextConfig = {
             bodySizeLimit: '1024mb', // maximum limit is `4.5MB/4MB` for Vercel
         },
     },
+    images: {
+        domains: ['localhost'],
+        domains: ['albedo.avannubo.com'],
+    },
 };
 
 

@@ -100,10 +100,11 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                         // Generate a unique ID for the image
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
-                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`; 
+                        // const imagePath = path.join(__dirname, 'public', 'assets', 'images', `${uniqueId}.${imageExtension}`);
                         const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
 
-                        console.log(`Generated uniqueId: ${uniqueId}`); 
+                        console.log(`Generated uniqueId: ${uniqueId}`);
                         console.log(`Image path: ${imagePath}`);
                         console.log(`Image path to save: ${imagePathToSave}`);
 
@@ -149,8 +150,8 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const fileData = reader.result;
-                        // const filePath = `/assets/archivos/${file.name}`;
-                        const imagePath = path.join(__dirname, 'public', 'assets', 'images', `${uniqueId}.${imageExtension}`);
+                        const filePath = `/assets/archivos/${file.name}`;
+                        // const imagePath = path.join(__dirname, 'public', 'assets', 'images', `${uniqueId}.${imageExtension}`);
                         const filePathToSave = `/assets/archivos/${file.name}`;
                         //console.log("Uploading file:", filePath);
                         try {

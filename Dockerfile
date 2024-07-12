@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy package.json and package-lock.json (if present)
 COPY package*.json ./
 
-RUN chmod -R 777 /public/assets/images
+# RUN chmod -R 777 /public/assets/images
 
 # Install dependencies
 RUN npm install

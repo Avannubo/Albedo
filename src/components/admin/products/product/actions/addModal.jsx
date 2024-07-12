@@ -105,8 +105,8 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                         // Generate a unique ID for the image
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
-                        const imagePath = `/public/assets/images/${uniqueId}.${imageExtension}`;
-                        const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePathToSave = `/public/assets/images/${uniqueId}.${imageExtension}`;
 
                         console.log(`Generated uniqueId: ${uniqueId}`);
                         console.log(`Image extension: ${imageExtension}`);

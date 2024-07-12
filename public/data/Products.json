@@ -26,9 +26,9 @@
                     "ALBEDOstock_minimo": "5",
                     "ALBEDOstock": "5",
                     "imagens": [
-                        "/assets/images/1720766300078_338928643.jpg",
-                        "/assets/images/1.jpg",
-                        "/assets/images/imagen2.jpg"
+                        "/public/assets/images/1720766300078_338928643.jpg",
+                        "/public/assets/images/1.jpg",
+                        "/public/assets/images/imagen2.jpg"
                     ],
                     "archivos": [],
                     "ALBEDOplazo_entrega": 4,

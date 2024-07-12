@@ -46,29 +46,55 @@ export default function AddModal({ isOpen, onClose }) {
             const uploadPromises = selectedImages.map(image => {
                 return new Promise((resolveImage, rejectImage) => {
                     const reader = new FileReader();
+
                     reader.onload = async () => {
                         const base64Image = reader.result;
+                        console.log(`Base64 Image: ${base64Image.substring(0, 30)}...`); // Log a snippet of the base64 string
 
                         // Generate a unique ID for the image
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
-                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePath = `/public/assets/images/${uniqueId}.${imageExtension}`;
                         const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
 
-                        // Assuming saveImage is asynchronous and returns a promise
-                        await saveImage(base64Image, imagePath);
-                        imagePaths.push(imagePathToSave);
-                        resolveImage();
+                        console.log(`Generated uniqueId: ${uniqueId}`);
+                        console.log(`Image extension: ${imageExtension}`);
+                        console.log(`Image path: ${imagePath}`);
+                        console.log(`Image path to save: ${imagePathToSave}`);
+
+                        try {
+                            // Assuming saveImage is asynchronous and returns a promise
+                            await saveImage(base64Image, imagePath);
+                            imagePaths.push(imagePathToSave);
+                            console.log(`Image saved successfully: ${imagePathToSave}`);
+                            resolveImage();
+                        } catch (error) {
+                            console.error(`Error saving image: ${error}`);
+                            rejectImage(error);
+                        }
                     };
-                    reader.onerror = error => rejectImage(error);
+
+                    reader.onerror = error => {
+                        console.error(`Error reading image file: ${error}`);
+                        rejectImage(error);
+                    };
+
                     reader.readAsDataURL(image);
                 });
             });
+
             Promise.all(uploadPromises)
-                .then(() => resolve(imagePaths))
-                .catch(error => reject(error));
+                .then(() => {
+                    console.log('All images uploaded successfully:', imagePaths);
+                    resolve(imagePaths);
+                })
+                .catch(error => {
+                    console.error('Error uploading images:', error);
+                    reject(error);
+                });
         });
     };
+
 
 
     useEffect(() => {

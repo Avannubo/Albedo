@@ -6,8 +6,7 @@ const nextConfig = {
         },
     },
     images: {
-        domains: ['localhost'],
-        domains: ['albedo.avannubo.com'],
+        domains: ['localhost', 'albedo.avannubo.com'], 
     },
 };
 

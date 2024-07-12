@@ -7,6 +7,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json (if present)
 COPY package*.json ./
 
+RUN chmod -R 777 /app/public/assets/images
+
 # Install dependencies
 RUN npm install
 
@@ -24,6 +26,7 @@ WORKDIR /app
 
 #COPY .env .env 
 # Copy only the necessary files from the builder stage
+
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public

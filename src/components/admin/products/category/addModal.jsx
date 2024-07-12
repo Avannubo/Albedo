@@ -48,12 +48,16 @@ export default function AddModal({ isOpen, onClose }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const base64Image = reader.result;
-                        const imagePath = `./public/assets/images/${image.name}`;
-                        const imagePathToSave = `/public/assets/images/${image.name}`;
+
+                        // Generate a unique ID for the image
+                        const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
+                        const imageExtension = image.name.split('.').pop();
+                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
 
                         // Assuming saveImage is asynchronous and returns a promise
-                        await saveImage(base64Image, imagePath.replace(/ /g, "_"));
-                        imagePaths.push(imagePathToSave.replace(/ /g, "_"));
+                        await saveImage(base64Image, imagePath);
+                        imagePaths.push(imagePathToSave);
                         resolveImage();
                     };
                     reader.onerror = error => rejectImage(error);

@@ -94,38 +94,28 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const base64Image = reader.result;
-                        const imagePath = `./public/assets/images/${image.name}`;
-                        const imagePathToSave = `./public/assets/images/${image.name}`;
-                        //console.log("Uploading image:", imagePath);
-                        try {
-                            // Assuming saveImage is asynchronous and returns a promise
-                            await saveImage(base64Image, imagePath.replace(/ /g, "_"));
-                            imagePaths.push(imagePathToSave.replace(/ /g, "_"));
-                            //console.log("Image uploaded:", imagePathToSave.replace(/ /g, "_"));
-                            resolveImage();
-                        } catch (error) {
-                            console.error("Error uploading image:", error);
-                            rejectImage(error);
-                        }
+
+                        // Generate a unique ID for the image
+                        const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
+                        const imageExtension = image.name.split('.').pop();
+                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
+
+                        // Assuming saveImage is asynchronous and returns a promise
+                        await saveImage(base64Image, imagePath);
+                        imagePaths.push(imagePathToSave);
+                        resolveImage();
                     };
-                    reader.onerror = error => {
-                        console.error("Error reading image:", error);
-                        rejectImage(error);
-                    };
+                    reader.onerror = error => rejectImage(error);
                     reader.readAsDataURL(image);
                 });
             });
             Promise.all(uploadPromises)
-                .then(() => {
-                    //console.log("All images uploaded successfully " + uploadPromises);
-                    resolve(imagePaths);
-                })
-                .catch(error => {
-                    console.error("Error uploading images:", error);
-                    reject(error);
-                });
+                .then(() => resolve(imagePaths))
+                .catch(error => reject(error));
         });
     };
+
     const uploadRelatedFiles = () => {
         return new Promise((resolve, reject) => {
             const filesPaths = [];

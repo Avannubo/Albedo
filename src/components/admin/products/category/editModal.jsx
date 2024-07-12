@@ -84,18 +84,18 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                 return new Promise((resolveImage, rejectImage) => {
                     const reader = new FileReader();
                     reader.onload = async () => {
-                        try {
-                            const base64Image = reader.result;
-                            const imagePath = `./public/assets/images/${image.name}`;
-                            const imagePathToSave = `/public/assets/images/${image.name}`;
-                            // Assuming saveImage is asynchronous and returns a promise
-                            await saveImage(base64Image, imagePath.replace(/ /g, "_"));
-                            imagePaths.push(imagePathToSave.replace(/ /g, "_"));
-                            resolveImage();
-                        } catch (error) {
-                            console.error("Error uploading image:", error);
-                            rejectImage(error);
-                        }
+                        const base64Image = reader.result;
+
+                        // Generate a unique ID for the image
+                        const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
+                        const imageExtension = image.name.split('.').pop();
+                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
+
+                        // Assuming saveImage is asynchronous and returns a promise 
+                        await saveImage(base64Image, imagePath);
+                        imagePaths.push(imagePathToSave);
+                        resolveImage();
                     };
                     reader.onerror = error => rejectImage(error);
                     reader.readAsDataURL(image);
@@ -105,7 +105,8 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                 .then(() => resolve(imagePaths))
                 .catch(error => reject(error));
         });
-    };
+    }; 
+
     const handleAddProduct = async () => {
         setUrlCodeError(!newCategoryUrlId.trim());
         setNameError(!newCategoryName.trim());

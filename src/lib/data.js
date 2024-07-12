@@ -938,41 +938,45 @@ export async function checkStock(orderData) {
         const { categories } = JSON.parse(data);
 
         if (!orderData || !orderData.cartProducts || orderData.cartProducts.length === 0) {
-            console.log("product not available");
-            return false;
+            console.log("No products in the cart.");
+            return [];
         }
 
-        const updateStockRecursive = async (categoryList) => {
+        const stockList = [];
+
+        const updateStockRecursive = (categoryList) => {
             for (let category of categoryList) {
                 for (let product of category.products) {
                     const cartProduct = orderData.cartProducts.find(cp => cp.ALBEDOcodigo === product.ALBEDOcodigo);
-                    if (cartProduct) { 
-                        revalidatePath('/admin/ListProducts');
-                        return product.ALBEDOstock;
+                    if (cartProduct) {
+                        stockList.push({
+                            ALBEDOcodigo: product.ALBEDOcodigo,
+                            availableStock: product.ALBEDOstock,
+                            quantity: cartProduct.quantity,
+                            ALBEDOtitulo: product.ALBEDOtitulo
+                        });
                     }
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
-                    const subcategoryUpdated = await updateStockRecursive(category.subCategories);
-                    if (subcategoryUpdated) return true;
+                    updateStockRecursive(category.subCategories);
                 }
             }
-            return false;
         };
 
-        const productUpdated = await updateStockRecursive(categories);
-        if (!productUpdated) {
-            console.log("product not found.");
-            return false;
+        updateStockRecursive(categories);
+
+        if (stockList.length === 0) {
+            console.log("No matching products found.");
+            return [];
         }
 
-        console.log("product saved successfully.");
-        return true;
+        console.log("Stock check completed successfully.");
+        return stockList;
     } catch (error) {
         console.error("Error:", error);
-        return false;
+        return [];
     }
 }
-
 export async function sendEmail(orderData) {
     try {
         const customerDetails = orderData.userInfo;

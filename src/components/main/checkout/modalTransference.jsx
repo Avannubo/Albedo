@@ -1,46 +1,69 @@
-/**
 'use client'
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { saveNewOrder, checkStock   } from '@/lib/data';
+import { saveNewOrder, checkStock } from '@/lib/data';
 import Image from 'next/image';
+
 export default function ModalTransference({ isOpen, onClose, orderData }) {
-    //console.log('modal console: ', JSON.stringify(orderData));
     const [isCopied, setIsCopied] = useState(false);
-    const [paymentConfirmed, setPaymentConfirmed] = useState(false); // State to track payment confirmation
+    const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+    const [stockWarning, setStockWarning] = useState(null);
+
     const copyAccountNumber = () => {
-        const accountNumber = 'ES34 1234 1234 1234 1234'; // Your account number
+        const accountNumber = 'ES34 1234 1234 1234 1234';
         navigator.clipboard.writeText(accountNumber);
         setIsCopied(true);
         setTimeout(() => {
             setIsCopied(false);
-        }, 4000); // Reset copied message after 2 seconds
-    };
-    const handleConfirmPayment = () => {
-        // Call saveNewOrder with orderData
-        saveNewOrder(orderData);
-        //clear local storage 
-        // localStorage.clear();
-        //change modal div to another to "thank you for your purchase"
-        // setPaymentConfirmed(true);
+        }, 4000);
     };
 
-    
+    const handleConfirmPayment = async () => {
+        try {
+            const stockCheck = await checkStock(orderData);
+            console.log('Stock Check:', stockCheck); // Debugging statement
+            if (!Array.isArray(stockCheck)) {
+                throw new Error('Stock check did not return an array');
+            }
+            const lowStockProducts = stockCheck.filter(product => product.availableStock < product.quantity);
+            if (lowStockProducts.length > 0) {
+                setStockWarning(lowStockProducts);
+                return;
+            }
+            saveNewOrder(orderData);
+            localStorage.clear();
+            setPaymentConfirmed(true);
+        } catch (error) {
+            console.error('Error during stock check:', error);
+        }
+    };
+
+    const handleContinueWithUpdatedStock = () => {
+        orderData.cartProducts.forEach(product => {
+            const stockProduct = stockWarning.find(p => p.ALBEDOcodigo === product.ALBEDOcodigo);
+            if (stockProduct) {
+                product.quantity = stockProduct.availableStock;
+            }
+        });
+        saveNewOrder(orderData);
+        setPaymentConfirmed(true);
+    };
+
     return isOpen ? (
         <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
-            {paymentConfirmed ? ( // Render thank you message if payment is confirmed
+            {paymentConfirmed ? (
                 <div className="w-[1000px] max-w-6xl bg-white shadow-lg rounded-md p-12 relative">
                     <div className='flex justify-center'>
                         <svg className='w-40 h-40' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_iconCarrier">
-                                <path opacity="0.4" d="M11.9998 14H12.9998C14.0998 14 14.9998 13.1 14.9998 12V2H5.99976C4.49976 2 3.18977 2.82999 2.50977 4.04999" stroke="#292D32" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M2 17C2 18.66 3.34 20 5 20H6C6 18.9 6.9 18 8 18C9.1 18 10 18.9 10 20H14C14 18.9 14.9 18 16 18C17.1 18 18 18.9 18 20H19C20.66 20 22 18.66 22 17V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L18.58 6.01001C18.22 5.39001 17.56 5 16.84 5H15V12C15 13.1 14.1 14 13 14H12" stroke="#292D32" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M8 22C9.10457 22 10 21.1046 10 20C10 18.8954 9.10457 18 8 18C6.89543 18 6 18.8954 6 20C6 21.1046 6.89543 22 8 22Z" stroke="#292D32" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M16 22C17.1046 22 18 21.1046 18 20C18 18.8954 17.1046 18 16 18C14.8954 18 14 18.8954 14 20C14 21.1046 14.8954 22 16 22Z" stroke="#292D32" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M22 12V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L22 12Z" stroke="#292D32" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M2 8H8" stroke="#292D32" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M2 11H6" stroke="#292D32" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M2 14H4" stroke="#292D32" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g>
+                                <path opacity="0.4" d="M11.9998 14H12.9998C14.0998 14 14.9998 13.1 14.9998 12V2H5.99976C4.49976 2 3.18977 2.82999 2.50977 4.04999" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path d="M2 17C2 18.66 3.34 20 5 20H6C6 18.9 6.9 18 8 18C9.1 18 10 18.9 10 20H14C14 18.9 14.9 18 16 18C17.1 18 18 18.9 18 20H19C20.66 20 22 18.66 22 17V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L18.58 6.01001C18.22 5.39001 17.56 5 16.84 5H15V12C15 13.1 14.1 14 13 14H12" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path d="M8 22C9.10457 22 10 21.1046 10 20C10 18.8954 9.10457 18 8 18C6.89543 18 6 18.8954 6 20C6 21.1046 6.89543 22 8 22Z" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path d="M16 22C17.1046 22 18 21.1046 18 20C18 18.8954 17.1046 18 16 18C14.8954 18 14 18.8954 14 20C14 21.1046 14.8954 22 16 22Z" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path d="M22 12V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L22 12Z" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path d="M2 8H8" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path d="M2 11H6" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path d="M2 14H4" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> </g>
                         </svg>
                     </div>
                     <h1 className="text-3xl font-bold mb-3 text-center">Gracias por la compra!</h1>
@@ -60,320 +83,81 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                         <div className='flex flex-row justify-end'>
                             <svg onClick={onClose} xmlns="http://www.w3.org/2000/svg" className="w-3.5 cursor-pointer shrink-0 fill-black hover:fill-red-500 float-right" viewBox="0 0 320.591 320.591">
                                 <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z" data-original="#000000"></path>
-                                <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z" data-original="#000000"></path>
-                            </svg >
-                        </div >
-                        <div className='flex flex-col space-y-4'>
-                            <div className='flex flex-row'>
-                                <div className='w-1/2 grow mr-6'>
-                                    <h1 className="mb-4 text-start text-2xl font-bold">
-                                        Pedido:
-                                    </h1>
-                                    <div className='overflow-y-scroll h-[200px]'>
-                                        {orderData.cartProducts && orderData.cartProducts.length > 0 && (
-                                            orderData.cartProducts.map((product, index) => (
-                                                <div className='flex flex-col ' key={index}>
-                                                    <div className='flex flex-row'>
-                                                        <div className='w-[80px] my-2'>
-                                                            <Image
-                                                                src={product.imagens[0]}
-                                                                alt="product-image"
-                                                                className="object-cover rounded-xl h-[70px]"
-                                                                width={1200}
-                                                                height={1200}
-                                                            />
-                                                        </div>
-                                                        <div className='ml-4 my-2'>
-                                                            <h1 className='font-bold w-full'>{product.ALBEDOtitulo}({product.ALBEDOcodigo})</h1>
-                                                            <p>{product.quantity} x {product.ALBEDOprecio}€</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className=''>
-                                                        <hr />
-                                                    </div>
-                                                </div>
-                                            ))
-                                        )}
-                                    </div>
-                                </div>
-                                <div className='w-1/2 grow'>
-                                    <h1 className="mb-4 text-start text-2xl font-bold">
-                                        Datos de Usuarios:
-                                    </h1>
-                                    {orderData.userInfo && (
-                                        <div className='flex flex-col space-y-2 text-lg'>
-                                            <div className='flex flex-row '>
-                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
-                                                    <h1 className='font-bold'>Nombre: </h1>
-                                                    <p>{orderData.userInfo.firstName}</p>
-                                                </div>
-                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
-                                                    <h1 className='font-bold'>Apellidos: </h1>
-                                                    <p>{orderData.userInfo.lastName}</p>
-                                                </div>
-                                            </div>
-                                            <div className='flex flex-row '>
-                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
-                                                    <h1 className='font-bold'>DNI/CIF: </h1>
-                                                    <p>{orderData.userInfo.dni}</p>
-                                                </div>
-                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
-                                                    <h1 className='font-bold'>Teléfono: </h1>
-                                                    <p>{orderData.userInfo.phoneNumber}</p>
-                                                </div>
-                                            </div>
-                                            {
-                                                orderData.userInfo.company && (
-                                                    <div className='flex flex-row space-x-2'>
-                                                        <h1 className='font-bold'>Empresa: </h1>
-                                                        <p>{orderData.userInfo.company}</p>
-                                                    </div>
-                                                )}
-                                            <div className='flex flex-row space-x-2'>
-                                                <h1 className='font-bold'>Email: </h1>
-                                                <p>{orderData.userInfo.email}</p>
-                                            </div>
-                                            <div className='flex flex-row space-x-2'>
-                                                <h1 className='font-bold'>Dirección: </h1>
-                                                <p>{orderData.userInfo.address}
-                                                    {orderData.userInfo.zipCode} {orderData.userInfo.city}
-                                                    {orderData.userInfo.province}</p>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
+                                <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922a30.34 30.34 0 0 1-21.492 8.702z" data-original="#000000"></path>
+                            </svg>
+                        </div>
+                        {stockWarning && (
+                            <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                                <p className="font-medium">Los siguientes productos tienen stock insuficiente:</p>
+                                <ul className="mt-1.5 ml-4 list-disc list-inside">
+                                    {stockWarning.map((product, index) => (
+                                        <li key={index}>
+                                            {product.ALBEDOtitulo} - Stock disponible: {product.availableStock}, Cantidad solicitada: {product.quantity}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <button
+                                    onClick={handleContinueWithUpdatedStock}
+                                    className='text-center whitespace-nowrap self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'
+                                >
+                                    Continuar con stock actualizado
+                                </button>
                             </div>
-                            <div className='flex flex-col justify-center space-y-4 mt-12'><hr />
-                                <h1 className='font-bold text-2xl self-center'>Proceso de Pago Por Transferencia</h1>
-                                <p className='text-center self-center'>Para enviar su pedido, debe enviar el pago del pedido a este número de cuenta y hacer clic para confirmar el pago. Recibirá la confirmación del pedido en 2-3 días hábiles. Cualquier duda ponte en <Link className='text-[#304590] hover:text-[#475caa]' href="/about/contacto">contacto con nosotros</Link>.</p>
-                                <div className='flex flex-row space-x-2 text-xl self-center mt-4 p-2 justify-end w-auto'>
-                                    <h1 className='font-bold'>Precio total de pedido:</h1>
-                                    <p className='flex flex-col justify-end'> {orderData.totalPedido}€ </p>
-                                </div>
-                                <div className='flex flex-row self-center space-x-2'>
-                                    <p className='self-center text-lg'>
-                                        Nº de Cuenta:
-                                    </p>
-                                    <div className='flex flex-row justify-center '>
-                                        <div className='relative'>
-                                            <p className='self-center text-lg p-3 rounded-lg border border-grey flex flex-row hover:border-[#475caa] hover:bg-blue-100' onClick={copyAccountNumber} style={{ cursor: 'pointer' }}>
-                                                ES34 1234 1234 1234 1234
-                                            </p>
-                                            {isCopied &&
-                                                <span className='absolute -right-24 top-2.5  self-center flex flex-row p-1 border border-green-400 rounded-lg bg-green-100'>
-                                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                                                        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                                                        <g id="SVGRepo_iconCarrier">
-                                                            <path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="#c0c0c0" strokeWidth="1.5"></path>
-                                                            <path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="#c0c0c0" strokeWidth="1.5"></path>
-                                                        </g>
-                                                    </svg>Copiado</span>}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='flex flex-row space-x-6 justify-center mt-2'>
-                                    <button onClick={handleConfirmPayment} className='self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' type="button">
-                                        Realizar Pedido
-                                    </button>
-                                    <button onClick={onClose} className='self-center w-[150px] rounded-md bg-red-600 py-1.5 px-4 font-medium text-blue-50 hover:bg-red-500' type="button">
-                                        Cancelar
-                                    </button>
-                                </div>
+                        )}
+                        <h1 className="text-2xl font-bold mb-4 text-center">Transfiera la cantidad a la siguiente cuenta:</h1>
+                        <div className="flex justify-center items-center mb-8">
+                            <div className="p-4 bg-gray-100 rounded-lg">
+                                <p className="text-xl font-mono">ES34 1234 1234 1234 1234</p>
+                                <button
+                                    onClick={copyAccountNumber}
+                                    className="text-center mt-2 w-full rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]"
+                                >
+                                    {isCopied ? '¡Copiado!' : 'Copiar'}
+                                </button>
                             </div>
                         </div>
-                    </div >
-                </div >
-            )}
-        </div>
-    ) : null;
-}
- **/
-'use client'
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { saveNewOrder, checkStock } from '@/lib/data';
-import Image from 'next/image';
-
-export default function ModalTransference({ isOpen, onClose, orderData }) {
-    const [isCopied, setIsCopied] = useState(false);
-    const [paymentConfirmed, setPaymentConfirmed] = useState(false);
-    const [stockCheck, setStockCheck] = useState({ inStock: true, message: '' });
-
-    useEffect(() => {
-        if (isOpen) {
-            checkStock(orderData).then(result => {
-                if (result === 'outOfStock') {
-                    setStockCheck({ inStock: false, message: 'Algunos productos están fuera de stock.' });
-                } else if (result === 'lowStock') {
-                    setStockCheck({ inStock: false, message: 'Algunos productos tienen stock bajo.' });
-                } else {
-                    setStockCheck({ inStock: true, message: '' });
-                }
-            });
-        }
-    }, [isOpen]);
-
-    const copyAccountNumber = () => {
-        const accountNumber = 'ES34 1234 1234 1234 1234';
-        navigator.clipboard.writeText(accountNumber);
-        setIsCopied(true);
-        setTimeout(() => {
-            setIsCopied(false);
-        }, 4000);
-    };
-
-    const handleConfirmPayment = () => {
-        if (stockCheck.inStock) {
-            saveNewOrder(orderData);
-            setPaymentConfirmed(true);
-        }
-    };
-
-    return isOpen ? (
-        <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
-            {paymentConfirmed ? (
-                <div className="w-[1000px] max-w-6xl bg-white shadow-lg rounded-md p-12 relative">
-                    <div className='flex justify-center'>
-                        <svg className='w-40 h-40' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            {/* SVG Path here */}
-                        </svg>
-                    </div>
-                    <h1 className="text-3xl font-bold mb-3 text-center">Gracias por la compra!</h1>
-                    <h3 className="text-xl font-bold mb-6 text-center">En breve le enviaremos confirmación y seguimiento de su pedido.</h3>
-                    <div className='flex flex-row space-x-6 justify-center mt-2'>
-                        <Link href="/" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'>
-                            Inicio
-                        </Link>
-                        <Link href="/products" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' >
-                            Tienda
-                        </Link>
-                    </div>
-                </div>
-            ) : (
-                <div className="w-[1000px] max-w-6xl bg-white shadow-lg rounded-md p-12 relative">
-                    <div className='flex flex-col'>
-                        <div className='flex flex-row justify-end'>
-                            <svg onClick={onClose} xmlns="http://www.w3.org/2000/svg" className="w-3.5 cursor-pointer shrink-0 fill-black hover:fill-red-500 float-right" viewBox="0 0 320.591 320.591">
-                                {/* SVG Path here */}
-                            </svg >
-                        </div >
-                        <div className='flex flex-col space-y-4'>
-                            <div className='flex flex-row'>
-                                <div className='w-1/2 grow mr-6'>
-                                    <h1 className="mb-4 text-start text-2xl font-bold">
-                                        Pedido:
-                                    </h1>
-                                    <div className='overflow-y-scroll h-[200px]'>
-                                        {orderData.cartProducts && orderData.cartProducts.length > 0 && (
-                                            orderData.cartProducts.map((product, index) => (
-                                                <div className='flex flex-col ' key={index}>
-                                                    <div className='flex flex-row'>
-                                                        <div className='w-[80px] my-2'>
-                                                            <Image
-                                                                src={product.imagens[0]}
-                                                                alt="product-image"
-                                                                className="object-cover rounded-xl h-[70px]"
-                                                                width={1200}
-                                                                height={1200}
-                                                            />
-                                                        </div>
-                                                        <div className='ml-4 my-2'>
-                                                            <h1 className='font-bold w-full'>{product.ALBEDOtitulo}({product.ALBEDOcodigo})</h1>
-                                                            <p>{product.quantity} x {product.ALBEDOprecio}€</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className=''>
-                                                        <hr />
-                                                    </div>
-                                                </div>
-                                            ))
-                                        )}
-                                    </div>
-                                </div>
-                                <div className='w-1/2 grow'>
-                                    <h1 className="mb-4 text-start text-2xl font-bold">
-                                        Datos de Usuarios:
-                                    </h1>
-                                    {orderData.userInfo && (
-                                        <div className='flex flex-col space-y-2 text-lg'>
-                                            <div className='flex flex-row '>
-                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
-                                                    <h1 className='font-bold'>Nombre: </h1>
-                                                    <p>{orderData.userInfo.firstName}</p>
-                                                </div>
-                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
-                                                    <h1 className='font-bold'>Apellidos: </h1>
-                                                    <p>{orderData.userInfo.lastName}</p>
-                                                </div>
-                                            </div>
-                                            <div className='flex flex-row '>
-                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
-                                                    <h1 className='font-bold'>DNI/CIF: </h1>
-                                                    <p>{orderData.userInfo.dni}</p>
-                                                </div>
-                                                <div className='flex flex-row space-x-2 w-1/2 grow'>
-                                                    <h1 className='font-bold'>Teléfono: </h1>
-                                                    <p>{orderData.userInfo.phoneNumber}</p>
-                                                </div>
-                                            </div>
-                                            {
-                                                orderData.userInfo.company && (
-                                                    <div className='flex flex-row space-x-2'>
-                                                        <h1 className='font-bold'>Empresa: </h1>
-                                                        <p>{orderData.userInfo.company}</p>
-                                                    </div>
-                                                )}
-                                            <div className='flex flex-row space-x-2'>
-                                                <h1 className='font-bold'>Email: </h1>
-                                                <p>{orderData.userInfo.email}</p>
-                                            </div>
-                                            <div className='flex flex-row space-x-2'>
-                                                <h1 className='font-bold'>Dirección: </h1>
-                                                <p>{orderData.userInfo.address}
-                                                    {orderData.userInfo.zipCode} {orderData.userInfo.city}
-                                                    {orderData.userInfo.province}</p>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                            <div className='flex flex-col justify-center space-y-4 mt-12'><hr />
-                                <h1 className='font-bold text-2xl self-center'>Proceso de Pago Por Transferencia</h1>
-                                <p className='text-center self-center'>Para enviar su pedido, debe enviar el pago del pedido a este número de cuenta y hacer clic para confirmar el pago. Recibirá la confirmación del pedido en 2-3 días hábiles. Cualquier duda ponte en <Link className='text-[#304590] hover:text-[#475caa]' href="/about/contacto">contacto con nosotros</Link>.</p>
-                                <div className='flex flex-row space-x-2 text-xl self-center mt-4 p-2 justify-end w-auto'>
-                                    <h1 className='font-bold'>Precio total de pedido:</h1>
-                                    <p className='flex flex-col justify-end'> {orderData.totalPedido}€ </p>
-                                </div>
-                                <div className='flex flex-row self-center space-x-2'>
-                                    <p className='self-center text-lg'>
-                                        Nº de Cuenta:
-                                    </p>
-                                    <div className='flex flex-row justify-center '>
-                                        <div className='relative'>
-                                            <p className='self-center text-lg p-3 rounded-lg border border-grey flex flex-row hover:border-[#475caa] hover:bg-blue-100' onClick={copyAccountNumber} style={{ cursor: 'pointer' }}>
-                                                ES34 1234 1234 1234 1234
-                                            </p>
-                                            {isCopied &&
-                                                <span className="absolute bottom-[-25px] left-0 p-2 mt-2 text-xs text-white bg-black rounded-md">
-                                                    Copiado al portapapeles
-                                                </span>}
-                                        </div>
-                                    </div>
-                                </div>
-                                {stockCheck.message && (
-                                    <div className='flex flex-row self-center space-x-2'>
-                                        <p className='self-center text-lg text-red-500'>
-                                            {stockCheck.message}
-                                        </p>
-                                    </div>
-                                )}
-                                <div className='flex flex-row self-center'>
-                                    <button onClick={handleConfirmPayment} className='w-[300px] text-center rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa] disabled:opacity-50' disabled={!stockCheck.inStock}>
-                                        Confirmar Pago
-                                    </button>
-                                </div>
-                            </div>
+                        <h3 className="text-xl font-bold mb-4 text-center">Detalles del Pedido:</h3>
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full divide-y divide-gray-200">
+                                <thead>
+                                    <tr>
+                                        <th className="px-6 py-3 bg-gray-50">Producto</th>
+                                        <th className="px-6 py-3 bg-gray-50">Precio</th>
+                                        <th className="px-6 py-3 bg-gray-50">Cantidad</th>
+                                        <th className="px-6 py-3 bg-gray-50">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                    {orderData.cartProducts.map((product, index) => (
+                                        <tr key={index}>
+                                            <td className="px-6 py-4 whitespace-nowrap">{product.ALBEDOtitulo}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{product.ALBEDOprecio}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{product.quantity}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{(product.ALBEDOprecio * product.quantity).toFixed(2)}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colSpan="3" className="text-right px-6 py-3 font-bold">Total:</td>
+                                        <td className="px-6 py-3 font-bold">{orderData.totalPedido.toFixed(2)}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div className="flex flex-row space-x-6 justify-center mt-8">
+                            <button
+                                onClick={handleConfirmPayment}
+                                className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'
+                            >
+                                Confirmar Pago
+                            </button>
+                            <button
+                                onClick={onClose}
+                                className='text-center self-center w-[150px] rounded-md bg-gray-300 py-1.5 px-4 font-medium text-gray-800 hover:bg-gray-400'
+                            >
+                                Cancelar
+                            </button>
                         </div>
                     </div>
                 </div >

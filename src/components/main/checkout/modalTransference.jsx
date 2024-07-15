@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { saveNewOrder, checkStock } from '@/lib/data';
 import Image from 'next/image';
@@ -8,6 +8,15 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
     const [isCopied, setIsCopied] = useState(false);
     const [paymentConfirmed, setPaymentConfirmed] = useState(false);
     const [stockWarning, setStockWarning] = useState(null);
+    const [cartItems, setCartItems] = useState([]);
+
+    useEffect(() => {
+        const storedCartItems = JSON.parse(localStorage.getItem("carrito"));
+        if (storedCartItems) {
+            setCartItems(storedCartItems);
+        }
+    }, []);
+
 
     const copyAccountNumber = () => {
         const accountNumber = 'ES34 1234 1234 1234 1234';
@@ -44,11 +53,33 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
             if (stockProduct) {
                 product.quantity = stockProduct.availableStock;
             }
-        });
-        saveNewOrder(orderData);
-        setPaymentConfirmed(true);
-    };
 
+            if (stockProduct) {
+                // Update the product's quantity to the available stock
+                const newQuantity = stockProduct.availableStock;
+                // Update the cart item using the existing updateCartItem function
+                updateCartItem(product.ALBEDOcodigo, newQuantity);
+            }
+        });
+
+        // saveNewOrder(orderData);
+        // localStorage.clear();
+        // setPaymentConfirmed(true);
+    };
+    const updateCartItem = (id, newQuantity) => {
+        // Ensure the new quantity is at least 1
+        newQuantity = Math.max(1, newQuantity);
+
+        const updatedCartItems = cartItems.map((product) => {
+            if (product.ALBEDOcodigo === id) {
+                return { ...product, quantity: newQuantity };
+            }
+            return product;
+        });
+        // console.log(product.ALBEDOstock);
+        setCartItems(updatedCartItems);
+        localStorage.setItem("carrito", JSON.stringify(updatedCartItems));
+    };
     return isOpen ? (
         <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             {paymentConfirmed ? (
@@ -87,7 +118,7 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                             </svg>
                         </div>
                         {stockWarning && (
-                            <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <div className="p-4 mb-4 mt-6 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
                                 <p className="font-medium">Los siguientes productos tienen stock insuficiente:</p>
                                 <ul className="mt-1.5 ml-4 list-disc list-inside">
                                     {stockWarning.map((product, index) => (
@@ -98,9 +129,10 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                 </ul>
                                 <button
                                     onClick={handleContinueWithUpdatedStock}
-                                    className='text-center whitespace-nowrap self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'
+                                    className='text-center mt-4 whitespace-nowrap self-center w-auto rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'
                                 >
-                                    Continuar con stock actualizado
+                                
+                                Actualizar Stock 
                                 </button>
                             </div>
                         )}
@@ -130,10 +162,10 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                 <tbody className="bg-white divide-y divide-gray-200">
                                     {orderData.cartProducts.map((product, index) => (
                                         <tr key={index}>
-                                            <td className="px-6 py-4 whitespace-nowrap">{product.ALBEDOtitulo}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{product.ALBEDOprecio}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{product.quantity}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{(product.ALBEDOprecio * product.quantity).toFixed(2)}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-center">{product.ALBEDOtitulo}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-center">{product.ALBEDOprecio.toFixed(2)}€</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-center">{product.quantity}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-center">{(product.ALBEDOprecio * product.quantity).toFixed(2)}</td>
                                         </tr>
                                     ))}
                                 </tbody>

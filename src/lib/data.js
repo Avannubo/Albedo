@@ -1301,7 +1301,7 @@ export async function saveImage(base64Image, imagePath) {
         // Create a buffer from the base64 string
         const buffer = Buffer.from(base64Data, 'base64');
         // Write the buffer to the file
-        await fs.promises.writeFile(imagePath, buffer);
+        await fs.writeFile(imagePath, buffer);
         console.log('Image saved successfully.');
     } catch (error) {
         console.error('Error saving image:', error);

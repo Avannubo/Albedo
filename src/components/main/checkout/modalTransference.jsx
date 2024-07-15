@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { saveNewOrder, checkStock } from '@/lib/data';
+import { saveNewOrder, checkStock,getIBAN } from '@/lib/data';
 import Image from 'next/image';
 
 export default function ModalTransference({ isOpen, onClose, orderData }) {
@@ -9,6 +9,7 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
     const [paymentConfirmed, setPaymentConfirmed] = useState(false);
     const [stockWarning, setStockWarning] = useState(null);
     const [cartItems, setCartItems] = useState([]);
+    const [IBAN, setIban] = useState('');
 
     useEffect(() => {
         const storedCartItems = JSON.parse(localStorage.getItem("carrito"));
@@ -18,8 +19,22 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
     }, []);
 
 
+    useEffect(() => {
+        async function fetchIBAN() {
+            try {
+                const { IBAN } = await getIBAN();
+                setIban(IBAN);
+            } catch (error) {
+                console.error('Error fetching IBAN:', error);
+                // Handle error fetching IBAN data if needed
+            }
+        }
+        fetchIBAN();
+    }, []);
+
     const copyAccountNumber = () => {
-        const accountNumber = 'ES34 1234 1234 1234 1234';
+        const accountNumber = IBAN;
+        console.log(IBAN);
         navigator.clipboard.writeText(accountNumber);
         setIsCopied(true);
         setTimeout(() => {
@@ -139,7 +154,7 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                         <h1 className="text-2xl font-bold mb-4 text-center">Transfiera la cantidad a la siguiente cuenta:</h1>
                         <div className="flex justify-center items-center mb-8">
                             <div className="p-4 bg-gray-100 rounded-lg">
-                                <p className="text-xl font-mono">ES34 1234 1234 1234 1234</p>
+                                    <p className="text-xl font-mono">{IBAN}</p>
                                 <button
                                     onClick={copyAccountNumber}
                                     className="text-center mt-2 w-full rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]"

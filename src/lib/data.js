@@ -1305,9 +1305,14 @@ export async function saveImage(base64Image, imagePath) {
         console.log('Image saved successfully.');
     } catch (error) {
         console.error('Error saving image:', error);
+        console.log('Error saving image.');
         throw error; // Re-throw the error to propagate it back
     }
 }
+
+
+
+
 export async function saveFile(fileData, filePath) {
     // Decode base64 file data
     const decodedFileData = Buffer.from(fileData.replace(/^data:\w+\/\w+;base64,/, ''), 'base64');
@@ -1321,6 +1326,10 @@ export async function saveFile(fileData, filePath) {
         }
     });
 }
+
+
+
+
 export async function deleteImages(imagePathsToDelete) {
     return new Promise((resolve, reject) => {
         // Loop through each image path and delete it

@@ -1019,8 +1019,8 @@ export async function sendEmail(orderData) {
             Factura Requerida: ${orderData.invoice ? 'Sí' : 'No'}
             `;
         var transporter = nodemailer.createTransport({
-            host: "smtp.office365.com",
-            port: 587,
+            host: "smtp.serviciodecorreo.es",
+            port: 465,
             secure: false, // Use `true` for port 465, `false` for all other ports
             auth: {
                 user: process.env.NODEMAILER_EMAILSENDER,

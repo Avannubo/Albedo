@@ -1295,18 +1295,18 @@ function getSecKey() {
     }
 }
 export async function saveImage(base64Image, imagePath) {
-    // Remove the data URI prefix
-    const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
-    // Create a buffer from the base64 string
-    const buffer = Buffer.from(base64Data, 'base64');
-    // Write the buffer to the file
-    fs.writeFile(imagePath, buffer, (err) => {
-        if (err) {
-            console.error('Error saving image:', err);
-        } else {
-            console.log('Image saved successfully.');
-        }
-    });
+    try {
+        // Remove the data URI prefix
+        const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
+        // Create a buffer from the base64 string
+        const buffer = Buffer.from(base64Data, 'base64');
+        // Write the buffer to the file
+        await fs.promises.writeFile(imagePath, buffer);
+        console.log('Image saved successfully.');
+    } catch (error) {
+        console.error('Error saving image:', error);
+        throw error; // Re-throw the error to propagate it back
+    }
 }
 export async function saveFile(fileData, filePath) {
     // Decode base64 file data

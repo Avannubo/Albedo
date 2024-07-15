@@ -95,13 +95,11 @@ export default function EditModal({ isOpen, onClose, category, product }) {
 
                     reader.onload = async () => {
                         const base64Image = reader.result;
-                        console.log(`Base64 Image: ${base64Image.substring(0, 30)}...`); // Log a snippet of the base64 string
 
                         // Generate a unique ID for the image
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
-                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`; 
-                        // const imagePath = path.join(__dirname, 'public', 'assets', 'images', `${uniqueId}.${imageExtension}`);
+                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
                         const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
 
                         console.log(`Generated uniqueId: ${uniqueId}`);
@@ -140,6 +138,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 });
         });
     };
+
 
 
     const uploadRelatedFiles = () => {

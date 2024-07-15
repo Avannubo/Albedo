@@ -377,7 +377,7 @@ export async function addCategory(Url_Id, name, description, body, isPublished, 
             "isPublished": isPublished,
             "FeachaDeCreacion": euFormattedDateTime,
             "FechaDeModificacion": euFormattedDateTime,
-            "imagens": imagePaths, 
+            "imagens": imagePaths,
             "subCategories": [],
             "products": [],
             // "imageFilePath": savedImageFilePath, // Store the path to the saved image file
@@ -1313,17 +1313,20 @@ export async function saveImage(base64Image, imagePath) {
 
 
 
-export async function saveFile(fileData, filePath) {
-    // Decode base64 file data
-    const decodedFileData = Buffer.from(fileData.replace(/^data:\w+\/\w+;base64,/, ''), 'base64');
-    // Write the file to the server
-    fs.writeFile(filePath, decodedFileData, (error) => {
-        if (error) {
-            reject(error);
-        } else {
-            //console.log('File saved successfully.');
-            resolve(); // Resolve without returning any path
-        }
+async function saveFile(fileData, filePath) {
+    return new Promise((resolve, reject) => {
+        // Decode base64 file data
+        const decodedFileData = Buffer.from(fileData.replace(/^data:\w+\/\w+;base64,/, ''), 'base64');
+
+        // Write the file to the server
+        fs.writeFile(filePath, decodedFileData, (error) => {
+            if (error) {
+                reject(error);
+            } else {
+                console.log(`File saved successfully at: ${filePath}`);
+                resolve(filePath);
+            }
+        });
     });
 }
 

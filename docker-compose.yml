@@ -15,8 +15,9 @@ services:
     networks:
       - my-network
     volumes:
-      #nocopy: true
-      - ./public:/app/public
+    - ./app/public/assets/images:./public/assets/images
+      # nocopy: true
+      # - ./public:/app/public
       #- ./:/app
 networks:
   my-network:

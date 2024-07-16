@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 USER 10047
-RUN chmod -R 755 ./public/assets/images
+RUN chmod -R 755 /public/assets/images
 
 # Install dependencies
 RUN npm install

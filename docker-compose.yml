@@ -8,14 +8,14 @@ services:
     env_file:
       - .env
     ports: 
-      - "3000"
+      - "3000:3000"
     environment:
       - NODE_ENV=production
     command: ["npm", "start"]
     networks:
       - my-network
     volumes:
-    - /app/public/assets/images:/public/assets/images 
+    # - /app/public/assets/images:/public/assets/images 
     - ./public/assets/images:/app/public/assets/images
 
 networks:

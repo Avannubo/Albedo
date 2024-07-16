@@ -1313,7 +1313,7 @@ export async function saveImage(base64Image, imagePath) {
 
 
 
-async function saveFile(fileData, filePath) {
+export async function saveFile(fileData, filePath) {
     return new Promise((resolve, reject) => {
         // Decode base64 file data
         const decodedFileData = Buffer.from(fileData.replace(/^data:\w+\/\w+;base64,/, ''), 'base64');

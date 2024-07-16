@@ -319,12 +319,13 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                 </div>
                                 <div className='flex  flex-row justify-start flex-wrap '>
                                     {productImages && productImages.length > 0 && (
-                                        productImages.map((imagePath, index) => (
+                                        productImages.map((imagePath, index) => ( 
                                             <div key={index} className="relative mr-4">
+                                                {console.log(`Image Path Retrived [${index}]: `, imagePath)}
                                                 <Image
                                                     src={imagePath}
                                                     alt={`Product Image ${index + 1}`}
-                                                    className="h-[100px] w-[150px] object-cover rounded-lg mb-2 border-2 border-gray-200"
+                                                    className="h-[100px] w-[150px]  object-cover rounded-lg mb-2 border-2 border-gray-200"
                                                     width="350"
                                                     height="80"
                                                 />

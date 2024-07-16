@@ -21,9 +21,10 @@ RUN npm run build
 # Stage 2: Create a new stage for the final production image
 FROM node:18-alpine
 
+VOLUME ["/app"]
+
 # Set the working directory inside the container
 WORKDIR /app
-
 #COPY .env .env 
 # Copy only the necessary files from the builder stage
 

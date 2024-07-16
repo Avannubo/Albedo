@@ -26,7 +26,7 @@
                     "ALBEDOstock": 0,
                     "imagens": [
                         "./app/public/assets/images/1721048467998_825837801.png",
-                        "/assets/images/1721040712663_190945268.jpg",
+                        "./assets/images/1721040712663_190945268.jpg",
                         "/assets/images/1721037087369_741971636.jpg",
                         "/assets/images/1720783397875_689259515.jpeg",
                         "/assets/images/1.jpg",

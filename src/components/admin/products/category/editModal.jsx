@@ -92,7 +92,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
                         const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePathToSave = `./app/public/assets/images/${uniqueId}.${imageExtension}`;
 
                         console.log(`Generated uniqueId: ${uniqueId}`);
                         console.log(`Image extension: ${imageExtension}`);

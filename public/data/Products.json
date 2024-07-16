@@ -24,11 +24,7 @@
                     "ALBEDOcuerpo": "<p>Sistema de comunicación accesible que proporciona información sobre la localización del usuario, los objetos próximos y sus características, el espacio donde se ubican y los posibles recorridos a realizar.</p><p><br></p><p>El Sistema se compone de:</p><ul><li>Un subsistema de gestión de contenidos (CMS por sus siglas en inglés).</li><li>Balizas Bluetooth, beacons, para identificar ubicaciones y objetos. Pueden funcionar en el exterior, por su nivel de estanqueidad.</li><li>Una aplicación web para a la gestión de balizas y usuarios.</li><li>Una aplicación móvil de usuario en iOS y Android (audioguía).</li></ul><p><br></p><p>El Servicio Básico comprende:</p><ul><li>20 balizas Bluetooth con una garantía de dos años.</li><li>Almacenamiento en la nube durante el primer año de servicio.</li><li>Mantenimiento correctivo y adaptativo durante el primer año de servicio.</li><li>Manual de instalación y uso.</li></ul><p><br></p><p>El sistema de gestión de contenidos puede almacenar la información en diferentes idiomas, con lenguaje comprensivo según formación, edad y capacidades cognitivas, con audio descripción para personas con discapacidad visual, vídeo en lengua de signos y realidad aumentada. Cada entidad decide el nivel al que quiere llegar en función de los recursos dedicados a la creación del itinerario. Por supuesto, los contenidos siempre pueden ser actualizados.</p><p>La aplicación móvil se descarga de Google Play o de Apple Store. La interfaz se adapta a las capacidades del usuario. Proporciona información de todos los elementos de la exposición con el formato más adecuado para el usuario. Da indicaciones de navegación de la visita y recomienda los posibles itinerarios.</p><p>Nota: en el mantenimiento no se incluye el cambio de pilas de las balizas.</p>",
                     "ALBEDOstock_minimo": "5",
                     "ALBEDOstock": 0,
-                    "imagens": [
-                        "./app/public/assets/images/1721048467998_825837801.png",
-                        "./assets/images/1721040712663_190945268.jpg",
-                        "/assets/images/1721037087369_741971636.jpg",
-                        "/assets/images/1720783397875_689259515.jpeg",
+                    "imagens": [ 
                         "/assets/images/1.jpg",
                         "/assets/images/imagen2.jpg"
                     ],

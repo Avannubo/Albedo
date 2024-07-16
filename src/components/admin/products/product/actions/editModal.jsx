@@ -330,7 +330,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                                     height="80"
                                                     onError={(e) => {
                                                         e.target.onerror = null; // to prevent infinite loop in case of repeated error
-                                                        e.target.src = 'albedo.avannubo.com/' + imagePath; // replace with a placeholder image or default image
+                                                        e.target.src = 'albedo.avannubo.com' + imagePath; // replace with a placeholder image or default image
                                                     }}
                                                 />
                                                 <button

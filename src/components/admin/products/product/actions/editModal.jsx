@@ -328,6 +328,10 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                                     className="h-[100px] w-[150px]  object-cover rounded-lg mb-2 border-2 border-gray-200"
                                                     width="350"
                                                     height="80"
+                                                    onError={(e) => {
+                                                        e.target.onerror = null; // to prevent infinite loop in case of repeated error
+                                                        e.target.src = 'albedo.avannubo.com/' + imagePath; // replace with a placeholder image or default image
+                                                    }}
                                                 />
                                                 <button
                                                     className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white w-7 h-7 text-lg"

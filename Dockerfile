@@ -7,7 +7,6 @@ WORKDIR /app
 # Copy package.json and package-lock.json (if present)
 COPY package*.json ./
 
-USER 10047
 # RUN chmod -R 755 /app/public/assets/images
 
 # Install dependencies
@@ -26,7 +25,8 @@ VOLUME ["./public/assets/images:/app/public/assets/images"]
 
 # Set the working directory inside the container
 WORKDIR /app
-#COPY .env .env 
+COPY .env .env 
+USER 10047
 # Copy only the necessary files from the builder stage
 
 COPY --from=builder /app/package*.json ./

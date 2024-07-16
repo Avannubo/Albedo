@@ -7,7 +7,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json (if present)
 COPY package*.json ./
 
-# RUN chmod -R 777 /public/assets/images
+USER 10047
+RUN chmod -R 644 /public/assets/images
 
 # Install dependencies
 RUN npm install
@@ -21,7 +22,7 @@ RUN npm run build
 # Stage 2: Create a new stage for the final production image
 FROM node:18-alpine
 
-VOLUME ["/app"]
+VOLUME ["./public/assets/images:/app/public/assets/images"]
 
 # Set the working directory inside the container
 WORKDIR /app

@@ -1314,20 +1314,16 @@ export async function saveImage(base64Image, imagePath) {
 
 
 export async function saveFile(fileData, filePath) {
-    return new Promise((resolve, reject) => {
-        // Decode base64 file data
-        const decodedFileData = Buffer.from(fileData.replace(/^data:\w+\/\w+;base64,/, ''), 'base64');
-
-        // Write the file to the server
-        fs.writeFile(filePath, decodedFileData, (error) => {
-            if (error) {
-                reject(error);
-            } else {
-                console.log(`File saved successfully at: ${filePath}`);
-                resolve(filePath);
-            }
-        });
-    });
+    try {
+        const base64Data = fileData.replace(/^data:\w+\/\w+;base64,/, '');
+        const buffer = Buffer.from(base64Data, 'base64');
+        await fs.writeFile(filePath, buffer);
+        console.log(`File saved successfully at: ${filePath}`);
+        return filePath;
+    } catch (error) {
+        console.error(`Error saving file at ${filePath}:`, error);
+        throw error;
+    }
 }
 
 
@@ -1345,7 +1341,7 @@ export async function deleteImages(imagePathsToDelete) {
                         console.error('Error deleting image:', err);
                         rejectDelete(err);
                     } else {
-                        //console.log(`Image deleted successfully: ${imagePath}`);
+                        console.log(`Image deleted successfully: ${imagePath}`);
                         resolveDelete();
                     }
                 });

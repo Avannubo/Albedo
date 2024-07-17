@@ -1,12 +1,10 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { editproduct, getCategories, saveImage, saveFile } from '@/lib/data';
+import { editproduct, deleteImages, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, category, product }) {
-
     //console.log("btn edit prod: " + JSON.stringify(category.id));
-
     const [loading, setLoading] = useState(false);
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);
@@ -21,8 +19,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     const [productFiles, setProductFiles] = useState(product.archivos);
     const [selectedImages, setSelectedImages] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
-
-
     const [nameError, setNameError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
@@ -68,8 +64,8 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             //console.log(currentImages);
             setProductImages(currentImages); // Update productImages state
             // Call deleteImages function to delete the image
-            // await deleteImages([imagePathToDelete]);
-            //console.log('Image deleted successfully');
+            await deleteImages([imagePathToDelete]);
+            console.log('Image deleted successfully');
         } catch (error) {
             console.error('Error deleting image:', error);
             // You might want to handle errors here, e.g., show an error message
@@ -80,7 +76,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             const updatedFiles = [...productFiles];
             updatedFiles.splice(index, 1);
             setProductFiles(updatedFiles); // Update productFiles state
-            //console.log('File deleted successfully' + updatedFiles);
+            console.log('File deleted successfully' + updatedFiles);
         } catch (error) {
             console.error('Error deleting file:', error);
             // You might want to handle errors here, e.g., show an error message
@@ -92,20 +88,16 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             const uploadPromises = selectedImages.map(image => {
                 return new Promise((resolveImage, rejectImage) => {
                     const reader = new FileReader();
-
                     reader.onload = async () => {
                         const base64Image = reader.result;
-
                         // Generate a unique ID for the image
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
                         const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
                         const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
-
                         console.log(`Generated uniqueId: ${uniqueId}`);
                         console.log(`Image path: ${imagePath}`);
                         console.log(`Image path to save: ${imagePathToSave}`);
-
                         try {
                             // Assuming saveImage is asynchronous and returns a promise
                             await saveImage(base64Image, imagePath);
@@ -117,16 +109,13 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                             rejectImage(error);
                         }
                     };
-
                     reader.onerror = error => {
                         console.error(`Error reading image file: ${error}`);
                         rejectImage(error);
                     };
-
                     reader.readAsDataURL(image);
                 });
             });
-
             Promise.all(uploadPromises)
                 .then(() => {
                     console.log('All images uploaded successfully:', imagePaths);
@@ -138,9 +127,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 });
         });
     };
-
-
-
     const uploadRelatedFiles = () => {
         return new Promise((resolve, reject) => {
             const filesPaths = [];
@@ -149,15 +135,14 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const fileData = reader.result;
-                        const filePath = `/assets/archivos/${file.name}`;
-                        // const imagePath = path.join(__dirname, 'public', 'assets', 'images', `${uniqueId}.${imageExtension}`);
-                        const filePathToSave = `/assets/archivos/${file.name}`;
-                        //console.log("Uploading file:", filePath);
+                        // Generate a unique ID for the file to avoid name collisions
+                        const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
+                        const fileExtension = file.name.split('.').pop();
+                        const filePath = `./public/assets/archivos/${uniqueId}.${fileExtension}`;
+                        const filePathToSave = `/assets/archivos/${uniqueId}.${fileExtension}`;
                         try {
-                            // Assuming saveFile is asynchronous and returns a promise
-                            await saveFile(fileData, filePath.replace(/ /g, "_"));
-                            filesPaths.push(filePathToSave.replace(/ /g, "_"));
-                            //console.log("File uploaded:", filePath.replace(/ /g, "_"));
+                            await saveFile(fileData, filePath);
+                            filesPaths.push(filePathToSave);
                             resolveFile();
                         } catch (error) {
                             console.error("Error uploading file:", error);
@@ -173,7 +158,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             });
             Promise.all(uploadPromises)
                 .then(() => {
-                    //console.log("All files uploaded successfully" + filesPaths);
                     resolve(filesPaths);
                 })
                 .catch(error => {
@@ -182,8 +166,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 });
         });
     };
-
-
     const handleAddProduct = async () => {
         setUrlCodeError(!newProductUrlCode.trim());
         setNameError(!newProductName.trim());
@@ -264,14 +246,12 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} disabled value={newProductCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                 </div> */}
-
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} value={newProductUrlCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                     {urlCodeError && <span className="text-red-500 italic text-xs"> El código URL es obligatorio y no duplicado. </span>}
-
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
@@ -290,7 +270,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
                                 <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
                                 {descriptionError && <span className="text-red-500 italic text-xs"> La descripción de producto es requerida</span>}
-
                                 {/* <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
                             </div>
                             <div className="mb-4">
@@ -363,7 +342,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                                     >
                                                         X
                                                     </button>
-
                                                 </div>
                                             ))}
                                         </div>

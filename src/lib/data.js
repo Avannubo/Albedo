@@ -1302,7 +1302,7 @@ export async function saveImage(base64Image, imagePath) {
         const buffer = Buffer.from(base64Data, 'base64');
         // Write the buffer to the file
         await fs.writeFile(imagePath, buffer);
-        console.log('Image saved successfully.');
+        console.log(`Image saved successfully at: ${imagePath}`);
     } catch (error) {
         console.error('Error saving image:', error);
         console.log('Error saving image.');

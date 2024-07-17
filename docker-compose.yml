@@ -15,6 +15,7 @@ services:
     networks:
       - my-network
     volumes:
-      - ./public/assets:/app/public/assets
+      - ./public/assets/images:/app/public/assets/images
+      - ./public/assets/archivos:/app/public/assets/archivos
 networks:
   my-network:

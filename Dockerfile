@@ -36,7 +36,7 @@ COPY --from=builder /app/node_modules ./node_modules
 EXPOSE 3000
 
 # Set user permissions
-RUN chown -R 10047:10047 /app
+RUN chown -R 10047:1004 /app
 
 # Switch to non-root user
 USER 10047

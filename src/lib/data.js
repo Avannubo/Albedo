@@ -1311,15 +1311,13 @@ export async function saveImage(base64Image, imagePath) {
 }
 
 
-
-
 export async function saveFile(fileData, filePath) {
     try {
         const base64Data = fileData.replace(/^data:\w+\/\w+;base64,/, '');
         const buffer = Buffer.from(base64Data, 'base64');
         await fs.writeFile(filePath, buffer);
         console.log(`File saved successfully at: ${filePath}`);
-        return filePath;
+        // return filePath;
     } catch (error) {
         console.error(`Error saving file at ${filePath}:`, error);
         throw error;

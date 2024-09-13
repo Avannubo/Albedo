@@ -5,6 +5,19 @@ import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import nodemailer from 'nodemailer';
+
+import { v2 as cloudinary } from 'cloudinary';
+import pLimit from 'p-limit';
+
+
+cloudinary.config({
+    cloud_name: 'dtzwbtiuw',
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SEC
+})
+
+let SavedImageLinkForCloudinary;
+
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 var filteredProductList = [];
@@ -12,34 +25,13 @@ const filePath = './public/data/Products.json';
 const filePathActiveOrders = './public/data/ClientOrdersActive.json';
 const filePathInactiveOrders = './public/data/ClientOrdersInactive.json';
 const filePathParameters = './public/data/Parameters.json';
-const publicFolderPath = path.resolve(__dirname, 'public');
-const filePaths = [
-    './public/data/Products.json',
-    './public/data/ClientOrdersActive.json',
-    './public/data/ClientOrdersInactive.json',
-    './public/data/Parameters.json'
-];
-function checkFileAvailability() {
-    filePaths.forEach(filePath => {
-        const originalPath = path.resolve(__dirname, filePath);
-        // Check if file exists in original path
-        fs.access(originalPath, fs.constants.F_OK, (err) => {
-            if (err) {
-                // File does not exist in original path, try finding it in /public folder
-                const publicPath = path.resolve(publicFolderPath, path.basename(filePath));
-                fs.access(publicPath, fs.constants.F_OK, (err) => {
-                    if (err) {
-                        console.log(`File not found: ${filePath}`);
-                    } else {
-                        console.log(`File found in /public: ${publicPath}`);
-                    }
-                });
-            } else {
-                console.log(`File found: ${originalPath}`);
-            }
-        });
-    });
-}
+// const publicFolderPath = path.resolve(__dirname, 'public');
+// const filePaths = [
+//     './public/data/Products.json',
+//     './public/data/ClientOrdersActive.json',
+//     './public/data/ClientOrdersInactive.json',
+//     './public/data/Parameters.json'
+// ];
 export async function requireContent() {
     // if (!cachedContent) {
     const res = await fs.readFile(filePath, 'utf8');
@@ -1301,15 +1293,28 @@ export async function saveImage(base64Image, imagePath) {
         // Create a buffer from the base64 string
         const buffer = Buffer.from(base64Data, 'base64');
         // Write the buffer to the file
-        await fs.writeFile(imagePath, buffer);
-        console.log(`Image saved successfully at: ${imagePath}`);
+        await fs.writeFile(imagePath, buffer); 
+        try {
+            if (!imagePath) {
+                throw new Error('No image path provided. Save the image first.');
+            }
+
+            // Upload the image using Cloudinary
+            const results = await cloudinary.uploader.upload(imagePath);
+            console.log("Uploading to cloud: " + imagePath);
+
+            // Return the URL of the uploaded image
+            return results.secure_url;
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            throw error;
+        } 
     } catch (error) {
         console.error('Error saving image:', error);
         console.log('Error saving image.');
         throw error; // Re-throw the error to propagate it back
     }
-}
-
+} 
 
 
 
@@ -1353,3 +1358,4 @@ export async function deleteImages(imagePathsToDelete) {
             .catch(error => reject(error));
     });
 }
+

@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { editproduct, getCategories, saveImage, saveFile } from '@/lib/data';
+import React, { useState } from 'react';
+import { editproduct, cloudinaryUploader, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, category, product }) {
@@ -99,18 +99,18 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                         // Generate a unique ID for the image
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
-                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
+                        // const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
+                        var imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
+                        // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePathToSave = "";
 
                         console.log(`Generated uniqueId: ${uniqueId}`);
                         console.log(`Image path: ${imagePath}`);
-                        console.log(`Image path to save: ${imagePathToSave}`);
 
                         try {
-                            // Assuming saveImage is asynchronous and returns a promise
-                            await saveImage(base64Image, imagePath);
-                            imagePaths.push(imagePathToSave);
-                            console.log(`Image saved successfully: ${imagePathToSave}`);
+                            const cloudImageLink = await saveImage(base64Image, imagePath);
+                            imagePaths.push(cloudImageLink);
+                            console.log(`Image saved successfully: ${cloudImageLink}`);
                             resolveImage();
                         } catch (error) {
                             console.error(`Error saving image: ${error}`);
@@ -322,7 +322,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                         productImages.map((imagePath, index) => ( 
                                             <div key={index} className="relative mr-4">
                                                 {console.log(`Image Path Retrived [${index}]: `, imagePath)}
-                                                <img
+                                                <Image
                                                     src={imagePath}
                                                     alt={`Product Image ${index + 1}`}
                                                     className="h-[100px] w-[150px]  object-cover rounded-lg mb-2 border-2 border-gray-200"

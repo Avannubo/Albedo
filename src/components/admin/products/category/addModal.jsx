@@ -49,24 +49,22 @@ export default function AddModal({ isOpen, onClose }) {
 
                     reader.onload = async () => {
                         const base64Image = reader.result;
-                        console.log(`Base64 Image: ${base64Image.substring(0, 30)}...`); // Log a snippet of the base64 string
 
                         // Generate a unique ID for the image
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
-                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
+                        // const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
+                        var imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
+                        // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
+                        const imagePathToSave = "";
 
                         console.log(`Generated uniqueId: ${uniqueId}`);
-                        console.log(`Image extension: ${imageExtension}`);
                         console.log(`Image path: ${imagePath}`);
-                        console.log(`Image path to save: ${imagePathToSave}`);
 
                         try {
-                            // Assuming saveImage is asynchronous and returns a promise
-                            await saveImage(base64Image, imagePath);
-                            imagePaths.push(imagePathToSave);
-                            console.log(`Image saved successfully: ${imagePathToSave}`);
+                            const cloudImageLink = await saveImage(base64Image, imagePath);
+                            imagePaths.push(cloudImageLink);
+                            console.log(`Image saved successfully: ${cloudImageLink}`);
                             resolveImage();
                         } catch (error) {
                             console.error(`Error saving image: ${error}`);

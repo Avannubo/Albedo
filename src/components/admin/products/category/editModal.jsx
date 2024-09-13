@@ -92,8 +92,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                         const imageExtension = image.name.split('.').pop();
                         // const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
                         var imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
-                        const imagePathToSave = "";
+                        // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`; 
 
                         console.log(`Generated uniqueId: ${uniqueId}`);
                         console.log(`Image path: ${imagePath}`);
@@ -225,7 +224,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                                 {categoryImages && categoryImages.length > 0 && (
                                     categoryImages.map((imagePath, index) => (
                                         <div key={index} className="relative">
-                                            <Image
+                                            <img
                                                 src={imagePath}
                                                 alt={`Product Image ${index + 1}`}
                                                 className="h-[100px] w-[150px] object-contain rounded-lg mb-2 border-2 border-gray-200"

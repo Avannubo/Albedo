@@ -52,7 +52,7 @@ export default function ProductItem({ product }) {
       <p className="text-md self-center">
         <strong>Precio:</strong> {product.ALBEDOprecio}€ + IVA
       </p>
-      <Image
+      <img
         src={product.imagens[0]}
         alt="Vercel Logo"
         className="self-center h-[150px] sm:h-[200px]  md:h-[150px] w-full object-contain rounded-lg"

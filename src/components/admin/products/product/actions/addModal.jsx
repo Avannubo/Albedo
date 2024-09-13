@@ -106,8 +106,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                         const imageExtension = image.name.split('.').pop();
                         // const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
                         var imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
-                        const imagePathToSave = "";
+                        // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`; 
 
                         console.log(`Generated uniqueId: ${uniqueId}`);
                         console.log(`Image path: ${imagePath}`);

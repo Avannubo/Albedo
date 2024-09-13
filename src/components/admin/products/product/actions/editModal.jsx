@@ -101,8 +101,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                         const imageExtension = image.name.split('.').pop();
                         // const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
                         var imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`;
-                        const imagePathToSave = "";
+                        // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`; 
 
                         console.log(`Generated uniqueId: ${uniqueId}`);
                         console.log(`Image path: ${imagePath}`);
@@ -319,10 +318,10 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                 </div>
                                 <div className='flex  flex-row justify-start flex-wrap '>
                                     {productImages && productImages.length > 0 && (
-                                        productImages.map((imagePath, index) => ( 
+                                        productImages.map((imagePath, index) => (
                                             <div key={index} className="relative mr-4">
                                                 {console.log(`Image Path Retrived [${index}]: `, imagePath)}
-                                                <Image
+                                                <img
                                                     src={imagePath}
                                                     alt={`Product Image ${index + 1}`}
                                                     className="h-[100px] w-[150px]  object-cover rounded-lg mb-2 border-2 border-gray-200"

@@ -16,7 +16,7 @@ const ImageWithZoom = ({ src, alt, className }) => {
 
     return (
         <div className={`relative overflow-hidden ${className}`} onMouseMove={handleMouseMove}>
-            <Image
+            <img
                 src={src}
                 alt={alt}
                 className=" object-cover transition-transform duration-300 transform-gpu"

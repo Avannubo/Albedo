@@ -146,33 +146,44 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             const uploadPromises = selectedFiles.map(file => {
                 return new Promise((resolveFile, rejectFile) => {
                     const reader = new FileReader();
+
                     reader.onload = async () => {
                         const fileData = reader.result;
-                        const filePath = `./public/assets/archivos/${file.name}`;
-                        // const imagePath = path.join(__dirname, 'public', 'assets', 'images', `${uniqueId}.${imageExtension}`);
-                        const filePathToSave = `./public/assets/archivos/${file.name}`;
-                        //console.log("Uploading file:", filePath);
+
+                        // Generate a unique ID for the file name to avoid duplicates
+                        const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
+                        const fileExtension = file.name.split('.').pop();
+                        const uniqueFileName = `${uniqueId}.${fileExtension}`;
+                        const filePath = `./public/assets/archivos/${uniqueFileName}`;
+                        const filePathToSave = `./public/assets/archivos/${uniqueFileName}`;
+
+                        console.log(`Generated unique file name: ${uniqueFileName}`);
+                        console.log(`File path: ${filePath}`);
+
                         try {
                             // Assuming saveFile is asynchronous and returns a promise
                             await saveFile(fileData, filePath.replace(/ /g, "_"));
                             filesPaths.push(filePathToSave.replace(/ /g, "_"));
-                            //console.log("File uploaded:", filePath.replace(/ /g, "_"));
+                            console.log("File uploaded successfully:", filePath.replace(/ /g, "_"));
                             resolveFile();
                         } catch (error) {
                             console.error("Error uploading file:", error);
                             rejectFile(error);
                         }
                     };
+
                     reader.onerror = error => {
                         console.error("Error reading file:", error);
                         rejectFile(error);
                     };
+
                     reader.readAsDataURL(file);
                 });
             });
+
             Promise.all(uploadPromises)
                 .then(() => {
-                    //console.log("All files uploaded successfully" + filesPaths);
+                    console.log("All files uploaded successfully:", filesPaths);
                     resolve(filesPaths);
                 })
                 .catch(error => {
@@ -181,6 +192,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 });
         });
     };
+
 
 
     const handleAddProduct = async () => {

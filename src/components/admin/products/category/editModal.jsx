@@ -1,13 +1,10 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { editCategory, getCategoryById, saveImage } from '@/lib/data';
-import QuillEditor from "@/components/admin/products/QuillEditor"
+import QuillEditor from "@/components/admin/products/QuillEditor";
 import Image from 'next/image';
-export default function EditModal({ isOpen, onClose, categoryId }) {
-    // const productData = getProductById(productId);
-    //console.log('\n' + JSON.stringify(categoryId));
 
-    // const [data, setData] = useState();
+export default function EditModal({ isOpen, onClose, categoryId }) {
     const [newCategoryName, setNewCategoryName] = useState('');
     const [newCategoryUrlId, setNewCategoryUrlId] = useState('');
     const [newCategoryDescription, setNewCategoryDescription] = useState('');
@@ -17,12 +14,10 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
     const [selectedImages, setSelectedImages] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Initialize state variables based on categoryId
     useEffect(() => {
         resetState();
     }, [categoryId]);
 
-    // Function to reset state variables based on categoryId
     const resetState = () => {
         setNewCategoryName(categoryId.name || '');
         setNewCategoryUrlId(categoryId.url_Id || '');
@@ -32,132 +27,109 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         setCategoryImages(categoryId.imagens || []);
     };
 
-    // State variables for error handling
     const [nameError, setNameError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
-    //console.log(categoryImages);
-    //change listeners  for inputs 
-
-    // if (typeof filteredList === 'object' && !Array.isArray(filteredList) && filteredList !== null) {
-    //     console.log('filtered list: ' + JSON.stringify(filteredList));
-    //     //setNewCategoryName(filteredList.name);
-    // }
 
     const handleInputChangeName = (event) => {
         setNewCategoryName(event.target.value);
     };
+
     const handleInputChangeUrlId = (event) => {
         setNewCategoryUrlId(event.target.value);
     };
+
     const handleInputChangeDescription = (value) => {
         setNewCategoryDescription(value);
     };
+
     const handleInputChangeBody = (value) => {
         setNewCategoryBody(value);
     };
+
     const handleInputChangeIsPublished = (event) => {
         setNewCategoryIsPublished(event.target.checked);
     };
+
     const handleImageChange = (event) => {
         const files = Array.from(event.target.files);
         setSelectedImages(files);
     };
+
     const handleDeleteImage = (index) => {
         try {
             const currentImages = [...categoryImages];
             currentImages.splice(index, 1);
-            //console.log(currentImages);
-            setCategoryImages(currentImages); // Update categoryImages state
-            // Call deleteImages function to delete the image
-            // await deleteImages([imagePathToDelete]);
-            //console.log('Image deleted successfully');
+            setCategoryImages(currentImages);
         } catch (error) {
             console.error('Error deleting image:', error);
-            // You might want to handle errors here, e.g., show an error message
         }
     };
+
     const uploadImages = () => {
         return new Promise((resolve, reject) => {
             const imagePaths = [];
             const uploadPromises = selectedImages.map(image => {
                 return new Promise((resolveImage, rejectImage) => {
                     const reader = new FileReader();
-
                     reader.onload = async () => {
                         const base64Image = reader.result;
-
-                        // Generate a unique ID for the image
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
-                        // const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        var imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`; 
-
-                        console.log(`Generated uniqueId: ${uniqueId}`);
-                        console.log(`Image path: ${imagePath}`);
-
+                        const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
                         try {
                             const cloudImageLink = await saveImage(base64Image, imagePath);
                             imagePaths.push(cloudImageLink);
-                            console.log(`Image saved successfully: ${cloudImageLink}`);
                             resolveImage();
                         } catch (error) {
-                            console.error(`Error saving image: ${error}`);
                             rejectImage(error);
                         }
                     };
-
                     reader.onerror = error => {
-                        console.error(`Error reading image file: ${error}`);
                         rejectImage(error);
                     };
-
                     reader.readAsDataURL(image);
                 });
             });
-
             Promise.all(uploadPromises)
                 .then(() => {
-                    console.log('All images uploaded successfully:', imagePaths);
                     resolve(imagePaths);
                 })
                 .catch(error => {
-                    console.error('Error uploading images:', error);
                     reject(error);
                 });
         });
     };
 
-
     const handleAddProduct = async () => {
         setUrlCodeError(!newCategoryUrlId.trim());
         setNameError(!newCategoryName.trim());
         setDescriptionError(!newCategoryDescription.trim());
+
         if (!newCategoryName.trim() || !newCategoryUrlId.trim() || !newCategoryDescription.trim()) {
             return;
         }
+
         setLoading(true);
-        const imagePaths = await uploadImages();
+
+        let imagePaths = [];
+        
+
         const allImagePaths = [...imagePaths, ...categoryImages];
         const uniqueImagePaths = Array.from(new Set(allImagePaths));
-        //console.log(uniqueImagePaths, categoryId.id, newCategoryCode, newCategoryName, newCategoryDescription, newCategoryBody, newCategoryIsPublished, uniqueImagePaths);
+        if (uniqueImagePaths.length > 0) {
+            // Only upload images if new ones are selected
+            imagePaths = await uploadImages();
+        }
         await editCategory(categoryId.id,
             newCategoryUrlId,
             newCategoryName,
             newCategoryDescription,
             newCategoryBody,
             newCategoryIsPublished,
-            uniqueImagePaths);
-        // setNewCategoryName('');
-        // setNewCategoryIsPublished('');
-        // setNewCategoryBody('');
-        // setNewCategoryUrlId('');
-        // setNewCategoryDescription('');
-        // setCategoryImages(uniqueImagePaths);
-        setNameError(false);
-        setDescriptionError(false);
-        setUrlCodeError(false);
+            uniqueImagePaths
+        );
+
         setLoading(false);
         onClose();
     };
@@ -190,7 +162,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                         <div className='flex flex-col'>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
-                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
+                                    <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre</label>
                                     <input onChange={handleInputChangeName} value={newCategoryName} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="category" required />
                                     {nameError && <span className="text-red-500 italic text-xs">El nombre de la categoría es requerido</span>}
                                 </div>

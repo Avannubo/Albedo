@@ -148,9 +148,9 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         const fileData = reader.result;
-                        const filePath = `/assets/archivos/${file.name}`;
+                        const filePath = `./public/assets/archivos/${file.name}`;
                         // const imagePath = path.join(__dirname, 'public', 'assets', 'images', `${uniqueId}.${imageExtension}`);
-                        const filePathToSave = `/assets/archivos/${file.name}`;
+                        const filePathToSave = `./public/assets/archivos/${file.name}`;
                         //console.log("Uploading file:", filePath);
                         try {
                             // Assuming saveFile is asynchronous and returns a promise

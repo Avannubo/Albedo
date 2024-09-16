@@ -70,8 +70,7 @@ function List({ category }) {
                     {category.products.map((product, index) => (
                         <div
                             key={index}
-                            className={`ml-14 flex flex-row justify-between border rounded-lg p-2 mb-1 ${product.ALBEDOstock < product.ALBEDOstock_minimo ? 'bg-red-100' : 'bg-slate-50'
-                                }`}
+                            className={`ml-14 flex flex-row justify-between border rounded-lg p-2 mb-1 `} //${product.ALBEDOstock < product.ALBEDOstock_minimo ? 'bg-red-100' : 'bg-slate-50'}
                         >
                             <div className='flex flex-row space-x-4'>
                                 <p className="h-auto w-full self-center whitespace-nowrap">

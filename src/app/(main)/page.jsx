@@ -51,7 +51,7 @@ export default function Home() {
   }
 
   const allPublishedProducts = GetPublishedProducts(data);
-  const last4PublishedProducts = allPublishedProducts.slice(-4);
+  const last4PublishedProducts = allPublishedProducts.slice(0, 4); //PublishedProducts.slice(-4);
 
 
   return (

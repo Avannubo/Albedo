@@ -180,7 +180,7 @@ export default function PageContent() {
                                 <div className='md:w-2/3 mt-0 sm:mt-4 md:mt-0'>
                                     <h1 className='font-extrabold text-2xl mt-4 md:mt-0 pl-[15px] hidden md:flex'>{productData.ALBEDOtitulo}</h1>
                                     {productData.ALBEDOdescripcion &&
-                                        <div className='pl-[15px] hidden md:flex' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />}
+                                        <div className='pl-[15px] hidden md:flex md:flex-col' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />}
                                     <QuillTextDisplay value={productData.ALBEDOcuerpo} />
                                     {
                                         productData.archivos.length > 0 && (

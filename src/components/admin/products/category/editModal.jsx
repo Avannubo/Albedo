@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { editCategory, getCategoryById, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor";
 import Image from 'next/image';
-
 export default function EditModal({ isOpen, onClose, categoryId }) {
     const [newCategoryName, setNewCategoryName] = useState('');
     const [newCategoryUrlId, setNewCategoryUrlId] = useState('');
@@ -13,11 +12,9 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
     const [categoryImages, setCategoryImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([]);
     const [loading, setLoading] = useState(false);
-
     useEffect(() => {
         resetState();
     }, [categoryId]);
-
     const resetState = () => {
         setNewCategoryName(categoryId.name || '');
         setNewCategoryUrlId(categoryId.url_Id || '');
@@ -26,36 +23,28 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         setNewCategoryIsPublished(categoryId.isPublished || false);
         setCategoryImages(categoryId.imagens || []);
     };
-
     const [nameError, setNameError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
-
     const handleInputChangeName = (event) => {
         setNewCategoryName(event.target.value);
     };
-
     const handleInputChangeUrlId = (event) => {
         setNewCategoryUrlId(event.target.value);
     };
-
     const handleInputChangeDescription = (value) => {
         setNewCategoryDescription(value);
     };
-
     const handleInputChangeBody = (value) => {
         setNewCategoryBody(value);
     };
-
     const handleInputChangeIsPublished = (event) => {
         setNewCategoryIsPublished(event.target.checked);
     };
-
     const handleImageChange = (event) => {
         const files = Array.from(event.target.files);
         setSelectedImages(files);
     };
-
     const handleDeleteImage = (index) => {
         try {
             const currentImages = [...categoryImages];
@@ -65,7 +54,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
             console.error('Error deleting image:', error);
         }
     };
-
     const uploadImages = () => {
         return new Promise((resolve, reject) => {
             const imagePaths = [];
@@ -105,21 +93,18 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         setUrlCodeError(!newCategoryUrlId.trim());
         setNameError(!newCategoryName.trim());
         setDescriptionError(!newCategoryDescription.trim());
-
         if (!newCategoryName.trim() || !newCategoryUrlId.trim() || !newCategoryDescription.trim()) {
             return;
         }
-
         setLoading(true);
-
         let imagePaths = [];
-        
+
+        imagePaths = await uploadImages();
 
         const allImagePaths = [...imagePaths, ...categoryImages];
         const uniqueImagePaths = Array.from(new Set(allImagePaths));
         if (uniqueImagePaths.length > 0) {
             // Only upload images if new ones are selected
-            imagePaths = await uploadImages();
         }
         await editCategory(categoryId.id,
             newCategoryUrlId,
@@ -129,7 +114,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
             newCategoryIsPublished,
             uniqueImagePaths
         );
-
         setLoading(false);
         onClose();
     };

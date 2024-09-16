@@ -88,7 +88,7 @@ export default function PageContent() {
                                     </div>
                                 )}
                                 <div className='flex flex-col text-center justify-center my-2' dangerouslySetInnerHTML={{ __html: sanitizeHTML(pageData?.ALBEDOcuerpo) }} />
-                            {pageData.subCategories && pageData.subCategories.length > 0 && (
+                                {pageData.subCategories && pageData.subCategories.length > 0 && (
                                     <>
                                         <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                                         <div className='flex justify-center my-2'>
@@ -96,35 +96,47 @@ export default function PageContent() {
                                         </div>
                                         <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
                                         <div className='flex flex-row flex-wrap justify-center mt-2'>
-                                            {pageData.subCategories.map((subCat, index) => (
-                                                <Link href={`/products/${slugArrayHook.join("/")}/${subCat.url_Id}`} key={index} className='lg:w-[250px] md:w-[300px] w-full flex flex-col justify-between m-2  p-2 rounded-md box-shadow'>
-                                                    <Image src={subCat.imagens[0]} alt="Vercel Logo" className="self-center h-[150px] sm:h-[200px]  md:h-[150px] w-full object-contain rounded-lg" width={500} height={500} />
-                                                    <p className='text-center font-bold'>{subCat.name}</p>
-                                                    <button className="self-center text-white w-full py-1.5 mt-2 rounded-md bg-[#304590] hover:bg-[#475caa]">Ver Más</button>
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    </>
-                                )}
-                                {pageData.products && pageData.products.length > 0 && (
-                                    <>
-                                        <hr className="h-1 mt-2 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-                                        <div className='flex justify-center my-2'>
-                                            <p className='text-lg font-bold'>Productos</p>
-                                        </div>
-                                        <hr className="h-1 mb-2 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-                                        <div className='flex flex-row flex-wrap justify-center space-x-4'>
-                                            {pageData.products.map((product) => (
-                                                <div className='flex flex-col justify-between lg:w-[270px] md:w-[300px] w-full m-2 mb-4 p-2 rounded-md box-shadow' key={product.ALBEDOcodigo}>
-                                                    <Link href={`/products/${slugArrayHook.join("/")}/${product.url_Id}`} className='mb-1'>
-                                                        <ProductItem product={product} />
+                                            {pageData.subCategories
+                                                .filter(subCat => subCat.isPublished)  // Filter only categories where isPublished is true
+                                                .map((subCat, index) => (
+                                                    <Link href={`/products/${slugArrayHook.join("/")}/${subCat.url_Id}`} key={index} className='lg:w-[250px] md:w-[300px] w-full flex flex-col justify-between m-2  p-2 rounded-md box-shadow'>
+                                                        <Image src={subCat.imagens[0]} alt={subCat.name} className="self-center h-[150px] sm:h-[200px]  md:h-[150px] w-full object-contain rounded-lg" width={500} height={500} />
+                                                        <p className='text-center font-bold'>{subCat.name}</p>
+                                                        <button className="self-center text-white w-full py-1.5 mt-2 rounded-md bg-[#304590] hover:bg-[#475caa]">Ver Más</button>
                                                     </Link>
-                                                    <AddToCart producto={product} />
-                                                </div>
-                                            ))}
+                                                ))
+                                            }
+
                                         </div>
                                     </>
                                 )}
+                                    {pageData.products && pageData.products.length > 0 ? (
+                                        <>
+                                            <hr className="h-1 mt-2 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+                                            <div className='flex justify-center my-2'>
+                                                <p className='text-lg font-bold'>Productos</p>
+                                            </div>
+                                            <hr className="h-1 mb-2 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+                                            <div className='flex flex-row flex-wrap justify-center space-x-4'>
+                                                {pageData.products
+                                                    .filter(product => product.isPublished)  // Only show published products
+                                                    .map((product) => (
+                                                        <div className='flex flex-col justify-between lg:w-[270px] md:w-[300px] w-full m-2 mb-4 p-2 rounded-md box-shadow' key={product.ALBEDOcodigo}>
+                                                            <Link href={`/products/${slugArrayHook.join("/")}/${product.url_Id}`} className='mb-1'>
+                                                                {/* Display product details like title and image */}
+                                                                <ProductItem product={product} />
+                                                            </Link>
+                                                            {/* Add to Cart button */}
+                                                            <AddToCart producto={product} />
+                                                        </div>
+                                                    ))}
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <div className='flex justify-center my-2'>
+                                            <p className='text-lg font-bold'> </p>
+                                        </div>
+                                    )}
                             </div>
                         </div>
                     )}
@@ -146,26 +158,26 @@ export default function PageContent() {
                                                     height={1050}
                                                 />
                                             ))}
-                                                <div className="flex flex-row items-start mt-2">
-                                                    {/* Scrollable container for thumbnails */}
-                                                    <div className="flex space-x-4 overflow-x-auto w-full">
-                                                        {productData.imagens.map((image, index) => (
-                                                            <div
-                                                                key={index}
-                                                                onClick={() => setCurrentImageIndex(index)}
-                                                                className={`flex-shrink-0 h-auto w-[85px] border-2 border-transparent text-center cursor-pointer ${index === currentImageIndex ? 'border-gray-900' : ''}`}
-                                                            >
-                                                                <Image
-                                                                    className="rounded-lg w-[80px] h-[80px] object-contain"
-                                                                    src={image}
-                                                                    alt={`Thumbnail ${index + 1}`}
-                                                                    width={80}
-                                                                    height={80}
-                                                                />
-                                                            </div>
-                                                        ))}
-                                                    </div>
+                                            <div className="flex flex-row items-start mt-2">
+                                                {/* Scrollable container for thumbnails */}
+                                                <div className="flex space-x-4 overflow-x-auto w-full">
+                                                    {productData.imagens.map((image, index) => (
+                                                        <div
+                                                            key={index}
+                                                            onClick={() => setCurrentImageIndex(index)}
+                                                            className={`flex-shrink-0 h-auto w-[85px] border-2 border-transparent text-center cursor-pointer ${index === currentImageIndex ? 'border-gray-900' : ''}`}
+                                                        >
+                                                            <Image
+                                                                className="rounded-lg w-[80px] h-[80px] object-contain"
+                                                                src={image}
+                                                                alt={`Thumbnail ${index + 1}`}
+                                                                width={80}
+                                                                height={80}
+                                                            />
+                                                        </div>
+                                                    ))}
                                                 </div>
+                                            </div>
                                         </div>
                                         <div className='my-4 sm:my-0 w-full'>
                                             <h1 className='md:hidden font-extrabold text-2xl'>{productData.ALBEDOtitulo}</h1>

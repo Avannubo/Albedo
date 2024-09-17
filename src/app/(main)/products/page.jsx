@@ -51,7 +51,7 @@ export default function page() {
         return null;
     }
     const allPublishedProducts = GetPublishedProducts(data);
-    const last4PublishedProducts = allPublishedProducts.slice(0,4);
+    const last4PublishedProducts = allPublishedProducts.slice(-12);
     return (
         <Layout>
             <hr className="h-1 mx-auto bg-gray-50 border-0 rounded dark:bg-gray-700 mt-10" />

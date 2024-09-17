@@ -199,7 +199,11 @@ export default function PageContent() {
                                             <div className='flex flex-col md:pl-[15px]'>
                                                 <p className='font-semibold'>Más información / Hoja de características del {productData.ALBEDOtitulo}</p>
                                                 {productData.archivos.map((archivo, index) => (
-                                                    <a key={index} target='__blank' href={`albedo.avannubo.com${archivo}`} className='font-semibold text-[#304590]'>
+                                                    <a key={index}
+                                                        target='_blank'
+                                                        rel='noopener noreferrer'
+                                                        href={`/${archivo}`}
+                                                        className='font-semibold text-[#304590]'>
                                                         {archivo.substring(archivo.lastIndexOf('/') + 1)}
                                                     </a>
                                                 ))}

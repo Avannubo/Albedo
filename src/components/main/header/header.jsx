@@ -62,7 +62,7 @@ export default function Header() {
           <Link href="/">
             <Image
               src="/assets/images/Logo_albedo_blanco.png"
-              alt="Vercel Logo"
+              alt="Image"
               className="h-[50px] self-center mr-6"
               width={150}
               height={100}

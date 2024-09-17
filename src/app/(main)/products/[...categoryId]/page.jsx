@@ -100,7 +100,7 @@ export default function PageContent() {
                                                 .filter(subCat => subCat.isPublished)  // Filter only categories where isPublished is true
                                                 .map((subCat, index) => (
                                                     <Link href={`/products/${slugArrayHook.join("/")}/${subCat.url_Id}`} key={index} className='lg:w-[250px] md:w-[300px] w-full flex flex-col justify-between m-2  p-2 rounded-md box-shadow'>
-                                                        <Image src={subCat.imagens[0]} alt={subCat.name} className="self-center h-[150px] sm:h-[200px]  md:h-[150px] w-full object-contain rounded-lg" width={500} height={500} />
+                                                        <img src={subCat.imagens[0]} alt={subCat.name} className="self-center h-[150px] sm:h-[200px]  md:h-[150px] w-full object-contain rounded-lg" width={500} height={500} />
                                                         <p className='text-center font-bold'>{subCat.name}</p>
                                                         <button className="self-center text-white w-full py-1.5 mt-2 rounded-md bg-[#304590] hover:bg-[#475caa]">Ver Más</button>
                                                     </Link>

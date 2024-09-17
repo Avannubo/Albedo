@@ -12,7 +12,7 @@ export default function aside() {
       <Link href="/" className="flex flex-col justify-center p-6">
         <Image
           src="/assets/images/Logo_albedo.png"
-          alt="Vercel Logo"
+          alt="Image"
           className="self-center"
           width={250}
           height={100}

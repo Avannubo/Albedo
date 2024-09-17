@@ -77,7 +77,7 @@ export default function Home() {
         <div className="flex justify-center my-4">
           <Image
             src="/assets/images/home/facebook_portada.png"
-            alt="Vercel Logo"
+            alt="Image"
             className="self-center"
             width={400}
             height={240}
@@ -218,7 +218,7 @@ export default function Home() {
             <div className="flex flex-row flex-wrap justify-center my-4">
               <Image
                 src="/assets/images/home/diseño1.png"
-                alt="Vercel Logo"
+                alt="Image"
                 className="rounded-lg m-2 w-full h-[200px] md:w-[250px] lg:h-auto object-cover"
                 width={500}
                 height={24}
@@ -226,7 +226,7 @@ export default function Home() {
               />
               <Image
                 src="/assets/images/home/diseño2.png"
-                alt="Vercel Logo"
+                alt="Image"
                 className="rounded-lg m-2 w-full h-[200px] md:w-[250px] lg:h-auto object-cover"
                 width={600}
                 height={24}

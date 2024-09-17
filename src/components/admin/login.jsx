@@ -33,7 +33,7 @@ export default function loginComp() {
                 <Link href="/" className="flex flex-col justify-center">
                     <Image
                         src="/assets/images/Logo_albedo.png"
-                        alt="Vercel Logo"
+                        alt="Image"
                         className="self-center"
                         width={250}
                         height={100}

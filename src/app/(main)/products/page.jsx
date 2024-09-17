@@ -51,7 +51,7 @@ export default function page() {
         return null;
     }
     const allPublishedProducts = GetPublishedProducts(data);
-    const last4PublishedProducts = allPublishedProducts.slice(-12);
+    const last4PublishedProducts = allPublishedProducts.slice(0, 12);
     return (
         <Layout>
             <hr className="h-1 mx-auto bg-gray-50 border-0 rounded dark:bg-gray-700 mt-10" />
@@ -100,7 +100,10 @@ export default function page() {
                         <div className='flex flex-row flex-wrap space-x-1 md:space-x-4  justify-center  mt-2 '>
                             {data.slice(1).map((category, index) => (
                                 <Link key={index} href={`/products/${category.url_Id}`} className=" mb-4 p-2 box-shadow text-md text-gray-700 rounded-lg ">
-                                    <Image src={category.imagens[0]} alt="Vercel Logo" className="self-center w-[135px] h-[100px] object-contain rounded-lg"
+                                    <img
+                                        src={category.imagens[0]}
+                                        alt="Image"
+                                        className="self-center w-[135px] h-[100px] object-contain rounded-lg"
                                         width={500} height={400} />
                                     <p className='text-center font-semibold text-md'>
                                         {category.name.split(" ").length > 2 ? category.name.split(" ")[0] : category.name}

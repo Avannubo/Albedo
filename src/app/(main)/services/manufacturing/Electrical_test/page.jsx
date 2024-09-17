@@ -17,7 +17,7 @@ export default function page() {
                 </p>
                 <Image
                     src="/assets/images/100000924.jpg"
-                    alt="Vercel Logo"
+                    alt="Image"
                     className="self-center object-cover aspect-square  rounded-lg w-[400px] md:w-[300px] h-[500px] md:h-[450px]"
                     width="1000"
                     height="250"

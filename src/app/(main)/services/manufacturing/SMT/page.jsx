@@ -12,15 +12,15 @@ export default function page() {
             <div className='text-xl space-y-4'>
                 <p>
                     En ALBEDO disponemos de 2 líneas de montaje SMD. Con una capacidad de inserción de más de 75.000 componentes/hora.
-                    <br /> 
+                    <br />
                     Cada una de las líneas de montaje cuenta con 1 serigrafía, 3 Pick&Place y horno. Con sus correspondientes conveyors, cargadores y descargadores.
-                    <br /> 
+                    <br />
                     Montamos componentes desde 0402 hasta QFPs, QFNs, BGAs, uBGAs, LGAs, CSPs, POPs.
                 </p>
                 <div className='flex flex-row justify-center'>
                     <Image
                         src="/assets/images/100000918.jpg"
-                        alt="Vercel Logo"
+                        alt="Image"
                         className="self-center rounded-lg object-cover h-[300px] md:w-[500px] w-full"
                         width="1100"
                         height="250"

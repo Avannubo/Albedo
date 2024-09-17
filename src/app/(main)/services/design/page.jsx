@@ -14,7 +14,7 @@ export default function page() {
                 <div className='hidden md:flex'>
                     <Image
                         src="/assets/images/remote_metro_iso.jpg"
-                        alt="Vercel Logo"
+                        alt="Image"
                         className="float-right rounded-lg h-[300px] "
                         width="400"
                         height="350"
@@ -35,7 +35,7 @@ export default function page() {
                 <div className='hidden md:flex'>
                     <Image
                         src="/assets/images/remote_green_imagen2.jpg"
-                        alt="Vercel Logo"
+                        alt="Image"
                         className="float-left rounded-lg h-[300px] "
                         width="400"
                         height="450"
@@ -48,7 +48,7 @@ export default function page() {
                     <Link className='self-center' href="/services/design/rf">
                         <Image
                             src="/assets/images/rf.png"
-                            alt="Vercel Logo"
+                            alt="Image"
                             className="self-center rounded-lg w-[80px] h-[80px]"
                             width="100"
                             height="50"
@@ -64,7 +64,7 @@ export default function page() {
                     <Link className='self-center' href="/services/design/ferrite">
                         <Image
                             src="/assets/images/ferrite.jpg"
-                            alt="Vercel Logo"
+                            alt="Image"
                             className="self-center rounded-lg w-[80px] h-[80px]"
                             width="100"
                             height="50"
@@ -80,7 +80,7 @@ export default function page() {
                     <Link href="/services/design/low_power" className='self-center flex flex-row space-x-2'>
                         <Image
                             src="/assets/images/LowPower.jpg"
-                            alt="Vercel Logo"
+                            alt="Image"
                             className="self-center rounded-lg w-[80px] h-[80px]"
                             width="100"
                             height="50"

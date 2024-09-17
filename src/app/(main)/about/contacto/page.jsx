@@ -26,7 +26,7 @@ export default function page() {
         <div className='flex flex-col space-y-4 mb-6 sm:mb-2'>
           <Image
             src="/assets/images/100000925.jpg"
-            alt="Vercel Logo"
+            alt="Image"
             className="hidden sm:flex  float-right rounded-lg"
             width="350"
             height="80"

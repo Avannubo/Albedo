@@ -15,7 +15,7 @@ export default function page() {
                 <p className='text-justify'>
                     <Image
                         src="/assets/images/100000926.jpg"
-                        alt="Vercel Logo"
+                        alt="Image"
                         className="float-left rounded-lg mr-4"
                         width="130"
                         height="50"
@@ -27,7 +27,7 @@ export default function page() {
                     Ambos son ingenieros de Telecomunicación de consolidada reputación profesional en el sector electrónico español. Ambos fueron socios fundadores de ICT Electronics SA, dirigiendo con exito la empresa durante 18 años.
                     <Image
                         src="/assets/images/100000927.jpg"
-                        alt="Vercel Logo"
+                        alt="Image"
                         className="float-right rounded-lg ml-4"
                         width="170"
                         height="50"

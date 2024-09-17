@@ -21,7 +21,7 @@ export default function page() {
             <Link href="/services/design" className='flex justify-center'>
                 <Image
                     src="/assets/images/servicio_diseño_01.jpg"
-                    alt="Vercel Logo"
+                    alt="Image"
                     className="self-center rounded-lg"
                     width={1100}
                     height={700}
@@ -35,7 +35,7 @@ export default function page() {
             <Link href='/services/manufacturing/' className='flex justify-center my-5'>
                 <Image
                     src="/assets/images/servicio_fabricacion_01.jpg"
-                    alt="Vercel Logo"
+                    alt="Image"
                     className="self-center rounded-lg"
                     width={1100}
                     height={700}

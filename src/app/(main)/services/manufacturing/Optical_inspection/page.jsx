@@ -24,7 +24,7 @@ export default function page() {
                 <div className='flex flex-col justify-center space-y-4'>
                     <Image
                         src="/assets/images/200000033.jpg"
-                        alt="Vercel Logo"
+                        alt="Image"
                         className="self-center rounded-lg object-cover h-[300px] md:w-[500px] w-full m-2"
                         width="600"
                         height="250"
@@ -37,7 +37,7 @@ export default function page() {
 
                     <Image
                         src="/assets/images/200000066.jpg"
-                        alt="Vercel Logo"
+                        alt="Image"
                         className="self-center rounded-lg object-cover h-[300px] md:w-[500px] w-full m-2"
                         width="600"
                         height="250"
@@ -51,7 +51,7 @@ export default function page() {
 
                         <Image
                             src="/assets/images/200000099.jpg"
-                            alt="Vercel Logo"
+                            alt="Image"
                             className="self-center rounded-lg object-cover h-[300px] md:w-[500px] w-full m-2"
                             width="1100"
                             height="250"
@@ -59,7 +59,7 @@ export default function page() {
                         />
                         <Image
                             src="/assets/images/200000132.jpg"
-                            alt="Vercel Logo"
+                            alt="Image"
                             className="self-center rounded-lg object-cover h-[300px] md:w-[500px] w-full m-2"
                             width="1100"
                             height="250"

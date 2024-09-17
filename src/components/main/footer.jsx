@@ -10,7 +10,7 @@ function footer() {
           <Link href="/" className="w-1/3 self-center flex justify-center">
             <Image
               src="/assets/images/Logo_albedo.png"
-              alt="Vercel Logo"
+              alt="Image"
               className=" object-contain"
               width={300}
               height={24}

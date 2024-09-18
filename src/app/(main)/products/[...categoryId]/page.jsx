@@ -149,7 +149,7 @@ export default function PageContent() {
                                         {/* Map over each image in productData.imagens */}
                                         <div className='flex flex-col w-full'>
                                             {productData.imagens.map((image, index) => (
-                                                <Image
+                                                <img
                                                     key={index} // Make sure to provide a unique key for each image
                                                     className={` md:h-[400px] sm:h-[270px] h-[300px] md:w-[550px] object-contain rounded-lg ${index !== currentImageIndex ? 'hidden' : ''}`}
                                                     src={image}
@@ -167,7 +167,7 @@ export default function PageContent() {
                                                             onClick={() => setCurrentImageIndex(index)}
                                                             className={`flex-shrink-0 h-auto w-[85px] border-2 border-transparent text-center cursor-pointer ${index === currentImageIndex ? 'border-gray-900' : ''}`}
                                                         >
-                                                            <Image
+                                                            <img
                                                                 className="rounded-lg w-[80px] h-[80px] object-contain"
                                                                 src={image}
                                                                 alt={`Thumbnail ${index + 1}`}

@@ -984,7 +984,7 @@ export async function sendEmail(orderData) {
                 Cantidad Pedida: ${product.quantity} 
                 \n`;
         });
-        const emailText = `
+        const emailTextOnwer = `
             Información del Pedido:
             Detalles del Cliente:
             - Nombre: ${customerDetails.firstName}
@@ -1010,6 +1010,17 @@ export async function sendEmail(orderData) {
             Monto Total del Pedido: ${orderData.totalPedido} EUR
             Factura Requerida: ${orderData.invoice ? 'Sí' : 'No'}
             `;
+        const emailTextClient = `
+            Información del Pedido: 
+            ${productsText}
+            Información de Envío:
+            - Método de Envío: ${shippingDetails.method}
+            - Precio del Envío: ${shippingDetails.price} EUR
+            Información de Pago:
+            - Método de Pago: ${orderData.selectedPayment}
+            Monto Total del Pedido: ${orderData.totalPedido} EUR
+            Factura Requerida: ${orderData.invoice ? 'Sí' : 'No'}
+            `;
         var transporter = nodemailer.createTransport({
             host: "smtp.serviciodecorreo.es",
             port: 465,
@@ -1023,13 +1034,13 @@ export async function sendEmail(orderData) {
             from: process.env.NODEMAILER_EMAILSENDER, //process.env.NODEMAILER_EMAIL,"arjun.singh@avannubo.com"
             to: process.env.NODEMAILER_EMAILSENDER,//process.env.NODEMAILER_EMAILRECEIVER,
             subject: "Detalles del pedido realizado",
-            text: emailText,
+            text: emailTextOnwer,
         };
         const mailOptionsClient = {
             from: process.env.NODEMAILER_EMAILSENDER, //process.env.NODEMAILER_EMAIL,"arjun.singh@avannubo.com"
             to: customerDetails.email,//process.env.NODEMAILER_EMAILRECEIVER,
             subject: "Detalles del pedido",
-            text: emailText,
+            text: emailTextClient,
         };
         const info = await transporter.sendMail(mailOptionsOnwer);
         const info1 = await transporter.sendMail(mailOptionsClient);
@@ -1301,7 +1312,7 @@ export async function saveImage(base64Image, imagePath) {
 
             // Upload the image using Cloudinary
             const results = await cloudinary.uploader.upload(imagePath);
-            console.log("Uploading to cloud: " + imagePath);
+            console.log("Uploading to cloud: " + results.secure_url);
 
             // Return the URL of the uploaded image
             return results.secure_url;

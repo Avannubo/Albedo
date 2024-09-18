@@ -1,10 +1,10 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { saveNewOrder, checkStock,getIBAN } from '@/lib/data';
+import { saveNewOrder, checkStock, getIBAN } from '@/lib/data';
 import Image from 'next/image';
 
-export default function ModalTransference({ isOpen, onClose, orderData }) {
+export default function ModalTransference({ isOpen, onClose, orderData, precioTotal }) {
     const [isCopied, setIsCopied] = useState(false);
     const [paymentConfirmed, setPaymentConfirmed] = useState(false);
     const [stockWarning, setStockWarning] = useState(null);
@@ -146,15 +146,15 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                     onClick={handleContinueWithUpdatedStock}
                                     className='text-center mt-4 whitespace-nowrap self-center w-auto rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'
                                 >
-                                
-                                Actualizar Stock 
+
+                                    Actualizar Stock
                                 </button>
                             </div>
                         )}
                         <h1 className="text-2xl font-bold mb-4 text-center">Transfiera la cantidad a la siguiente cuenta:</h1>
                         <div className="flex justify-center items-center mb-8">
                             <div className="p-4 bg-gray-100 rounded-lg">
-                                    <p className="text-xl font-mono">{IBAN}</p>
+                                <p className="text-xl font-mono">{IBAN}</p>
                                 <button
                                     onClick={copyAccountNumber}
                                     className="text-center mt-2 w-full rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]"
@@ -180,14 +180,14 @@ export default function ModalTransference({ isOpen, onClose, orderData }) {
                                             <td className="px-6 py-4 whitespace-nowrap text-center">{product.ALBEDOtitulo}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-center">{product.ALBEDOprecio.toFixed(2)}€</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-center">{product.quantity}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-center">{(product.ALBEDOprecio * product.quantity).toFixed(2)}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-center">{(product.ALBEDOprecio * product.quantity).toFixed(2)}€</td>
                                         </tr>
                                     ))}
                                 </tbody>
-                                <tfoot>
+                                    <tfoot> 
                                     <tr>
-                                        <td colSpan="3" className="text-right px-6 py-3 font-bold">Total:</td>
-                                        <td className="px-6 py-3 font-bold">{orderData.totalPedido.toFixed(2)}</td>
+                                        <td colSpan="3" className="text-right   font-bold">Total con Iva:</td>
+                                            <td className=" grow font-bold">{precioTotal}€</td>
                                     </tr>
                                 </tfoot>
                             </table>

@@ -3,12 +3,10 @@ import React from 'react'
 import { getAllInactiveOrders, getAllActiveOrders } from "@/lib/data";
 import { useEffect, useState } from 'react';
 import ApexCharts from 'apexcharts';
-
 export default function ordersChart() {
     const [orders, setOrders] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [loading, setLoading] = useState(true); // Add loading state
-
     useEffect(() => {
         async function fetchOrders() {
             try {
@@ -25,20 +23,16 @@ export default function ordersChart() {
         }
         fetchOrders();
     }, []);
-
     useEffect(() => {
         if (!dataLoaded) return; // Exit if data is not loaded yet
-
         // Initialize an array to hold the count of orders for each month
         const ordersByMonth = Array(12).fill(0);
-
         // Process orders data to count orders by month
         orders.forEach(order => {
             //console.log(order);
             const monthIndex = parseInt(order.createdAt.split('/')[1], 10) - 1; // Extract and convert month to zero-based index
             ordersByMonth[monthIndex]++;
         });
-
         const chartConfig = {
             series: [
                 {
@@ -131,10 +125,8 @@ export default function ordersChart() {
                 theme: 'light',
             },
         };
-
         const chart = new ApexCharts(document.querySelector('#line-chart'), chartConfig);
         chart.render();
-
         return () => {
             chart.destroy();
         };

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 function AddToCart({ producto }) {
-  console.log(producto.ALBEDOstock);
+  //console.log(producto.ALBEDOstock);
   // State to store the quantity input value
   const [quantity, setQuantity] = useState(1);
   const handleQuantityChange = (event) => {

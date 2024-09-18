@@ -201,60 +201,31 @@ export default function page() {
                 ) : (
                     last4PublishedProducts.length && last4PublishedProducts.length > 0 ? (
                         <div className="flex flex-row flex-wrap items-center justify-center ">
-                            {last4PublishedProducts.map((product) => (
-                                <div key={product.ALBEDOcodigo} className="lg:w-[250px] flex flex-col p-2 m-4  rounded-lg box-shadow justify-between">
-                                    <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
-                                        <ProductItem product={product} /></Link>
-                                    <AddToCart producto={product} />
-                                </div>
-                            ))}
+                            {last4PublishedProducts
+                                .filter(product => product.isPublished)
+                                .map((product) => (
+                                    <div key={product.ALBEDOcodigo} className="lg:w-[250px] flex flex-col p-2 m-4  rounded-lg box-shadow justify-between">
+                                        <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
+                                            <ProductItem product={product} /></Link>
+                                        <AddToCart producto={product} />
+                                    </div>
+                                ))}
                         </div>
                     ) : (
-                        <div className='flex flex-row items-center justify-center space-x-4 mt-4 mb-8'>
-                            <div className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
-                                <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                    <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                    <div className='flex flex-row justify-between space-x-4 '>
-                                        <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                        <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
+                                <div className='grid grid-cols-4 items-center justify-center space-x-4 mt-4 mb-8'>
+                            {Array.from({ length: 8 }).map((_, index) => (
+                                <div key={index} className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
+                                    <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
+                                        <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
+                                        <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
+                                        <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
+                                        <div className='flex flex-row justify-between space-x-4'>
+                                            <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
+                                            <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
-                                <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                    <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                    <div className='flex flex-row justify-between space-x-4 '>
-                                        <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                        <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
-                                <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                    <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                    <div className='flex flex-row justify-between space-x-4 '>
-                                        <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                        <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
-                                <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                    <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                    <div className='flex flex-row justify-between space-x-4 '>
-                                        <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                        <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     )
                 )}

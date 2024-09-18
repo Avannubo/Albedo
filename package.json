@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "apexcharts": "^3.53.0",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.4.0",

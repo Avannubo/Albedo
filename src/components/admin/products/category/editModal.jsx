@@ -89,7 +89,6 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                 });
         });
     };
-
     const handleAddProduct = async () => {
         setUrlCodeError(!newCategoryUrlId.trim());
         setNameError(!newCategoryName.trim());
@@ -99,9 +98,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         }
         setLoading(true);
         let imagePaths = [];
-
         imagePaths = await uploadImages();
-
         const allImagePaths = [...imagePaths, ...categoryImages];
         const uniqueImagePaths = Array.from(new Set(allImagePaths));
         if (uniqueImagePaths.length > 0) {

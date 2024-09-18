@@ -2,6 +2,7 @@
 import React from 'react'
 import { getAllInactiveOrders, getAllActiveOrders } from "@/lib/data";
 import { useEffect, useState } from 'react';
+import ApexCharts from 'apexcharts';
 
 export default function ordersChart() {
     const [orders, setOrders] = useState([]);

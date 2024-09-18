@@ -1,7 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { getCategories } from "@/lib/data";
 import ProductItem from "@/components/main/products/productItem";
@@ -60,11 +59,7 @@ export default function page() {
             </div>
             <div className="min-h-[10vh]">
                 <hr className="h-1 mx-auto my-4 bg-gray-50 border-0 rounded dark:bg-gray-700" />
-                {isLoading ? (
-                    // <div className="flex-col gap-4 w-full flex items-center justify-center">
-                    //     <div className="w-20 h-20 border-8 text-[#304590] text-xl animate-spin border-gray-300 flex items-center justify-center border-t-[#304590] rounded-full">
-                    //     </div>
-                    // </div>
+                {isLoading ? ( 
                     <div className='flex flex-row items-center justify-center space-x-4 mt-4 mb-8'>
                         <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
                             <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
@@ -204,7 +199,7 @@ export default function page() {
                             {last4PublishedProducts
                                 .filter(product => product.isPublished)
                                 .map((product) => (
-                                    <div key={product.ALBEDOcodigo} className="lg:w-[250px] flex flex-col p-2 m-4  rounded-lg box-shadow justify-between">
+                                    <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
                                         <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
                                             <ProductItem product={product} /></Link>
                                         <AddToCart producto={product} />
@@ -212,7 +207,7 @@ export default function page() {
                                 ))}
                         </div>
                     ) : (
-                                <div className='grid grid-cols-4 items-center justify-center space-x-4 mt-4 mb-8'>
+                        <div className='grid grid-cols-4 items-center justify-center space-x-4 mt-4 mb-8'>
                             {Array.from({ length: 8 }).map((_, index) => (
                                 <div key={index} className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
                                     <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>

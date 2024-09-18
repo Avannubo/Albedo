@@ -182,7 +182,7 @@ export default function PageContent() {
                                         {relatedProducts
                                             .filter(product => product.isPublished)
                                             .map((product) => (
-                                        <div key={product.ALBEDOcodigo} className="lg:w-[270px] md:w-[300px] w-full m-2 p-2 rounded-md box-shadow">
+                                        <div key={product.ALBEDOcodigo} className="lg:w-[270px] md:w-[300px] md:h-[330px] justify-between w-full m-2 p-2 rounded-md box-shadow">
                                             <Link href={`/products/${slugArrayHook.slice(0, -1).join("/")}/${product.url_Id}`}>
                                                 <ProductItem product={product} />
                                             </Link>
@@ -281,7 +281,7 @@ export default function PageContent() {
                                         {pageData.products
                                             .filter(product => product.isPublished)
                                             .map((product) => (
-                                                <div className='flex flex-col justify-between lg:w-[270px] md:w-[300px] w-full m-2 mb-4 p-2 rounded-md box-shadow' key={product.ALBEDOcodigo}>
+                                                <div className='flex flex-col justify-between lg:w-[270px] md:w-[300px] md:h-[330px] justify-between w-full m-2 mb-4 p-2 rounded-md box-shadow' key={product.ALBEDOcodigo}>
                                                     <Link href={`/products/${slugArrayHook.join("/")}/${product.url_Id}`} className='mb-1'>
                                                         <ProductItem product={product} />
                                                     </Link>

@@ -141,9 +141,9 @@ export default function Home() {
             last4PublishedProducts.length && last4PublishedProducts.length > 0 ? (
               <div className="flex flex-row flex-wrap items-center justify-center ">
                 {last4PublishedProducts.map((product) => (
-                  <div key={product.ALBEDOcodigo} className="w-full xs:w-[200px] sm:w-[240px] md:w-[230px] lg:w-[250px] flex flex-col p-2 m-4  rounded-lg box-shadow justify-between">
+                  <div key={product.ALBEDOcodigo} className="w-full md:h-[330px] xs:w-[200px] sm:w-[240px] md:w-[230px] lg:w-[250px]  flex flex-col p-2 m-4  rounded-lg box-shadow justify-between">
                     <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
-                      <ProductItem product={product} /></Link>
+                      <ProductItem product={product}/></Link>
                     <AddToCart producto={product} />
                   </div>
                 ))}

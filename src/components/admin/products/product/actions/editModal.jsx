@@ -4,9 +4,7 @@ import { editproduct, cloudinaryUploader, saveImage, saveFile } from '@/lib/data
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, category, product }) {
-
     //console.log("btn edit prod: " + JSON.stringify(category.id));
-
     const [loading, setLoading] = useState(false);
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);
@@ -21,8 +19,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     const [productFiles, setProductFiles] = useState(product.archivos);
     const [selectedImages, setSelectedImages] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
-
-
     const [nameError, setNameError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
@@ -66,6 +62,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             const currentImages = [...productImages];
             currentImages.splice(index, 1);
             //console.log(currentImages);
+            setSelectedImages([]);
             setProductImages(currentImages); // Update productImages state
             // Call deleteImages function to delete the image
             // await deleteImages([imagePathToDelete]);
@@ -79,6 +76,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
         try {
             const updatedFiles = [...productFiles];
             updatedFiles.splice(index, 1);
+            setSelectedFiles([]);
             setProductFiles(updatedFiles); // Update productFiles state
             //console.log('File deleted successfully' + updatedFiles);
         } catch (error) {
@@ -92,20 +90,16 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             const uploadPromises = selectedImages.map(image => {
                 return new Promise((resolveImage, rejectImage) => {
                     const reader = new FileReader();
-
                     reader.onload = async () => {
                         const base64Image = reader.result;
-
                         // Generate a unique ID for the image
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const imageExtension = image.name.split('.').pop();
                         // const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
                         var imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
                         // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`; 
-
                         console.log(`Generated uniqueId: ${uniqueId}`);
                         console.log(`Image path: ${imagePath}`);
-
                         try {
                             const cloudImageLink = await saveImage(base64Image, imagePath);
                             imagePaths.push(cloudImageLink);
@@ -116,16 +110,13 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                             rejectImage(error);
                         }
                     };
-
                     reader.onerror = error => {
                         console.error(`Error reading image file: ${error}`);
                         rejectImage(error);
                     };
-
                     reader.readAsDataURL(image);
                 });
             });
-
             Promise.all(uploadPromises)
                 .then(() => {
                     console.log('All images uploaded successfully:', imagePaths);
@@ -137,29 +128,22 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 });
         });
     };
-
-
-
     const uploadRelatedFiles = () => {
         return new Promise((resolve, reject) => {
             const filesPaths = [];
             const uploadPromises = selectedFiles.map(file => {
                 return new Promise((resolveFile, rejectFile) => {
                     const reader = new FileReader();
-
                     reader.onload = async () => {
                         const fileData = reader.result;
-
                         // Generate a unique ID for the file name to avoid duplicates
                         const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
                         const fileExtension = file.name.split('.').pop();
                         const uniqueFileName = `${uniqueId}.${fileExtension}`;
                         const filePath = `./public/assets/archivos/${uniqueFileName}`;
                         const filePathToSave = `./public/assets/archivos/${uniqueFileName}`;
-
                         console.log(`Generated unique file name: ${uniqueFileName}`);
                         console.log(`File path: ${filePath}`);
-
                         try {
                             // Assuming saveFile is asynchronous and returns a promise
                             await saveFile(fileData, filePath.replace(/ /g, "_"));
@@ -171,16 +155,13 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                             rejectFile(error);
                         }
                     };
-
                     reader.onerror = error => {
                         console.error("Error reading file:", error);
                         rejectFile(error);
                     };
-
                     reader.readAsDataURL(file);
                 });
             });
-
             Promise.all(uploadPromises)
                 .then(() => {
                     console.log("All files uploaded successfully:", filesPaths);
@@ -192,9 +173,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 });
         });
     };
-
-
-
     const handleAddProduct = async () => {
         setUrlCodeError(!newProductUrlCode.trim());
         setNameError(!newProductName.trim());
@@ -275,14 +253,12 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de producto</label>
                                     <input onChange={handleInputChangeCode} disabled value={newProductCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                 </div> */}
-
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Codigo de URL</label>
                                     <input onChange={handleInputChangeUrlCode} value={newProductUrlCode} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Codigo" required />
                                     {urlCodeError && <span className="text-red-500 italic text-xs"> El código URL es obligatorio y no duplicado. </span>}
-
                                 </div>
                                 <div className="mb-4 flex-1">
                                     <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de Producto</label>
@@ -301,7 +277,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
                                 <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
                                 {descriptionError && <span className="text-red-500 italic text-xs"> La descripción de producto es requerida</span>}
-
                                 {/* <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
                             </div>
                             <div className="mb-4">
@@ -374,7 +349,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                                     >
                                                         X
                                                     </button>
-
                                                 </div>
                                             ))}
                                         </div>

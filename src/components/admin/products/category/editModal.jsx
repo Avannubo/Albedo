@@ -49,6 +49,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         try {
             const currentImages = [...categoryImages];
             currentImages.splice(index, 1);
+            setSelectedImages([]);
             setCategoryImages(currentImages);
         } catch (error) {
             console.error('Error deleting image:', error);

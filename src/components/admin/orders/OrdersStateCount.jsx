@@ -48,11 +48,12 @@ export default function OrdersStateCount() {
             <h1 className="font-semibold text-slate-500 text-xl">Estados de Pedidos</h1>
             <hr />
             {loading ? (
-                <div className="flex flex-col items-start justify-between space-y-2 mt-2">
-                    <div className="h-5 w-16 bg-gray-200 rounded-full animate-pulse"></div>
+                <div className="flex flex-col items-start justify-between space-y-2 mt-2"> 
                     <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div>
-                    <div className="h-5 w-44 bg-gray-200 rounded-full animate-pulse"></div>
-                    <div className="h-5 w-36 bg-gray-200 rounded-full animate-pulse"></div> 
+                    <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div>
+                    <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div>
+                    <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div>
+                    <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div> 
                 </div>
             ) : (
                 Object.entries(groupOrdersByState).map(([state, orders]) => (

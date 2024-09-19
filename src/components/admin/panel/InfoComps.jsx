@@ -52,7 +52,7 @@ export default function InfoComps() {
         // Sort the array by quantity in descending order
         soldProductsArray.sort((a, b) => b.quantity - a.quantity);
         // Return the top 3 most sold products
-        return soldProductsArray.slice(0, 3);
+        return soldProductsArray.slice(0, 10);
     };
     const orderCount = getOrderCount();
     const totalSoldCount = getTotalSoldCount();

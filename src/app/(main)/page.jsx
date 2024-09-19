@@ -82,56 +82,67 @@ export default function Home() {
         <p className="lg:lg:text-xl md:text-lg text-md  text-md ">
           Si desea <strong>comprar cualquiera de nuestros productos</strong>, entre en <a href="#">nuestra tienda</a>:
         </p>
-        <div className="flex justify-center my-4"> 
+        <div className="flex justify-center my-4">
           {data ? (
-          <div className='flex flex-row flex-wrap space-x-1 md:space-x-4  justify-center  mt-2 '>
+            <div className='flex flex-row flex-wrap space-x-1 md:space-x-4  justify-center  mt-2 '>
               {data.slice(1)
                 .filter(category => category.isPublished)
                 .map((category, index) => (
-              <Link key={index} href={`/products/${category.url_Id}`} className=" mb-4 p-2 box-shadow text-md text-gray-700 rounded-lg ">
-                <img
-                  src={category.imagens[0]}
-                  alt="Image"
-                  className="self-center w-[135px] h-[100px] object-contain rounded-lg"
-                  width={500} height={400} />
-                <p className='text-center font-semibold text-md'>
-                  {category.name.split(" ").length > 2 ? category.name.split(" ")[0] : category.name}
-                </p>
+                  <Link key={index} href={`/products/${category.url_Id}`} className=" mb-4 p-2 box-shadow text-md text-gray-700 rounded-lg ">
+                    <img
+                      src={category.imagens[0]}
+                      alt="Image"
+                      className="self-center w-[135px] h-[100px] object-contain rounded-lg"
+                      width={500} height={400} />
+                    <p className='text-center font-semibold text-md'>
+                      {category.name.split(" ").length > 2 ? category.name.split(" ")[0] : category.name}
+                    </p>
+                  </Link>
+                ))}
+              <Link
+                className="self-center text-center text-white w-[250px] py-1.5 my-3 rounded-md bg-[#304590] hover:bg-[#475caa]"
+                href="/products"
+              >
+                Productos
               </Link>
-            ))}
-          </div>
+            </div>
           ) : (
-          <div className='flex flex-row flex-wrap items-center justify-center space-x-4 mt-4 mb-8'>
-            <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
-              <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
-              <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
+            <div className='flex flex-col justify-center items-center'>
+              <div className='flex flex-row flex-wrap items-center justify-center space-x-4 mt-4 mb-8'>
+                <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
+                  <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
+                  <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
+                </div>
+                <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
+                  <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
+                  <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
+                </div>
+                <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
+                  <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
+                  <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
+                </div>
+                <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
+                  <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
+                  <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
+                </div>
+                <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
+                  <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
+                  <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
+                </div>
+                <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
+                  <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
+                  <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
+                </div>
+                <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
+                  <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
+                  <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
+                </div>
+              </div>
+              
             </div>
-            <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
-              <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
-              <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
-            </div>
-            <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
-              <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
-              <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
-            </div>
-            <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
-              <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
-              <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
-            </div>
-            <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
-              <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
-              <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
-            </div>
-            <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
-              <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
-              <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
-            </div>
-            <div className="w-[150px] h-[120px] mb-2 space-y-2 flex flex-col p-2 rounded-lg box-shadow justify-end bg-slate-50 animate-pulse">
-              <div className='rounded-lg grow h-full w-full bg-slate-200 animate-pulse'></div>
-              <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
-            </div>
-          </div>
+
           )}
+
         </div>
         <div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
@@ -187,17 +198,17 @@ export default function Home() {
               </div>
             </div>
           ) : (
-              randomPublishedProducts.length && randomPublishedProducts.length > 0 ? (
+            randomPublishedProducts.length && randomPublishedProducts.length > 0 ? (
               <div className="flex flex-row flex-wrap items-center justify-center ">
-                  {randomPublishedProducts
-                    .filter(product => product.isPublished)
-                    .map((product) => (
-                      <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col justify-evenly p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
-                    <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
-                      <ProductItem product={product}/></Link>
-                    <AddToCart producto={product} />
-                  </div>
-                ))}
+                {randomPublishedProducts
+                  .filter(product => product.isPublished)
+                  .map((product) => (
+                    <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col justify-evenly p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
+                      <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
+                        <ProductItem product={product} /></Link>
+                      <AddToCart producto={product} />
+                    </div>
+                  ))}
               </div>
             ) : (
               <div className='flex flex-wrap flex-row items-center justify-center space-x-4 mt-4 mb-8'>

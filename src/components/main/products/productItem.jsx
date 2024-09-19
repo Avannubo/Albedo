@@ -11,47 +11,32 @@ const sanitizeHTML = (html) => {
 };
 
 export default function ProductItem({ product }) {
-  function calculateSimilarity(str1, str2) {
-    // Convert both strings to lowercase for case-insensitive comparison
-    const lowerStr1 = str1.toLowerCase();
-    const lowerStr2 = str2.toLowerCase();
-    // Calculate the length of the longer string
-    const maxLength = Math.max(lowerStr1.length, lowerStr2.length);
-    // Calculate the Levenshtein distance (edit distance) between the two strings
-    let distance = 0;
-    for (let i = 0; i < maxLength; i++) {
-      if (lowerStr1[i] !== lowerStr2[i]) {
-        distance++;
-      }
-    }
-    // Calculate similarity as a ratio of the distance to the maximum possible distance
-    const similarity = 1 - distance / maxLength;
-    // Return similarity as a value between 0 and 1
-    return similarity;
-  }
-
-  const similarityThreshold = 0.5; // Set a threshold for similarity
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
-      return text.substring(0, maxLength - 3) + "...";
-    } else {
-      return text;
+      // Find the last space before maxLength to avoid cutting off words
+      let truncated = text.substring(0, maxLength);
+      if (text[maxLength] !== " ") {
+        truncated = truncated.substring(0, truncated.lastIndexOf(" "));
+      }
+      return truncated + "...";
     }
+    return text;
   };
+
   const titleWords = product.ALBEDOtitulo.split(" ");
   // Get the first two words
   const truncatedTitle = titleWords.slice(0, 2).join(" ");
   return (
-    <div className="h-auto flex flex-col justify-between cursor-pointer space-y-2">
-      <h2 className="text-[#304590] font-bold text-center max-h-[32px]">
-        {truncatedTitle}
-        {/* {calculateSimilarity(product.ALBEDOtitulo, product.ALBEDOcodigo) < similarityThreshold && (
-          <b className="font-semibold ml-1 whitespace-nowrap">( {product.ALBEDOcodigo} )</b>
-        )} */}
-      </h2>
-      <p className="text-md self-center">
-        <strong>Precio:</strong> {product.ALBEDOprecio}€ + IVA
-      </p>
+    <div className="h-[260px] flex flex-col justify-evenly cursor-pointer space-y-2">
+      <div className="flex flex-col justify-evenly ">
+        <h2 className="text-[#304590] font-bold text-center max-h-[32px]">
+          {truncatedTitle}
+        </h2>
+        <p className="text-md self-center">
+          <strong>Precio:</strong> {product.ALBEDOprecio}€ + IVA
+        </p>
+      </div>
+
       <img
         src={product.imagens[0]}
         alt="Image"
@@ -59,7 +44,7 @@ export default function ProductItem({ product }) {
         width={500}
         height={550}
       />
-      <p className="text-sm text-center" dangerouslySetInnerHTML={{ __html: sanitizeHTML(truncateText(product.ALBEDOdescripcion, 60)) }} />
+      {/* <p className="text-sm text-center" dangerouslySetInnerHTML={{ __html: sanitizeHTML(product.ALBEDOdescripcion.substring(0, 55) + "...") }} /> */}
     </div>
   );
 }

@@ -54,10 +54,10 @@ export default function Dropdown() {
       <div className="relative inline-block" ref={dropdownRef}>
         <button
           type="button"
-          className=" py-2 text-white font-medium rounded-lg text-lg inline-flex items-center"
+          className=" py-2 text-white font-medium rounded-lg text-[16px] inline-flex items-center"
           onClick={toggleDropdown}
         >
-          Products{" "}
+          Productos{" "}
           <svg
             className="w-2.5 h-2.5 ml-2.5"
             aria-hidden="true"
@@ -78,14 +78,14 @@ export default function Dropdown() {
         {isOpen && (
           <div className=" absolute left-0 w-auto rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 h-auto overflow-y-scroll no-scrollbar">
             <ul className="m-1">
-              <li className="px-2 py-1.5 text-md text-gray-700 hover:bg-gray-100 rounded-lg">
-                <Link href="/products" className="whitespace-nowrap">Gama de productos</Link>
+              <li className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md">
+                <Link href="/products" className="whitespace-nowrap font-medium">Gama de productos</Link>
               </li>
               {categories.map((category, index) => (
                 <li key={index} className="relative">
                   <Link
                     href={`/products/${category.url_Id}`}
-                    className="block px-2 py-1.5 text-md text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap"
+                    className="block px-2 py-1.5 text-md font-medium text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap"
                     onMouseEnter={() => handleCategoryHover(index)}
                     onMouseLeave={handleCategoryLeave}
                   >

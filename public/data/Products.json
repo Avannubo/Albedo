@@ -55,7 +55,7 @@
                     "url_Id": "007",
                     "name": "Farolas LED",
                     "ALBEDOdescripcion": "<p>Farola solar LED con sensor de movimiento</p>",
-                    "FechaDeModificacion": "18/9/2024 17:51:53",
+                    "FechaDeModificacion": "19/9/2024 10:54:39",
                     "FeachaDeCreacion": "20/03/2024 ",
                     "imagens": [
                         "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726474818/bspjwzepze1qcwa3k2fj.jpg"
@@ -81,7 +81,7 @@
                             ],
                             "ALBEDOplazo_entrega": "5",
                             "ALBEDOcategory": "Farolas",
-                            "FechaDeModificacion": "19/9/2024 10:36:42"
+                            "FechaDeModificacion": "19/9/2024 10:54:39"
                         },
                         {
                             "ALBEDOcodigo": "ADFSSM200",
@@ -90,7 +90,7 @@
                             "ALBEDOprecio": 45,
                             "archivos": [],
                             "ALBEDOdescripcion": "<p>Farola solar LED con sensor de movimiento</p>",
-                            "FechaDeModificacion": "19/9/2024 10:22:35",
+                            "FechaDeModificacion": "19/9/2024 10:54:39",
                             "FeachaDeCreacion": "20/03/2024 ",
                             "imagens": [
                                 "/assets/images/imagen.jpg"
@@ -98,7 +98,7 @@
                             "isPublished": true,
                             "ALBEDOcuerpo": "<p>Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.</p>",
                             "ALBEDOcuerpo2": "Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.",
-                            "ALBEDOstock_minimo": "3",
+                            "ALBEDOstock_minimo": "5",
                             "ALBEDOstock": "10",
                             "ALBEDOplazo_entrega": 14,
                             "ALBEDOcategory": "Farolas"
@@ -110,7 +110,7 @@
                             "ALBEDOprecio": 91,
                             "archivos": [],
                             "ALBEDOdescripcion": "<p>Farola solar LED con sensor de movimiento</p>",
-                            "FechaDeModificacion": "19/9/2024 10:22:35",
+                            "FechaDeModificacion": "19/9/2024 10:54:39",
                             "FeachaDeCreacion": "20/03/2024 ",
                             "imagens": [
                                 "/assets/images/imagen.jpg"
@@ -10322,7 +10322,5 @@
             "products": []
         }
     ],
-    "deletedContent": [
-        
-    ]
+    "deletedContent": []
 }

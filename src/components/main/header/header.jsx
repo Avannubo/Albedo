@@ -101,7 +101,7 @@ export default function Header() {
                     <div className="absolute left-0 mt-2 bg-white text-gray-700 rounded-lg shadow" id="dropdown">
                       <ul className="m-1">
                         <li>
-                          <Link href="/services" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md">Le ofrecemos</Link>
+                          <Link href="/services" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md text-[18px]">Le ofrecemos</Link>
                         </li>
                         <li>
                           <Link href="/services/design/" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md">Diseño</Link>

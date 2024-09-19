@@ -213,11 +213,7 @@ export default function PageContent() {
                         <div className='flex justify-center mb-2'>
                             <div className='w-[550px] rounded-sm bg-gray-300 h-8 animate-pulse'></div>
                         </div>
-                        <hr className="h-1 mt-2 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
-                        <div className='flex justify-center my-2'>
-                            <p className='text-lg font-bold'>Productos</p>
-                        </div>
-                        <hr className="h-1 mb-2 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+                        
                         <div className='flex flex-row flex-wrap items-center justify-center space-x-4 mt-4 mb-8'>
                             {Array.from({ length: 8 }).map((_, index) => (
                                 <div key={index} className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">

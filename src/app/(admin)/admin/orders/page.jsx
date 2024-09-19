@@ -13,7 +13,7 @@ export default async function page() {
   }
   const Active = await getAllActiveOrders();
   const Inactive = await getAllInactiveOrders();
-  return (
+  return ( 
     <Layout>
       <div className='-mt-10'>
         <h1 className="font-semibold text-4xl">Pedidos</h1>

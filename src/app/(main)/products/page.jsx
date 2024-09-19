@@ -50,7 +50,18 @@ export default function page() {
         return null;
     }
     const allPublishedProducts = GetPublishedProducts(data);
-    const last4PublishedProducts = allPublishedProducts.slice(-8);
+    const last4PublishedProducts = allPublishedProducts.slice(-20);
+
+    const getRandomProducts = (products, num) => {
+        // Shuffle the array
+        const shuffled = products.slice().sort(() => 0.5 - Math.random());
+        // Get the first 'num' elements from the shuffled array
+        return shuffled.slice(0, num);
+    };
+
+    // Example usage
+    const randomPublishedProducts = getRandomProducts(allPublishedProducts, 8);
+
     return (
         <Layout>
             <hr className="h-1 mx-auto bg-gray-50 border-0 rounded dark:bg-gray-700 mt-10" />
@@ -93,7 +104,9 @@ export default function page() {
                 ) : (
                     data && data.length > 0 ? (
                         <div className='flex flex-row flex-wrap space-x-1 md:space-x-4  justify-center  mt-2 '>
-                            {data.slice(1).map((category, index) => (
+                                {data.slice(1)
+                                    .filter(category => category.isPublished)
+                                    .map((category, index) => (
                                 <Link key={index} href={`/products/${category.url_Id}`} className=" mb-4 p-2 box-shadow text-md text-gray-700 rounded-lg ">
                                     <img
                                         src={category.imagens[0]}
@@ -143,62 +156,31 @@ export default function page() {
             <div className="min-h-[30vh]">
                 <hr className="h-1 mx-auto bg-gray-50 border-0 rounded  dark:bg-gray-700" />
                 <div className="flex justify-center">
-                    <h1 className="text-lg font-bold my-2">Nuevos productos</h1>
+                    <h1 className="text-lg font-bold my-2">Productos destacado</h1>
                 </div>
                 <hr className="h-1 mx-auto bg-gray-50 border-0 rounded  dark:bg-gray-700" />
                 {isLoading ? (
-                    <div className='flex flex-row flex-wrap items-center justify-center space-x-4 mt-4 mb-8'>
-                        <div className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
-                            <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
-                                <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                <div className='flex flex-row justify-between space-x-4 '>
-                                    <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
+                    <div className='grid grid-cols-4 items-center justify-center space-x-4 mt-4 mb-8'>
+                        {Array.from({ length: 8 }).map((_, index) => (
+                            <div key={index} className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
+                                <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
+                                    <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
+                                    <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
+                                    <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
+                                    <div className='flex flex-row justify-between space-x-4'>
+                                        <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
+                                        <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
-                            <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
-                                <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                <div className='flex flex-row justify-between space-x-4 '>
-                                    <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
-                            <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
-                                <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                <div className='flex flex-row justify-between space-x-4 '>
-                                    <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
-                            <div className='h-auto flex flex-col justify-between cursor-pointer space-y-2'>
-                                <div className='rounded-lg h-8 w-12 self-center bg-slate-200 animate-pulse'></div>
-                                <div className='rounded-lg h-8 w-28 self-center bg-slate-200 animate-pulse'></div>
-                                <div className='rounded-lg h-[140px] w-[235px] bg-slate-200 animate-pulse'></div>
-                                <div className='flex flex-row justify-between space-x-4 '>
-                                    <div className='rounded-lg h-8 w-8 self-center bg-slate-200 animate-pulse'></div>
-                                    <div className='rounded-lg h-8 grow self-center bg-slate-200 animate-pulse'></div>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 ) : (
-                    last4PublishedProducts.length && last4PublishedProducts.length > 0 ? (
-                        <div className="flex flex-row flex-wrap items-center justify-center ">
-                            {last4PublishedProducts
-                                .filter(product => product.isPublished)
-                                .map((product) => (
+                        randomPublishedProducts.length && randomPublishedProducts.length > 0 ? (
+                            <div className="flex flex-row flex-wrap items-center justify-evenly ">
+                                {randomPublishedProducts
+                                    .filter(product => product.isPublished)
+                                    .map((product) => (
                                     <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
                                         <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
                                             <ProductItem product={product} /></Link>

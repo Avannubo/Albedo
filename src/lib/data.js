@@ -5,19 +5,14 @@ import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import nodemailer from 'nodemailer';
-
 import { v2 as cloudinary } from 'cloudinary';
 import pLimit from 'p-limit';
-
-
 cloudinary.config({
     cloud_name: 'dtzwbtiuw',
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SEC
 })
-
 let SavedImageLinkForCloudinary;
-
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 var filteredProductList = [];
@@ -76,33 +71,68 @@ export async function getListProductsFiltered() {
 export async function getRefillStockProducts() {
     try {
         const refillProductList = [];
+        console.log("File path:", filePath);
         const data = await fs.readFile(filePath, 'utf8');
+        //console.log("File content:", data);
         const { categories } = JSON.parse(data);
+        //console.log("Parsed categories:", categories);
         const loopRecursive = async (categories) => {
             for (let i = 0; i < categories.length; i++) {
                 const category = categories[i];
                 for (let j = 0; j < category.products.length; j++) {
                     const product = category.products[j];
-                    if (product.ALBEDOstock < product.ALBEDOstock_minimo) {
+                    //console.log("Product details:", product);
+                    if (parseInt(product.ALBEDOstock) < parseInt(product.ALBEDOstock_minimo)) {
                         refillProductList.push(product);
                     }
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
+                    console.log("Subcategories:", category.subCategories);
                     await loopRecursive(category.subCategories);
                 }
             }
         };
         await loopRecursive(categories);
         if (refillProductList.length === 0) {
-            // console.log("No products need refilling.");
+            console.log("No products need refilling.");
             return []; // Return an empty array if no products need refilling
         }
         return refillProductList; // Return the array of products needing refilling
     } catch (error) {
-        console.log("Error:", error);
+        console.log("Error:", error.message);
         return []; // Return an empty array on error
     }
 }
+// export async function getRefillStockProducts() {
+//     try {
+//         const refillProductList = [];
+//         const data = await fs.readFile(filePath, 'utf8');
+//         const { categories } = JSON.parse(data);
+//         const loopRecursive = async (categories) => {
+//             for (let i = 0; i < categories.length; i++) {
+//                 const category = categories[i];
+//                 for (let j = 0; j < category.products.length; j++) {
+//                     const product = category.products[j];
+//                     if (product.ALBEDOstock < product.ALBEDOstock_minimo) {
+//                         refillProductList.push(product);
+//                     }
+//                 }
+//                 if (category.subCategories && category.subCategories.length > 0) {
+//                     await loopRecursive(category.subCategories);
+//                 }
+//             }
+//         };
+//         await loopRecursive(categories);
+//         if (refillProductList.length === 0) {
+//             // console.log("No products need refilling.");
+//             return []; // Return an empty array if no products need refilling
+//         }
+//         return refillProductList; // Return the array of products needing refilling
+//     } catch (error) {
+//         console.log("Error:", error);
+//         return []; // Return an empty array on error
+//     }
+// }
 export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = '', refillStock) {
     // console.log(isPublishedFilter, categoryFilter);
     const content = await requireContent();
@@ -303,33 +333,78 @@ export async function deleteElement(categoryId, product) {
                 // //console.log("Category deleted successfully.");
                 return true;
             } else {
+                // const productToDelete = product.ALBEDOcodigo;
+                // console.log("product To Delete"+productToDelete)
+                // const deleteRecursive = async (categoryList) => {
+                //     for (let i = 0; i < categoryList.length; i++) {
+                //         const category = categoryList[i];
+                //         for (let j = 0; j < category.products.length; j++) {
+                //             const product = category.products[j];
+                //             if (product.ALBEDOcodigo === productToDelete) {
+                //                 const deletedObject = category.products.splice(j, 1)[0];
+                //                 deletedContent.push(deletedObject);
+                //                 await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                //                 revalidatePath('/admin/ListProducts');
+                //                 return true;
+                //             }
+                //         }
+                //         if (category.subCategories && category.subCategories.length > 0) {
+                //             const subcategoryDeleted = await deleteRecursive(category.subCategories);
+                //             if (subcategoryDeleted) return true;
+                //         }
+                //     }
+                //     return false;
+                // };
+                // const productDeleted = await deleteRecursive(categories);
+                // if (!productDeleted) {
+                //     // //console.log("Product not found.");
+                //     return false;
+                // }
+                // // //console.log("Product deleted successfully.");
+                // return true;
                 const productToDelete = product.ALBEDOcodigo;
+                console.log("Product to delete:", productToDelete); // Debug: Log the product code
                 const deleteRecursive = async (categoryList) => {
                     for (let i = 0; i < categoryList.length; i++) {
                         const category = categoryList[i];
+                        // Check if category has products
+                        if (!category.products) {
+                            console.log("No products found in this category:", category.name); // Debug: Log missing products
+                            continue;
+                        }
                         for (let j = 0; j < category.products.length; j++) {
                             const product = category.products[j];
+                            console.log("Checking product:", product.ALBEDOcodigo); // Debug: Log product code
                             if (product.ALBEDOcodigo === productToDelete) {
+                                console.log("Product found. Deleting product:", product.ALBEDOcodigo); // Debug: Log deletion
+                                // Remove product from array
                                 const deletedObject = category.products.splice(j, 1)[0];
-                                deletedContent.push(deletedObject);
+                                deletedContent.push(deletedObject); // Store deleted product
+                                // Write updated categories to the file
+                                console.log("File path:", filePath); // Debug: Log file path
                                 await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                                console.log("Product successfully deleted and file updated."); // Debug: Log successful write
+                                // Revalidate the path if necessary
                                 revalidatePath('/admin/ListProducts');
-                                return true;
+                                return true; // Stop recursion after deletion
                             }
                         }
+                        // Recursively check subcategories
                         if (category.subCategories && category.subCategories.length > 0) {
+                            console.log("Checking subcategories for product deletion."); // Debug: Log subcategory traversal
                             const subcategoryDeleted = await deleteRecursive(category.subCategories);
-                            if (subcategoryDeleted) return true;
+                            if (subcategoryDeleted) return true; // If product is deleted in a subcategory, stop recursion
                         }
                     }
-                    return false;
+                    return false; // If no product was deleted
                 };
+                // Execute the recursive deletion
                 const productDeleted = await deleteRecursive(categories);
                 if (!productDeleted) {
-                    // //console.log("Product not found.");
+                    console.log("Product not found."); // Debug: Log if the product was not found
                     return false;
                 }
-                // //console.log("Product deleted successfully.");
+                console.log("Product deleted successfully."); // Debug: Log success message
                 return true;
             }
         } catch (error) {
@@ -881,17 +956,14 @@ export async function saveNewOrder(orderData) {
         return false;
     }
 }
-
 export async function updateStock(orderData) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories } = JSON.parse(data);
-
         if (!orderData || !orderData.cartProducts || orderData.cartProducts.length === 0) {
             console.log("product not available");
             return false;
         }
-
         const updateStockRecursive = async (categoryList) => {
             for (let category of categoryList) {
                 for (let product of category.products) {
@@ -910,13 +982,11 @@ export async function updateStock(orderData) {
             }
             return false;
         };
-
         const productUpdated = await updateStockRecursive(categories);
         if (!productUpdated) {
             console.log("product not found.");
             return false;
         }
-
         console.log("product saved successfully.");
         return true;
     } catch (error) {
@@ -928,14 +998,11 @@ export async function checkStock(orderData) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories } = JSON.parse(data);
-
         if (!orderData || !orderData.cartProducts || orderData.cartProducts.length === 0) {
             console.log("No products in the cart.");
             return [];
         }
-
         const stockList = [];
-
         const updateStockRecursive = (categoryList) => {
             for (let category of categoryList) {
                 for (let product of category.products) {
@@ -954,14 +1021,11 @@ export async function checkStock(orderData) {
                 }
             }
         };
-
         updateStockRecursive(categories);
-
         if (stockList.length === 0) {
             console.log("No matching products found.");
             return [];
         }
-
         console.log("Stock check completed successfully.");
         return stockList;
     } catch (error) {
@@ -1309,11 +1373,9 @@ export async function saveImage(base64Image, imagePath) {
             if (!imagePath) {
                 throw new Error('No image path provided. Save the image first.');
             }
-
             // Upload the image using Cloudinary
             const results = await cloudinary.uploader.upload(imagePath);
             console.log("Uploading to cloud: " + results.secure_url);
-
             // Return the URL of the uploaded image
             return results.secure_url;
         } catch (error) {
@@ -1326,9 +1388,6 @@ export async function saveImage(base64Image, imagePath) {
         throw error; // Re-throw the error to propagate it back
     }
 } 
-
-
-
 export async function saveFile(fileData, filePath) {
     try {
         const base64Data = fileData.replace(/^data:\w+\/\w+;base64,/, '');
@@ -1341,10 +1400,6 @@ export async function saveFile(fileData, filePath) {
         throw error;
     }
 }
-
-
-
-
 export async function deleteImages(imagePathsToDelete) {
     return new Promise((resolve, reject) => {
         // Loop through each image path and delete it
@@ -1369,4 +1424,3 @@ export async function deleteImages(imagePathsToDelete) {
             .catch(error => reject(error));
     });
 }
-

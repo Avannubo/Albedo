@@ -1,1 +1,363 @@
-{"ClientOrders":[]}
+{
+  "ClientOrders": [
+    {
+      "userInfo": {
+        "firstName": "Arjunjot",
+        "lastName": "Singh",
+        "dni": "12312312E",
+        "dateOfBirth": "",
+        "company": "q",
+        "cif": "",
+        "phoneNumber": "923123123",
+        "email": "marc.mari@avannubo.com",
+        "address": "C/ dels Almogàvers, 80, 08018 Barcelona",
+        "city": "q",
+        "province": "q",
+        "zipCode": "123123",
+        "acceptedTerms": true,
+        "invoice": true,
+        "payment": "",
+        "shipping": ""
+      },
+      "cartProducts": [
+        {
+          "ALBEDOcodigo": "CS4-15/400",
+          "url_Id": "005",
+          "ALBEDOtitulo": "CS4-15/400",
+          "ALBEDOprecio": 156,
+          "archivos": [],
+          "ALBEDOdescripcion": "<p class=\"ql-align-justify\">Protector tetrapolar contra sobretensiones transitorias. Corriente máxima de descarga 15kA.</p><p><br></p>",
+          "FechaDeModificacion": "16/9/2024 15:49:44",
+          "FeachaDeCreacion": "20/03/2024 ",
+          "isPublished": true,
+          "ALBEDOcuerpo": "<p>Es una protección de clase II (se recomienda usarla con una protección previa de clase I).</p><p>Los protectores de la gama CS están destinados a la protección de bienes y equipos conectados a la red de baja tensión. Permiten configuración TT.</p><p><br></p><h2><strong>Características técnicas</strong></h2><p>Tensión máxima de servicio Uc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;275/440 V 50-60 Hz</p><p>Nivel de protección Up (1,2/50)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt; 1.2 kV (L-N), &lt; 1.5 kV (N-PE)</p><p>Corriente nominal de descarga In (8/20) 5 kA</p><p>Corriente máxima de descarga Imax (8/20) 15 kA</p><p>Tiempo de respuesta tA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt; 25 ns</p><p>Fusible previo máximo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;63 A gL</p><p>Capacidad de cortocircuito&nbsp;</p><p>con fusible previo máximo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10 kA 50 Hz</p><p>Visualización estado&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sí</p><p>Indicación remota&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No</p><p>Tipo de protección&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IP 20</p><p>Capacidad bornes de conexión&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25/35 mm²</p><p>Temperatura de funcionamiento&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-40ºC...+80ºC</p><p>Dimensiones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;90x72x70 mm</p><p>Peso&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;400 g</p><p><br></p><p><br></p>",
+          "ALBEDOstock_minimo": 5,
+          "ALBEDOstock": 10,
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726484373/am38dszmlliduopg4wxc.jpg"
+          ],
+          "ALBEDOplazo_entrega": 14,
+          "quantity": 2
+        },
+        {
+          "ALBEDOcodigo": "GH3440-4412",
+          "ALBEDOtitulo": "GH3440-4412",
+          "url_Id": "001",
+          "ALBEDOprecio": 323.5,
+          "archivos": [
+            "./assets/archivos/1726569248258_576114691.pdf"
+          ],
+          "ALBEDOdescripcion": "<p>Módulo de válvula Dupline. Permite controlar válvulas tipo \"latch\" de 3 hilos. Tiene dos salidas para abrir/cerrar la válvula y dos entradas para usar, por ejemplo, caudalímetro, señal antisabotaje, etc. Alimentado por Dupline \"Hi-Line\". Para montaje en carril DIN.</p><p><br></p><p>El módulo de válvula GH 3440 4412 forma parte del programa de riego Dupline®. Está diseñado para controlar válvulas tipo “latch” de 3 hilos. El módulo booster GH34850000, que genera la señal de 28 V, controla y alimenta hasta 64 módulos de válvula GH34404412. El GH34404412 tiene 2 salidas, una para abrir y otra para cerrar la válvula, y 2 entradas para por ejemplo el caudalímetro, la señal contrasabotaje, etc. El módulo lleva incorporados un condensador para en - clavar/desenclavar la bobina, una protección contra rayos y un microcontrolador para pulsos de bobina y vigilancia de carga correctos.</p>",
+          "isPublished": true,
+          "ALBEDOcuerpo": "<h2><strong>Especificaciones Generales</strong></h2><p>Tiempo de carga&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mín. 2 seg.</p><p>Programación de canales&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mediante GAP 1605 y cable GAP-TPH-CAB</p><p>Asignación de canales&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 a 4 canales, de programación libre</p><p><br></p><p><strong>Entorno</strong></p><p>Grado de protección&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IP20 B</p><p>Temp. de funcionamiento&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0° a +50° C (+32° a +122° F)</p><p>Temp. de almacenamiento&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-50° a +85° C (-58° a +185° F)</p><p>Humedad (sin condensación)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 a 80%</p><p><br></p><p><strong>Resistencia mecánica</strong></p><p>Choque&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15 G (11 mseg.)</p><p>Vibración&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 G (6 a 55 Hz)</p><p><br></p><p>Dimensiones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caja H4</p><p><br></p>",
+          "ALBEDOstock_minimo": 10,
+          "ALBEDOstock": 20,
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726569247/x6rmiawqrgzbtu8fc4zc.jpg"
+          ],
+          "ALBEDOplazo_entrega": "5",
+          "FechaDeModificacion": "17/9/2024 10:13:58",
+          "quantity": 3
+        },
+        {
+          "ALBEDOcodigo": "GP6520-2201",
+          "ALBEDOtitulo": "GP6520-2201",
+          "url_Id": "001",
+          "ALBEDOprecio": 137.2,
+          "archivos": [
+            "./assets/archivos/1726586468920_344734027.pdf"
+          ],
+          "ALBEDOdescripcion": "<p class=\"ql-align-justify\">Sensor ultrasónico para la detección de coches Dupline. De bajo consumo. Indicador con LED verde/rojo. Sistema de 3 hilos para comunicación y alimentación por separado. Construcción robusta contra polvo y humedad.</p><p><br></p>",
+          "isPublished": true,
+          "ALBEDOcuerpo": "<p><br></p>",
+          "ALBEDOstock_minimo": 10,
+          "ALBEDOstock": 20,
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726586468/ubvy51qc0ybbrpikbn2q.jpg"
+          ],
+          "ALBEDOplazo_entrega": "5",
+          "FechaDeModificacion": "17/9/2024 16:53:21",
+          "quantity": 3
+        }
+      ],
+      "selectedShipping": {
+        "method": "España",
+        "price": 12
+      },
+      "selectedPayment": "Transferencia",
+      "totalPedido": 1706.1,
+      "invoice": true,
+      "orderState": "Pendiente",
+      "createdAt": "20/9/2024 13:8:9"
+    },
+    {
+      "userInfo": {
+        "firstName": "Arjunjot",
+        "lastName": "Singh",
+        "dni": "12312312E",
+        "dateOfBirth": "",
+        "company": "q",
+        "cif": "",
+        "phoneNumber": "923123123",
+        "email": "web.avancemgrup@gmail.com",
+        "address": "C/ dels Almogàvers, 80, 08018 Barcelona",
+        "city": "q",
+        "province": "q",
+        "zipCode": "123123",
+        "acceptedTerms": true,
+        "invoice": true,
+        "payment": "",
+        "shipping": ""
+      },
+      "cartProducts": [
+        {
+          "ALBEDOcodigo": "ADFSSM200",
+          "url_Id": "006",
+          "ALBEDOtitulo": "Farola solar LED",
+          "ALBEDOprecio": 45,
+          "archivos": [],
+          "ALBEDOdescripcion": "<p>Farola solar LED con sensor de movimiento</p>",
+          "FechaDeModificacion": "19/9/2024 10:54:39",
+          "FeachaDeCreacion": "20/03/2024 ",
+          "imagens": [
+            "/assets/images/imagen.jpg"
+          ],
+          "isPublished": true,
+          "ALBEDOcuerpo": "<p>Farola solar LED con sensor de movimiento. Consume 200W y produce un flujo luminoso de 3000 Lumens.</p>",
+          "ALBEDOcuerpo2": "Incluye mando a distancia (alcance 25m). El mástil no está incluido. De larga vida, más de 25.000 horas.",
+          "ALBEDOstock_minimo": "5",
+          "ALBEDOstock": "10",
+          "ALBEDOplazo_entrega": 14,
+          "ALBEDOcategory": "Farolas",
+          "quantity": 2
+        },
+        {
+          "ALBEDOcodigo": "ADPI30W12V",
+          "url_Id": "028",
+          "ALBEDOtitulo": "Convertidor AC/DC",
+          "ALBEDOprecio": 54,
+          "archivos": [],
+          "ALBEDOdescripcion": "<p><span style=\"color: rgb(34, 34, 34);\">Con aislamiento, entrada universal AC y DC y salida 5V, 30W</span></p>",
+          "FechaDeModificacion": "16/9/2024 13:23:59",
+          "FeachaDeCreacion": "20/03/2024 ",
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726478082/tlzo5lyaajfaa7djuamj.jpg"
+          ],
+          "isPublished": true,
+          "ALBEDOcuerpo": "<h2><strong>Especificaciones(ADPI30W5V)</strong></h2><p>Tensión nominal de entrada AC:   110…240 Vac</p><p>Tensión nominal de entrada DC:   120…340 Vdc</p><p>Tensión de salida nominal:     5 Vdc ± 1 %</p><p>Intensidad de salida, max.:            6 A</p><p>Frecuencia AC:                     45…65 Hz</p><p>Temperatura de servicio:       -25 °C…70 °C</p><p>Dimensiones:              60,0x90,0x72,0 mm</p><p>Peso neto:                           256 gr</p>",
+          "ALBEDOstock_minimo": 5,
+          "ALBEDOstock": 10,
+          "ALBEDOplazo_entrega": 14,
+          "quantity": 2
+        },
+        {
+          "ALBEDOcodigo": "ADPI96W48V",
+          "url_Id": "033",
+          "ALBEDOtitulo": "Convertidor AC/DC",
+          "ALBEDOprecio": 114.41,
+          "archivos": [],
+          "ALBEDOdescripcion": "<p class=\"ql-align-justify\">Con aislamiento, entrada universal AC y DC y salida 48V, 96W</p>",
+          "FechaDeModificacion": "19/9/2024 10:36:42",
+          "FeachaDeCreacion": "20/03/2024 ",
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726478348/gubcvsnvfsx1asouial6.jpg"
+          ],
+          "isPublished": true,
+          "ALBEDOcuerpo": "<h2><strong>Especificaciones(</strong><strong style=\"color: rgb(34, 34, 34);\">ADPI96W48V</strong><strong>)</strong></h2><p>Tensión nominal entrada AC: 110…240 Vac</p><p>Tensión nominal entrada DC: 120…340 Vdc</p><p>Tensión de salida nominal: 48 Vdc ± 1 %</p><p>Intensidad de salida, max.: 2 A</p><p>Frecuencia AC: 45…65 Hz</p><p>Temperatura de servicio: -25 °C…70 °C</p><p>Dimensiones: 60,0x90,0x90,0 mm</p><p>Peso neto: 361 gr</p>",
+          "ALBEDOstock_minimo": 5,
+          "ALBEDOstock": "5",
+          "ALBEDOplazo_entrega": 14,
+          "quantity": 2
+        }
+      ],
+      "selectedShipping": {
+        "method": "España",
+        "price": 12
+      },
+      "selectedPayment": "Transferencia",
+      "totalPedido": 438.82,
+      "invoice": true,
+      "orderState": "Pendiente",
+      "createdAt": "20/9/2024 13:8:5"
+    },
+    {
+      "userInfo": {
+        "firstName": "Arjunjot",
+        "lastName": "Singh",
+        "dni": "12312312E",
+        "dateOfBirth": "",
+        "company": "q",
+        "cif": "",
+        "phoneNumber": "923123123",
+        "email": "arjun.singh@avannubo.com",
+        "address": "C/ dels Almogàvers, 80, 08018 Barcelona",
+        "city": "q",
+        "province": "q",
+        "zipCode": "123123",
+        "acceptedTerms": true,
+        "invoice": true,
+        "payment": "",
+        "shipping": ""
+      },
+      "cartProducts": [
+        {
+          "ALBEDOcodigo": "D3212-4000",
+          "url_Id": "004",
+          "ALBEDOtitulo": "D3212-4000",
+          "ALBEDOprecio": 135.6,
+          "archivos": [
+            "./assets/archivos/1726564536853_259791347.pdf"
+          ],
+          "ALBEDOdescripcion": "<p>Modulo transmisor con función de sincronización para transmisión multiplexada de señales analógicas. Alimentación pod Dupline. Para montaje en carril DIN.</p>",
+          "isPublished": true,
+          "ALBEDOcuerpo": "<h2><strong>Especificaciones Generales</strong></h2><p><strong>Entorno</strong></p><p>Grado de protección&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IP 40</p><p>Grado de contaminación&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 (IEC 60664)</p><p>Temperatura de trabajo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-20° a +50°C (-4° a +122°F)</p><p>Temp. almacenamiento&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-50° a +85°C (-58° a +185°F)</p><p>Humedad (sin condensación)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 a 80%</p><p><br></p><p><strong>Resistencia mecánica</strong></p><p>Choque&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15 G (11 ms)</p><p>Vibración&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 G (6 a 55 Hz)</p><p><br></p><p>Dimensiones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(véase \"Información Técnica\")</p><p>Material&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caja H2</p><p>Peso&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;75 g</p><p><br></p>",
+          "ALBEDOstock_minimo": 10,
+          "ALBEDOstock": 20,
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726564536/fcqlluilul5yrvtogk5t.jpg"
+          ],
+          "ALBEDOplazo_entrega": "5",
+          "FechaDeModificacion": "18/9/2024 9:13:7",
+          "quantity": 2
+        },
+        {
+          "ALBEDOcodigo": "ADPI90W24V",
+          "url_Id": "031",
+          "ALBEDOtitulo": "Convertidor AC/DC",
+          "ALBEDOprecio": 104.2,
+          "archivos": [],
+          "ALBEDOdescripcion": "<p class=\"ql-align-justify\">Con aislamiento, entrada universal AC y DC y salida 24V, 90W</p>",
+          "FechaDeModificacion": "16/9/2024 13:23:59",
+          "FeachaDeCreacion": "20/03/2024 ",
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726478206/fhu03rkejpmwrase9qjs.jpg"
+          ],
+          "isPublished": true,
+          "ALBEDOcuerpo": "<h2><strong>Especificaciones(</strong><strong style=\"color: rgb(34, 34, 34);\">ADPI90W24V</strong><strong>)</strong></h2><p>Tensión nominal entrada AC:      110…240 Vac</p><p>Tensión nominal entrada DC:      120…340 Vdc</p><p>Tensión de salida nominal:    24 Vdc ± 1 %</p><p>Intensidad de salida, max.:          3,8 A</p><p>Frecuencia AC:                     45…65 Hz</p><p>Temperatura de servicio:       -25 °C…70 °C</p><p>Dimensiones:              60,0x90,0x90,0 mm</p><p>Peso neto:                           352 gr</p><p><br></p>",
+          "ALBEDOstock_minimo": 5,
+          "ALBEDOstock": 10,
+          "ALBEDOplazo_entrega": 14,
+          "quantity": 2
+        }
+      ],
+      "selectedShipping": {
+        "method": "España",
+        "price": 12
+      },
+      "selectedPayment": "Transferencia",
+      "totalPedido": 491.6,
+      "invoice": true,
+      "orderState": "Pendiente",
+      "createdAt": "20/9/2024 8:47:8"
+    },
+    {
+      "userInfo": {
+        "firstName": "Arjunjot",
+        "lastName": "Singh",
+        "dni": "12312312E",
+        "dateOfBirth": "",
+        "company": "q",
+        "cif": "",
+        "phoneNumber": "923123123",
+        "email": "arjun.singh@avannubo.com",
+        "address": "C/ dels Almogàvers, 80, 08018 Barcelona",
+        "city": "q",
+        "province": "q",
+        "zipCode": "123123",
+        "acceptedTerms": true,
+        "invoice": true,
+        "payment": "",
+        "shipping": ""
+      },
+      "cartProducts": [
+        {
+          "ALBEDOcodigo": "EM24-DINAV-93XDPX",
+          "url_Id": "004",
+          "ALBEDOtitulo": "EM24 DINAV 93XDPX",
+          "ALBEDOprecio": 390,
+          "archivos": [
+            "./assets/archivos/1726500167505_206555056.pdf"
+          ],
+          "ALBEDOdescripcion": "<p class=\"ql-align-justify\">Analizador de energía en instalaciones trifásicas&nbsp;<strong>con puerto DUPLINE</strong>&nbsp;y triple entrada digital para contadores de agua, gas y calefacción.</p><p><br></p>",
+          "ALBEDOcuerpo": "<p class=\"ql-align-justify\">La tensión monitorizada es de hasta 400V entre lineas y la corriente es de 10 o 65A (conexión directa). Es multifunción (tensión, corriente, potencia, secuencia de fases, Factor de Potencia, energía).</p><p class=\"ql-align-justify\">Se autoalimenta de la red. De tamaño medio (4 módulos), para montaje en carril DIN.</p><p><br></p>",
+          "ALBEDOstock_minimo": 10,
+          "ALBEDOstock": 20,
+          "isPublished": true,
+          "FeachaDeCreacion": "2024-04-02T15:58:22.373Z",
+          "FechaDeModificacion": "16/9/2024 17:11:35",
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726500166/nvazt5qxkrsupbkzhsks.jpg"
+          ],
+          "ALBEDOplazo_entrega": 0,
+          "quantity": 2
+        },
+        {
+          "ALBEDOcodigo": "ADPDR2P63L",
+          "url_Id": "013",
+          "ALBEDOtitulo": "ADPDR2P63L",
+          "ALBEDOprecio": 259.9,
+          "archivos": [],
+          "ALBEDOdescripcion": "<p>Protector diferencial rearmable monofásico (2P), 63A, 30mA</p>",
+          "FechaDeModificacion": "16/9/2024 15:49:44",
+          "FeachaDeCreacion": "20/03/2024 ",
+          "isPublished": true,
+          "ALBEDOcuerpo": "<p class=\"ql-align-justify\">Diferencial autorearmable inmunizado, de uso doméstico o comercial. Permite su uso manual o automático. En este último caso, en el evento de un desbalanceo de corrientes superior a los 30mA, se dispara y se rearma despues de 3s, de 20s y de 180s. Si tras el tercer intento persiste la fuga, no se rearma más pues considera que hay una anomalía que hay que subsanar.</p><p class=\"ql-align-justify\"><br></p><h2><strong>Características técnicas</strong></h2><p>Protector:                 diferencial</p><p>Modo:                        rearmable</p><p>Tipo:                          bipolar</p><p>Clase:                               A</p><p>Tensión nominal:                   230 Vac</p><p>Intensidad nominal:                 63 A</p><p>Poder de corte:                     10 kA</p><p>Sensibilidad:                       30 mA</p><p><br></p><p><br></p>",
+          "ALBEDOstock_minimo": 5,
+          "ALBEDOstock": 10,
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726483054/apci343qzxg7c7dx5xqo.jpg"
+          ],
+          "ALBEDOplazo_entrega": 14,
+          "quantity": 2
+        },
+        {
+          "ALBEDOcodigo": "GLH-965-9V",
+          "url_Id": "015",
+          "ALBEDOtitulo": "GLH-965-9V",
+          "ALBEDOdescripcion": "<p class=\"ql-align-justify\"><strong>Detector óptico de humo autónomo</strong>&nbsp;para montaje en techo. Alarma acústica. Alimentación con pila de 9V.</p>",
+          "ALBEDOprecio": 22.53,
+          "archivos": [],
+          "isPublished": true,
+          "FechaDeModificacion": "16/9/2024 17:11:35",
+          "FeachaDeCreacion": "27/03/2024",
+          "ALBEDOcuerpo": "",
+          "ALBEDOstock_minimo": 5,
+          "ALBEDOstock": 10,
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726502936/pbfgpdk25weltbppfqhf.jpg"
+          ],
+          "ALBEDOplazo_entrega": 14,
+          "quantity": 3
+        },
+        {
+          "ALBEDOcodigo": "XIKRA-261",
+          "url_Id": "017",
+          "ALBEDOtitulo": "XIKRA-261",
+          "ALBEDOprecio": 333,
+          "archivos": [],
+          "ALBEDOdescripcion": "<p>Módulo de monitorización de temperatura y control Ethernet para la automatización en entornos industriales de 14 entradas y 4 salidas.</p>",
+          "FechaDeModificacion": "16/9/2024 17:4:25",
+          "FeachaDeCreacion": "20/03/2024 ",
+          "isPublished": true,
+          "ALBEDOcuerpo": "<p class=\"ql-align-justify\"><strong>8 de las entradas son para sondas de temperatura, las 4 salidas a relé de 5A / 250VAC</strong>&nbsp;y las otras 6 entradas son de contacto seco. Tiene una función&nbsp;<strong>termostato multizona de 4 zonas</strong>&nbsp;Carcasa carril DIN de 8 huecos. Alimentación de 8 a 30VDC. Servidor web incorporado.</p><p class=\"ql-align-justify\">Las sondas de temperatura pueden conectarse con cables de un máximo de 100 metros de longitud. El rango de medida de temperatura de las sondas es de -25 a +95ºC.</p><p class=\"ql-align-center\"><br></p><p><br></p>",
+          "ALBEDOstock_minimo": 5,
+          "ALBEDOstock": 10,
+          "imagens": [
+            "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726498032/kmlmzq6rvvth81hi8lli.jpg"
+          ],
+          "ALBEDOplazo_entrega": 14,
+          "quantity": 4
+        }
+      ],
+      "selectedShipping": {
+        "method": "España",
+        "price": 12
+      },
+      "selectedPayment": "Transferencia",
+      "totalPedido": 2711.39,
+      "invoice": true,
+      "orderState": "Pendiente",
+      "createdAt": "20/9/2024 8:43:3"
+    }
+  ]
+}

@@ -207,7 +207,7 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
                             </button>
                         </div>
                     </div>
-                </div >
+                </div>
             )}
         </div >
     ) : null;

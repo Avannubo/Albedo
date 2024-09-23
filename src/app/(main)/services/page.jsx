@@ -8,7 +8,7 @@ export default function page() {
         <Layout>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700 mt-10" />
             <div className="flex justify-center my-4">
-                <h1 className="text-2xl font-bold text-center">Diseñamos y producimos sus productos electrónicos</h1>
+                <h1 className="text-2xl font-bold text-center zoom-effect">productos electrónicos mn bjvjhvjghcjh </h1>
             </div>
             <div className=''>
                 <p className='text-lg text-justify '>

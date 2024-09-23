@@ -60,7 +60,8 @@ export default function page() {
     };
 
     // Example usage
-    const randomPublishedProducts = getRandomProducts(allPublishedProducts, 8);
+    const publishedProducts = allPublishedProducts.filter(product => product.isPublished);
+    const randomPublishedProducts = getRandomProducts(publishedProducts, 8);
 
     return (
         <Layout>

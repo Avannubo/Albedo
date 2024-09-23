@@ -1088,7 +1088,7 @@ export async function sendEmail(orderData) {
         var transporter = nodemailer.createTransport({
             host: "smtp.serviciodecorreo.es",
             port: 465,
-            secure: false, // Use `true` for port 465, `false` for all other ports
+            secure: true, // Use `true` for port 465, `false` for all other ports
             auth: {
                 user: process.env.NODEMAILER_EMAILSENDER,
                 pass: process.env.NODEMAILER_PW,

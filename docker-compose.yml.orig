@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports: 
+      - 32769:3000
+    environment:
+      - NODE_ENV=production
+    command: ["npm", "start"]
+    networks:
+      - my-network
+    volumes:
+      - ./public/assets:/app/public/assets
+      - ./next-cache:/app/.next/cache
+
+networks:
+  my-network:

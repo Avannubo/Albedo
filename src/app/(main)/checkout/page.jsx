@@ -490,7 +490,7 @@ export default function Page() {
                     <button type="submit" className="mt-2 w-full rounded-md bg-[#304590] py-1.5 font-medium text-blue-50 hover:bg-[#475caa]">
                       Proceder al pago
                     </button>
-                  </form> <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} />
+                  </form> <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} precioTotal={((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)}/>
                   {/* orderData={orderData}  */}
                 </div>
               </div>

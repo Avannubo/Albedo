@@ -60,7 +60,8 @@ export default function Home() {
   };
 
   // Example usage
-  const randomPublishedProducts = getRandomProducts(allPublishedProducts, 8);
+  const publishedProducts = allPublishedProducts.filter(product => product.isPublished);
+  const randomPublishedProducts = getRandomProducts(publishedProducts, 8);
 
   return (
     <Layout>
@@ -200,8 +201,7 @@ export default function Home() {
           ) : (
             randomPublishedProducts.length && randomPublishedProducts.length > 0 ? (
               <div className="flex flex-row flex-wrap items-center justify-center ">
-                {randomPublishedProducts
-                  .filter(product => product.isPublished)
+                  {randomPublishedProducts 
                   .map((product) => (
                     <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col justify-evenly p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
                       <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>

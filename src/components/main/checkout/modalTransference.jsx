@@ -55,8 +55,8 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
                 return;
             }
             saveNewOrder(orderData);
-            localStorage.clear();
-            setPaymentConfirmed(true);
+            //localStorage.clear();
+            //setPaymentConfirmed(true);
         } catch (error) {
             console.error('Error during stock check:', error);
         }
@@ -77,7 +77,7 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
             }
         });
 
-        // saveNewOrder(orderData);
+        saveNewOrder(orderData);
         // localStorage.clear();
         // setPaymentConfirmed(true);
     };

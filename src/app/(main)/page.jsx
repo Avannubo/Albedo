@@ -85,7 +85,8 @@ export default function Home() {
         </p>
         <div className="flex justify-center my-4">
           {data ? (
-            <div className='flex flex-row flex-wrap space-x-1 md:space-x-4  justify-center  mt-2 '>
+            <div className='flex flex-col justify-center'>
+              <div className='flex flex-row flex-wrap  space-x-1 md:space-x-4  justify-center  mt-2 '>
               {data.slice(1)
                 .filter(category => category.isPublished)
                 .map((category, index) => (
@@ -100,13 +101,16 @@ export default function Home() {
                     </p>
                   </Link>
                 ))}
-              <Link
+              
+            </div>
+            <Link
                 className="self-center text-center text-white w-[250px] py-1.5 my-3 rounded-md bg-[#304590] hover:bg-[#475caa]"
                 href="/products"
               >
                 Productos
               </Link>
             </div>
+            
           ) : (
             <div className='flex flex-col justify-center items-center'>
               <div className='flex flex-row flex-wrap items-center justify-center space-x-4 mt-4 mb-8'>
@@ -148,7 +152,7 @@ export default function Home() {
         <div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           <div className="flex justify-center">
-            <h1 className="lg:text-2xl md:text-xl text-md font-bold my-2">Productos destacado</h1>
+            <h1 className="lg:text-2xl md:text-xl text-md font-bold my-2">Productos destacados</h1>
           </div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           {isLoading ? (

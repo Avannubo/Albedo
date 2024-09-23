@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    async redirects() {
+        return [
+            {
+                source: '/Blog/:slug*',
+                destination: 'http://blog.albedo.biz/:slug*',
+                permanent: true,
+            },
+        ]
+    },
     images: {
         domains: ['res.cloudinary.com'], // Add the Cloudinary domain
     },

@@ -31,9 +31,9 @@ export default function iban() {
     
     async function handleIBANUpdate() {
         try {
-            const ibanRegex = /^ES34\d{22}$/;
+            const ibanRegex = /^ES\d{22}$/;
             if (!ibanRegex.test(newIBAN)) {
-                throw new Error("El IBAN debe tener el formato 'ES34' seguido de 22 dígitos.");
+                throw new Error("El IBAN debe tener el formato 'ES' seguido de 22 dígitos.");
             }
             await updateIBAN(newIBAN);
             setUpdateMessage("¡IBAN actualizado correctamente!"); 

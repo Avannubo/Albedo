@@ -45,8 +45,10 @@ function AddToCart({ producto }) {
             step="1"
             value={quantity}
             onChange={handleQuantityChange}
+            onKeyDown={(e) => e.preventDefault()} // Prevent keyboard input
             required
           />
+
           <button
             className="self-center text-white w-full py-1.5 rounded-md bg-[#304590] hover:bg-[#475caa]"
             onClick={handleClick}

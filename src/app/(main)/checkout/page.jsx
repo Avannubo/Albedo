@@ -4,6 +4,9 @@ import CartItem from "@/components/main/products/cartItem";
 import Layout from "@/app/(main)/WebLayout";
 import ModalTransference from "@/components/main/checkout/modalTransference";
 import { getParameters } from '@/lib/data';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import axios from 'axios';
+
 export default function Page() {
   const [parameters, setParameters] = useState(null);
   const [selectedShipping, setSelectedShipping] = useState({ method: null, price: null });
@@ -79,7 +82,7 @@ export default function Page() {
   }, []);
   useEffect(() => {
     if (parameters) {
-      console.log(parameters.EnvioEspaña); 
+      console.log(parameters.EnvioEspaña);
     }
   }, [parameters]);
   useEffect(() => {
@@ -145,6 +148,22 @@ export default function Page() {
       console.log(newErrors);
       return;
     }
+
+    // if (!executeRecaptcha) {
+    //   console.log("not avalilable to execute recaptcha");
+    //   return;
+    // }
+
+    // const gRecaptchaToken = await executeRecaptcha('inquirySubmit');
+
+    // const response = await axios({
+    //   method: 'post',
+    //   url: '',
+    //   data: {
+    //     orderData,
+    //     gRecaptchaToken
+    //   }
+    // })
     setOrderData({
       userInfo,
       cartProducts,
@@ -176,7 +195,7 @@ export default function Page() {
             </div>
           </div>
           <form onSubmit={handleSubmit} className="w-full bg-gray-50 rounded-lg sm:bg-transparent p-2 py-4 sm:p-0 sm:py-0" >
-          <h1 className="mb-4 text-start text-2xl font-bold">Datos del pedido</h1>
+            <h1 className="mb-4 text-start text-2xl font-bold">Datos del pedido</h1>
             <div className="flex flex-wrap -mx-3 mb-4">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
@@ -422,7 +441,7 @@ export default function Page() {
               ${selectedShipping && selectedShipping.method === 'internacional' ? 'bg-[#304590] text-blue-50 hover:bg-[#475caa]' : 'bg-white'}`}
                     onClick={() => handleShippingSelect('internacional', parameters?.EnviosINT ?? 0)}>
                     Internacional {parameters?.EnviosINT ?? 0}€
-                  </div> 
+                  </div>
                 </div>
                 <div className="flex flex-row justify-start space-x-2 text-sm">
                   <div className={`grow text-center border py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] hover:bg-[#304590] hover:text-blue-50 cursor-pointer 
@@ -482,7 +501,7 @@ export default function Page() {
                   <div className="flex justify-between">
                     <p className="text-lg font-bold">Total</p>
                     <div className="">
-                      <p className="mb-1 text-lg font-bold text-right">{((subTotal * (parameters?.IVA/100)) + subTotal + selectedShipping.price).toFixed(2)}€</p>
+                      <p className="mb-1 text-lg font-bold text-right">{((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)}€</p>
                     </div>
                   </div>
                   <form onSubmit={handleSubmit}>
@@ -490,7 +509,7 @@ export default function Page() {
                     <button type="submit" className="mt-2 w-full rounded-md bg-[#304590] py-1.5 font-medium text-blue-50 hover:bg-[#475caa]">
                       Proceder al pago
                     </button>
-                  </form> <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} precioTotal={((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)}/>
+                  </form> <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} precioTotal={((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)} />
                   {/* orderData={orderData}  */}
                 </div>
               </div>

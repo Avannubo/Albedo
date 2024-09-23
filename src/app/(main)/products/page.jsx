@@ -157,7 +157,7 @@ export default function page() {
             <div className="min-h-[30vh]">
                 <hr className="h-1 mx-auto bg-gray-50 border-0 rounded  dark:bg-gray-700" />
                 <div className="flex justify-center">
-                    <h1 className="text-lg font-bold my-2">Productos destacado</h1>
+                    <h1 className="text-lg font-bold my-2">Productos destacados</h1>
                 </div>
                 <hr className="h-1 mx-auto bg-gray-50 border-0 rounded  dark:bg-gray-700" />
                 {isLoading ? (

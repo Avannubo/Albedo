@@ -27,6 +27,7 @@ export default function Filters({ list }) {
                 onChange={(e) => onFilterChange(e.target.value)}
                 className="px-1.5 py-1 border-2 border-[#304590] rounded-lg focus:outline-none focus:border-[#304590]"
             >
+                
                 <option value="true">Publicado</option>
                 <option value="false">Borrador</option>
             </select>

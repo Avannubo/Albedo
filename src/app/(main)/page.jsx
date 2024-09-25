@@ -50,9 +50,8 @@ export default function Home() {
     return null;
   }
 
-  const allPublishedProducts = GetPublishedProducts(data);
-  const last4PublishedProducts = allPublishedProducts.slice(0, 4); //PublishedProducts.slice(-4);
-  const getRandomProducts = (products, num) => {
+  const allPublishedProducts = GetPublishedProducts(data); 
+  const featuredProducts = (products, num) => {
     // Shuffle the array
     const shuffled = products.slice().sort(() => 0.5 - Math.random());
     // Get the first 'num' elements from the shuffled array
@@ -60,8 +59,8 @@ export default function Home() {
   };
 
   // Example usage
-  const publishedProducts = allPublishedProducts.filter(product => product.isPublished);
-  const randomPublishedProducts = getRandomProducts(publishedProducts, 8);
+  const publishedProducts = allPublishedProducts.filter(product => product.isFeatured);
+  const featured = featuredProducts(publishedProducts, 8);
 
   return (
     <Layout>
@@ -203,9 +202,9 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            randomPublishedProducts.length && randomPublishedProducts.length > 0 ? (
+            featured.length && featured.length > 0 ? (
               <div className="flex flex-row flex-wrap items-center justify-center ">
-                  {randomPublishedProducts 
+                  {featured 
                   .map((product) => (
                     <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col justify-evenly p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
                       <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>

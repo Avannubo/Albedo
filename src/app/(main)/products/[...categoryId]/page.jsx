@@ -154,10 +154,10 @@ export default function PageContent() {
                             </div>
 
                             <div className='md:w-2/3 mt-0 sm:mt-4 md:mt-0'>
+
                                 <h1 className='font-extrabold text-2xl mt-4 md:mt-0 pl-[15px] hidden md:flex'>{productData.ALBEDOtitulo}</h1>
-                                {productData.ALBEDOdescripcion &&
-                                    <div className='pl-[15px] hidden md:flex md:flex-col' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />}
-                                <QuillTextDisplay value={productData.ALBEDOcuerpo} />
+                                <QuillTextDisplay value={productData.ALBEDOdescripcion} />
+                                {/* {productData.ALBEDOdescripcion && <div className='pl-[15px] hidden md:flex md:flex-col' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />} */}
                                 {productData.archivos.length > 0 && (
                                     <div className='flex flex-col md:pl-[15px]'>
                                         <p className='font-semibold'>Más información / Hoja de características del {productData.ALBEDOtitulo}</p>
@@ -173,22 +173,25 @@ export default function PageContent() {
                                     </div>
                                 )}
                             </div>
-                        </div>
+                            </div>
+                                <h1 className='font-extrabold text-xl mt-4 md:mt-0 pl-[15px] hidden md:flex'>Más Información:</h1>
+                            
+                            <QuillTextDisplay value={productData.ALBEDOcuerpo} />
 
                         {relatedProducts.length > 1 && (
                             <div className='flex flex-col my-2'>
                                 <h1 className='md:font-extrabold font-semibold text-xl mt-4 md:mt-0'>Productos relacionados que pueden ser de su interés:</h1>
                                 <div className={"flex flex-row flex-wrap items-start justify-start"}>
-                                        {relatedProducts
-                                            .filter(product => product.isPublished)
-                                            .map((product) => (
-                                        <div key={product.ALBEDOcodigo} className="lg:w-[270px] md:w-[300px] md:h-[330px] justify-between w-full m-2 p-2 rounded-md box-shadow">
-                                            <Link href={`/products/${slugArrayHook.slice(0, -1).join("/")}/${product.url_Id}`}>
-                                                <ProductItem product={product} />
-                                            </Link>
-                                            <AddToCart producto={product} />
-                                        </div>
-                                    ))}
+                                    {relatedProducts
+                                        .filter(product => product.isPublished)
+                                        .map((product) => (
+                                            <div key={product.ALBEDOcodigo} className="lg:w-[270px] md:w-[300px] md:h-[330px] justify-between w-full m-2 p-2 rounded-md box-shadow">
+                                                <Link href={`/products/${slugArrayHook.slice(0, -1).join("/")}/${product.url_Id}`}>
+                                                    <ProductItem product={product} />
+                                                </Link>
+                                                <AddToCart producto={product} />
+                                            </div>
+                                        ))}
                                 </div>
                             </div>
                         )}
@@ -213,7 +216,7 @@ export default function PageContent() {
                         <div className='flex justify-center mb-2'>
                             <div className='w-[550px] rounded-sm bg-gray-300 h-8 animate-pulse'></div>
                         </div>
-                        
+
                         <div className='flex flex-row flex-wrap items-center justify-center space-x-4 mt-4 mb-8'>
                             {Array.from({ length: 8 }).map((_, index) => (
                                 <div key={index} className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
@@ -277,7 +280,7 @@ export default function PageContent() {
                                         {pageData.products
                                             .filter(product => product.isPublished)
                                             .map((product) => (
-                                                <div className='flex flex-col justify-between lg:w-[270px] md:w-[300px] md:h-[330px] justify-between w-full m-2 mb-4 p-2 rounded-md box-shadow' key={product.ALBEDOcodigo}>
+                                                <div className='flex flex-col lg:w-[270px] md:w-[300px] md:h-[330px] justify-between w-full m-2 mb-4 p-2 rounded-md box-shadow' key={product.ALBEDOcodigo}>
                                                     <Link href={`/products/${slugArrayHook.join("/")}/${product.url_Id}`} className='mb-1'>
                                                         <ProductItem product={product} />
                                                     </Link>
@@ -286,7 +289,7 @@ export default function PageContent() {
                                             ))}
                                     </div>
                                 </>
-                            ):(<></>)}
+                            ) : (<></>)}
                         </div>
                     </div>
                 ))}

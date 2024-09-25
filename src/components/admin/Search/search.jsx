@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { getProducts, getCategories } from "@/lib/data";
 import EditProduct from "@/components/admin/products/product/actions/edit";
 import Delete from "@/components/admin/products/category/delete";
-
 export default function Search() {
     const [searchTerm, setSearchTerm] = useState("");
     const [products, setProducts] = useState([]);
@@ -14,7 +13,6 @@ export default function Search() {
             try {
                 const fetchedCategories = await getCategories();
                 const productList = [];
-
                 const loopRecursive = (categories) => {
                     for (const category of categories) {
                         for (const product of category.products) {
@@ -25,9 +23,7 @@ export default function Search() {
                         }
                     }
                 };
-
                 loopRecursive(fetchedCategories);
-
                 setProducts(productList);
                 setFilteredProducts(productList); // Initial load shows all featured products
                 setLoading(false); // Data fetching is complete
@@ -36,10 +32,8 @@ export default function Search() {
                 setLoading(false); // Ensure loading state is updated on error
             }
         }
-
         fetchData();
     }, []);
-
     // Handle search input changes to filter products by name
     useEffect(() => {
         const filtered = products.filter(product =>
@@ -47,11 +41,9 @@ export default function Search() {
         );
         setFilteredProducts(filtered);
     }, [searchTerm, products]);
-
     if (loading) {
         return <Loading />;
     }
-
     return (
         <>
             <div className="m-2">
@@ -62,10 +54,7 @@ export default function Search() {
                     className="border p-2 rounded w-full"
                     placeholder="Buscar productos..."
                 />
-                
-            </div>
-
-            {/* Display filtered products */}
+            </div> 
             <ul>
                 <div className="flex flex-col space-y-2 p-2">
                     {filteredProducts.length > 0 ? (
@@ -78,12 +67,7 @@ export default function Search() {
                                     <p className="h-auto self-center whitespace-nowrap">
                                         {product.ALBEDOcodigo}</p>
                                     <p className="h-autoself-center whitespace-nowrap">
-                                        ({product.ALBEDOtitulo})</p>
-                                    {/* <div className="flex flex-row h-auto w-full self-center whitespace-nowrap space-x-2">
-                                        <div className="flex flex-row h-auto w-full">
-                                            
-                                        </div>
-                                    </div> */}
+                                        ({product.ALBEDOtitulo})</p> 
                                 </div>
                                 <div className="space-x-4 flex flex-row justify-center items-center">
                                     <EditProduct product={product} />
@@ -105,7 +89,6 @@ export default function Search() {
         </>
     );
 }
-
 function Loading() {
     return (
         <div className="flex-col gap-4 w-full flex items-center justify-center">

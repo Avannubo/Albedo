@@ -11,7 +11,7 @@ export default function QuillEditorComponent({ value }) {
             <QuillEditor
                 value={value}
                 readOnly={true}
-                className="w-full h-full bg-transparent border-none"
+                className="w-full h-full bg-transparent border-none text-justify"
                 modules={{ toolbar: false }} // Disable toolbar
             />
         </div>

@@ -286,15 +286,14 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                 </div>
                             </div>
                             <div className="mb-4">
-                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción del Producto</label>
+                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo:</label>
                                 <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
                                 {descriptionError && <span className="text-red-500 italic text-xs"> La descripción de producto es requerida</span>}
                                 {/* <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}
                             </div>
                             <div className="mb-4">
-                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
-                                <QuillEditor value={newProductBody} onChange={handleInputChangeBody} />
-                                {/* <textarea onChange={handleInputChangeBody} value={newProductBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' /> */}
+                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Más Información:</label>
+                                <QuillEditor value={newProductBody} onChange={handleInputChangeBody} /> 
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">

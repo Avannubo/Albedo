@@ -15,6 +15,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     const [newProductMinStock, setNewProductMinStock] = useState(product.ALBEDOstock_minimo);
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(product.ALBEDOplazo_entrega);
     const [newCategoryIsPublished, setNewCategoryIsPublished] = useState(product.isPublished);
+    const [newCategoryIsFeatured, setNewCategoryIsFeatured] = useState(product.isFeatured);
     const [productImages, setProductImages] = useState(product.imagens);
     const [productFiles, setProductFiles] = useState(product.archivos);
     const [selectedImages, setSelectedImages] = useState([]);
@@ -39,6 +40,9 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     };
     const handleInputChangeIsPublished = (event) => {
         setNewCategoryIsPublished(event.target.checked);
+    };
+    const handleInputChangeIsFeatured = (event) => {
+        setNewCategoryIsFeatured(event.target.checked);
     };
     const handleInputChangeStock = (event) => {
         setNewProductStock(event.target.value);
@@ -205,6 +209,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 newProductMinStock,
                 newProductDeliveryTime,
                 newCategoryIsPublished,
+                newCategoryIsFeatured,
                 uniqueImagePaths,
                 uniqueFilePaths);
             setProductImages(uniqueImagePaths);
@@ -238,14 +243,20 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     <div className="w-full rounded-md p-10">
                         <div className='flex space-x-6 mb-4'>
                             <h1 className='font-bold text-xl'>Editar Producto {product.ALBEDOtitulo}</h1>
+                            <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
                             <div className='flex justify-start '>
-                                <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
-                                {/* <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Borrador</span> */}
+                                <span className="mx-2 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Publicado</span>
                                 <label className="inline-flex items-center cursor-pointer">
                                     <input onChange={handleInputChangeIsPublished} type="checkbox" checked={newCategoryIsPublished} className="sr-only peer" />
                                     <div className="self-center relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#304590]"></div>
                                 </label>
-                                <span className="mx-3 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Publicado</span>
+                            </div>
+                            <div className='flex justify-start '>
+                                <span className="mx-2 text-lg self-center font-medium text-gray-900 dark:text-gray-300">Destacado</span>
+                                <label className="inline-flex items-center cursor-pointer">
+                                    <input onChange={handleInputChangeIsFeatured} type="checkbox" checked={newCategoryIsFeatured} className="sr-only peer" />
+                                    <div className="self-center relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#304590]"></div>
+                                </label>
                             </div>
                         </div>
                         <div className='flex flex-col'>

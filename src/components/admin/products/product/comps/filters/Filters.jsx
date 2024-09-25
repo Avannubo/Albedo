@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { getFiltersListProducts } from '@/lib/data';
+import { getFilterslist } from '@/lib/data';
 
 export default function Filters({ list }) {
     const [isPublishedFilter, setIsPublishedFilter] = useState(true);
@@ -12,12 +12,12 @@ export default function Filters({ list }) {
 
     const onCategoryChange = async (value) => {
         setCategoryFilter(value);
-        getFiltersListProducts(isPublishedFilter, value);
+        getFilterslist(isPublishedFilter, value);
     };
 
     const onFilterChange = (value) => {
         setIsPublishedFilter(value === "true");
-        getFiltersListProducts(value === "true", categoryFilter);
+        getFilterslist(value === "true", categoryFilter);
     };
 
     return (
@@ -27,7 +27,7 @@ export default function Filters({ list }) {
                 onChange={(e) => onFilterChange(e.target.value)}
                 className="px-1.5 py-1 border-2 border-[#304590] rounded-lg focus:outline-none focus:border-[#304590]"
             >
-                
+
                 <option value="true">Publicado</option>
                 <option value="false">Borrador</option>
             </select>

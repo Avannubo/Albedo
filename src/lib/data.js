@@ -2,9 +2,9 @@
 import { promises as fs } from 'fs';
 import jwt from 'jsonwebtoken';
 import { revalidatePath } from 'next/cache';
-import { readFile, writeFile } from 'fs/promises'; 
+import { readFile, writeFile } from 'fs/promises';
 import nodemailer from 'nodemailer';
-import { v2 as cloudinary } from 'cloudinary'; 
+import { v2 as cloudinary } from 'cloudinary';
 cloudinary.config({
     cloud_name: 'dtzwbtiuw',
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.PASS,
     },
 });
- 
+
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 var filteredProductList = [];
@@ -45,7 +45,7 @@ export async function getCategories() {
     const content = await requireContent();
     if (content) {
         const { categories } = content;
-        revalidatePath('/admin/ListProducts');
+        revalidatePath('/admin/list');
         return categories;
     } else {
         return []; // Return an empty array if categories don't exist
@@ -55,7 +55,7 @@ export async function getCategoryDataForListProducts() {
     const content = await requireContent();
     if (content) {
         const { categories } = content;
-        revalidatePath('/admin/ListProducts');
+        revalidatePath('/admin/list');
         return categories;
     } else {
         return []; // Return an empty array if categories don't exist
@@ -67,10 +67,10 @@ export async function getListProductsFiltered() {
         const { categories } = content;
         // console.log(filteredProductList);
         if (filteredProductList.length == 0) {
-            revalidatePath('/admin/ListProducts');
+            revalidatePath('/admin/list');
             return categories;
         } else {
-            revalidatePath('/admin/ListProducts');
+            revalidatePath('/admin/list');
             return filteredProductList;
         }
     }
@@ -109,37 +109,72 @@ export async function getRefillStockProducts() {
         console.log("Error:", error.message);
         return []; // Return an empty array on error
     }
+} 
+export async function getFeaturedProducts() {
+    try {
+        const productList = [];
+        console.log("File path:", filePath);
+        const data = await fs.readFile(filePath, 'utf8');
+        //console.log("File content:", data);
+        const { categories } = JSON.parse(data);
+        //console.log("Parsed categories:", categories);
+        const loopRecursive = async (categories) => {
+            for (let i = 0; i < categories.length; i++) {
+                const category = categories[i];
+                for (let j = 0; j < category.products.length; j++) {
+                    const product = category.products[j];
+                    //console.log("Product details:", product);
+                    if (product.isFeatured) {
+                        productList.push(product);
+                    }
+                }
+                if (category.subCategories && category.subCategories.length > 0) {
+                    console.log("Subcategories:", category.subCategories);
+                    await loopRecursive(category.subCategories);
+                }
+            }
+        };
+        await loopRecursive(categories);
+        if (productList.length === 0) {
+            console.log("No products need refilling.");
+            return []; // Return an empty array if no products need refilling
+        }
+        return productList; // Return the array of products needing refilling
+    } catch (error) {
+        console.log("Error:", error.message);
+        return []; // Return an empty array on error
+    }
+} 
+export async function getProducts() {
+    try {
+        const productList = [];
+        const filePath = "/path/to/your/file.json"; // Define your file path here
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories } = JSON.parse(data);
+
+        const loopRecursive = async (categories) => {
+            for (let i = 0; i < categories.length; i++) {
+                const category = categories[i];
+                for (let j = 0; j < category.products.length; j++) {
+                    const product = category.products[j];
+                    // Filter products based on the search term (in title or other properties)
+                    if (product.ALBEDOprecio) {
+                        productList.push(product);
+                    }
+                }
+                if (category.subCategories && category.subCategories.length > 0) {
+                    await loopRecursive(category.subCategories);
+                }
+            }
+        };
+        await loopRecursive(categories);
+
+        return productList.length > 0 ? productList : []; // Return filtered products or an empty array
+    } catch (error) {
+        console.log("Error:", error.message);
+        return []; // Return an empty array on error
+    }
 }
-// export async function getRefillStockProducts() {
-//     try {
-//         const refillProductList = [];
-//         const data = await fs.readFile(filePath, 'utf8');
-//         const { categories } = JSON.parse(data);
-//         const loopRecursive = async (categories) => {
-//             for (let i = 0; i < categories.length; i++) {
-//                 const category = categories[i];
-//                 for (let j = 0; j < category.products.length; j++) {
-//                     const product = category.products[j];
-//                     if (product.ALBEDOstock < product.ALBEDOstock_minimo) {
-//                         refillProductList.push(product);
-//                     }
-//                 }
-//                 if (category.subCategories && category.subCategories.length > 0) {
-//                     await loopRecursive(category.subCategories);
-//                 }
-//             }
-//         };
-//         await loopRecursive(categories);
-//         if (refillProductList.length === 0) {
-//             // console.log("No products need refilling.");
-//             return []; // Return an empty array if no products need refilling
-//         }
-//         return refillProductList; // Return the array of products needing refilling
-//     } catch (error) {
-//         console.log("Error:", error);
-//         return []; // Return an empty array on error
-//     }
-// }
 export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = '', refillStock) {
     // console.log(isPublishedFilter, categoryFilter);
     const content = await requireContent();
@@ -192,7 +227,7 @@ export async function getFiltersListProducts(isPublishedFilter = true, categoryF
         filteredProductList = filteredCategories;
     }
     //console.log(filteredCategories);
-    revalidatePath('/admin/ListProducts');
+    revalidatePath('/admin/list');
 }
 export async function getParameters() {
     try {
@@ -322,7 +357,7 @@ export async function updateIVA(newIVA) {
 //                             const deletedObject = categoryList.splice(i, 1)[0];
 //                             //deletedContent.push(deletedObject);
 //                             await fs.writeFile(filePath, JSON.stringify({ categories }));
-//                             revalidatePath('/admin/ListProducts');
+//                             revalidatePath('/admin/list');
 //                             return true;
 //                         }
 //                         if (category.subCategories && category.subCategories.length > 0) {
@@ -363,7 +398,7 @@ export async function updateIVA(newIVA) {
 //                                 await fs.writeFile(filePath, JSON.stringify({ categories }));
 //                                 console.log("Product successfully deleted and file updated."); // Debug: Log successful write
 //                                 // Revalidate the path if necessary
-//                                 revalidatePath('/admin/ListProducts');
+//                                 revalidatePath('/admin/list');
 //                                 return true; // Stop recursion after deletion
 //                             }
 //                         }
@@ -406,7 +441,7 @@ export async function deleteElement(categoryId, product) {
                     // Optionally store in deletedContent array (if required)
                     // deletedContent.push(deletedObject); 
                     await fs.writeFile(filePath, JSON.stringify({ categories }));
-                    revalidatePath('/admin/ListProducts');
+                    revalidatePath('/admin/list');
                     return true; // Category successfully deleted
                 }
                 // Recursively check subcategories
@@ -431,7 +466,7 @@ export async function deleteElement(categoryId, product) {
                         // Optionally store in deletedContent array (if required)
                         // deletedContent.push(deletedProduct); 
                         await fs.writeFile(filePath, JSON.stringify({ categories }));
-                        revalidatePath('/admin/ListProducts');
+                        revalidatePath('/admin/list');
                         return true; // Product successfully deleted
                     }
                 }
@@ -508,7 +543,7 @@ export async function addCategory(Url_Id, name, description, body, isPublished, 
         };
         categories.unshift(newCategory);
         await writeFile(filePath, JSON.stringify(jsonData));
-        revalidatePath('/admin/ListProducts');
+        revalidatePath('/admin/list');
         // //console.log("Subcategory added successfully.");
         return true;
     } catch (error) {
@@ -561,7 +596,7 @@ export async function addSubcategory(categoryId, subCategoryData) {
                     // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     // //console.log("Data written successfully.");
-                    revalidatePath('/admin/ListProducts');
+                    revalidatePath('/admin/list');
                     // //console.log("Path revalidated.");
                     return true;
                 }
@@ -638,7 +673,7 @@ export async function addproduct(categoryId, productData) {
                     // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     // //console.log("Data written successfully.");
-                    revalidatePath('/admin/ListProducts');
+                    revalidatePath('/admin/list');
                     // //console.log("Path revalidated.");
                     return true;
                 }
@@ -678,7 +713,7 @@ export async function addproduct(categoryId, productData) {
  * @param {boolean} isPublished - Whether the product is published.
  * @returns {boolean} Indicates whether the editing was successful.
  */
-export async function editproduct(productId, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, imagePaths, filePaths) {
+export async function editproduct(productId, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, isFeatured, imagePaths, filePaths) {
     // console.log('called function editproduct' + JSON.stringify());
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -700,10 +735,11 @@ export async function editproduct(productId, url_Id, Name, Price, Description, B
                         product.FechaDeModificacion = euFormattedDateTime;
                         product.ALBEDOplazo_entrega = DeliveryTime;
                         product.isPublished = isPublished;
+                        product.isFeatured = isFeatured;
                         product.imagens = imagePaths;
                         product.archivos = filePaths;
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                        revalidatePath('/admin/ListProducts');
+                        revalidatePath('/admin/list');
                         return true;
                     }
                 }
@@ -763,7 +799,7 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
                     }
                     // Write the updated JSON data to the file
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    revalidatePath('/admin/ListProducts');
+                    revalidatePath('/admin/list');
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
@@ -846,7 +882,7 @@ export async function getCategoryById(categoryId) {
         console.error("Error occurred:", error);
         return false;
     }
-} 
+}
 export async function duplicateProduct(category, product) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -890,7 +926,7 @@ export async function duplicateProduct(category, product) {
 
                     category.products.push(dataObj);
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    revalidatePath('/admin/ListProducts');
+                    revalidatePath('/admin/list');
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
@@ -940,7 +976,7 @@ export async function getDataByUrlId(slugIds) {
                 currentData = category.subCategories;
             } else {
                 // If there are no subcategories, return the current category
-                revalidatePath('/admin/ListProducts');
+                revalidatePath('/admin/list');
                 return category;
             }
         }
@@ -1024,7 +1060,7 @@ export async function updateStock(orderData) {
                     if (cartProduct) {
                         product.ALBEDOstock -= cartProduct.quantity;
                         await fs.writeFile(filePath, JSON.stringify({ categories }, null, 2));
-                        revalidatePath('/admin/ListProducts');
+                        revalidatePath('/admin/list');
                         return true;
                     }
                 }

@@ -27,11 +27,24 @@ export default function aside() {
           <p className="flex justify-center font-semibold">Dashboard</p>
         </Link>
         <Link
-          href="/admin/ListProducts"
+          href="/admin/list"
           className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
         >
           <p className="flex justify-center font-semibold">Productos</p>
         </Link>
+        <Link
+          href="/admin/buscador"
+          className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
+        >
+          <p className="flex justify-center font-semibold">Buscador</p>
+        </Link>
+        <Link
+          href="/admin/destacados"
+          className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
+        >
+          <p className="flex justify-center font-semibold">Destacados</p>
+        </Link>
+        
         <Link
           href="/admin/RellenarStock"
           className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "

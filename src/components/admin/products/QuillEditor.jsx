@@ -10,13 +10,27 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 // Import Quill and extend it to preserve styles and classes
 import { Quill } from "react-quill";
 
-// Create a custom matcher for images to preserve inline styles
+// Create a custom matcher for images to alternate float styles
+let imageCount = 0; // Track image count to alternate between left and right
 const Block = Quill.import("blots/block");
 Block.tagName = "DIV"; // Handle image better inside div instead of default P tag
 Quill.register(Block, true);
 
 const ImageFormat = Quill.import("formats/image");
-ImageFormat.className = "float-right"; // Preserve the float-right class for images
+
+// Override the create method of ImageFormat to alternate classes
+ImageFormat.create = (value) => {
+    const node = document.createElement("img");
+    node.setAttribute("src", value);
+
+    // Alternate between float-left and float-right based on image count
+    const className = imageCount % 2 === 0 ? "float-left" : "float-right";
+    node.classList.add(className);
+
+    imageCount++; // Increment the count for the next image
+    return node;
+};
+
 Quill.register(ImageFormat, true);
 
 // Simple function to format (pretty-print) HTML

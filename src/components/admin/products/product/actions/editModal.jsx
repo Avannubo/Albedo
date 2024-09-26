@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { editproduct, cloudinaryUploader, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
-import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, category, product }) {
     //console.log("btn edit prod: " + JSON.stringify(category.id));
     const [loading, setLoading] = useState(false);
@@ -10,7 +9,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);
     const [newProductPrice, setNewProductPrice] = useState(product.ALBEDOprecio);
     const [newProductDescription, setNewProductDescription] = useState(product.ALBEDOdescripcion);
-    const [newProductBody, setNewProductBody] = useState(product.ALBEDOcuerpo);
+    const [newProductBody, setNewProductBody] = useState(product.ALBEDOcuerpo || '') ;
     const [newProductStock, setNewProductStock] = useState(product.ALBEDOstock);
     const [newProductMinStock, setNewProductMinStock] = useState(product.ALBEDOstock_minimo);
     const [newProductDeliveryTime, setNewProductDeliveryTime] = useState(product.ALBEDOplazo_entrega);
@@ -178,6 +177,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
         });
     };
     const handleAddProduct = async () => {
+        console.log(newProductBody);
         setUrlCodeError(!newProductUrlCode.trim());
         setNameError(!newProductName.trim());
         setDescriptionError(!newProductDescription.trim());

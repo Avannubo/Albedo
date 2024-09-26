@@ -69,3 +69,38 @@ li {
     transform: scale(1.1);
     /* Adjust the scale factor as needed */
 }
+
+
+.align-left {
+    float: left;
+    margin-right: 10px; /* Space on the right of the image */
+}
+
+.align-right {
+    float: right;
+    margin-left: 10px; /* Space on the left of the image */
+}
+
+.align-center {
+    display: block;
+    margin: 0 auto; /* Centering */
+}
+
+.float-right {
+    float: right;
+    margin-left: 15px;
+    max-width: 100%;
+    height: auto;
+}
+
+.float-left {
+    float: left;
+    margin-right: 15px;
+    max-width: 100%;
+    height: auto;
+}
+
+.quill-editor-container img {
+    display: block;
+    margin: 10px 0;
+}

@@ -9,6 +9,7 @@ import ProductItem from "@/components/main/products/productItem";
 import DOMPurify from 'dompurify'; // Import DOMPurify for HTML sanitization
 import Layout from "@/app/(main)/WebLayout";
 import QuillTextDisplay from '@/components/admin/products/QuillTextDisplay'
+import QuillEditor from '@/components/admin/products/QuillEditor';
 // Function to sanitize HTML
 const sanitizeHTML = (html) => {
     if (!html) return ''; // Return empty string if html is null or undefined
@@ -66,44 +67,7 @@ export default function PageContent() {
     return (
         <Layout>
             <>{loading ? (
-                <>
-                    {/* Skeleton for Product Data 
-                    <div className='flex flex-col md:flex-row justify-between my-10'>
-                        <div className='md:w-1/3 md:mr-6 sm:mr-3'>
-                            <div className='md:top-18 w-full md:sticky flex flex-col sm:flex-row md:flex-col sm:space-x-2 md:space-x-0'>
-                                <div className='md:h-[400px] sm:h-[270px] h-[300px] w-full bg-gray-300 rounded-lg animate-pulse'></div>
-                                <div className='flex flex-row items-start mt-2'>
-                                    <div className='flex space-x-4 overflow-x-auto w-full'>
-                                        <div className='h-[80px] w-[80px] bg-gray-300 rounded-lg animate-pulse'></div>
-                                        <div className='h-[80px] w-[80px] bg-gray-300 rounded-lg animate-pulse'></div>
-                                        <div className='h-[80px] w-[80px] bg-gray-300 rounded-lg animate-pulse'></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className='md:w-2/3 mt-0 sm:mt-4 md:mt-0'>
-                            <div className='h-8 w-[300px] bg-gray-300 rounded-sm animate-pulse mb-4'></div>
-                            <div className='h-8 w-[200px] bg-gray-300 rounded-sm animate-pulse mb-2'></div>
-                            <div className='h-8 w-[350px] bg-gray-300 rounded-sm animate-pulse mb-2'></div>
-                            <div className='h-8 w-[450px] bg-gray-300 rounded-sm animate-pulse mb-2'></div>
-                            <div className='h-24 w-full bg-gray-300 rounded-sm animate-pulse'></div>
-                            <div className='h-12 w-[150px] bg-blue-300 rounded-sm mt-4 animate-pulse'></div>
-                        </div>
-                    </div>*/}
-
-                    {/* Skeleton for Related Products 
-                    <h1 className='md:font-extrabold font-semibold text-xl mt-4 md:mt-0'>Productos relacionados</h1>
-                    <div className='flex flex-row flex-wrap justify-start'>
-                        {Array.from({ length: 4 }).map((_, index) => (
-                            <div key={index} className="lg:w-[270px] md:w-[300px] w-full m-2 p-2 rounded-md box-shadow bg-slate-50 animate-pulse">
-                                <div className='h-[140px] w-full bg-gray-300 rounded-lg mb-2 animate-pulse'></div>
-                                <div className='h-8 w-[200px] bg-gray-300 rounded-sm animate-pulse mb-2'></div>
-                                <div className='h-8 w-[100px] bg-gray-300 rounded-sm animate-pulse mb-2'></div>
-                                <div className='h-10 w-full bg-blue-300 rounded-sm animate-pulse'></div>
-                            </div>
-                        ))}
-                    </div>*/}
+                <> 
                 </>
             ) : (
                 productData && (
@@ -156,7 +120,8 @@ export default function PageContent() {
                             <div className='md:w-2/3 mt-0 sm:mt-4 md:mt-0'>
 
                                 <h1 className='font-extrabold text-2xl mt-4 md:mt-0 pl-[15px] hidden md:flex'>{productData.ALBEDOtitulo}</h1>
-                                <QuillTextDisplay value={productData.ALBEDOdescripcion} />
+                                    <QuillTextDisplay value={productData.ALBEDOdescripcion} />
+                                    {/* <QuillEditor value={productData.ALBEDOdescripcion}  /> */}
                                 {/* {productData.ALBEDOdescripcion && <div className='pl-[15px] hidden md:flex md:flex-col' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />} */}
                                 {productData.archivos.length > 0 && (
                                     <div className='flex flex-col md:pl-[15px]'>
@@ -177,6 +142,7 @@ export default function PageContent() {
                                 <h1 className='font-extrabold text-xl mt-4 md:mt-0 pl-[15px] hidden md:flex'>Más Información:</h1>
                             
                             <QuillTextDisplay value={productData.ALBEDOcuerpo} />
+                            {/* <QuillEditor value={productData.ALBEDOcuerpo}  /> */}
 
                         {relatedProducts.length > 1 && (
                             <div className='flex flex-col my-2'>

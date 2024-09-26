@@ -318,7 +318,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                     {productImages && productImages.length > 0 && (
                                         productImages.map((imagePath, index) => (
                                             <div key={index} className="relative mr-4">
-                                                {console.log(`Image Path Retrived [${index}]: `, imagePath)}
+                                                {/* {console.log(`Image Path Retrived [${index}]: `, imagePath)} */}
                                                 <img
                                                     src={imagePath}
                                                     alt={`Product Image ${index + 1}`}

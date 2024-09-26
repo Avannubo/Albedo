@@ -205,7 +205,8 @@ export default function Home() {
             featured.length && featured.length > 0 ? (
               <div className="flex flex-row flex-wrap items-center justify-center ">
                   {featured 
-                  .map((product) => (
+                    .reverse()
+                    .map((product) => (
                     <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col justify-evenly p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
                       <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
                         <ProductItem product={product} /></Link>

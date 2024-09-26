@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { editproduct, cloudinaryUploader, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
+import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent"
 export default function EditModal({ isOpen, onClose, category, product }) {
     //console.log("btn edit prod: " + JSON.stringify(category.id));
     const [loading, setLoading] = useState(false);
@@ -293,7 +294,8 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                             </div>
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Más Información:</label>
-                                <QuillEditor value={newProductBody} onChange={handleInputChangeBody} /> 
+                                {/* <QuillEditor  />  */}
+                                <HTMLEditorComponent value={newProductBody} onChange={handleInputChangeBody} />
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>
                                 <div className="flex-1 mb-4">

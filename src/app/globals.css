@@ -71,36 +71,20 @@ li {
 }
 
 
-.align-left {
-    float: left;
-    margin-right: 10px; /* Space on the right of the image */
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+iframe::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar */
 }
 
-.align-right {
-    float: right;
-    margin-left: 10px; /* Space on the left of the image */
+/* Hide scrollbar for IE, Edge */
+iframe {
+    -ms-overflow-style: none;
+    /* IE and Edge */
 }
 
-.align-center {
-    display: block;
-    margin: 0 auto; /* Centering */
-}
-
-.float-right {
-    float: right;
-    margin-left: 15px;
-    max-width: 100%;
-    height: auto;
-}
-
-.float-left {
-    float: left;
-    margin-right: 15px;
-    max-width: 100%;
-    height: auto;
-}
-
-.quill-editor-container img {
-    display: block;
-    margin: 10px 0;
+/* Hide scrollbar for Firefox */
+iframe {
+    scrollbar-width: none;
+    /* Firefox */
 }

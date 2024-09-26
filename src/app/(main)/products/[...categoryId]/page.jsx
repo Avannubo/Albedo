@@ -9,7 +9,7 @@ import ProductItem from "@/components/main/products/productItem";
 import DOMPurify from 'dompurify'; // Import DOMPurify for HTML sanitization
 import Layout from "@/app/(main)/WebLayout";
 import QuillTextDisplay from '@/components/admin/products/QuillTextDisplay'
-import QuillEditor from '@/components/admin/products/QuillEditor';
+import HTMLPreviewComponent from "@/components/admin/products/HTMLPreviewComponent"
 // Function to sanitize HTML
 const sanitizeHTML = (html) => {
     if (!html) return ''; // Return empty string if html is null or undefined
@@ -67,44 +67,24 @@ export default function PageContent() {
     return (
         <Layout>
             <>{loading ? (
-                <> 
+                <>
                 </>
             ) : (
                 productData && (
-                    <div className='grow'>
-                        <div className='flex flex-col md:flex-row justify-between my-10'>
+                        <div className='grow  my-10'>
+                                <h1 className='font-extrabold text-2xl my-4 md:mt-0 hidden md:flex'>{productData.ALBEDOtitulo}</h1>
+                            <div className='flex flex-col md:flex-row justify-between'>
                             <div className='md:w-1/3 md:mr-6 sm:mr-3'>
                                 <div className='md:top-18 w-full md:sticky flex flex-col sm:flex-row md:flex-col sm:space-x-2 md:space-x-0'>
                                     <div className='flex flex-col w-full'>
-                                        {productData.imagens.map((image, index) => (
-                                            <img
-                                                key={index}
-                                                className={`md:h-[400px] sm:h-[270px] h-[300px] md:w-[550px] object-contain rounded-lg ${index !== currentImageIndex ? 'hidden' : ''}`}
-                                                src={image}
-                                                alt={`Image ${index + 1}`}
-                                                width={1000}
-                                                height={1050}
-                                            />
-                                        ))}
-                                        <div className="flex flex-row items-start mt-2">
-                                            <div className="flex space-x-4 overflow-x-auto w-full">
-                                                {productData.imagens.map((image, index) => (
-                                                    <div
-                                                        key={index}
-                                                        onClick={() => setCurrentImageIndex(index)}
-                                                        className={`flex-shrink-0 h-auto w-[85px] border-2 border-transparent text-center cursor-pointer ${index === currentImageIndex ? 'border-gray-900' : ''}`}
-                                                    >
-                                                        <img
-                                                            className="rounded-lg w-[80px] h-[80px] object-contain"
-                                                            src={image}
-                                                            alt={`Thumbnail ${index + 1}`}
-                                                            width={80}
-                                                            height={80}
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
+                                        <img
+                                            className={`md:h-[300px] sm:h-[230px] h-[250px] md:w-[550px] object-cover rounded-lg`}
+                                            src={productData.imagens[0]}
+                                            alt={`Image ${productData.imagens[0]}`}
+                                            width={1000}
+                                            height={1050}
+                                        />
+
                                     </div>
                                     <div className='my-4 sm:my-0 w-full'>
                                         <h1 className='md:hidden font-extrabold text-2xl'>{productData.ALBEDOtitulo}</h1>
@@ -118,14 +98,12 @@ export default function PageContent() {
                             </div>
 
                             <div className='md:w-2/3 mt-0 sm:mt-4 md:mt-0'>
+                                    <h1 className='font-extrabold text-xl mt-4 md:mt-0 pl-[15px] hidden md:flex'>Descripción:</h1>
 
-                                <h1 className='font-extrabold text-2xl mt-4 md:mt-0 pl-[15px] hidden md:flex'>{productData.ALBEDOtitulo}</h1>
-                                    <QuillTextDisplay value={productData.ALBEDOdescripcion} />
-                                    {/* <QuillEditor value={productData.ALBEDOdescripcion}  /> */}
-                                {/* {productData.ALBEDOdescripcion && <div className='pl-[15px] hidden md:flex md:flex-col' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />} */}
+                                <QuillTextDisplay value={productData.ALBEDOdescripcion} />
                                 {productData.archivos.length > 0 && (
                                     <div className='flex flex-col md:pl-[15px]'>
-                                        <p className='font-semibold'>Más información / Hoja de características del {productData.ALBEDOtitulo}</p>
+                                        <p className='font-semibold'>Hoja de características del {productData.ALBEDOtitulo}</p>
                                         {productData.archivos.map((archivo, index) => (
                                             <a key={index}
                                                 target='_blank'
@@ -138,11 +116,15 @@ export default function PageContent() {
                                     </div>
                                 )}
                             </div>
-                            </div>
-                                <h1 className='font-extrabold text-xl mt-4 md:mt-0 pl-[15px] hidden md:flex'>Más Información:</h1>
-                            
-                            <QuillTextDisplay value={productData.ALBEDOcuerpo} />
-                            {/* <QuillEditor value={productData.ALBEDOcuerpo}  /> */}
+                        </div>
+
+                        {productData.ALBEDOcuerpo ? (
+                            <h1 className='font-extrabold text-xl mt-4 md:mt-0 hidden md:flex'>Más Información:</h1>
+
+                        ) : (<p></p>)
+                        }
+                        <HTMLPreviewComponent content={productData.ALBEDOcuerpo} />
+
 
                         {relatedProducts.length > 1 && (
                             <div className='flex flex-col my-2'>

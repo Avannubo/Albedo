@@ -7,11 +7,11 @@ const QuillEditor = dynamic(() => import('react-quill'), { ssr: false });
 export default function QuillEditorComponent({ value = "" }) { // Default to an empty string
 
     return (
-        <div className="w-full rounded-lg quill-editor-container no-padding">
+        <div className="w-full rounded-lg quill-editor-container no-padding text-[20px]">
             <QuillEditor
                 value={value}
                 readOnly={true} // Set to false if you want to allow editing
-                className="w-full h-full bg-transparent border-none"
+                className="w-full h-full bg-transparent border-none text-[20px]"
                 modules={{ toolbar: false }} // Disable toolbar
             />
         </div>

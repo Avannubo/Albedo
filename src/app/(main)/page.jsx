@@ -60,7 +60,8 @@ export default function Home() {
 
   // Example usage
   const publishedProducts = allPublishedProducts.filter(product => product.isFeatured);
-  const featured = featuredProducts(publishedProducts, 8);
+  const featured = publishedProducts.slice(-8);
+
 
   return (
     <Layout>
@@ -205,7 +206,7 @@ export default function Home() {
             featured.length && featured.length > 0 ? (
               <div className="flex flex-row flex-wrap items-center justify-center ">
                   {featured 
-                    .reverse()
+                    // .reverse()
                     .map((product) => (
                     <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col justify-evenly p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
                       <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>

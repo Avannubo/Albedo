@@ -119,7 +119,7 @@ export default function PageContent() {
                         </div>
 
                         {productData.ALBEDOcuerpo ? (
-                            <h1 className='font-extrabold text-xl mt-4 md:mt-0 hidden md:flex'>Más Información:</h1>
+                            <h1 className='font-extrabold text-xl mt-4 md:mt-8 hidden md:flex'>Más Información:</h1>
 
                         ) : (<p></p>)
                         }

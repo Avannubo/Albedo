@@ -75,7 +75,7 @@ export default function Header() {
               <div className="w-full ml-4 flex flex-row font-medium text-bold">
                 <div className="relative self-center" ref={dropdownRefServicios}>
                   <button
-                    className="flex justify-center flex-row flex-nowrap px-4 self-center text-md cursor-pointer whitespace-nowrap"
+                    className="flex justify-center flex-row flex-nowrap px-4 self-center text-[16px] cursor-pointer whitespace-nowrap"
                     onClick={toggleServiciosDropdown}
                     aria-expanded={showServiciosDropdown}
                     aria-controls="dropdown"
@@ -101,13 +101,13 @@ export default function Header() {
                     <div className="absolute left-0 mt-2 bg-white text-gray-700 rounded-lg shadow" id="dropdown">
                       <ul className="m-1">
                         <li>
-                          <Link href="/services" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md text-[18px]">Le ofrecemos</Link>
+                          <Link href="/services" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center  text-[16px]">Le ofrecemos</Link>
                         </li>
                         <li>
-                          <Link href="/services/design/" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md">Diseño</Link>
+                          <Link href="/services/design/" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-[16px]">Diseño</Link>
                         </li>
                         <li>
-                          <Link href="/services/manufacturing/" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md">Fabricación</Link>
+                          <Link href="/services/manufacturing/" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-[16px]">Fabricación</Link>
                         </li>
                       </ul>
                     </div>
@@ -115,7 +115,7 @@ export default function Header() {
                 </div>
                 <div className="relative self-center" ref={dropdownRefSobre}>
                   <button
-                    className="flex justify-center flex-row flex-nowrap px-4 self-center text-md cursor-pointer whitespace-nowrap"
+                    className="flex justify-center flex-row flex-nowrap px-4 self-center text-[16px] cursor-pointer whitespace-nowrap"
                     onClick={toggleSobreDropdown}
                     aria-expanded={showSobreDropdown}
                     aria-controls="dropdown2"
@@ -141,19 +141,19 @@ export default function Header() {
                     <div className="absolute left-5 mt-2 bg-white text-gray-700 shadow rounded-lg" id="dropdown2">
                       <ul className="m-1">
                         <li>
-                          <Link href="/about/historia" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md">Quienes somos</Link>
+                          <Link href="/about/historia" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-[16px]">Quienes somos</Link>
                         </li>
                         <li>
-                          <Link href="/about/contacto" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md">Contacto</Link>
+                          <Link href="/about/contacto" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-[16px]">Contacto</Link>
                         </li>
                         <li>
-                          <Link href="/about/faq" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-md">FAQ</Link>
+                          <Link href="/about/faq" className="hover:bg-gray-100 text-gray-700 block rounded-lg whitespace-nowrap px-2 py-1.5 self-center text-[16px]">FAQ</Link>
                         </li>
                       </ul>
                     </div>
                   )}
                 </div>
-                <Link href="https://www.albedo.biz/blog/" className="px-4 self-center text-md cursor-pointer">Blog</Link>
+                <Link href="https://www.albedo.biz/blog/" className="px-4 self-center text-[16px] cursor-pointer">Blog</Link>
               </div>
             </div>
             <Link
@@ -205,7 +205,7 @@ export default function Header() {
             <div className="lg:hidden ml-4">
               <button
                 onClick={toggleMobileDropdown}
-                className="text-md cursor-pointer flex items-center"
+                className="text-[16px] cursor-pointer flex items-center"
                 aria-expanded={showMobileDropdown}
                 aria-controls="mobileDropdown"
               >
@@ -216,23 +216,23 @@ export default function Header() {
                   <MobileMenuItem title="Productos" onClick={toggleMobileProductDropdown} isOpen={showMobileProductDropdown}>
                     <MobileSubmenu isOpen={showMobileProductDropdown}>
                       {categories.map((category, index) => (
-                        <Link key={index} href={`/products/${category.url_Id}`} className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">{category.name.split(" ").length > 2
+                        <Link key={index} href={`/products/${category.url_Id}`} className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-[16px]">{category.name.split(" ").length > 2
                           ? category.name.split(" ")[0]
                           : category.name}</Link>))}
                     </MobileSubmenu>
                   </MobileMenuItem>
                   <MobileMenuItem title="Servicios" onClick={toggleMobileServiciosDropdown} isOpen={showMobileServiciosDropdown}>
                     <MobileSubmenu isOpen={showMobileServiciosDropdown}>
-                      <Link href="/services" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">Le ofrecemos</Link>
-                      <Link href="/services/design/" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">Diseño</Link>
-                      <Link href="/services/manufacturing/" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">Fabricación</Link>
+                      <Link href="/services" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-[16px]">Le ofrecemos</Link>
+                      <Link href="/services/design/" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-[16px]">Diseño</Link>
+                      <Link href="/services/manufacturing/" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-[16px]">Fabricación</Link>
                     </MobileSubmenu>
                   </MobileMenuItem>
                   <MobileMenuItem title="Sobre Nosotros" onClick={toggleMobileSobreDropdown} isOpen={showMobileSobreDropdown}>
                     <MobileSubmenu isOpen={showMobileSobreDropdown}>
-                      <Link href="/about/historia" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">Quienes somos</Link>
-                      <Link href="/about/contacto" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">Contacto</Link>
-                      <Link href="/about/faq" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-md">FAQ</Link>
+                      <Link href="/about/historia" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-[16px]">Quienes somos</Link>
+                      <Link href="/about/contacto" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-[16px]">Contacto</Link>
+                      <Link href="/about/faq" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-[16px]">FAQ</Link>
                     </MobileSubmenu>
                   </MobileMenuItem>
                   <Link href="https://www.albedo.biz/blog/" className="hover:bg-gray-100 text-gray-700 flex justify-center px-4 py-2">Blog</Link>
@@ -251,7 +251,7 @@ function MobileMenuItem({ title, onClick, isOpen, children }) {
   return (
     <div className="relative">
       <button
-        className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap w-full px-2 py-2 text-md"
+        className="hover:bg-gray-100 text-gray-700 block whitespace-nowrap w-full px-2 py-2 text-[16px]"
         onClick={onClick}
         aria-expanded={isOpen}
         aria-controls="mobileDropdown"

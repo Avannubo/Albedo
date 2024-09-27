@@ -13,6 +13,8 @@ import EditProduct from "@/components/admin/products/product/actions/edit";
 import EditCatedory from "@/components/admin/products/category/edit";
 import Duplicate from '@/components/admin/products/product/actions/duplicate';
 import AddNewCategory from "@/components/admin/products/category/add";
+import Filters from '@/components/admin/products/product/comps/filters/Filters';
+
 // import Filters from '@/components/admin/products/product/comps/filters/Filters';
 
 export default async function page() {
@@ -21,7 +23,9 @@ export default async function page() {
     if (!token) {
         redirect('/admin');
     }
-    const list = await getCategoryDataForListProducts();
+    let list = await getCategoryDataForListProducts();
+    list = list.filter(category => category.isPublished === false);
+
     const filteredList = await getListProductsFiltered();
 
     return (
@@ -35,7 +39,7 @@ export default async function page() {
                     <div className="flex flex-row space-x-4">
                         <Suspense fallback={<Loading />}>
                             {/* Filters component will handle the category selection */}
-                            {/* <Filters categories={list} /> */}
+                            <Filters list={list} />
                         </Suspense>
                     </div>
                 </div>

@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react';
-import { getSearchedProducts, getCategories } from '@/lib/data';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import Layout from "@/app/(admin)/admin/AdminLayout";
@@ -16,7 +15,7 @@ export default async function Page() {
             <p className='mb-8'>
                 Escribe el ID del producto para filtrar automáticamente
             </p>
-            <Search />
+            <Search  />
         </Layout>
     );
 }

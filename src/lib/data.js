@@ -175,10 +175,10 @@ export async function getProducts() {
         return []; // Return an empty array on error
     }
 }
-export async function getFiltersListProducts(isPublishedFilter = true, categoryFilter = '', refillStock) {
-    // console.log(isPublishedFilter, categoryFilter);
+export async function getFiltersListProducts(categoryFilter = '', refillStock) {
     const content = await requireContent();
     const { categories } = content;
+
     if (refillStock) {
         try {
             const data = await fs.readFile(filePath, 'utf8');
@@ -188,7 +188,6 @@ export async function getFiltersListProducts(isPublishedFilter = true, categoryF
                     const category = categories[i];
                     for (let j = 0; j < category.products.length; j++) {
                         const product = category.products[j];
-                        // //console.log(productId.productId);
                         if (product.ALBEDOstock < product.ALBEDOstock_minimo) {
                             filteredProductList.push(product);
                             return true;
@@ -201,24 +200,18 @@ export async function getFiltersListProducts(isPublishedFilter = true, categoryF
                 }
                 return false;
             };
-            //console.log("Starting saving process...");
             const product = await loopRecursive(categories);
             if (!product) {
-                //console.log("product not found.");
                 return false;
             }
-            //console.log("product saved successfully.");
             console.log(JSON.stringify(filteredProductList));
             return true;
         } catch (error) {
-            //console.log("Error:", error);
+            console.log("Error:", error);
             return false;
         }
     } else {
         const filteredCategories = categories.filter(category => {
-            if (isPublishedFilter !== null && category.isPublished !== isPublishedFilter) {
-                return false;
-            }
             if (categoryFilter && category.name !== categoryFilter) {
                 return false;
             }
@@ -226,9 +219,10 @@ export async function getFiltersListProducts(isPublishedFilter = true, categoryF
         });
         filteredProductList = filteredCategories;
     }
-    //console.log(filteredCategories);
+
     revalidatePath('/admin/list');
 }
+
 export async function getParameters() {
     try {
         const data = await readFile(filePathParameters, 'utf8');

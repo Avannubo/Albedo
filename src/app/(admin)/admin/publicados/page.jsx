@@ -20,7 +20,8 @@ export default async function page() {
     if (!token) {
         redirect('/admin');
     }
-    const list = await getCategoryDataForListProducts();
+    let list = await getCategoryDataForListProducts();
+    list = list.filter(category => category.isPublished === true);
     const filteredList = await getListProductsFiltered();
     return (
         <>
@@ -32,7 +33,7 @@ export default async function page() {
                     </div>
                     <div className="flex flex-row space-x-4">
                         <Suspense>
-                            {/* <Filters list={list} /> */}
+                            <Filters list={list} />
                         </Suspense>
                     </div>
                 </div>

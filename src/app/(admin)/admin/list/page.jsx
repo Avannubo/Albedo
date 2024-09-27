@@ -27,7 +27,7 @@ export default async function page() {
             <Layout>
                 <div className="flex flex-row justify-between mb-8">
                     <div className="flex flex-row">
-                        <h1 className="font-semibold text-4xl">Todos los Productos</h1>
+                        <h1 className="font-semibold text-4xl">Todas las categorías</h1>
                         <AddNewCategory />
                     </div>
                     <div className="flex flex-row space-x-4">

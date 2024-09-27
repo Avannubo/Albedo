@@ -12,7 +12,6 @@ export default async function page() {
     if (!token) {
         redirect('/admin');
     }
-    console.log(filteredList);
     return (
         <Layout>
             <h1 className="font-semibold text-4xl mb-2">Productos Destacados</h1>
@@ -23,7 +22,7 @@ export default async function page() {
                 <ul>
                     <div className="flex flex-col space-y-2 p-2">
                         {filteredList && filteredList.length > 0 ? (
-                            filteredList.reverse().map((product, index) => (
+                            filteredList.map((product, index) => (
                                 <div
                                     key={index}
                                     className={`flex flex-row justify-between border rounded-lg p-2 bg-slate-50`}

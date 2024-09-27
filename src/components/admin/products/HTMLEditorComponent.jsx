@@ -49,7 +49,7 @@ export default function HTMLEditorComponent({ value, onChange }) {
                         ref={iframeRef}
                         title="HTML Preview"
                         sandbox="allow-scripts allow-same-origin" // Relaxing restrictions
-                        className="w-full h-auto min-h-[100vh] bg-white border rounded"
+                        className="w-full h-auto  bg-white border rounded"
                     />
                 ) : (
                     <textarea

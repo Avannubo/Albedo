@@ -49,19 +49,9 @@ export default function page() {
         }
         return null;
     }
-    const allPublishedProducts = GetPublishedProducts(data);
-    const last4PublishedProducts = allPublishedProducts.slice(-20);
-
-    const getRandomProducts = (products, num) => {
-        // Shuffle the array
-        const shuffled = products.slice().sort(() => 0.5 - Math.random());
-        // Get the first 'num' elements from the shuffled array
-        return shuffled.slice(0, num);
-    };
-
-    // Example usage
-    const publishedProducts = allPublishedProducts.filter(product => product.isPublished);
-    const randomPublishedProducts = getRandomProducts(publishedProducts, 8);
+    const allPublishedProducts = GetPublishedProducts(data);  
+    const publishedProducts = allPublishedProducts.filter(product => product.isFeatured);
+    const featured = publishedProducts.slice(-8);
 
     return (
         <Layout>
@@ -177,18 +167,18 @@ export default function page() {
                         ))}
                     </div>
                 ) : (
-                        randomPublishedProducts.length && randomPublishedProducts.length > 0 ? (
-                            <div className="flex flex-row flex-wrap items-center justify-evenly ">
-                                {randomPublishedProducts
-                                    .filter(product => product.isPublished)
+                        featured.length && featured.length > 0 ? (
+                            <div className="flex flex-row flex-wrap items-center justify-center ">
+                                {featured
+                                    // .reverse()
                                     .map((product) => (
-                                    <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
-                                        <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
-                                            <ProductItem product={product} /></Link>
-                                        <AddToCart producto={product} />
-                                    </div>
-                                ))}
-                        </div>
+                                        <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col justify-evenly p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
+                                            <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
+                                                <ProductItem product={product} /></Link>
+                                            <AddToCart producto={product} />
+                                        </div>
+                                    ))}
+                            </div>
                     ) : (
                         <div className='grid grid-cols-4 items-center justify-center space-x-4 mt-4 mb-8'>
                             {Array.from({ length: 8 }).map((_, index) => (

@@ -29,7 +29,7 @@ export default function QuillEditorComponent({ value, onChange }) {
                     onChange={onChange}
                         modules={quillModules}
                         theme="snow"
-                        className="w-full h-[50%] bg-white"
+                        className="w-full h-auto bg-white"
                     />
             </div>
         </div>

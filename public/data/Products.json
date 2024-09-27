@@ -34,7 +34,7 @@
                     ],
                     "archivos": [],
                     "ALBEDOplazo_entrega": "15",
-                    "FechaDeModificacion": "26/9/2024 17:0:32"
+                    "FechaDeModificacion": "27/9/2024 11:4:26"
                 }
             ],
             "subCategories": []
@@ -1533,13 +1533,13 @@
                             "ALBEDOprecio": 199,
                             "archivos": [],
                             "ALBEDOdescripcion": "<p class=\"ql-align-justify\">Módulo de monitorización y control Ethernet para la automatización en entornos residenciales de&nbsp;<strong>6 entradas y 2 salidas</strong>.</p>",
-                            "FechaDeModificacion": "23/9/2024 16:38:4",
+                            "FechaDeModificacion": "27/9/2024 10:56:58",
                             "FeachaDeCreacion": "20/03/2024 ",
                             "isPublished": true,
                             "isFeatured": true,
                             "ALBEDOcuerpo": "<p class=\"ql-align-justify\">Las&nbsp;<strong>6 entradas son por contacto seco y las 2 salidas a relé de 5A / 250VAC</strong>&nbsp;de contacto conmutado (SPDT). Carcasa carril DIN de 6 huecos. Alimentación de 8 a 30VDC. Servidor web incorporado.</p><p class=\"ql-align-center\"><br></p>",
                             "ALBEDOstock_minimo": 5,
-                            "ALBEDOstock": 10,
+                            "ALBEDOstock": "1",
                             "imagens": [
                                 "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726499197/ncvml3pphjleecxm3cfs.jpg"
                             ],
@@ -1907,11 +1907,11 @@
                             "archivos": [],
                             "isPublished": true,
                             "isFeatured": true,
-                            "FechaDeModificacion": "25/9/2024 9:37:22",
+                            "FechaDeModificacion": "27/9/2024 10:56:58",
                             "FeachaDeCreacion": "27/03/2024",
                             "ALBEDOcuerpo": "<p class=\"ql-align-justify\"><strong>Detector 3 en 1</strong>&nbsp;(velocidad del viento, luminosidad y lluvia). Para sistemas de control domótico. Ajustes de sensibilidad para cada uno de los parámetros. Tiene relés de salida. Alimentación de 12 a 24VDC.</p><p class=\"ql-align-center\"><br></p>",
                             "ALBEDOstock_minimo": 5,
-                            "ALBEDOstock": 10,
+                            "ALBEDOstock": "1",
                             "imagens": [
                                 "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726503824/qhaqj7xtpexvsyrp1xzt.jpg"
                             ],
@@ -1978,13 +1978,13 @@
                             "ALBEDOprecio": 13.2,
                             "archivos": [],
                             "ALBEDOdescripcion": "<p class=\"ql-align-justify\">Sirena para interior con altavoz de 110dB, bitonal o tono continuo, para avisos de intrusión.</p>",
-                            "FechaDeModificacion": "25/9/2024 9:37:22",
+                            "FechaDeModificacion": "27/9/2024 10:56:58",
                             "FeachaDeCreacion": "20/03/2024 ",
                             "isPublished": true,
                             "isFeatured": true,
                             "ALBEDOcuerpo": "<p class=\"ql-align-justify\">Montaje en superficie por tornillo. Carcasa plástica de color blanco. Alimentada a 12V (500mA). Las dimensiones son 110 x 110 x 58cm.</p>",
                             "ALBEDOstock_minimo": 5,
-                            "ALBEDOstock": 10,
+                            "ALBEDOstock": "1",
                             "imagens": [
                                 "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726500789/fzesh21vixq9tpatsw8b.jpg"
                             ],
@@ -2550,9 +2550,9 @@
                             "ALBEDOstock_minimo": 10,
                             "ALBEDOstock": 20,
                             "isPublished": true,
-                            "isFeatured": true,
+                            "isFeatured": false,
                             "FeachaDeCreacion": "2024-04-02T15:55:16.771Z",
-                            "FechaDeModificacion": "25/9/2024 9:37:22",
+                            "FechaDeModificacion": "27/9/2024 10:51:10",
                             "imagens": [
                                 "https://res.cloudinary.com/dtzwbtiuw/image/upload/v1726500041/wqy0xwr9x5lmasf1vjr5.jpg"
                             ],

@@ -51,12 +51,7 @@ export default function Home() {
   }
 
   const allPublishedProducts = GetPublishedProducts(data); 
-  const featuredProducts = (products, num) => {
-    // Shuffle the array
-    const shuffled = products.slice().sort(() => 0.5 - Math.random());
-    // Get the first 'num' elements from the shuffled array
-    return shuffled.slice(0, num);
-  };
+  
 
   // Example usage
   const publishedProducts = allPublishedProducts.filter(product => product.isFeatured);

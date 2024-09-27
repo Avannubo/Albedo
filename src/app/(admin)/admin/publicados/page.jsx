@@ -27,17 +27,19 @@ export default async function page() {
             <Layout>
                 <div className="flex flex-row justify-between mb-8">
                     <div className="flex flex-row">
-                        <h1 className="font-semibold text-4xl">Todos los Productos</h1>
+                        <h1 className="font-semibold text-4xl">Productos Publicados</h1>
                         <AddNewCategory />
                     </div>
                     <div className="flex flex-row space-x-4">
                         <Suspense>
-                            <Filters list={list} />
+                            {/* <Filters list={list} /> */}
                         </Suspense>
                     </div>
                 </div>
                 <ul>
-                    {filteredList.map((category, index) => (
+                    {filteredList
+                        .filter(category => category.isPublished)
+                        .map((category, index) => (
                         <div key={index} className="my-10">
                             <Suspense fallback={<Loading />}>
                                 <List category={category} />
@@ -67,7 +69,9 @@ function List({ category }) {
             </div>
             {category.products && category.products.length > 0 && (
                 <>
-                    {category.products.map((product, index) => (
+                    {category.products
+                        .filter(product => product.isPublished)
+                        .map((product, index) => (
                         <div
                             key={index}
                             className={`ml-14 flex flex-row justify-between border rounded-lg p-2 mb-1 `} //${product.ALBEDOstock < product.ALBEDOstock_minimo ? 'bg-red-100' : 'bg-slate-50'}
@@ -103,7 +107,9 @@ function List({ category }) {
             {category.subCategories &&
                 category.subCategories.length > 0 && (
                     <div className="ml-14">
-                        {category.subCategories.map((subCategory, index) => (
+                    {category.subCategories
+                        .filter(subCategory => subCategory.isPublished)
+                        .map((subCategory, index) => (
                             <List key={index} category={subCategory} />
                         ))}
                     </div>

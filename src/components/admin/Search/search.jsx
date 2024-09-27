@@ -3,11 +3,14 @@ import React, { useState, useEffect } from "react";
 import { getProducts, getCategories } from "@/lib/data";
 import EditProduct from "@/components/admin/products/product/actions/edit";
 import Delete from "@/components/admin/products/category/delete";
+
 export default function Search() {
     const [searchTerm, setSearchTerm] = useState("");
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchBy, setSearchBy] = useState('name'); // Toggle between 'name' or 'id'
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -25,7 +28,7 @@ export default function Search() {
                 };
                 loopRecursive(fetchedCategories);
                 setProducts(productList);
-                setFilteredProducts(productList); // Initial load shows all featured products
+                setFilteredProducts(productList); // Initial load shows all products
                 setLoading(false); // Data fetching is complete
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -34,40 +37,57 @@ export default function Search() {
         }
         fetchData();
     }, []);
-    // Handle search input changes to filter products by name
+
+    // Handle search input changes to filter products by name or id
     useEffect(() => {
         const filtered = products.filter(product =>
-            product.ALBEDOcodigo.toLowerCase().includes(searchTerm.toLowerCase())
+            searchBy === "name"
+                ? product.ALBEDOtitulo.toLowerCase().includes(searchTerm.toLowerCase())
+                : product.ALBEDOcodigo.toString().includes(searchTerm)
         );
         setFilteredProducts(filtered);
-    }, [searchTerm, products]);
+    }, [searchTerm, products, searchBy]);
+
     if (loading) {
         return <Loading />;
     }
+
     return (
         <>
             <div className="m-2">
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border p-2 rounded w-full"
-                    placeholder="Buscar productos..."
-                />
-            </div> 
+                <div className="flex items-center space-x-2">
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="border p-2 rounded w-full"
+                        placeholder={`Buscar productos por ${searchBy === "name" ? "nombre" : "ID"}...`}
+                    />
+                    <select
+                        value={searchBy}
+                        onChange={(e) => setSearchBy(e.target.value)}
+                        className="border p-2 rounded"
+                    >
+                        <option value="name">Buscar por nombre</option>
+                        <option value="id">Buscar por ID</option>
+                    </select>
+                </div>
+            </div>
             <ul>
                 <div className="flex flex-col space-y-2 p-2">
                     {filteredProducts.length > 0 ? (
-                        filteredProducts.map((product) => (
+                        filteredProducts.map((product, i) => (
                             <div
-                                key={product.id} // Use product.id for key
+                                key={i}
                                 className="flex flex-row justify-between border rounded-lg p-2 bg-slate-50"
                             >
                                 <div className="flex flex-row space-x-4">
                                     <p className="h-auto self-center whitespace-nowrap">
-                                        {product.ALBEDOcodigo}</p>
-                                    <p className="h-autoself-center whitespace-nowrap">
-                                        ({product.ALBEDOtitulo})</p> 
+                                        {product.ALBEDOcodigo}
+                                    </p>
+                                    <p className="h-auto self-center whitespace-nowrap">
+                                        ({product.ALBEDOtitulo})
+                                    </p>
                                 </div>
                                 <div className="space-x-4 flex flex-row justify-center items-center">
                                     <EditProduct product={product} />
@@ -89,6 +109,7 @@ export default function Search() {
         </>
     );
 }
+
 function Loading() {
     return (
         <div className="flex-col gap-4 w-full flex items-center justify-center">

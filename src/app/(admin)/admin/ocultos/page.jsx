@@ -27,17 +27,19 @@ export default async function page() {
             <Layout>
                 <div className="flex flex-row justify-between mb-8">
                     <div className="flex flex-row">
-                        <h1 className="font-semibold text-4xl">Todos los Productos</h1>
+                        <h1 className="font-semibold text-4xl">Productos Ocultos</h1>
                         <AddNewCategory />
                     </div>
                     <div className="flex flex-row space-x-4">
                         <Suspense>
-                            <Filters list={list} />
+                            {/* <Filters list={list} /> */}
                         </Suspense>
                     </div>
                 </div>
                 <ul>
-                    {filteredList.map((category, index) => (
+                    {filteredList
+                        .filter(category => !category.isPublished)
+                        .map((category, index) => (
                         <div key={index} className="my-10">
                             <Suspense fallback={<Loading />}>
                                 <List category={category} />

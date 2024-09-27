@@ -2,7 +2,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import cookies from 'js-cookie';
-
 export default function aside() {
   const handleLogout = () => {
     cookies.remove('token');
@@ -33,18 +32,29 @@ export default function aside() {
           <p className="flex justify-center font-semibold">Productos</p>
         </Link>
         <Link
+          href="/admin/publicados"
+          className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
+        >
+          <p className="flex justify-center font-semibold">Productos Publicados</p>
+        </Link>
+        <Link
+          href="/admin/ocultos"
+          className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
+        >
+          <p className="flex justify-center font-semibold">Productos Ocultos</p>
+        </Link>
+        <Link
           href="/admin/buscador"
           className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
         >
           <p className="flex justify-center font-semibold">Buscador</p>
-        </Link>
+        </Link> 
         <Link
           href="/admin/destacados"
           className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "
         >
           <p className="flex justify-center font-semibold">Destacados</p>
         </Link>
-        
         <Link
           href="/admin/RellenarStock"
           className="cursor-pointer p-4 w-full box-shadow bg-white rounded-lg "

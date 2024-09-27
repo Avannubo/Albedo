@@ -5,6 +5,14 @@ import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
 import nodemailer from 'nodemailer';
 import { v2 as cloudinary } from 'cloudinary';
+const currentdate = new Date();
+const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+var filteredProductList = [];
+let searchedList = [];
+const filePath = './public/data/Products.json';
+const filePathActiveOrders = './public/data/ClientOrdersActive.json';
+const filePathInactiveOrders = './public/data/ClientOrdersInactive.json';
+const filePathParameters = './public/data/Parameters.json'; 
 cloudinary.config({
     cloud_name: 'dtzwbtiuw',
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -19,21 +27,6 @@ const transporter = nodemailer.createTransport({
         pass: process.env.PASS,
     },
 });
-
-const currentdate = new Date();
-const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-var filteredProductList = [];
-const filePath = './public/data/Products.json';
-const filePathActiveOrders = './public/data/ClientOrdersActive.json';
-const filePathInactiveOrders = './public/data/ClientOrdersInactive.json';
-const filePathParameters = './public/data/Parameters.json';
-// const publicFolderPath = path.resolve(__dirname, 'public');
-// const filePaths = [
-//     './public/data/Products.json',
-//     './public/data/ClientOrdersActive.json',
-//     './public/data/ClientOrdersInactive.json',
-//     './public/data/Parameters.json'
-// ];
 export async function requireContent() {
     // if (!cachedContent) {
     const res = await fs.readFile(filePath, 'utf8');
@@ -109,7 +102,7 @@ export async function getRefillStockProducts() {
         console.log("Error:", error.message);
         return []; // Return an empty array on error
     }
-} 
+}
 export async function getFeaturedProducts() {
     try {
         const productList = [];
@@ -144,14 +137,13 @@ export async function getFeaturedProducts() {
         console.log("Error:", error.message);
         return []; // Return an empty array on error
     }
-} 
+}
 export async function getProducts() {
     try {
         const productList = [];
         const filePath = "/path/to/your/file.json"; // Define your file path here
         const data = await fs.readFile(filePath, 'utf8');
         const { categories } = JSON.parse(data);
-
         const loopRecursive = async (categories) => {
             for (let i = 0; i < categories.length; i++) {
                 const category = categories[i];
@@ -168,7 +160,6 @@ export async function getProducts() {
             }
         };
         await loopRecursive(categories);
-
         return productList.length > 0 ? productList : []; // Return filtered products or an empty array
     } catch (error) {
         console.log("Error:", error.message);
@@ -178,7 +169,6 @@ export async function getProducts() {
 export async function getFiltersListProducts(categoryFilter = '', refillStock) {
     const content = await requireContent();
     const { categories } = content;
-
     if (refillStock) {
         try {
             const data = await fs.readFile(filePath, 'utf8');
@@ -219,9 +209,56 @@ export async function getFiltersListProducts(categoryFilter = '', refillStock) {
         });
         filteredProductList = filteredCategories;
     }
-
     revalidatePath('/admin/list');
 }
+// Define searchedList in a shared scope so both functions can access it 
+
+export async function searchFilter(searchTerm, searchBy) {
+    var categories = getCategoryDataForListProducts();
+    searchedList = [];  // Clear the searchedList before filtering
+
+    try {
+        // Recursive function to loop through categories and subcategories
+        const loopRecursive = async (categories) => {
+            for (let i = 0; i < categories.length; i++) {
+                const category = categories[i];
+                // Loop through products in this category
+                for (let j = 0; j < category.products.length; j++) {
+                    const product = category.products[j];
+                    // Filter based on searchBy criteria (either name or id)
+                    if (
+                        (searchBy === "name" && product.name.includes(searchTerm)) ||
+                        (searchBy === "id" && product.id === searchTerm)
+                    ) {
+                        searchedList.push(product);
+                    }
+                }
+                // If the category has subcategories, recursively check them
+                if (category.subCategories && category.subCategories.length > 0) {
+                    await loopRecursive(category.subCategories);
+                }
+            }
+        };
+
+        // Start recursion with the main categories
+        await loopRecursive(categories);
+        console.log("Filtered Products: ", searchedList);
+        return true;  // Return true indicating the filter operation is done
+    } catch (error) {
+        console.log("Error:", error);
+        return false;  // Return false if there was an error
+    }
+}
+
+// Function to return the filtered list on the client side
+export async function searchFilterList() {
+    console.log(searchedList);
+    revalidatePath('/admin/buscador');
+    return searchedList;  // Return the searched list
+
+
+}
+
 
 export async function getParameters() {
     try {
@@ -336,95 +373,10 @@ export async function updateIVA(newIVA) {
  * @param {string} productId - The ID of the product to be deleted.
  * @returns {boolean} Indicates whether the deletion was successful.
  */
-// export async function deleteElement(categoryId, product) {
-//     //console.log(categoryId, product);
-//     if (categoryId !== "none" || product !== "none") {
-//         try {
-//             const data = await fs.readFile(filePath, 'utf8');//call file
-//             const { categories, deletedContent } = JSON.parse(data);//get object  from json
-//             if (categoryId !== "none") {// if there is no cat Id the code will exit and return false
-//                 const categoryToDeleteId = categoryId.id; //save the catId in a var
-//                 const deleteRecursive = async (categoryList) => {
-//                     for (let i = 0; i < categoryList.length; i++) {
-//                         const category = categoryList[i];
-//                         if (category.id === categoryToDeleteId) {
-//                             const deletedObject = categoryList.splice(i, 1)[0];
-//                             //deletedContent.push(deletedObject);
-//                             await fs.writeFile(filePath, JSON.stringify({ categories }));
-//                             revalidatePath('/admin/list');
-//                             return true;
-//                         }
-//                         if (category.subCategories && category.subCategories.length > 0) {
-//                             const subcategoryDeleted = await deleteRecursive(category.subCategories);
-//                             if (subcategoryDeleted) return true;
-//                         }
-//                     }
-//                     return false;
-//                 };
-//                 const categoryDeleted = await deleteRecursive(categories);
-//                 if (!categoryDeleted) {
-//                     // //console.log("Category not found.");
-//                     return false;
-//                 }
-//                 // //console.log("Category deleted successfully.");
-//                 return true;
-//             } else {
-//                 const productToDelete = product.ALBEDOcodigo;
-//                 console.log("Product to delete:", productToDelete); // Debug: Log the product code
-//                 const deleteRecursive = async (categoryList) => {
-//                     for (let i = 0; i < categoryList.length; i++) {
-//                         const category = categoryList[i];
-//                         // Check if category has products
-//                         if (!category.products) {
-//                             console.log("No products found in this category:", category.name); // Debug: Log missing products
-//                             continue;
-//                         }
-//                         for (let j = 0; j < category.products.length; j++) {
-//                             const product = category.products[j];
-//                             console.log("Checking product:", product.ALBEDOcodigo); // Debug: Log product code
-//                             if (product.ALBEDOcodigo === productToDelete) {
-//                                 console.log("Product found. Deleting product:", product.ALBEDOcodigo); // Debug: Log deletion
-//                                 // Remove product from array
-//                                 const deletedObject = category.products.splice(j, 1)[0];
-//                                 //deletedContent.push(deletedObject); // Store deleted product
-//                                 // Write updated categories to the file
-//                                 //console.log("File path:", filePath); // Debug: Log file path
-//                                 await fs.writeFile(filePath, JSON.stringify({ categories }));
-//                                 console.log("Product successfully deleted and file updated."); // Debug: Log successful write
-//                                 // Revalidate the path if necessary
-//                                 revalidatePath('/admin/list');
-//                                 return true; // Stop recursion after deletion
-//                             }
-//                         }
-//                         // Recursively check subcategories
-//                         if (category.subCategories && category.subCategories.length > 0) {
-//                             console.log("Checking subcategories for product deletion."); // Debug: Log subcategory traversal
-//                             const subcategoryDeleted = await deleteRecursive(category.subCategories);
-//                             if (subcategoryDeleted) return true; // If product is deleted in a subcategory, stop recursion
-//                         }
-//                     }
-//                     return false; // If no product was deleted
-//                 };
-//                 // Execute the recursive deletion
-//                 const productDeleted = await deleteRecursive(categories);
-//                 if (!productDeleted) {
-//                     console.log("Product not found."); // Debug: Log if the product was not found
-//                     return false;
-//                 }
-//                 console.log("Product deleted successfully."); // Debug: Log success message
-//                 return true;
-//             }
-//         } catch (error) {
-//             console.error("An error occurred:", error);
-//             return false;
-//         }
-//     }
-// } 
 export async function deleteElement(categoryId, product) {
     try {
         const data = await fs.readFile(filePath, 'utf8'); // Load file data
         const { categories, deletedContent } = JSON.parse(data); // Parse JSON
-
         // Function to delete a category
         const deleteCategoryRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
@@ -446,13 +398,11 @@ export async function deleteElement(categoryId, product) {
             }
             return false; // Category not found
         };
-
         // Function to delete a product
         const deleteProductRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 if (!category.products) continue; // Skip if no products
-
                 for (let j = 0; j < category.products.length; j++) {
                     if (category.products[j].ALBEDOcodigo === product.ALBEDOcodigo) {
                         // Remove the product from the array
@@ -472,7 +422,6 @@ export async function deleteElement(categoryId, product) {
             }
             return false; // Product not found
         };
-
         // Determine if we're deleting a category or a product
         if (categoryId !== "none") {
             const categoryDeleted = await deleteCategoryRecursive(categories);
@@ -496,8 +445,6 @@ export async function deleteElement(categoryId, product) {
         return false;
     }
 }
-
-
 /**
  * Adds a new category with provided details to the product data.
  * @param {string} Code - The code of the new category.
@@ -882,14 +829,12 @@ export async function duplicateProduct(category, product) {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
         const categoryToModifyId = category.id;
-
         // Function to find the highest url_Id and increment it
         const findNextUniqueUrlId = (categoryProducts) => {
             const existingUrlIds = categoryProducts.map(p => parseInt(p.url_Id, 10)).filter(id => !isNaN(id));
             const maxUrlId = existingUrlIds.length ? Math.max(...existingUrlIds) : 0;
             return String(maxUrlId + 1).padStart(3, '0'); // Increment and pad with zeros
         };
-
         const addProductRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
@@ -897,10 +842,8 @@ export async function duplicateProduct(category, product) {
                     if (!category.products) {
                         category.products = [];
                     }
-
                     // Get the next unique url_Id
                     const nextUrlId = findNextUniqueUrlId(category.products);
-
                     const dataObj = {
                         "ALBEDOcodigo": product.ALBEDOcodigo + "(copia)",  //productCode.replace(/ /g, "-"),
                         "url_Id": nextUrlId,
@@ -917,7 +860,6 @@ export async function duplicateProduct(category, product) {
                         "archivos": product.archivos,
                         "ALBEDOplazo_entrega": product.ALBEDOplazo_entrega
                     };
-
                     category.products.push(dataObj);
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     revalidatePath('/admin/list');
@@ -930,7 +872,6 @@ export async function duplicateProduct(category, product) {
             }
             return false;
         };
-
         const productAdded = await addProductRecursive(categories);
         if (!productAdded) {
             return false;
@@ -941,7 +882,6 @@ export async function duplicateProduct(category, product) {
         return false;
     }
 }
-
 /**
  * Returns the category data based on the given URL IDs.
  * @param {string[]} slugIds - The array of URL IDs.
@@ -1122,10 +1062,8 @@ export async function sendEmail(orderData) {
         if (!orderData || !orderData.userInfo || !orderData.cartProducts || !orderData.selectedShipping) {
             throw new Error("Invalid order data");
         }
-
         const { userInfo: customerDetails, cartProducts: products, selectedShipping: shippingDetails } = orderData;
         let productsText = '';
-
         products.forEach(product => {
             productsText += `
                 Código del Producto: ${product.ALBEDOcodigo}
@@ -1135,7 +1073,6 @@ export async function sendEmail(orderData) {
                 Cantidad Pedida: ${product.quantity} 
                 \n`;
         });
-
         // Compose email text for owner and client
         const emailTextOwner = `
             Información del Pedido:
@@ -1163,7 +1100,6 @@ export async function sendEmail(orderData) {
             Monto Total del Pedido: ${orderData.totalPedido} EUR
             Factura Requerida: ${orderData.invoice ? 'Sí' : 'No'}
         `;
-
         const emailTextClient = `
             Información del Pedido: 
             ${productsText}
@@ -1177,7 +1113,6 @@ export async function sendEmail(orderData) {
         `;
         console.log(process.env.SENDER);
         console.log(customerDetails.email);
-
         // Define mail options
         const mailOptionsOwner = {
             from: process.env.SENDER,
@@ -1185,21 +1120,17 @@ export async function sendEmail(orderData) {
             subject: "Detalles del pedido realizado",
             text: emailTextOwner,
         };
-
         const mailOptionsClient = {
             from: process.env.SENDER,
             to: customerDetails.email,
             subject: "Detalles del pedido",
             text: emailTextClient,
         };
-
         // Send emails
         const infoOwner = await transporter.sendMail(mailOptionsOwner);
         const infoClient = await transporter.sendMail(mailOptionsClient);
-
         console.log("Email Sent:", infoOwner.response, infoClient.response);
         return true;
-
     } catch (error) {
         console.error("Error sending email:", error.message);
         if (error.responseCode === 535) {

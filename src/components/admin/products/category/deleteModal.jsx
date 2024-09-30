@@ -41,8 +41,8 @@ export default function DeleteModal({ isOpen, onClose, category, product }) {
             <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z" data-original="#000000" />
           </svg>
           <div className='flex flex-col mt-4 text-xl text-slate-800 '>
-            <span className="font-bold">{product.ALBEDOcodigo}</span>
-            <span className="font-bold">{category.ALBEDOcodigo}</span>
+            <span className="font-bold">{product?.ALBEDOcodigo}</span>
+            <span className="font-bold">{category?.ALBEDOcodigo}</span>
             <h4 className=" font-semibold ">
               ¿Estás seguro de que quieres eliminar?
             </h4>

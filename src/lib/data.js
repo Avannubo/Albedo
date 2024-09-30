@@ -8,11 +8,10 @@ import { v2 as cloudinary } from 'cloudinary';
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 var filteredProductList = [];
-let searchedList = [];
 const filePath = './public/data/Products.json';
 const filePathActiveOrders = './public/data/ClientOrdersActive.json';
 const filePathInactiveOrders = './public/data/ClientOrdersInactive.json';
-const filePathParameters = './public/data/Parameters.json'; 
+const filePathParameters = './public/data/Parameters.json';
 cloudinary.config({
     cloud_name: 'dtzwbtiuw',
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -141,7 +140,7 @@ export async function getFeaturedProducts() {
 export async function getProducts() {
     try {
         const productList = [];
-        const filePath = "/path/to/your/file.json"; // Define your file path here
+        // const filePath = "/path/to/your/file.json"; // Define your file path here
         const data = await fs.readFile(filePath, 'utf8');
         const { categories } = JSON.parse(data);
         const loopRecursive = async (categories) => {
@@ -211,55 +210,42 @@ export async function getFiltersListProducts(categoryFilter = '', refillStock) {
     }
     revalidatePath('/admin/list');
 }
-// Define searchedList in a shared scope so both functions can access it 
-
 export async function searchFilter(searchTerm, searchBy) {
-    var categories = getCategoryDataForListProducts();
-    searchedList = [];  // Clear the searchedList before filtering
-
+    console.log(searchTerm, searchBy);
+    const products = await getProducts();  // Assuming this function fetches categories and products 
+    let searchedList = []; 
     try {
-        // Recursive function to loop through categories and subcategories
-        const loopRecursive = async (categories) => {
-            for (let i = 0; i < categories.length; i++) {
-                const category = categories[i];
-                // Loop through products in this category
-                for (let j = 0; j < category.products.length; j++) {
-                    const product = category.products[j];
-                    // Filter based on searchBy criteria (either name or id)
-                    if (
-                        (searchBy === "name" && product.name.includes(searchTerm)) ||
-                        (searchBy === "id" && product.id === searchTerm)
-                    ) {
-                        searchedList.push(product);
-                    }
-                }
-                // If the category has subcategories, recursively check them
-                if (category.subCategories && category.subCategories.length > 0) {
-                    await loopRecursive(category.subCategories);
-                }
+        // Filter products based on the search term and searchBy criteria
+        products.filter((product) => {
+            // Example filtering logic; adjust according to your requirements
+            if (searchBy === "name") {
+                return product.ALBEDOtitulo.toLowerCase().includes(searchTerm.toLowerCase());
+            } else if (searchBy === "id") {
+                return product.ALBEDOcodigo.toLowerCase().includes(searchTerm.toLowerCase());
             }
-        };
-
-        // Start recursion with the main categories
-        await loopRecursive(categories);
-        console.log("Filtered Products: ", searchedList);
-        return true;  // Return true indicating the filter operation is done
+            return false;  // Default case if searchBy doesn't match
+        }).forEach((product) => {
+            // console.log(product);
+            
+            searchedList.push(product);
+        }); 
+        // revalidatePath("/admin/buscador")
+        console.log(searchedList);
+        
+        return searchedList;  // Return the array of filtered products
     } catch (error) {
-        console.log("Error:", error);
-        return false;  // Return false if there was an error
+        console.error("Error:", error);
+        return [];  // Return an empty array if there was an error
     }
 }
+
 
 // Function to return the filtered list on the client side
 export async function searchFilterList() {
     console.log(searchedList);
     revalidatePath('/admin/buscador');
     return searchedList;  // Return the searched list
-
-
 }
-
-
 export async function getParameters() {
     try {
         const data = await readFile(filePathParameters, 'utf8');

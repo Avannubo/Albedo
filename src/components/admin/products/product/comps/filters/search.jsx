@@ -1,26 +1,19 @@
 "use client";
-import React, { useState } from "react";
-
-export default function Search() {
+import React, { useState } from "react"; 
+export default function Search({ onSearchChange }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchBy, setSearchBy] = useState("name");
 
-    const searchFilter = () => {
-        // Your filtering logic goes here
-        console.log("Searching for:", searchTerm, "by", searchBy);
-        // Example: Perform the search operation based on `searchTerm` and `searchBy`
-    };
-
-    // Update the search term and call the searchFilter function
     const handleSearchTermChange = (e) => {
-        setSearchTerm(e.target.value);
-        searchFilter();
+        const newSearchTerm = e.target.value;
+        setSearchTerm(newSearchTerm);
+        onSearchChange(newSearchTerm, searchBy); // Notify parent about search term change
     };
 
-    // Update the search option and call the searchFilter function
     const handleSearchByChange = (e) => {
-        setSearchBy(e.target.value);
-        searchFilter(searchTerm, searchBy);
+        const newSearchBy = e.target.value;
+        setSearchBy(newSearchBy);
+        onSearchChange(searchTerm, newSearchBy); // Notify parent about search criteria change
     };
 
     return (

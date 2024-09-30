@@ -1,4 +1,3 @@
-import React, { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import Layout from "@/app/(admin)/admin/AdminLayout";
@@ -13,7 +12,7 @@ export default async function Page() {
         <Layout>
             <h1 className="font-semibold text-4xl mb-2">Buscador de Productos</h1>
             <p className='mb-8'>
-                Escribe el ID del producto para filtrar automáticamente
+                Escribe el ID o Nombre del producto para filtrar automáticamente
             </p>
             <Search  />
         </Layout>

@@ -1,56 +1,82 @@
-import React, { Suspense } from 'react'
-import { getSearchedProducts, getCategories, searchFilterList } from '@/lib/data';
+"use client"; // This marks the component as a Client Component
+import React, { Suspense, useEffect, useState } from 'react';
+import { searchFilter } from '@/lib/data';
 import EditProduct from "@/components/admin/products/product/actions/edit";
 import Delete from "@/components/admin/products/category/delete";
 import Search from '../products/product/comps/filters/search';
-export default async function Page() {
 
-    const filteredProducts = await searchFilterList();
+export default function Page() {
+    const [searchData, setSearchData] = useState({ searchTerm: "", searchBy: "name" });
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [loading, setLoading] = useState(false); // State to track loading
+
+    // Function to fetch filtered products based on search input
+    const searchFilterProducts = async (searchTerm, searchBy) => {
+        setLoading(true); // Set loading to true
+        const products = await searchFilter(searchTerm, searchBy);
+        // console.log(products);
+        
+        setFilteredProducts(products);
+        setLoading(false); // Set loading to false
+    };
+
+    const handleSearchChange = (searchTerm, searchBy) => {
+        setSearchData({ searchTerm, searchBy });
+        // No need to call searchFilterProducts here
+    };
+
+    // Fetch initial products on mount and when searchData changes
+    useEffect(() => {
+        searchFilterProducts(searchData.searchTerm, searchData.searchBy);
+    }, [searchData]); // Re-run when searchData changes
 
     return (
         <>
             <div className="m-2">
-                <Search />
+                <Search onSearchChange={handleSearchChange} />
             </div>
             <Suspense fallback={<Loading />}>
                 <ul>
                     <div className="flex flex-col space-y-2 p-2">
-                        {filteredProducts.length > 0 ? (
-                            filteredProducts.map((product, i) => (
-                                <div
-                                    key={i}
-                                    className="flex flex-row justify-between border rounded-lg p-2 bg-slate-50"
-                                >
-                                    <div className="flex flex-row space-x-4">
-                                        <p className="h-auto self-center whitespace-nowrap">
-                                            {product.ALBEDOcodigo}
-                                        </p>
-                                        <p className="h-auto self-center whitespace-nowrap">
-                                            ({product.ALBEDOtitulo})
-                                        </p>
-                                    </div>
-                                    <div className="space-x-4 flex flex-row justify-center items-center">
-                                        <EditProduct product={product} />
-                                        <Delete product={product} />
-                                        <p className={`flex justify-center px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
-                                            {product.isPublished ? "Publicado" : "Oculto"}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))
+                        {loading ? ( // Show loading indicator while fetching
+                            <Loading />
                         ) : (
-                            <div className="flex flex-col justify-center w-full h-[50vh]">
-                                <div className="flex flex-col items-center justify-center">
-                                    <h1 className="h-auto w-full text-lg text-center whitespace-nowrap">
-                                        No hay productos.
-                                    </h1>
+                            filteredProducts.length > 0 ? (
+                                filteredProducts.map((product, i) => (
+                                    <div
+                                        key={i}
+                                        className="flex flex-row justify-between border rounded-lg p-2 bg-slate-50"
+                                    >
+                                        <div className="flex flex-row space-x-4">
+                                            <p className="h-auto self-center whitespace-nowrap">
+                                                {product.ALBEDOcodigo}
+                                            </p>
+                                            <p className="h-auto self-center whitespace-nowrap">
+                                                ({product.ALBEDOtitulo})
+                                            </p>
+                                        </div>
+                                        <div className="space-x-4 flex flex-row justify-center items-center">
+                                            <EditProduct product={product} />
+                                            <Delete product={product} />
+                                            <p className={`flex justify-center px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
+                                                {product.isPublished ? "Publicado" : "Oculto"}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="flex flex-col justify-center w-full h-[50vh]">
+                                    <div className="flex flex-col items-center justify-center">
+                                        <h1 className="h-auto w-full text-lg text-center whitespace-nowrap">
+                                            No hay productos.
+                                        </h1>
+                                    </div>
                                 </div>
-                            </div>
+                            )
                         )}
                     </div>
                 </ul>
             </Suspense>
-
         </>
     );
 }

@@ -362,53 +362,62 @@ export async function updateIVA(newIVA) {
 export async function deleteElement(categoryId, product) {
     try {
         const data = await fs.readFile(filePath, 'utf8'); // Load file data
-        const { categories, deletedContent } = JSON.parse(data); // Parse JSON
-        // Function to delete a category
+        const { categories } = JSON.parse(data); // Parse JSON
+
+        // Recursive function to delete a category
         const deleteCategoryRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
-                if (category.id === categoryId) {
+                console.log(`Checking category with ID: ${category.id}`); // Debug log
+
+                // Check if the category matches the categoryId
+                if (category.id == categoryId.id) {
                     // Remove the category from the array
                     const deletedObject = categoryList.splice(i, 1)[0];
-                    // Optionally store in deletedContent array (if required)
-                    // deletedContent.push(deletedObject); 
+                    console.log(`Category deleted: ${JSON.stringify(deletedObject)}`); // Debug log
                     await fs.writeFile(filePath, JSON.stringify({ categories }));
                     revalidatePath('/admin/list');
                     return true; // Category successfully deleted
                 }
-                // Recursively check subcategories
+
+                // If the category has subcategories, check them recursively
                 if (category.subCategories && category.subCategories.length > 0) {
                     const subcategoryDeleted = await deleteCategoryRecursive(category.subCategories);
-                    if (subcategoryDeleted) return true;
+                    if (subcategoryDeleted) return true; // If a subcategory was deleted, return
                 }
             }
             return false; // Category not found
         };
-        // Function to delete a product
+
+        // Recursive function to delete a product
         const deleteProductRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
-                if (!category.products) continue; // Skip if no products
-                for (let j = 0; j < category.products.length; j++) {
-                    if (category.products[j].ALBEDOcodigo === product.ALBEDOcodigo) {
-                        // Remove the product from the array
-                        const deletedProduct = category.products.splice(j, 1)[0];
-                        // Optionally store in deletedContent array (if required)
-                        // deletedContent.push(deletedProduct); 
-                        await fs.writeFile(filePath, JSON.stringify({ categories }));
-                        revalidatePath('/admin/list');
-                        return true; // Product successfully deleted
+
+                // Check if the category has products
+                if (category.products) {
+                    for (let j = 0; j < category.products.length; j++) {
+                        if (category.products[j].ALBEDOcodigo === product.ALBEDOcodigo) {
+                            // Remove the product from the array
+                            const deletedProduct = category.products.splice(j, 1)[0];
+                            console.log(`Product deleted: ${JSON.stringify(deletedProduct)}`); // Debug log
+                            await fs.writeFile(filePath, JSON.stringify({ categories }));
+                            revalidatePath('/admin/list');
+                            return true; // Product successfully deleted
+                        }
                     }
                 }
-                // Recursively check subcategories for products
+
+                // If the category has subcategories, check them recursively for products
                 if (category.subCategories && category.subCategories.length > 0) {
                     const subcategoryDeleted = await deleteProductRecursive(category.subCategories);
-                    if (subcategoryDeleted) return true;
+                    if (subcategoryDeleted) return true; // If a product in a subcategory was deleted, return
                 }
             }
             return false; // Product not found
         };
-        // Determine if we're deleting a category or a product
+
+        // Determine whether we are deleting a category or a product
         if (categoryId !== "none") {
             const categoryDeleted = await deleteCategoryRecursive(categories);
             if (!categoryDeleted) {
@@ -431,6 +440,8 @@ export async function deleteElement(categoryId, product) {
         return false;
     }
 }
+
+
 /**
  * Adds a new category with provided details to the product data.
  * @param {string} Code - The code of the new category.
@@ -667,8 +678,6 @@ export async function editproduct(productId, url_Id, Name, Price, Description, B
                         product.archivos = filePaths;
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                         revalidatePath('/admin/list');
-                        revalidatePath('/admin/buscador');
-                        revalidatePath('/admin/descatado');
                         return true;
                     }
                 }

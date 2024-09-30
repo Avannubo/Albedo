@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { addCategory, getCategories, saveImage } from '@/lib/data'; // Import the addCategory function from the data.js file
 import QuillEditor from "@/components/admin/products/QuillEditor"
+import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent"
+
 export default function AddModal({ isOpen, onClose }) {
     const [data, setData] = useState([]);
     const [newCategoryName, setNewCategoryName] = useState('');
@@ -198,7 +200,9 @@ export default function AddModal({ isOpen, onClose }) {
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Cuerpo de Categoría </label>
                                 {/* <textarea onChange={handleInputChangeBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Cuerpo" /> */}
-                                <QuillEditor value={newCategoryBody} onChange={handleInputChangeBody} />
+                                {/* <QuillEditor value={newCategoryBody} onChange={handleInputChangeBody} /> */}
+                                <HTMLEditorComponent value={newCategoryBody} onChange={handleInputChangeBody} />
+
                             </div>
                             <div className='flex flex-row  justify-between space-x-4'>
                                 <div className="grow mb-4">

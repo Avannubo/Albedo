@@ -4,7 +4,7 @@ import CartItem from "@/components/main/products/cartItem";
 import Layout from "@/app/(main)/WebLayout";
 import ModalTransference from "@/components/main/checkout/modalTransference";
 import { getParameters } from '@/lib/data';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+// import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import axios from 'axios';
 
 export default function Page() {

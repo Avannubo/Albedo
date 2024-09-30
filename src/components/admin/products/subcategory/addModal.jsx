@@ -4,6 +4,8 @@ import { useState } from 'react';
 import React from 'react';
 import { addSubcategory, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
+import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent"
+
 export default function AddSubcategory({ isOpen, onClose, categoryId }) {
     //console.log(categoryId);
     const [newCategoryName, setNewCategoryName] = useState('');
@@ -157,7 +159,8 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
                             </div>
                             <div className="mb-4">
                                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Cuerpo de Subcategoría </label>
-                                <QuillEditor value={newCategoryBody} onChange={handleInputChangeBody} />
+                                <HTMLEditorComponent value={newCategoryBody} onChange={handleInputChangeBody} />
+                                {/* <QuillEditor value={newCategoryBody} onChange={handleInputChangeBody} /> */}
                                 {/* <textarea onChange={handleInputChangeBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Cuerpo" /> */}
                             </div>
                             <div className='flex flex-row justify-between space-x-4'>

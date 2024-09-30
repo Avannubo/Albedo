@@ -22,7 +22,7 @@ export default async function page() {
                 <ul>
                     <div className="flex flex-col space-y-2 p-2">
                         {filteredList && filteredList.length > 0 ? (
-                            filteredList.map((product, index) => (
+                            filteredList.reverse().map((product, index) => (
                                 <div
                                     key={index}
                                     className={`flex flex-row justify-between border rounded-lg p-2 bg-slate-50`}

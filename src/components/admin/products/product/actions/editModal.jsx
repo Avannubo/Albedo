@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { editproduct, cloudinaryUploader, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent"
 export default function EditModal({ isOpen, onClose, category, product }) {
-    // console.log("btn edit prod: " + JSON.stringify(product));
+    console.log("btn edit prod: " + JSON.stringify(product));
     const [loading, setLoading] = useState(false);
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);
@@ -23,6 +23,27 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     const [nameError, setNameError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
+
+    useEffect(() => {
+        if (product) {
+            setNewProductName(product.ALBEDOtitulo);
+            setNewProductUrlCode(product.url_Id);
+            setNewProductPrice(product.ALBEDOprecio);
+            setNewProductDescription(product.ALBEDOdescripcion);
+            setNewProductBody(product.ALBEDOcuerpo || '');
+            setNewProductStock(product.ALBEDOstock);
+            setNewProductMinStock(product.ALBEDOstock_minimo);
+            setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
+            setNewCategoryIsPublished(product.isPublished);
+            setNewCategoryIsFeatured(product.isFeatured);
+            setProductImages(product.imagens);
+            setProductFiles(product.archivos);
+            setSelectedImages([]); // Reset selected images
+            setSelectedFiles([]);  // Reset selected files
+        }
+    }, [product]); 
+
+
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -178,7 +199,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
         });
     };
     const handleAddProduct = async () => {
-        console.log(newProductBody);
+        //console.log(newProductBody);
         setUrlCodeError(!newProductUrlCode.trim());
         setNameError(!newProductName.trim());
         setDescriptionError(!newProductDescription.trim());
@@ -213,13 +234,27 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 newCategoryIsFeatured,
                 uniqueImagePaths,
                 uniqueFilePaths);
-            // setProductImages(uniqueImagePaths);
-            // setProductFiles(uniqueFilePaths);
-            // setLoading(false);
-            // setNameError(false);
-            // setDescriptionError(false);
-            // setUrlCodeError(false);
-            // setNewProductMinStock(newProductMinStock)
+            
+            
+            
+            
+            setNewCategoryIsFeatured("");
+            setNewCategoryIsPublished(false);
+            setNewProductDeliveryTime(0);
+            setNewProductMinStock(0);
+            setNewProductStock(0);
+            setNewProductBody("");
+            setNewProductDescription("");
+            setNewProductPrice(0);
+            setNewProductUrlCode("");
+            setNewProductName(""); 
+            setProductImages(uniqueImagePaths);
+            setProductFiles(uniqueFilePaths);
+            setLoading(false);
+            setNameError(false);
+            setDescriptionError(false);
+            setUrlCodeError(false);
+            setNewProductMinStock(newProductMinStock)
             onClose();
         } catch (error) {
             console.error("Error uploading images:", error);

@@ -667,6 +667,8 @@ export async function editproduct(productId, url_Id, Name, Price, Description, B
                         product.archivos = filePaths;
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                         revalidatePath('/admin/list');
+                        revalidatePath('/admin/buscador');
+                        revalidatePath('/admin/descatado');
                         return true;
                     }
                 }

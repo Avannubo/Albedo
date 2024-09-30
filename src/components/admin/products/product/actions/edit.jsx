@@ -4,6 +4,8 @@ import Modal from '@/components/admin/products/product/actions/editModal';
 
 export default function editProduct({ category, product }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    console.log(product?.ALBEDOcodigo); 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
         // if (isModalOpen) {

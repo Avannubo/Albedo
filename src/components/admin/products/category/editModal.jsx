@@ -163,7 +163,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                                 {descriptionError && <span className="text-red-500 italic text-xs">La descripción de la categoría es requerida</span>}
                             </div>
                             <div className="mb-4">
-                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo</label>
+                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Más Información</label>
                                 {/* <textarea onChange={handleInputChangeBody} value={newCategoryBody} rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder='Cuerpo' /> */}
                                 {/* <QuillEditor value={newCategoryBody} onChange={handleInputChangeBody} /> */}
                                 <HTMLEditorComponent value={newCategoryBody} onChange={handleInputChangeBody} />

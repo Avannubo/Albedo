@@ -153,7 +153,7 @@ export default function Header() {
                     </div>
                   )}
                 </div>
-                <Link href="https://www.albedo.biz/blog/" className="px-4 self-center text-[16px] cursor-pointer">Blog</Link>
+                <Link href="https://www.albedo.biz/Blog/" className="px-4 self-center text-[16px] cursor-pointer">Blog</Link>
               </div>
             </div>
             <Link

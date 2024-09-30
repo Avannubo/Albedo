@@ -1,13 +1,19 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getFiltersListProducts } from '@/lib/data';
 
 export default function Filters({ list }) {
     const [categoryFilter, setCategoryFilter] = useState("");
 
+    useEffect(() => {
+        // Reset the filter to "Todas" on component load
+        setCategoryFilter("");
+        getFiltersListProducts(""); // Fetch all products
+    }, []); // Empty dependency array to run only on mount
+
     const onCategoryChange = async (value) => {
         setCategoryFilter(value);
-        getFiltersListProducts(value);
+        await getFiltersListProducts(value);
     };
 
     return (

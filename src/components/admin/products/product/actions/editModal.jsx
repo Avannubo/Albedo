@@ -41,7 +41,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setSelectedImages([]); // Reset selected images
             setSelectedFiles([]);  // Reset selected files
         }
-    }, [product]); 
+    }, [product]);
 
 
     const handleInputChangeProduct = (event) => {
@@ -234,10 +234,10 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 newCategoryIsFeatured,
                 uniqueImagePaths,
                 uniqueFilePaths);
-            
-            
-            
-            
+
+
+
+
             setNewCategoryIsFeatured("");
             setNewCategoryIsPublished(false);
             setNewProductDeliveryTime(0);
@@ -247,7 +247,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setNewProductDescription("");
             setNewProductPrice(0);
             setNewProductUrlCode("");
-            setNewProductName(""); 
+            setNewProductName("");
             setProductImages(uniqueImagePaths);
             setProductFiles(uniqueFilePaths);
             setLoading(false);
@@ -256,7 +256,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setUrlCodeError(false);
             setNewProductMinStock(newProductMinStock)
             onClose();
-            
+
         } catch (error) {
             console.error("Error uploading images:", error);
             setLoading(false);
@@ -325,7 +325,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                 </div>
                             </div>
                             <div className="mb-4">
-                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Producto Cuerpo:</label>
+                                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Más Información:</label>
                                 <QuillEditor value={newProductDescription} onChange={handleInputChangeDescription} />
                                 {descriptionError && <span className="text-red-500 italic text-xs"> La descripción de producto es requerida</span>}
                                 {/* <input onChange={handleInputChangeDescription} value={newProductDescription} type="text" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" placeholder="Descripción" required /> */}

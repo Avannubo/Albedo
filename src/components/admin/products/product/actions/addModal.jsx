@@ -252,7 +252,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
                                 {descriptionError && <span className="text-red-500 italic text-xs "> El Descripción del Producto es requerido</span>}
                             </div>
                             <div className="mb-4">
-                                <label className=" text-sm font-medium text-gray-700 dark:text-gray-300">Producto Cuerpo</label>
+                                <label className=" text-sm font-medium text-gray-700 dark:text-gray-300">Más Información</label>
                                 {/* <textarea  rows="5" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-[#304590] focus:border-[#304590]" /> */}
                                 {/* <QuillEditor value={newProductBody} onChange={handleInputChangeBody} /> */}
                                 <HTMLEditorComponent value={newProductBody} onChange={handleInputChangeBody} />

@@ -63,9 +63,9 @@ export default function AddModal({ isOpen, onClose }) {
                         console.log(`Image path: ${imagePath}`);
 
                         try {
-                            const cloudImageLink = await saveImage(base64Image, imagePath);
-                            imagePaths.push(cloudImageLink);
-                            console.log(`Image saved successfully: ${cloudImageLink}`);
+                            const ImageLink = await saveImage(base64Image);
+                            // imagePaths.push(ImageLink);
+                            console.log(`Image saved successfully: ${ImageLink}`);
                             resolveImage();
                         } catch (error) {
                             console.error(`Error saving image: ${error}`);

@@ -3,20 +3,19 @@ import { promises as fs } from 'fs';
 import jwt from 'jsonwebtoken';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
-import nodemailer from 'nodemailer';
-import { v2 as cloudinary } from 'cloudinary';
+import nodemailer from 'nodemailer';  
+import { exec } from 'child_process';
+import util from 'util'; 
+// Promisify the exec function to use it as a promise
+const execPromise = util.promisify(exec);
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 var filteredProductList = [];
 const filePath = './public/data/Products.json';
 const filePathActiveOrders = './public/data/ClientOrdersActive.json';
 const filePathInactiveOrders = './public/data/ClientOrdersInactive.json';
-const filePathParameters = './public/data/Parameters.json';
-cloudinary.config({
-    cloud_name: 'dtzwbtiuw',
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SEC
-})
+const filePathParameters = './public/data/Parameters.json'; 
+
 const transporter = nodemailer.createTransport({
     host: "smtp.serviciodecorreo.es",
     port: 465,
@@ -1379,30 +1378,40 @@ function getSecKey() {
         throw new Error("Stored secret key not found in environment variables.");
     }
 }
-export async function saveImage(base64Image, imagePath) {
+export async function saveImage(base64Image) {
+    const imageId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
+
+    // Define your local path
+    const localImagePath = path.join('/assets/images/', `${imageId}.jpg`);
+
     try {
         // Remove the data URI prefix
         const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
         // Create a buffer from the base64 string
         const buffer = Buffer.from(base64Data, 'base64');
-        // Write the buffer to the file
-        await fs.writeFile(imagePath, buffer);
-        try {
-            if (!imagePath) {
-                throw new Error('No image path provided. Save the image first.');
-            }
-            // Upload the image using Cloudinary
-            const results = await cloudinary.uploader.upload(imagePath);
-            console.log("Uploading to cloud: " + results.secure_url);
-            // Return the URL of the uploaded image
-            return results.secure_url;
-        } catch (error) {
-            console.error('Error uploading image:', error);
-            throw error;
-        }
+
+        // Write the buffer to the file locally
+        await fs.writeFile(localImagePath, buffer);
+        console.log('Image saved locally.');
+
+        // // Generate a unique image ID
+        // const remotePath = `/images/${imageId}.jpg`; // Define your remote server path with unique ID
+
+        // // Upload the image using SCP (from local to remote)
+        // const user = 'web_worker';
+        // const host = 'blog.albedo.biz';
+        // const remoteDest = `${user}@${host}:${remotePath}`;
+        // const command = `scp ${localImagePath} ${remoteDest}`; // Corrected the command for upload
+
+        // await execPromise(command);
+        console.log('Image uploaded to server successfully.');
+
+        // Return the URL of the uploaded image
+        const imageUrl = `http://albedo.biz/images/${imageId}.jpg`; // Adjust as needed
+        return imageUrl;
+
     } catch (error) {
-        console.error('Error saving image:', error);
-        console.log('Error saving image.');
+        console.error('Error saving or uploading image:', error);
         throw error; // Re-throw the error to propagate it back
     }
 }

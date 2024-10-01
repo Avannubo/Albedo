@@ -115,33 +115,29 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             const uploadPromises = selectedImages.map(image => {
                 return new Promise((resolveImage, rejectImage) => {
                     const reader = new FileReader();
+
                     reader.onload = async () => {
                         const base64Image = reader.result;
-                        // Generate a unique ID for the image
-                        const uniqueId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
-                        const imageExtension = image.name.split('.').pop();
-                        // const imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        var imagePath = `./public/assets/images/${uniqueId}.${imageExtension}`;
-                        // const imagePathToSave = `/assets/images/${uniqueId}.${imageExtension}`; 
-                        console.log(`Generated uniqueId: ${uniqueId}`);
-                        console.log(`Image path: ${imagePath}`);
                         try {
-                            const cloudImageLink = await saveImage(base64Image, imagePath);
-                            imagePaths.push(cloudImageLink);
-                            console.log(`Image saved successfully: ${cloudImageLink}`);
+                            const ImageLink = await saveImage(base64Image);
+                            imagePaths.push(ImageLink);
+                            console.log(`Image saved successfully: ${ImageLink}`);
                             resolveImage();
                         } catch (error) {
                             console.error(`Error saving image: ${error}`);
                             rejectImage(error);
                         }
                     };
+
                     reader.onerror = error => {
                         console.error(`Error reading image file: ${error}`);
                         rejectImage(error);
                     };
+
                     reader.readAsDataURL(image);
                 });
             });
+
             Promise.all(uploadPromises)
                 .then(() => {
                     console.log('All images uploaded successfully:', imagePaths);

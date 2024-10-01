@@ -17,12 +17,12 @@ export default function Search({ onSearchChange }) {
     };
 
     return (
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 w-full">
             <input
                 type="text"
                 value={searchTerm}
                 onChange={handleSearchTermChange}
-                className="border p-2 rounded w-full"
+                className="border p-2 rounded w-[100%]"
                 placeholder="Enter search term"
             />
             <select

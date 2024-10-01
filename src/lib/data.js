@@ -6,8 +6,10 @@ import { readFile, writeFile } from 'fs/promises';
 import nodemailer from 'nodemailer';  
 import { exec } from 'child_process';
 import util from 'util'; 
+import path from 'path';  // Import the path module
+
 // Promisify the exec function to use it as a promise
-const execPromise = util.promisify(exec);
+// const execPromise = util.promisify(exec);
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 var filteredProductList = [];
@@ -1382,7 +1384,7 @@ export async function saveImage(base64Image) {
     const imageId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
 
     // Define your local path
-    const localImagePath = path.join('/assets/images/', `${imageId}.jpg`);
+    const localImagePath = path.join('./public/assets/images/', `${imageId}.jpg`);
 
     try {
         // Remove the data URI prefix

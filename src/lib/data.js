@@ -1403,8 +1403,15 @@ function getSecKey() {
 export async function saveImage(base64Image) {
     const imageId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
 
-    // Define your local path
-    const localImagePath = path.join('./public/assets/images/', `${imageId}.jpg`);
+    // Extract the extension from the base64 data (e.g., image/jpeg -> jpeg)
+    const matches = base64Image.match(/^data:image\/(\w+);base64,/);
+    if (!matches || matches.length < 2) {
+        throw new Error('Invalid image format');
+    }
+    const imageExtension = matches[1]; // This will be something like 'jpeg', 'png', etc.
+
+    // Define your local path with the dynamic extension
+    const localImagePath = path.join('./public/assets/images/', `${imageId}.${imageExtension}`);
 
     try {
         // Remove the data URI prefix
@@ -1416,20 +1423,18 @@ export async function saveImage(base64Image) {
         await fs.writeFile(localImagePath, buffer);
         console.log('Image saved locally.');
 
-        // // Generate a unique image ID
-        // const remotePath = `/images/${imageId}.jpg`; // Define your remote server path with unique ID
-
-        // // Upload the image using SCP (from local to remote)
+        // // Uncomment to upload the image using SCP (from local to remote)
         // const user = 'web_worker';
         // const host = 'blog.albedo.biz';
+        // const remotePath = `/images/${imageId}.${imageExtension}`; // Define your remote server path with unique ID
         // const remoteDest = `${user}@${host}:${remotePath}`;
-        // const command = `scp ${localImagePath} ${remoteDest}`; // Corrected the command for upload
+        // const command = `scp ${localImagePath} ${remoteDest}`;
 
         // await execPromise(command);
         console.log('Image uploaded to server successfully.');
 
         // Return the URL of the uploaded image
-        const imageUrl = `http://albedo.biz/images/${imageId}.jpg`; // Adjust as needed
+        const imageUrl = `http://blog.albedo.biz/images/${imageId}.${imageExtension}`; // Adjust as needed
         return imageUrl;
 
     } catch (error) {

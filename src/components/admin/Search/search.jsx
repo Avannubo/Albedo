@@ -39,15 +39,18 @@ export default function Page() {
 
     return (
         <>
-            <div className="m-2">
+            <div className="m-2 ">
                 <Search onSearchChange={handleSearchChange} />
             </div>
+            <div className='flex flex-row justify-end '>
+
             <button
                 onClick={() => searchFilterProducts(searchData.searchTerm, searchData.searchBy)}
-                className="m-2 p-2 bg-[#304587] hover:text-[#475caa] text-white rounded-md"
-            >
+                className=" m-2 p-2 bg-[#304587] hover:bg-[#475caa] text-white rounded-md"
+                >
                 Recargar Lista
             </button>
+                </div>
             <Suspense fallback={<Loading />}>
                 <ul>
                     <div className="flex flex-col space-y-2 p-2">

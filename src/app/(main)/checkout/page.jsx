@@ -41,11 +41,11 @@ export default function Page() {
     setSelectedShipping({ method: shippingOption, price: shipingPrice });
     const total = shipingPrice + subTotal;
     setTotalPedido(total)
-    console.log("Selected shipping option:", shippingOption, shipingPrice);
+    // console.log("Selected shipping option:", shippingOption, shipingPrice);
   };
   const handlePaymentSelect = (paymentMethod) => {
     setSelectedPayment(paymentMethod);
-    console.log("Selected payment method:", paymentMethod);
+   // console.log("Selected payment method:", paymentMethod);
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -82,7 +82,7 @@ export default function Page() {
   }, []);
   useEffect(() => {
     if (parameters) {
-      console.log(parameters.EnvioEspaña);
+     // console.log(parameters.EnvioEspaña);
     }
   }, [parameters]);
   useEffect(() => {
@@ -172,7 +172,7 @@ export default function Page() {
       totalPedido,
       invoice: userInfo.invoice
     });
-    console.log(orderData);
+   //  console.log(orderData);
     if (selectedPayment === 'Transferencia') {
       toggleModal();
     }

@@ -15,7 +15,7 @@ services:
     networks:
       - my-network
     volumes:
-      - ./public/assets:/app/public/assets
+      - ./public:/app/public
       - ./next-cache:/app/.next/cache
 
 networks:

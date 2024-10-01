@@ -167,8 +167,8 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                         const uniqueFileName = `${uniqueId}.${fileExtension}`;
                         const filePath = `./public/assets/archivos/${uniqueFileName}`;
                         const filePathToSave = `./public/assets/archivos/${uniqueFileName}`;
-                        console.log(`Generated unique file name: ${uniqueFileName}`);
-                        console.log(`File path: ${filePath}`);
+                       // console.log(`Generated unique file name: ${uniqueFileName}`);
+                       // console.log(`File path: ${filePath}`);
                         try {
                             // Assuming saveFile is asynchronous and returns a promise
                             await saveFile(fileData, filePath.replace(/ /g, "_"));

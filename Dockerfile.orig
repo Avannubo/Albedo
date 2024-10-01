@@ -38,8 +38,8 @@ COPY --from=builder /app/ .
 RUN chown -R nextjs:nodejs /app/.next && chmod -R 755 /app/.next
 
 # Ensure the images directory has the correct ownership and permissions
-RUN chown -R nextjs:nodejs /app/public/assets/images
-RUN chmod -R u+rwX,g+rwX,o-rwx /app/public/assets/images
+RUN chown -R nextjs:nodejs /app/public
+RUN chmod -R u+rwX,g+rwX,o-rwx /app/public
 
 # Expose the port Next.js uses (usually 3000)
 EXPOSE 3000

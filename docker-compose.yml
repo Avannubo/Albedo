@@ -8,6 +8,6 @@ services:
     ports:
       - "32769:3000"
     volumes:
-      - ./public/assets:/app/public/assets
+      - ./public:/app/public
       - ./next-cache:/app/.next/cache
 

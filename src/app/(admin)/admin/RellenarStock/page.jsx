@@ -14,7 +14,7 @@ export default async function page() {
     if (!token) {
         redirect('/admin');
     }
-    console.log(filteredList);
+    //console.log(filteredList);
     return (
         <>
             <Layout>

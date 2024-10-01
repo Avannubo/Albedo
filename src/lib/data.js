@@ -103,7 +103,7 @@ export async function getRefillStockProducts() {
                     }
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
-                    console.log("Subcategories:", category.subCategories);
+                    // console.log("Subcategories:", category.subCategories);
                     await loopRecursive(category.subCategories);
                 }
             }
@@ -139,7 +139,7 @@ export async function getFeaturedProducts() {
                     }
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
-                    console.log("Subcategories:", category.subCategories);
+                    // console.log("Subcategories:", category.subCategories);
                     await loopRecursive(category.subCategories);
                 }
             }

@@ -41,7 +41,7 @@ async function revalidateMultiplePaths() {
     // Revalidate all paths concurrently using Promise.all()
     try {
         await Promise.all(paths.map((path) => revalidatePath(path)));
-        console.log('All paths revalidated successfully');
+        // console.log('All paths revalidated successfully');
     } catch (error) {
         console.error('Error revalidating paths:', error);
     }

@@ -50,7 +50,7 @@ export default function AddModal({ isOpen, onClose }) {
                     const reader = new FileReader();
 
                     reader.onload = async () => {
-                        const base64Image = reader.result;  
+                        const base64Image = reader.result;
                         try {
                             const ImageLink = await saveImage(base64Image);
                             imagePaths.push(ImageLink);
@@ -73,7 +73,7 @@ export default function AddModal({ isOpen, onClose }) {
 
             Promise.all(uploadPromises)
                 .then(() => {
-                    console.log('All images uploaded successfully:', imagePaths);
+                    //console.log('All images uploaded successfully:', imagePaths);
                     resolve(imagePaths);
                 })
                 .catch(error => {

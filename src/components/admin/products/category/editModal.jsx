@@ -88,7 +88,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
 
             Promise.all(uploadPromises)
                 .then(() => {
-                    console.log('All images uploaded successfully:', imagePaths);
+                    //console.log('All images uploaded successfully:', imagePaths);
                     resolve(imagePaths);
                 })
                 .catch(error => {

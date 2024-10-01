@@ -38,10 +38,15 @@ async function revalidateMultiplePaths() {
         '/admin/destacados',
     ];
 
-    for (const path of paths) {
-        await revalidatePath(path);
+    // Revalidate all paths concurrently using Promise.all()
+    try {
+        await Promise.all(paths.map((path) => revalidatePath(path)));
+        console.log('All paths revalidated successfully');
+    } catch (error) {
+        console.error('Error revalidating paths:', error);
     }
 }
+
 
 export async function requireContent() {
     // if (!cachedContent) {
@@ -389,7 +394,7 @@ export async function deleteElement(categoryId, product) {
         const deleteCategoryRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
-                console.log(`Checking category with ID: ${category.id}`); // Debug log
+                //console.log(`Checking category with ID: ${category.id}`); // Debug log
 
                 // Check if the category matches the categoryId
                 if (category.id == categoryId.id) {
@@ -398,6 +403,7 @@ export async function deleteElement(categoryId, product) {
                     console.log(`Category deleted: ${JSON.stringify(deletedObject)}`); // Debug log
                     await fs.writeFile(filePath, JSON.stringify({ categories }));
                     revalidateMultiplePaths(); 
+                    revalidatePath("/admin/list");
                     return true; // Category successfully deleted
                 }
 
@@ -1422,14 +1428,6 @@ export async function saveImage(base64Image) {
         // Write the buffer to the file locally
         await fs.writeFile(localImagePath, buffer);
         console.log('Image saved locally.');
-
-        // // Uncomment to upload the image using SCP (from local to remote)
-        // const user = 'web_worker';
-        // const host = 'blog.albedo.biz';
-        // const remotePath = `/images/${imageId}.${imageExtension}`; // Define your remote server path with unique ID
-        // const remoteDest = `${user}@${host}:${remotePath}`;
-        // const command = `scp ${localImagePath} ${remoteDest}`;
-
         // await execPromise(command);
         console.log('Image uploaded to server successfully.');
 

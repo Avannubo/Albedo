@@ -27,6 +27,21 @@ const transporter = nodemailer.createTransport({
         pass: process.env.PASS,
     },
 });
+
+async function revalidateMultiplePaths() {
+    const paths = [
+        '/admin/list',
+        '/admin/RellenarStock',
+        '/admin/buscador',
+        '/admin/ocultos',
+        '/admin/publicados', 
+    ];
+
+    for (const path of paths) {
+        await revalidatePath(path);
+    }
+}
+
 export async function requireContent() {
     // if (!cachedContent) {
     const res = await fs.readFile(filePath, 'utf8');
@@ -38,7 +53,7 @@ export async function getCategories() {
     const content = await requireContent();
     if (content) {
         const { categories } = content;
-        revalidatePath('/admin/list');
+                revalidateMultiplePaths();
         return categories;
     } else {
         return []; // Return an empty array if categories don't exist
@@ -48,7 +63,7 @@ export async function getCategoryDataForListProducts() {
     const content = await requireContent();
     if (content) {
         const { categories } = content;
-        revalidatePath('/admin/list');
+        revalidateMultiplePaths();
         return categories;
     } else {
         return []; // Return an empty array if categories don't exist
@@ -60,10 +75,11 @@ export async function getListProductsFiltered() {
         const { categories } = content;
         // console.log(filteredProductList);
         if (filteredProductList.length == 0) {
-            revalidatePath('/admin/list');
+            revalidateMultiplePaths();
+
             return categories;
         } else {
-            revalidatePath('/admin/list');
+            revalidateMultiplePaths();
             return filteredProductList;
         }
     }
@@ -97,6 +113,7 @@ export async function getRefillStockProducts() {
             console.log("No products need refilling.");
             return []; // Return an empty array if no products need refilling
         }
+        revalidateMultiplePaths();
         return refillProductList; // Return the array of products needing refilling
     } catch (error) {
         console.log("Error:", error.message);
@@ -132,6 +149,8 @@ export async function getFeaturedProducts() {
             console.log("No products need refilling.");
             return []; // Return an empty array if no products need refilling
         }
+        revalidateMultiplePaths();
+
         return productList; // Return the array of products needing refilling
     } catch (error) {
         console.log("Error:", error.message);
@@ -209,7 +228,7 @@ export async function getFiltersListProducts(categoryFilter = '', refillStock) {
         });
         filteredProductList = filteredCategories;
     }
-    revalidatePath('/admin/list');
+            revalidateMultiplePaths();
 }
 export async function searchFilter(searchTerm, searchBy) {
     console.log(searchTerm, searchBy);
@@ -231,7 +250,7 @@ export async function searchFilter(searchTerm, searchBy) {
             searchedList.push(product);
         }); 
         // revalidatePath("/admin/buscador")
-        console.log(searchedList);
+        // console.log(searchedList);
         
         return searchedList;  // Return the array of filtered products
     } catch (error) {
@@ -244,7 +263,7 @@ export async function searchFilter(searchTerm, searchBy) {
 // Function to return the filtered list on the client side
 export async function searchFilterList() {
     console.log(searchedList);
-    revalidatePath('/admin/buscador');
+    revalidateMultiplePaths(); 
     return searchedList;  // Return the searched list
 }
 export async function getParameters() {
@@ -377,7 +396,7 @@ export async function deleteElement(categoryId, product) {
                     const deletedObject = categoryList.splice(i, 1)[0];
                     console.log(`Category deleted: ${JSON.stringify(deletedObject)}`); // Debug log
                     await fs.writeFile(filePath, JSON.stringify({ categories }));
-                    revalidatePath('/admin/list');
+                    revalidateMultiplePaths(); 
                     return true; // Category successfully deleted
                 }
 
@@ -403,7 +422,7 @@ export async function deleteElement(categoryId, product) {
                             const deletedProduct = category.products.splice(j, 1)[0];
                             console.log(`Product deleted: ${JSON.stringify(deletedProduct)}`); // Debug log
                             await fs.writeFile(filePath, JSON.stringify({ categories }));
-                            revalidatePath('/admin/list');
+                                    revalidateMultiplePaths();
                             return true; // Product successfully deleted
                         }
                     }
@@ -482,7 +501,7 @@ export async function addCategory(Url_Id, name, description, body, isPublished, 
         };
         categories.unshift(newCategory);
         await writeFile(filePath, JSON.stringify(jsonData));
-        revalidatePath('/admin/list');
+                revalidateMultiplePaths();
         // //console.log("Subcategory added successfully.");
         return true;
     } catch (error) {
@@ -535,7 +554,7 @@ export async function addSubcategory(categoryId, subCategoryData) {
                     // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     // //console.log("Data written successfully.");
-                    revalidatePath('/admin/list');
+                            revalidateMultiplePaths();
                     // //console.log("Path revalidated.");
                     return true;
                 }
@@ -612,7 +631,7 @@ export async function addproduct(categoryId, productData) {
                     // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     // //console.log("Data written successfully.");
-                    revalidatePath('/admin/list');
+                            revalidateMultiplePaths();
                     // //console.log("Path revalidated.");
                     return true;
                 }
@@ -678,7 +697,7 @@ export async function editproduct(productId, url_Id, Name, Price, Description, B
                         product.imagens = imagePaths;
                         product.archivos = filePaths;
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                        revalidatePath('/admin/list');
+                                revalidateMultiplePaths();
                         return true;
                     }
                 }
@@ -738,7 +757,7 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
                     }
                     // Write the updated JSON data to the file
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    revalidatePath('/admin/list');
+                            revalidateMultiplePaths();
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
@@ -860,7 +879,7 @@ export async function duplicateProduct(category, product) {
                     };
                     category.products.push(dataObj);
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                    revalidatePath('/admin/list');
+                            revalidateMultiplePaths();
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
@@ -908,7 +927,7 @@ export async function getDataByUrlId(slugIds) {
                 currentData = category.subCategories;
             } else {
                 // If there are no subcategories, return the current category
-                revalidatePath('/admin/list');
+                        revalidateMultiplePaths();
                 return category;
             }
         }
@@ -992,7 +1011,7 @@ export async function updateStock(orderData) {
                     if (cartProduct) {
                         product.ALBEDOstock -= cartProduct.quantity;
                         await fs.writeFile(filePath, JSON.stringify({ categories }, null, 2));
-                        revalidatePath('/admin/list');
+                                revalidateMultiplePaths();
                         return true;
                     }
                 }

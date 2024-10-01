@@ -4,7 +4,7 @@ import { editproduct, cloudinaryUploader, saveImage, saveFile } from '@/lib/data
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent"
 export default function EditModal({ isOpen, onClose, category, product }) {
-    console.log("btn edit prod: " + JSON.stringify(product));
+    // console.log("btn edit prod: " + JSON.stringify(product));
     const [loading, setLoading] = useState(false);
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);

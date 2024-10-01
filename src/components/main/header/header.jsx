@@ -235,7 +235,7 @@ export default function Header() {
                       <Link href="/about/faq" className="hover:bg-gray-100 bg-gray-50 text-gray-700 flex justify-center whitespace-nowrap px-2 py-1.5 text-[16px]">FAQ</Link>
                     </MobileSubmenu>
                   </MobileMenuItem>
-                  <Link href="https://www.albedo.biz/blog/" className="hover:bg-gray-100 text-gray-700 flex justify-center px-4 py-2">Blog</Link>
+                  <Link href="https://www.albedo.biz/Blog/" className="hover:bg-gray-100 text-gray-700 flex justify-center px-4 py-2">Blog</Link>
                 </div>
               )}
             </div>

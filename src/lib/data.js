@@ -34,7 +34,8 @@ async function revalidateMultiplePaths() {
         '/admin/RellenarStock',
         '/admin/buscador',
         '/admin/ocultos',
-        '/admin/publicados', 
+        '/admin/publicados',
+        '/admin/destacados',
     ];
 
     for (const path of paths) {

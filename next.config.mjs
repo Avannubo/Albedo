@@ -12,6 +12,7 @@ const nextConfig = {
     
     images: {
         domains: ['res.cloudinary.com'], // Add the Cloudinary domain
+        domains: ['blog.albedo.biz'], // Add the Cloudinary domain
     },
     experimental: {
         serverActions: {

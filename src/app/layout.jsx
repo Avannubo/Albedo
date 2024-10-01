@@ -1,7 +1,7 @@
 import "./globals.css";
 export const metadata = {
   title: "Albedo Biz",
-  description: "Albedo Webapp",
+  description: "Albedo",
 };
 export default function RootLayout({ children }) {
   return (

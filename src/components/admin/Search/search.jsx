@@ -10,31 +10,44 @@ export default function Page() {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(false); // State to track loading
 
-    // Function to fetch filtered products based on search input
+    // Function to compare arrays of products
+    const isEqual = (newProducts, currentProducts) => {
+        return JSON.stringify(newProducts) === JSON.stringify(currentProducts);
+    };
+
+    // Fetch and filter products
     const searchFilterProducts = async (searchTerm, searchBy) => {
         setLoading(true); // Set loading to true
         const products = await searchFilter(searchTerm, searchBy);
-        // console.log(products);
-        
-        setFilteredProducts(products);
+
+        // Update the filteredProducts state only if the data has changed
+        if (!isEqual(products, filteredProducts)) {
+            setFilteredProducts(products);
+        }
+
         setLoading(false); // Set loading to false
     };
 
     const handleSearchChange = (searchTerm, searchBy) => {
         setSearchData({ searchTerm, searchBy });
-        // No need to call searchFilterProducts here
     };
 
     // Fetch initial products on mount and when searchData changes
     useEffect(() => {
         searchFilterProducts(searchData.searchTerm, searchData.searchBy);
-    }, [searchData]); // Re-run when searchData changes
+    }, [searchData]);
 
     return (
         <>
             <div className="m-2">
                 <Search onSearchChange={handleSearchChange} />
             </div>
+            <button
+                onClick={() => searchFilterProducts(searchData.searchTerm, searchData.searchBy)}
+                className="m-2 p-2 bg-[#304587] hover:text-[#475caa] text-white rounded-md"
+            >
+                Recargar Lista
+            </button>
             <Suspense fallback={<Loading />}>
                 <ul>
                     <div className="flex flex-col space-y-2 p-2">

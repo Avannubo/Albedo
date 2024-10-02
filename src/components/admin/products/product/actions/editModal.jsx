@@ -23,7 +23,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     const [nameError, setNameError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
-
     useEffect(() => {
         if (product) {
             setNewProductName(product.ALBEDOtitulo);
@@ -42,8 +41,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setSelectedFiles([]);  // Reset selected files
         }
     }, [product]);
-
-
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -84,7 +81,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     };
     const handleDeleteImage = async (index) => {
         try {
-            const currentImages = [...productImages];
+            const currentImages = [...productImages]; 
             currentImages.splice(index, 1);
             //console.log(currentImages);
             setSelectedImages([]);
@@ -115,7 +112,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             const uploadPromises = selectedImages.map(image => {
                 return new Promise((resolveImage, rejectImage) => {
                     const reader = new FileReader();
-
                     reader.onload = async () => {
                         const base64Image = reader.result;
                         try {
@@ -128,16 +124,13 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                             rejectImage(error);
                         }
                     };
-
                     reader.onerror = error => {
                         console.error(`Error reading image file: ${error}`);
                         rejectImage(error);
                     };
-
                     reader.readAsDataURL(image);
                 });
             });
-
             Promise.all(uploadPromises)
                 .then(() => {
                     //console.log('All images uploaded successfully:', imagePaths);
@@ -230,10 +223,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 newCategoryIsFeatured,
                 uniqueImagePaths,
                 uniqueFilePaths);
-
-
-
-
             setNewCategoryIsFeatured("");
             setNewCategoryIsPublished(false);
             setNewProductDeliveryTime(0);
@@ -252,7 +241,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setUrlCodeError(false);
             setNewProductMinStock(newProductMinStock)
             onClose();
-
         } catch (error) {
             console.error("Error uploading images:", error);
             setLoading(false);

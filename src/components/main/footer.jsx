@@ -40,9 +40,9 @@ function footer() {
             <h1 className="font-bold text-xl text-center ">Contacta con nosotros</h1>
             <p className="mb-2 text-center lg:text-start">
               Si tienes alguna cuestión o quieres obtener más información, no dudes en ponerte en contacto con nosotros.            </p>
-            <div className="flex justify-center cursor-pointer self-center lg:self-start text-white w-[130px] p-1.5 rounded-md bg-[#304590] hover:bg-[#475caa]">
-              <p>Contacto</p>
-            </div>
+            <Link href="/about/contacto" className="flex justify-center cursor-pointer self-center lg:self-start text-white w-[130px] p-1.5 rounded-md bg-[#304590] hover:bg-[#475caa]">
+              Contacto
+            </Link>
           </div>
         </div>
       </div>

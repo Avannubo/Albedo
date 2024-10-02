@@ -24,6 +24,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         setNewCategoryBody(categoryId.ALBEDOcuerpo || '');
         setNewCategoryIsPublished(categoryId.isPublished || false);
         setCategoryImages(categoryId.imagens || []);
+        setSelectedImages([]); // Reset selected images 
     };
     const [nameError, setNameError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
@@ -51,6 +52,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         try {
             const currentImages = [...categoryImages];
             currentImages.splice(index, 1);
+
             setSelectedImages([]);
             setCategoryImages(currentImages);
         } catch (error) {

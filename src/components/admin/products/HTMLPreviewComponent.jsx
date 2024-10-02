@@ -1,32 +1,21 @@
 import React, { useEffect, useRef } from "react";
 
 export default function HTMLPreviewComponent({ content }) {
-    const iframeRef = useRef(null);
+    const contentRef = useRef(null);
 
     useEffect(() => {
-        const iframe = iframeRef.current;
-        if (iframe) {
-            const doc = iframe.contentDocument || iframe.contentWindow.document;
-            doc.open();
-            doc.write(content);
-            doc.close();
-
-            // Adjust the iframe height to fit the content
-            iframe.onload = () => {
-                iframe.style.height = `${doc.body.scrollHeight}px`;
-                iframe.style.overflow = "hidden";
-            };
+        const contentDiv = contentRef.current;
+        if (contentDiv) {
+            contentDiv.innerHTML = content; // Set the HTML content directly
         }
     }, [content]);
 
     return (
-        <div className="w-full h-auto overflow-hidden">
-            <iframe
-                ref={iframeRef}
-                title="HTML Preview"
-                sandbox="allow-scripts allow-same-origin"
-                className="w-full bg-white overflow-hidden border-none no-scrollbar font-helvetica font-normal"
-                style={{ overflow: 'hidden' }} // Hide overflow
+        <div className="w-full my-6 bg-white overflow-hidden border-none no-scrollbar font-helvetica font-normal">
+            <div
+                ref={contentRef}
+                className="w-full h-full"
+                style={{ overflow: "hidden" }}
             />
         </div>
     );

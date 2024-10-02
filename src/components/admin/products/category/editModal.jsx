@@ -188,7 +188,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                                 </div> */}
                             {/* </div> */}<div className='flex  flex-row justify-start flex-wrap space-x-4 '>
                                 {categoryImages && categoryImages.length > 0 && (
-                                    categoryImages.map((imagePath, index) => (
+                                    categoryImages.reverse().map((imagePath, index) => (
                                         <div key={index} className="relative">
                                             <img
                                                 src={imagePath}

@@ -49,15 +49,10 @@ export default function Home() {
     }
     return null;
   }
-
-  const allPublishedProducts = GetPublishedProducts(data); 
-  
-
+  const allPublishedProducts = GetPublishedProducts(data);
   // Example usage
   const publishedProducts = allPublishedProducts.filter(product => product.isFeatured);
   const featured = publishedProducts.slice(-8);
-
-
   return (
     <Layout>
       <div className="mt-10">
@@ -70,7 +65,7 @@ export default function Home() {
         <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
       </div>
       <div className="bg-[#304590] rounded-xl p-3 flex justify-center">
-        <h1 className="lg:lg:text-xl md:text-lg text-md  text-md font-bold text-white ">
+        <h1 className="lg:lg:text-xl md:text-lg text-md text-center text-md font-bold text-white ">
           TIENDA DE PRODUCTOS DOMÓTICOS
         </h1>
       </div>
@@ -82,30 +77,28 @@ export default function Home() {
           {data ? (
             <div className='flex flex-col justify-center'>
               <div className='flex flex-row flex-wrap  space-x-1 md:space-x-4  justify-center  mt-2 '>
-              {data.slice(1)
-                .filter(category => category.isPublished)
-                .map((category, index) => (
-                  <Link key={index} href={`/products/${category.url_Id}`} className=" mb-4 p-2 box-shadow text-md text-gray-700 rounded-lg ">
-                    <img
-                      src={category.imagens[0]}
-                      alt="Image"
-                      className="self-center w-[135px] h-[100px] object-contain rounded-lg"
-                      width={500} height={400} />
-                    <p className='text-center font-semibold text-md'>
-                      {category.name.split(" ").length > 2 ? category.name.split(" ")[0] : category.name}
-                    </p>
-                  </Link>
-                ))}
-              
-            </div>
-            <Link
+                {data.slice(1)
+                  .filter(category => category.isPublished)
+                  .map((category, index) => (
+                    <Link key={index} href={`/products/${category.url_Id}`} className=" mb-4 p-2 box-shadow text-md text-gray-700 rounded-lg ">
+                      <img
+                        src={category.imagens[0]}
+                        alt="Image"
+                        className="self-center w-[135px] h-[100px] object-contain rounded-lg"
+                        width={500} height={400} />
+                      <p className='text-center font-semibold text-md'>
+                        {category.name.split(" ").length > 2 ? category.name.split(" ")[0] : category.name}
+                      </p>
+                    </Link>
+                  ))}
+              </div>
+              <Link
                 className="self-center text-center text-white w-[250px] py-1.5 my-3 rounded-md bg-[#304590] hover:bg-[#475caa]"
                 href="/products"
               >
                 Productos
               </Link>
             </div>
-            
           ) : (
             <div className='flex flex-col justify-center items-center'>
               <div className='flex flex-row flex-wrap items-center justify-center space-x-4 mt-4 mb-8'>
@@ -138,16 +131,13 @@ export default function Home() {
                   <div className='rounded-lg grow h-6 w-full bg-slate-200 animate-pulse'></div>
                 </div>
               </div>
-              
             </div>
-
           )}
-
         </div>
         <div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           <div className="flex justify-center">
-            <h1 className="lg:text-2xl md:text-xl text-md font-bold my-2">Productos destacados</h1>
+            <h1 className="lg:text-2xl md:text-xl text-md text-center font-bold my-2">Productos destacados</h1>
           </div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           {isLoading ? (
@@ -200,9 +190,9 @@ export default function Home() {
           ) : (
             featured.length && featured.length > 0 ? (
               <div className="flex flex-row flex-wrap items-center justify-center ">
-                  {featured 
-                    // .reverse()
-                    .map((product) => (
+                {featured
+                  // .reverse()
+                  .map((product) => (
                     <div key={product.ALBEDOcodigo} className=" lg:w-[250px] flex flex-col justify-evenly p-2 m-4 md:h-[330px]  rounded-lg box-shadow ">
                       <Link href={`products${findProductPath(data, product.ALBEDOcodigo)}`}>
                         <ProductItem product={product} /></Link>
@@ -263,7 +253,7 @@ export default function Home() {
         <div>
           <hr className="h-1 mx-auto bg-gray-100 border-0 rounded  dark:bg-gray-700" />
           <div className="bg-[#304590] rounded-xl p-3 flex justify-center">
-            <h1 className="lg:text-xl md:text-lg text-md font-bold text-white ">
+            <h1 className="lg:text-xl md:text-lg text-center text-md font-bold text-white ">
               SERVICIOS DE DISEÑO Y FABRICACIÓN
             </h1>
           </div>
@@ -277,23 +267,26 @@ export default function Home() {
               una realidad... Desde el <a href="">diseño</a> , y el{" "}
               <a href="">prototipado</a> a la <a href="">fabricación</a> .{" "}
             </p>
-            <div className="flex flex-row flex-wrap justify-center my-4">
-              <Image
-                src="/assets/images/home/diseño1.png"
-                alt="Image"
-                className="rounded-lg m-2 w-full h-[200px] md:w-[250px] lg:h-auto object-cover"
-                width={500}
-                height={24}
-                priority="true"
-              />
-              <Image
-                src="/assets/images/home/diseño2.png"
-                alt="Image"
-                className="rounded-lg m-2 w-full h-[200px] md:w-[250px] lg:h-auto object-cover"
-                width={600}
-                height={24}
-                priority="true"
-              />
+            <div className="flex flex-row flex-wrap justify-center my-4 ">
+              <Link className='h-[150px] md:w-[250px] lg:h-auto p-4' href="/services/design/">
+                <Image
+                  src="/assets/images/home/diseño1.png"
+                  alt="Image"
+                  className="rounded-lg m-2 w-full h-full object-cover"
+                  width={500}
+                  height={24}
+                  priority="true"
+                />
+              </Link>
+              <Link className='h-[150px] md:w-[250px] lg:h-auto p-4' href="/services/manufacturing/">
+                <Image
+                  src="/assets/images/home/diseño2.png"
+                  alt="Image"
+                  className="rounded-lg m-2 w-full h-full object-cover"
+                  width={600}
+                  height={24}
+                  priority="true"
+                /></Link>
             </div>
           </div>
         </div>

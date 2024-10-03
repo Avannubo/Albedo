@@ -3,9 +3,9 @@ import { promises as fs } from 'fs';
 import jwt from 'jsonwebtoken';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
-import nodemailer from 'nodemailer';  
+import nodemailer from 'nodemailer';
 import { exec } from 'child_process';
-import util from 'util'; 
+import util from 'util';
 import path from 'path';  // Import the path module
 
 // Promisify the exec function to use it as a promise
@@ -16,7 +16,7 @@ var filteredProductList = [];
 const filePath = './public/data/Products.json';
 const filePathActiveOrders = './public/data/ClientOrdersActive.json';
 const filePathInactiveOrders = './public/data/ClientOrdersInactive.json';
-const filePathParameters = './public/data/Parameters.json'; 
+const filePathParameters = './public/data/Parameters.json';
 
 const transporter = nodemailer.createTransport({
     host: "smtp.serviciodecorreo.es",
@@ -59,7 +59,7 @@ export async function getCategories() {
     const content = await requireContent();
     if (content) {
         const { categories } = content;
-                revalidateMultiplePaths();
+        revalidateMultiplePaths();
         return categories;
     } else {
         return []; // Return an empty array if categories don't exist
@@ -234,12 +234,12 @@ export async function getFiltersListProducts(categoryFilter = '', refillStock) {
         });
         filteredProductList = filteredCategories;
     }
-            revalidateMultiplePaths();
+    revalidateMultiplePaths();
 }
 export async function searchFilter(searchTerm, searchBy) {
     console.log(searchTerm, searchBy);
     const products = await getProducts();  // Assuming this function fetches categories and products 
-    let searchedList = []; 
+    let searchedList = [];
     try {
         // Filter products based on the search term and searchBy criteria
         products.filter((product) => {
@@ -247,17 +247,17 @@ export async function searchFilter(searchTerm, searchBy) {
             if (searchBy === "name") {
                 return product.ALBEDOtitulo.toLowerCase().includes(searchTerm.toLowerCase());
             } else if (searchBy === "id") {
-                return product.ALBEDOcodigo.toLowerCase().includes(searchTerm.toLowerCase());
+                return product.url_Id.includes(searchTerm);
             }
             return false;  // Default case if searchBy doesn't match
         }).forEach((product) => {
             // console.log(product);
-            
+
             searchedList.push(product);
-        }); 
+        });
         // revalidatePath("/admin/buscador")
         // console.log(searchedList);
-        
+
         return searchedList;  // Return the array of filtered products
     } catch (error) {
         console.error("Error:", error);
@@ -269,7 +269,7 @@ export async function searchFilter(searchTerm, searchBy) {
 // Function to return the filtered list on the client side
 export async function searchFilterList() {
     console.log(searchedList);
-    revalidateMultiplePaths(); 
+    revalidateMultiplePaths();
     return searchedList;  // Return the searched list
 }
 export async function getParameters() {
@@ -402,7 +402,7 @@ export async function deleteElement(categoryId, product) {
                     const deletedObject = categoryList.splice(i, 1)[0];
                     console.log(`Category deleted: ${JSON.stringify(deletedObject)}`); // Debug log
                     await fs.writeFile(filePath, JSON.stringify({ categories }));
-                    revalidateMultiplePaths(); 
+                    revalidateMultiplePaths();
                     revalidatePath("/admin/list");
                     return true; // Category successfully deleted
                 }
@@ -429,7 +429,7 @@ export async function deleteElement(categoryId, product) {
                             const deletedProduct = category.products.splice(j, 1)[0];
                             console.log(`Product deleted: ${JSON.stringify(deletedProduct)}`); // Debug log
                             await fs.writeFile(filePath, JSON.stringify({ categories }));
-                                    revalidateMultiplePaths();
+                            revalidateMultiplePaths();
                             return true; // Product successfully deleted
                         }
                     }
@@ -508,7 +508,7 @@ export async function addCategory(Url_Id, name, description, body, isPublished, 
         };
         categories.unshift(newCategory);
         await writeFile(filePath, JSON.stringify(jsonData));
-                revalidateMultiplePaths();
+        revalidateMultiplePaths();
         // //console.log("Subcategory added successfully.");
         return true;
     } catch (error) {
@@ -561,7 +561,7 @@ export async function addSubcategory(categoryId, subCategoryData) {
                     // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     // //console.log("Data written successfully.");
-                            revalidateMultiplePaths();
+                    revalidateMultiplePaths();
                     // //console.log("Path revalidated.");
                     return true;
                 }
@@ -638,7 +638,7 @@ export async function addproduct(categoryId, productData) {
                     // //console.log("Writing updated data to file...");
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     // //console.log("Data written successfully.");
-                            revalidateMultiplePaths();
+                    revalidateMultiplePaths();
                     // //console.log("Path revalidated.");
                     return true;
                 }
@@ -678,17 +678,81 @@ export async function addproduct(categoryId, productData) {
  * @param {boolean} isPublished - Whether the product is published.
  * @returns {boolean} Indicates whether the editing was successful.
  */
-export async function editproduct(productId, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, isFeatured, imagePaths, filePaths) {
-    // console.log('called function editproduct' + JSON.stringify());
+// Function to edit a category (no longer modifies child subcategories or products' publishing status)
+export async function editCategory(categoryId, UrlCode, Name, Description, Body, isPublished, imagePaths) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
+
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
+                if (category.id === categoryId) {
+                    category.name = Name;
+                    category.url_Id = UrlCode;
+                    category.ALBEDOdescripcion = Description;
+                    category.ALBEDOcuerpo = Body;
+                    category.isPublished = isPublished;
+                    category.imagens = imagePaths;
+                    category.FechaDeModificacion = euFormattedDateTime;
+
+                    // Write the updated JSON data to the file
+                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
+                    revalidateMultiplePaths();
+                    return true;
+                }
+
+                if (category.subCategories && category.subCategories.length > 0) {
+                    const subcategorySaved = await loopRecursive(category.subCategories);
+                    if (subcategorySaved) return true;
+                }
+            }
+            return false;
+        };
+
+        const categorySaved = await loopRecursive(categories);
+        if (!categorySaved) {
+            return false;
+        }
+        return true;
+    } catch (error) {
+        console.error("Error editing category:", error);
+        return false;
+    }
+}
+
+// Function to edit a product and propagate publishing status upwards to parent subcategories and categories
+// Function to edit a product and propagate publishing status to the root parent category
+export async function editProduct(productId, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, isFeatured, imagePaths, filePaths) {
+    try {
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories, deletedContent } = JSON.parse(data);
+
+        // Recursive function to propagate publishing status upwards to the root category
+        const propagatePublishingStatusToRoot = async (category, parentList) => {
+            // If the current category is not published but the product is, mark it as published
+            if (!category.isPublished && isPublished) {
+                category.isPublished = true;
+                category.FechaDeModificacion = euFormattedDateTime;
+            }
+
+            // Traverse up through the list of parent categories to the root and publish them
+            for (let i = parentList.length - 1; i >= 0; i--) {
+                const parentCategory = parentList[i];
+                if (!parentCategory.isPublished) {
+                    parentCategory.isPublished = true;
+                    parentCategory.FechaDeModificacion = euFormattedDateTime;
+                }
+            }
+        };
+
+        // Recursive function to traverse categories and update the product
+        const loopRecursive = async (categoryList, parentCategories = []) => {
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+                // Check if the category contains the product
                 for (let j = 0; j < category.products.length; j++) {
                     const product = category.products[j];
-                    // //console.log(productId.productId);
                     if (product.ALBEDOcodigo === productId.ALBEDOcodigo) {
                         product.url_Id = url_Id;
                         product.ALBEDOtitulo = Name;
@@ -703,105 +767,35 @@ export async function editproduct(productId, url_Id, Name, Price, Description, B
                         product.isFeatured = isFeatured;
                         product.imagens = imagePaths;
                         product.archivos = filePaths;
+
+                        // Propagate the publishing status upwards to the root category
+                        if (isPublished) {
+                            await propagatePublishingStatusToRoot(category, parentCategories);
+                        }
+
+                        // Write the updated JSON data to the file
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                                revalidateMultiplePaths();
+                        revalidateMultiplePaths();
                         return true;
                     }
                 }
+
+                // If there are subcategories, traverse them recursively, passing the current category as the parent
                 if (category.subCategories && category.subCategories.length > 0) {
-                    const subcategoryDeleted = await loopRecursive(category.subCategories);
-                    if (subcategoryDeleted) return true;
+                    const subcategoryUpdated = await loopRecursive(category.subCategories, [...parentCategories, category]);
+                    if (subcategoryUpdated) return true;
                 }
             }
             return false;
         };
-        //console.log("Starting saving process...");
-        const product = await loopRecursive(categories);
-        if (!product) {
-            //console.log("product not found.");
-            return false;
-        }
-        //console.log("product saved successfully.");
-        return true;
-    } catch (error) {
-        //console.log("Error:", error);
-        return false;
-    }
-}
-/**
- * Edits an existing category's details.
- * @param {object} categoryId - The ID of the category to be edited.
- * @param {string} Code - The new code of the category.
- * @param {string} Name - The new name of the category.
- * @param {string} Description - The new description of the category.
- * @param {string} Body - The new body of the category.
- * @param {boolean} isPublished - Whether the category is published.
- * @returns {boolean} Indicates whether the editing was successful.
- */
-export async function editCategory(categoryId, UrlCode, Name, Description, Body, isPublished, imagePaths) {
-    //console.log('called function editCategory');
-    try {
-        const data = await fs.readFile(filePath, 'utf8');
-        const { categories, deletedContent } = JSON.parse(data);
-        const loopRecursive = async (categoryList) => {
-            for (let i = 0; i < categoryList.length; i++) {
-                const category = categoryList[i];
-                if (category.id === categoryId) {
-                    // Update the category properties
-                    // category.id = Code;
-                    category.name = Name;
-                    category.url_Id = UrlCode;
-                    category.ALBEDOdescripcion = Description;
-                    category.ALBEDOcuerpo = Body;
-                    category.isPublished = isPublished;
-                    category.imagens = imagePaths;
-                    category.FechaDeModificacion = euFormattedDateTime;
-                    // Update publishing status of products in the current category
-                    await updateProductsPublishingStatus(category.products, isPublished);
-                    // If the category has children, update their publishing status recursively
-                    if (category.subCategories && category.subCategories.length > 0) {
-                        await updateChildrenPublishingStatus(category.subCategories, isPublished);
-                    }
-                    // Write the updated JSON data to the file
-                    await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                            revalidateMultiplePaths();
-                    return true;
-                }
-                if (category.subCategories && category.subCategories.length > 0) {
-                    const subcategorySaved = await loopRecursive(category.subCategories);
-                    if (subcategorySaved) return true;
-                }
-            }
-            return false;
-        };
-        const updateChildrenPublishingStatus = async (children, parentIsPublished) => {
-            for (let i = 0; i < children.length; i++) {
-                const child = children[i];
-                // Update the publishing status of the child based on the parent's publishing status
-                child.isPublished = parentIsPublished;
-                child.FechaDeModificacion = euFormattedDateTime;
-                // Update publishing status of products in the current category
-                await updateProductsPublishingStatus(child.products, parentIsPublished);
-                // If the child has children, update their publishing status recursively
-                if (child.subCategories && child.subCategories.length > 0) {
-                    await updateChildrenPublishingStatus(child.subCategories, parentIsPublished);
-                }
-            }
-        };
-        const updateProductsPublishingStatus = async (products, publishingStatus) => {
-            for (let i = 0; i < products.length; i++) {
-                const product = products[i];
-                product.isPublished = publishingStatus;
-                product.FechaDeModificacion = euFormattedDateTime;
-            }
-        };
-        const categorySaved = await loopRecursive(categories);
-        if (!categorySaved) {
+
+        const productUpdated = await loopRecursive(categories);
+        if (!productUpdated) {
             return false;
         }
         return true;
     } catch (error) {
-        console.error("Error editing category:", error);
+        console.error("Error editing product:", error);
         return false;
     }
 }
@@ -886,7 +880,7 @@ export async function duplicateProduct(category, product) {
                     };
                     category.products.push(dataObj);
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
-                            revalidateMultiplePaths();
+                    revalidateMultiplePaths();
                     return true;
                 }
                 if (category.subCategories && category.subCategories.length > 0) {
@@ -934,7 +928,7 @@ export async function getDataByUrlId(slugIds) {
                 currentData = category.subCategories;
             } else {
                 // If there are no subcategories, return the current category
-                        revalidateMultiplePaths();
+                revalidateMultiplePaths();
                 return category;
             }
         }
@@ -1018,7 +1012,7 @@ export async function updateStock(orderData) {
                     if (cartProduct) {
                         product.ALBEDOstock -= cartProduct.quantity;
                         await fs.writeFile(filePath, JSON.stringify({ categories }, null, 2));
-                                revalidateMultiplePaths();
+                        revalidateMultiplePaths();
                         return true;
                     }
                 }

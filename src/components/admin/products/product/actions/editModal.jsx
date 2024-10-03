@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { editproduct, cloudinaryUploader, saveImage, saveFile } from '@/lib/data';
+import { editProduct, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent"
 export default function EditModal({ isOpen, onClose, category, product }) {
@@ -210,7 +210,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
             const uniqueFilePaths = Array.from(new Set([...relatedFilePaths, ...productFiles]));
             //console.log(uniqueFilePaths);
-            await editproduct(product,
+            await editProduct(product,
                 newProductUrlCode,
                 newProductName,
                 newProductPrice,

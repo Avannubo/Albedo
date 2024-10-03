@@ -45,7 +45,7 @@ export default async function page() {
                                     </div>
                                     <div className="space-x-4 flex flex-row justify-center items-center">
                                         <EditProduct product={product} />
-                                        <Delete category={"none"} product={product} />
+                                        {/* <Delete category={"none"} product={product} /> */}
                                         <p className={`flex justify-center px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
                                             {product.isPublished ? "Publicado" : "Oculto"}
                                         </p>

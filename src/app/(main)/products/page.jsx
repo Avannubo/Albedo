@@ -93,9 +93,9 @@ export default function page() {
                         </div>
                     </div>
                 ) : (
-                    data && data.length > 0 ? (
+                        data && data.length > 0 ? (//.slice(1)
                         <div className='flex flex-row flex-wrap space-x-1 md:space-x-4  justify-center  mt-2 '>
-                                {data.slice(1)
+                                {data
                                     .filter(category => category.isPublished)
                                     .map((category, index) => (
                                 <Link key={index} href={`/products/${category.url_Id}`} className=" mb-4 p-2 box-shadow text-md text-gray-700 rounded-lg ">

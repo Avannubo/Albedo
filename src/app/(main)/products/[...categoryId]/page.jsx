@@ -84,7 +84,6 @@ export default function PageContent() {
                                             width={1000}
                                             height={1050}
                                         />
-
                                     </div>
                                     <div className='my-4 sm:my-0 w-full'>
                                         <h1 className='md:hidden font-extrabold text-2xl'>{productData.ALBEDOtitulo}</h1>
@@ -96,10 +95,8 @@ export default function PageContent() {
                                     </div>
                                 </div>
                             </div>
-
                             <div className='md:w-2/3 mt-0 sm:mt-4 md:mt-0'>
                                     <h1 className='font-extrabold text-xl mt-4 md:mt-0 pl-[15px] hidden md:flex'>Descripción:</h1>
-
                                 <QuillTextDisplay value={productData.ALBEDOdescripcion} />
                                 {productData.archivos.length > 0 && (
                                     <div className='flex flex-col md:pl-[15px]'>
@@ -117,15 +114,11 @@ export default function PageContent() {
                                 )}
                             </div>
                         </div>
-
                         {productData.ALBEDOcuerpo ? (
                             <h1 className='font-extrabold text-xl mt-4 md:mt-8 hidden md:flex'>Más Información:</h1>
-
                         ) : (<p></p>)
                         }
                         <HTMLPreviewComponent content={productData.ALBEDOcuerpo} />
-
-
                         {relatedProducts.length > 1 && (
                             <div className='flex flex-col my-2'>
                                 <h1 className='md:font-extrabold font-semibold text-xl mt-4 md:mt-0'>Productos relacionados que pueden ser de su interés:</h1>
@@ -164,7 +157,6 @@ export default function PageContent() {
                         <div className='flex justify-center mb-2'>
                             <div className='w-[550px] rounded-sm bg-gray-300 h-8 animate-pulse'></div>
                         </div>
-
                         <div className='flex flex-row flex-wrap items-center justify-center space-x-4 mt-4 mb-8'>
                             {Array.from({ length: 8 }).map((_, index) => (
                                 <div key={index} className="w-[250px] h-[275px] mb-2 flex flex-col p-2 rounded-lg box-shadow justify-between bg-slate-50 animate-pulse">
@@ -194,7 +186,6 @@ export default function PageContent() {
                                 </div>
                             )}
                             <div className='flex flex-col text-center justify-center my-2' dangerouslySetInnerHTML={{ __html: sanitizeHTML(pageData?.ALBEDOcuerpo) }} />
-
                             {pageData.subCategories && pageData.subCategories.length > 0 && (
                                 <>
                                     <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
@@ -216,7 +207,6 @@ export default function PageContent() {
                                     </div>
                                 </>
                             )}
-
                             {pageData.products && pageData.products.length > 0 ? (
                                 <>
                                     <hr className="h-1 mt-2 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
@@ -241,10 +231,7 @@ export default function PageContent() {
                         </div>
                     </div>
                 ))}
-
-
             </>
         </Layout>
     );
-
 }

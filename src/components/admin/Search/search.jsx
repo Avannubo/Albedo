@@ -67,10 +67,10 @@ export default function Page() {
                                     >
                                         <div className="flex flex-row space-x-4">
                                             <p className="h-auto self-center whitespace-nowrap">
-                                                {product.ALBEDOcodigo}
+                                                {product.url_Id}
                                             </p>
                                             <p className="h-auto self-center whitespace-nowrap">
-                                                ({product.ALBEDOtitulo})
+                                                {product.ALBEDOtitulo}
                                             </p>
                                         </div>
                                         <div className="space-x-4 flex flex-row justify-center items-center">

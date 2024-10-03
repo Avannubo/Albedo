@@ -47,7 +47,7 @@ export default function page() {
                 <div className='flex flex-col justify-center md:flex-row space-x-2'>
                     <Link className='self-center' href="/services/design/rf">
                         <Image
-                            src="/assets/images/rf.png"
+                            src="/assets/images/RF.png"
                             alt="Image"
                             className="self-center rounded-lg w-[80px] h-[80px]"
                             width="100"

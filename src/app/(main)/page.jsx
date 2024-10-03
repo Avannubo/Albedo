@@ -71,7 +71,7 @@ export default function Home() {
       </div>
       <div className="">
         <p className="lg:lg:text-xl md:text-lg text-md  text-md ">
-          Si desea <strong>comprar cualquiera de nuestros productos</strong>, entre en <a href="#">nuestra tienda</a>:
+          Si desea <strong>comprar cualquiera de nuestros productos</strong>, entre en <Link className='text-[#304587] font-semibold' href="/products">nuestra tienda</Link>:
         </p>
         <div className="flex justify-center my-4">
           {data ? (
@@ -264,8 +264,8 @@ export default function Home() {
               <br />
               <br />
               Estaremos a su lado en todos los procesos para llevar su idea a
-              una realidad... Desde el <a href="">diseño</a> , y el{" "}
-              <a href="">prototipado</a> a la <a href="">fabricación</a> .{" "}
+              una realidad... Desde el <Link className='text-[#304587] font-semibold' href="/services/design/">diseño</Link> , y el{" "}
+              <Link className='text-[#304587] font-semibold' href="/services/manufacturing/">prototipado</Link> a la <Link className='text-[#304587] font-semibold' href="/services/manufacturing/">fabricación</Link> .{" "}
             </p>
             <div className="flex flex-row flex-wrap justify-center my-4 ">
               <Link className='h-[150px] md:w-[250px] lg:h-auto p-4' href="/services/design/">

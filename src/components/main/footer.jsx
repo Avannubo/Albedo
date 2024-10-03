@@ -20,18 +20,18 @@ function Footer() {
               />
             </Link>
             <div className="flex flex-wrap justify-center lg:justify-start space-x-2">
-              <Link className="whitespace-nowrap text-[#304590] hover:text-[#475CAA] text-lg font-normal" href='https://www.grupo-albedo.com'>Grupo Albedo</Link>
-              <Link className="whitespace-nowrap text-[#304590] hover:text-[#475CAA] text-lg font-normal" href='https://www.albedotelecom.com'>Telecom</Link>
-              <Link className="whitespace-nowrap text-[#304590] hover:text-[#475CAA] text-lg font-normal" href='https://www.electronics.albedo.biz'>Electronics</Link>
-              <Link className="whitespace-nowrap text-[#304590] hover:text-[#475CAA] text-lg font-normal" href='https://www.promociones.albedo.biz'>Promociones</Link>
-              <Link className="whitespace-nowrap text-[#304590] hover:text-[#475CAA] text-lg font-normal" href='https://www.instruments.albedo.biz'>Instruments</Link>
+              <Link className="whitespace-nowrap text-[#304590] hover:text-[#475CAA] text-lg font-semibold" href='https://www.grupo-albedo.com'>Grupo Albedo</Link>
+              <Link className="whitespace-nowrap text-[#304590] hover:text-[#475CAA] text-lg font-semibold" href='https://www.albedotelecom.com'>Telecom</Link>
+              <Link className="whitespace-nowrap text-[#304590] hover:text-[#475CAA] text-lg font-semibold" href='https://www.electronics.albedo.biz'>Electronics</Link>
+              <Link className="whitespace-nowrap text-[#304590] hover:text-[#475CAA] text-lg font-semibold" href='https://www.promociones.albedo.biz'>Promociones</Link>
+              <Link className="whitespace-nowrap text-[#304590] hover:text-[#475CAA] text-lg font-semibold" href='https://www.instruments.albedo.biz'>Instruments</Link>
             </div>
           </div>
           {/* Copyright */}
           <div className="text-center lg:text-start w-full lg:w-[30%]">
             <p className="text-[16px] lg:text-[20px]">
               Copyright © 2004 - 2023 Albedo Design S.L. Todos los derechos reservados. Si desea comprar, lea nuestras
-              <Link href="/condiciones" className="cursor-pointer text-[#304590]">
+              <Link href="/condiciones" className="cursor-pointer font-semibold text-[#304590]">
                 Términos y Condiciones
               </Link>.
             </p>

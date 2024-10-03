@@ -22,7 +22,7 @@ export default function page() {
                         priority="true"
                     />
                     Albedo Design SL nace a principios de 2004 e inicia sus actividades en Junio de 2004. A pesar de su corta edad, en la empresa se acumulan más de 40 años de experiencia en el sector electrónico profesional.
-                    <br />Dicha experiencia procede de la larga trayectoria profesional de algunos de los socios fundadores de Albedo Design S.L.: <b className='font-bold'>Juan Beneyto</b>  y <b className='font-bold'>Juan Luis Montore</b> (<Link className='text-[#304590]' href="/about/historia/mas">más información...</Link>).
+                    <br />Dicha experiencia procede de la larga trayectoria profesional de algunos de los socios fundadores de Albedo Design S.L.: <b className='font-bold'>Juan Beneyto</b>  y <b className='font-bold'>Juan Luis Montore</b> (<Link className='text-[#304590] font-semibold'  href="/about/historia/mas">más información...</Link>).
                     <br /> <br />
                     Ambos son ingenieros de Telecomunicación de consolidada reputación profesional en el sector electrónico español. Ambos fueron socios fundadores de ICT Electronics SA, dirigiendo con exito la empresa durante 18 años.
                     <Image

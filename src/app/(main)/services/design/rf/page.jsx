@@ -10,7 +10,7 @@ export default function page() {
             </div>
             <div className='flex flex-row justify-center'>
                 <Image
-                    src="/assets/images/rf.png"
+                    src="/assets/images/RF.png"
                     alt="Image"
                     className="self-center rounded-lg"
                     width="100"

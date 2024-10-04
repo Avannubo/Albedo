@@ -8,6 +8,7 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
     const [isCopied, setIsCopied] = useState(false);
     const [paymentConfirmed, setPaymentConfirmed] = useState(false);
     const [stockWarning, setStockWarning] = useState(null);
+    const [outOfStock, setOutOfStock] = useState(false); // New state for out-of-stock status
     const [cartItems, setCartItems] = useState([]);
     const [IBAN, setIban] = useState('');
 
@@ -18,23 +19,72 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
         }
     }, []);
 
+    useEffect(() => {
+        // Function to check stock as soon as the component is loaded or when orderData changes
+        const checkStockOnLoad = async () => {
+            try {
+                const stockCheck = await checkStock(orderData);
+
+                // Check if any product has a stock lower than its quantity
+                const lowStockProducts = stockCheck.filter(product => product.availableStock < product.quantity);
+                if (lowStockProducts.length > 0) {
+                    setStockWarning(lowStockProducts);
+                }
+            } catch (error) {
+                console.error('Error during stock check:', error);
+            }
+        };
+
+        // Only run stock check when the orderData is available
+        if (orderData) {
+            checkStockOnLoad();
+        }
+    }, [orderData]);
+
 
     useEffect(() => {
+
         async function fetchIBAN() {
             try {
                 const { IBAN } = await getIBAN();
                 setIban(IBAN);
             } catch (error) {
                 console.error('Error fetching IBAN:', error);
-                // Handle error fetching IBAN data if needed
             }
         }
         fetchIBAN();
     }, []);
 
+    const hasStockAvailable = async () => {
+        const stockCheck = await checkStock(orderData);
+        if (!Array.isArray(stockCheck)) {
+            throw new Error('Stock check did not return an array');
+        }
+
+        // Filter out products that are out of stock
+        const outOfStockProducts = stockCheck.filter(product => product.availableStock === 0);
+        if (outOfStockProducts.length > 0) {
+            setStockWarning(outOfStockProducts);
+            setOutOfStock(true);  // Set out-of-stock status
+
+            // Remove out-of-stock products from the cart
+            const updatedCartItems = cartItems.filter(
+                item => !outOfStockProducts.some(product => product.ALBEDOcodigo === item.ALBEDOcodigo)
+            );
+
+            // Update the cart state and localStorage
+            setCartItems(updatedCartItems);
+            localStorage.setItem("carrito", JSON.stringify(updatedCartItems));
+
+            return false;
+        }
+
+        return true;
+    };
+
+
     const copyAccountNumber = () => {
         const accountNumber = IBAN;
-        console.log(IBAN);
         navigator.clipboard.writeText(accountNumber);
         setIsCopied(true);
         setTimeout(() => {
@@ -43,20 +93,10 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
     };
 
     const handleConfirmPayment = async () => {
-        try {
-            const stockCheck = await checkStock(orderData);
-            console.log('Stock Check:', stockCheck); // Debugging statement
-            if (!Array.isArray(stockCheck)) {
-                throw new Error('Stock check did not return an array');
-            }
-            const lowStockProducts = stockCheck.filter(product => product.availableStock < product.quantity);
-            if (lowStockProducts.length > 0) {
-                setStockWarning(lowStockProducts);
-                return;
-            }
-            saveNewOrder(orderData);
-            //localStorage.clear();
-            //setPaymentConfirmed(true);
+        try { 
+            localStorage.clear();
+            await saveNewOrder(orderData);
+            setPaymentConfirmed(true);
         } catch (error) {
             console.error('Error during stock check:', error);
         }
@@ -66,60 +106,90 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
         orderData.cartProducts.forEach(product => {
             const stockProduct = stockWarning.find(p => p.ALBEDOcodigo === product.ALBEDOcodigo);
             if (stockProduct) {
+                // Update the product quantity in the cart to available stock
                 product.quantity = stockProduct.availableStock;
-            }
-
-            if (stockProduct) {
-                // Update the product's quantity to the available stock
-                const newQuantity = stockProduct.availableStock;
-                // Update the cart item using the existing updateCartItem function
-                updateCartItem(product.ALBEDOcodigo, newQuantity);
+                updateCartItem(product.ALBEDOcodigo, stockProduct.availableStock);
             }
         });
 
-        saveNewOrder(orderData);
-        // localStorage.clear();
-        // setPaymentConfirmed(true);
-    };
-    const updateCartItem = (id, newQuantity) => {
-        // Ensure the new quantity is at least 1
-        newQuantity = Math.max(1, newQuantity);
+        // After updating the cart, check if all products now have sufficient stock
+        const outOfStockProducts = cartItems.filter(item =>
+            stockWarning.some(product => product.ALBEDOcodigo === item.ALBEDOcodigo && product.availableStock === 0)
+        );
 
+        if (outOfStockProducts.length === 0) {
+            // If no products are out of stock, reset the stock warning and allow payment to proceed
+            setStockWarning(null);
+            setOutOfStock(false);
+            // setPaymentConfirmed(true);
+        } else {
+            // If there are still out-of-stock items, keep the warning
+            setStockWarning(outOfStockProducts);
+        }
+    };
+
+
+    const updateCartItem = (id, newQuantity) => {
+        newQuantity = Math.max(1, newQuantity);
         const updatedCartItems = cartItems.map((product) => {
             if (product.ALBEDOcodigo === id) {
                 return { ...product, quantity: newQuantity };
             }
             return product;
         });
-        // console.log(product.ALBEDOstock);
         setCartItems(updatedCartItems);
         localStorage.setItem("carrito", JSON.stringify(updatedCartItems));
     };
+
+    useEffect(() => {
+        // Check stock before allowing the modal to open
+        if (isOpen) {
+            hasStockAvailable();
+        }
+    }, [isOpen, orderData, onClose]);
+
     return isOpen ? (
         <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
-            {paymentConfirmed ? (
+            {outOfStock ? (
                 <div className="w-[1000px] max-w-6xl bg-white shadow-lg rounded-md p-12 relative">
                     <div className='flex justify-center'>
-                        <svg className='w-40 h-40' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_iconCarrier">
-                                <path opacity="0.4" d="M11.9998 14H12.9998C14.0998 14 14.9998 13.1 14.9998 12V2H5.99976C4.49976 2 3.18977 2.82999 2.50977 4.04999" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                                <path d="M2 17C2 18.66 3.34 20 5 20H6C6 18.9 6.9 18 8 18C9.1 18 10 18.9 10 20H14C14 18.9 14.9 18 16 18C17.1 18 18 18.9 18 20H19C20.66 20 22 18.66 22 17V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L18.58 6.01001C18.22 5.39001 17.56 5 16.84 5H15V12C15 13.1 14.1 14 13 14H12" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                                <path d="M8 22C9.10457 22 10 21.1046 10 20C10 18.8954 9.10457 18 8 18C6.89543 18 6 18.8954 6 20C6 21.1046 6.89543 22 8 22Z" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                                <path d="M16 22C17.1046 22 18 21.1046 18 20C18 18.8954 17.1046 18 16 18C14.8954 18 14 18.8954 14 20C14 21.1046 14.8954 22 16 22Z" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                                <path d="M22 12V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L22 12Z" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                                <path d="M2 8H8" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                                <path d="M2 11H6" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                                <path d="M2 14H4" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> </g>
-                        </svg>
+                        {/* Warning SVG */}
+                    </div>
+                    <h1 className="text-3xl font-bold mb-3 text-center">Stock insuficiente</h1>
+                    <h3 className="text-xl mb-6 text-center">Los siguientes productos están fuera de stock:</h3>
+                    <ul className="mt-1.5 ml-4 list-disc list-inside">
+                        {stockWarning.map((product, index) => (
+                            <li key={index}>
+                                {product.ALBEDOtitulo} - Stock disponible: {product.availableStock}
+                            </li>
+                        ))}
+                    </ul>
+                    <div className='flex flex-row space-x-6 justify-center mt-4'>
+                        <button onClick={onClose} className='text-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'>
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            ) : paymentConfirmed ? (
+                <div className="w-[1000px] max-w-6xl bg-white shadow-lg rounded-md p-12 relative">
+                    <div className='flex justify-center'>
+                        {/* Success SVG */}
                     </div>
                     <h1 className="text-3xl font-bold mb-3 text-center">Gracias por la compra!</h1>
-                    <h3 className="text-xl font-bold mb-6 text-center">En breve le enviaremos confirmación y seguimiento de su pedido.</h3>
+                    <h3 className="text-lg font-semibold mb-2 text-center">
+                        Recibirá un correo con todos los datos del pedido
+                    </h3>
+                    <h3 className="text-lg font-semibold mb-2 text-center">UNA VEZ RECIBAMOS EL PAGO DE LA TRANSFERENCIA PROCEDEREMOS A EFECTUAR EL ENVÍO DE SUS PRODUCTOS</h3>
+                    <p className="text-lg mb-2 text-center">*En caso de no recibir la transferencia en las 72 horas hábiles posteriores a la solicitud, se cancelará el pedido automáticamente</p>
                     <div className='flex flex-row space-x-6 justify-center mt-2'>
                         <Link href="/" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'>
-                            Inicio
+                            INICIO
+                        </Link>
+                        <Link href="/products" className='text-center self-center w-auto rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa] text-nowrap' >
+                            SEGUIR COMPRANDO
                         </Link>
                         <Link href="/products" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' >
-                            Tienda
+                            CONTACTO
                         </Link>
                     </div>
                 </div>
@@ -138,28 +208,25 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
                                 <ul className="mt-1.5 ml-4 list-disc list-inside">
                                     {stockWarning.map((product, index) => (
                                         <li key={index}>
-                                            {product.ALBEDOtitulo} - Stock disponible: {product.availableStock}, Cantidad solicitada: {product.quantity}
+                                            {product.ALBEDOtitulo} - Stock disponible: {product.availableStock}
                                         </li>
                                     ))}
                                 </ul>
-                                <button
-                                    onClick={handleContinueWithUpdatedStock}
-                                    className='text-center mt-4 whitespace-nowrap self-center w-auto rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'
-                                >
-
-                                    Actualizar Stock
-                                </button>
-                            </div>
+                                <p className="mt-1.5 font-medium">Por favor, actualice el carrito para proceder con el pedido.</p>
+                                        <button onClick={handleContinueWithUpdatedStock} className='text-center self-center w-auto rounded-md py-1.5 px-4 font-medium text-blue-50 bg-[#304590] hover:bg-[#475caa]'>Actualizar Stock</button>
+                                    </div>
                         )}
-                        <h1 className="text-2xl font-bold mb-4 text-center">Transfiera la cantidad a la siguiente cuenta:</h1>
-                        <div className="flex justify-center items-center mb-8">
-                            <div className="p-4 bg-gray-100 rounded-lg">
-                                <p className="text-xl font-mono">{IBAN}</p>
+                        <div className='flex flex-col justify-start items-center text-center'>
+                            <h1 className="text-3xl font-bold mb-2 text-center">Pago por transferencia</h1>
+
+                            <div className="text-lg my-6 text-center bg-gray-100 rounded-lg w-[50%] p-2">
+                                <h2 className="text-xl font-bold">Número de cuenta</h2>
+                                <p>{IBAN}</p>
                                 <button
                                     onClick={copyAccountNumber}
-                                    className="text-center mt-2 w-full rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]"
+                                    className={`mt-4 text-center self-center w-auto rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]`}
                                 >
-                                    {isCopied ? '¡Copiado!' : 'Copiar'}
+                                    {isCopied ? 'Número de cuenta copiado!' : 'Copiar número de cuenta'}
                                 </button>
                             </div>
                         </div>
@@ -184,31 +251,24 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
                                         </tr>
                                     ))}
                                 </tbody>
-                                    <tfoot> 
-                                    <tr>
-                                        <td colSpan="3" className="text-right   font-bold">Total con Iva:</td>
-                                            <td className=" grow font-bold">{precioTotal}€</td>
-                                    </tr>
-                                </tfoot>
                             </table>
+                            <div className='flex flex-row justify-end items-end text-xl'>
+                                <p className="grow text-right font-bold">Total con Iva:</p>
+                                <p className="  font-bold">{precioTotal}€</p>
+                            </div>
                         </div>
-                        <div className="flex flex-row space-x-6 justify-center mt-8">
-                            <button
-                                onClick={handleConfirmPayment}
-                                className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]'
-                            >
-                                Confirmar Pago
-                            </button>
-                            <button
-                                onClick={onClose}
-                                className='text-center self-center w-[150px] rounded-md bg-gray-300 py-1.5 px-4 font-medium text-gray-800 hover:bg-gray-400'
-                            >
-                                    Cerrar
-                            </button>
-                        </div>
+                        <button
+                            disabled={stockWarning && stockWarning.length > 0}
+                            onClick={handleConfirmPayment}
+                            className={`text-center self-center w-auto rounded-md py-1.5 px-4 font-medium text-blue-50 
+                ${stockWarning && stockWarning.length > 0 ? 'bg-[#304590] cursor-not-allowed' : 'bg-[#304590] hover:bg-[#475caa]'}`}
+                        >
+                            Confirmar pago
+                        </button>
+
                     </div>
                 </div>
             )}
-        </div >
+        </div>
     ) : null;
 }

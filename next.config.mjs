@@ -13,9 +13,16 @@ const nextConfig = {
     images: {
         domains: ['blog.albedo.biz'],
     },
+    reactStrictMode: false,
+
     experimental: {
         serverActions: {
-            bodySizeLimit: '127mb',
+            bodySizeLimit: '10MB',
+        },
+    },
+    api: {
+        bodyParser: {
+            sizeLimit: '10mb',
         },
     },
 };

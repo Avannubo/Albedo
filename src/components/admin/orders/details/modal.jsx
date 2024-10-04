@@ -25,7 +25,7 @@ export default function modal({ isOpen, onClose, order }) {
                           <div className='flex flex-row'>
                             <div className='w-[70px] h-auto my-2'>
                               <img
-                                src={product.imagen}
+                                src={product.imagens[0]}
                                 alt="product-image"
                                 className="object-cover rounded-xl"
                                 width={1000}

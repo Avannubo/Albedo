@@ -191,7 +191,7 @@ export default function AddModal({ isOpen, onClose, categoryId }) {
             setNewProductDeliveryTime(0);
             setSelectedImages([]);
             setRelatedFiles([]);
-            onClose();
+            // onClose();
         } catch (error) {
             console.error("Error adding product:", error);
         }

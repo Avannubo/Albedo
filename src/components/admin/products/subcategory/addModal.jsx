@@ -5,7 +5,6 @@ import React from 'react';
 import { addSubcategory, saveImage } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent"
-
 export default function AddSubcategory({ isOpen, onClose, categoryId }) {
     //console.log(categoryId);
     const [newCategoryName, setNewCategoryName] = useState('');
@@ -16,7 +15,6 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
     const [descriptionError, setDescriptionError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
-
     const handleInputChangeUrlCode = (event) => {
         setNewCategoryUrlCode(event.target.value);
     };
@@ -39,7 +37,6 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
             const uploadPromises = selectedImages.map(image => {
                 return new Promise((resolveImage, rejectImage) => {
                     const reader = new FileReader();
-
                     reader.onload = async () => {
                         const base64Image = reader.result;
                         try {
@@ -52,16 +49,13 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
                             rejectImage(error);
                         }
                     };
-
                     reader.onerror = error => {
                         console.error(`Error reading image file: ${error}`);
                         rejectImage(error);
                     };
-
                     reader.readAsDataURL(image);
                 });
             });
-
             Promise.all(uploadPromises)
                 .then(() => {
                     //console.log('All images uploaded successfully:', imagePaths);
@@ -73,7 +67,6 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
                 });
         });
     };
-
     const handleAddCategory = async () => {
         // Check if any of the required fields are empty 
         setUrlCodeError(!newCategoryUrlCode.trim());
@@ -83,7 +76,6 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
         if (!newCategoryUrlCode.trim() || !newCategoryName.trim() || !newCategoryDescription.trim()) {
             return;
         }
-
         // Check if the urlId exists in subCategories
         const urlIdExists = categoryId.subCategories.some(category => category.url_Id === newCategoryUrlCode);
         // If urlId exists, setUrlCodeError and return
@@ -109,11 +101,10 @@ export default function AddSubcategory({ isOpen, onClose, categoryId }) {
             setNewCategoryUrlCode('');
             setUrlCodeError(false);
             setSelectedImages([]);
-            onClose();
+            // onClose();
         } catch (error) {
             console.error("Error uploading images:", error);
         }
-
     };
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">

@@ -123,7 +123,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
             uniqueImagePaths
         );
         setLoading(false);
-        onClose();
+        // onClose();
     };
     return isOpen ? (
         <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">

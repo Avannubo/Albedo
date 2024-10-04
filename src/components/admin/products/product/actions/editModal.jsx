@@ -4,7 +4,6 @@ import { editProduct, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent"
 export default function EditModal({ isOpen, onClose, category, product }) {
-    
     const [loading, setLoading] = useState(false);
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);
@@ -23,10 +22,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     const [nameError, setNameError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
-    
-    
     useEffect(() => {
-        
         if (product) {
             setNewProductName(product.ALBEDOtitulo);
             setNewProductUrlCode(product.url_Id);
@@ -38,15 +34,10 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
             setNewCategoryIsPublished(product.isPublished);
             setNewCategoryIsFeatured(product.isFeatured);
-            setProductImages(product.imagens);
-            setProductFiles(product.archivos);
             setSelectedImages([]); // Reset selected images
             setSelectedFiles([]);  // Reset selected files
         }
-        
-
     }, [product]);
-    
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -87,7 +78,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     };
     const handleDeleteImage = async (index) => {
         try {
-            const currentImages = [...productImages]; 
+            const currentImages = [...productImages];
             currentImages.splice(index, 1);
             //console.log(currentImages);
             setSelectedImages([]);
@@ -151,7 +142,6 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 });
         });
     };
-
     const uploadRelatedFiles = () => {
         return new Promise((resolve, reject) => {
             const filesPaths = [];
@@ -210,17 +200,15 @@ export default function EditModal({ isOpen, onClose, category, product }) {
         //     setUrlCodeError(true);
         //     return;
         // }
-        
         setLoading(true);
         try {
-            
             // Upload images and related files
             const imagePaths = await uploadImages();
             const relatedFilePaths = await uploadRelatedFiles();
             // console.log(relatedFilePaths);
             // Combine new and existing image paths and file paths
-            const uniqueImagePaths = Array.from(new Set([...imagePaths, ...productImages]));
-            const uniqueFilePaths = Array.from(new Set([...relatedFilePaths, ...productFiles]));
+            const uniqueImagePaths = Array.from(new Set([...productImages, ...imagePaths]));
+            const uniqueFilePaths = Array.from(new Set([...productFiles, ...relatedFilePaths]));
             //console.log(uniqueFilePaths);
             await editProduct(product,
                 newProductUrlCode,
@@ -235,6 +223,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 newCategoryIsFeatured,
                 uniqueImagePaths,
                 uniqueFilePaths);
+            // Reset the form fields
             setNewCategoryIsFeatured("");
             setNewCategoryIsPublished(false);
             setNewProductDeliveryTime(0);
@@ -245,16 +234,14 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setNewProductPrice(0);
             setNewProductUrlCode("");
             setNewProductName("");
-            // setProductImages(uniqueImagePaths);
-            // setProductFiles(uniqueFilePaths);
-            setLoading(false);
+            // Set the updated images and files (this will cause a re-render)
+            setProductImages(uniqueImagePaths);
+            setProductFiles(uniqueFilePaths);
+            // Clear error and loading states
             setNameError(false);
             setDescriptionError(false);
             setUrlCodeError(false);
-            setNewProductMinStock(newProductMinStock)
-
-            // console.log("btn edit prod: " + JSON.stringify(product));
-
+            setLoading(false);
             // onClose();
         } catch (error) {
             console.error("Error uploading images:", error);
@@ -351,7 +338,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                 </div>
                                 <div className='flex  flex-row justify-start flex-wrap '>
                                     {productImages && productImages.length > 0 && (
-                                        productImages.reverse().map((imagePath, index) => (
+                                        productImages.map((imagePath, index) => (
                                             <div key={index} className="relative mr-4">
                                                 {/* {console.log(`Image Path Retrived [${index}]: `, imagePath)} */}
                                                 <img

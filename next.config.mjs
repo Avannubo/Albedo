@@ -9,16 +9,15 @@ const nextConfig = {
             },
         ]
     },
-    
+
     images: {
-        domains: ['res.cloudinary.com'], // Add the Cloudinary domain
-        domains: ['blog.albedo.biz'], // Add the Cloudinary domain
+        domains: ['blog.albedo.biz'],
     },
     experimental: {
         serverActions: {
-            bodySizeLimit: '1024mb', // maximum limit is `4.5MB/4MB` for Vercel
+            bodySizeLimit: '127mb',
         },
-    }, 
+    },
 };
 
 

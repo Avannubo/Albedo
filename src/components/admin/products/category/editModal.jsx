@@ -109,7 +109,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
         setLoading(true);
         let imagePaths = [];
         imagePaths = await uploadImages();
-        const allImagePaths = [...imagePaths, ...categoryImages];
+        const allImagePaths = [...categoryImages, ...imagePaths];
         const uniqueImagePaths = Array.from(new Set(allImagePaths));
         if (uniqueImagePaths.length > 0) {
             // Only upload images if new ones are selected

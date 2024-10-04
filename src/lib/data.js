@@ -1400,9 +1400,7 @@ function getSecKey() {
         throw new Error("Stored secret key not found in environment variables.");
     }
 }
-export async function saveImage(base64Image) {
-    const imageId = `${Date.now()}_${Math.floor(Math.random() * 1e9)}`;
-
+export async function saveImage(base64Image, originalFileName) {
     // Extract the extension from the base64 data (e.g., image/jpeg -> jpeg)
     const matches = base64Image.match(/^data:image\/(\w+);base64,/);
     if (!matches || matches.length < 2) {
@@ -1410,8 +1408,9 @@ export async function saveImage(base64Image) {
     }
     const imageExtension = matches[1]; // This will be something like 'jpeg', 'png', etc.
 
-    // Define your local path with the dynamic extension
-    const localImagePath = path.join('./public/assets/images/', `${imageId}.${imageExtension}`);
+    // Ensure the original file name has the correct extension
+    const fileNameWithoutExtension = originalFileName.replace(/\s+/g, "_");
+    const localImagePath = path.join('./public/assets/images/', `${fileNameWithoutExtension}`);
 
     try {
         // Remove the data URI prefix
@@ -1426,7 +1425,7 @@ export async function saveImage(base64Image) {
         console.log('Image uploaded to server successfully.');
 
         // Return the URL of the uploaded image
-        const imageUrl = `http://blog.albedo.biz/images/${imageId}.${imageExtension}`; // Adjust as needed
+        const imageUrl = `http://blog.albedo.biz/images/${fileNameWithoutExtension}`; // Adjust as needed
         return imageUrl;
 
     } catch (error) {
@@ -1434,6 +1433,7 @@ export async function saveImage(base64Image) {
         throw error; // Re-throw the error to propagate it back
     }
 }
+
 export async function saveFile(fileData, filePath) {
     try {
         const base64Data = fileData.replace(/^data:\w+\/\w+;base64,/, '');

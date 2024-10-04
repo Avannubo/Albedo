@@ -203,7 +203,7 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
                                 onClick={onClose}
                                 className='text-center self-center w-[150px] rounded-md bg-gray-300 py-1.5 px-4 font-medium text-gray-800 hover:bg-gray-400'
                             >
-                                Cancelar
+                                    Cerrar
                             </button>
                         </div>
                     </div>

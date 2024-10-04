@@ -213,7 +213,7 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                                         Guardar
                                     </button>
                                     <button onClick={onClose} className="w-[150px] bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded">
-                                        Cancelar
+                                        Cerrar
                                     </button>
                                 </div>
                             </div>

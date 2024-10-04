@@ -4,7 +4,6 @@ import { editProduct, saveImage, saveFile } from '@/lib/data';
 import QuillEditor from "@/components/admin/products/QuillEditor"
 import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent"
 export default function EditModal({ isOpen, onClose, category, product }) {
-    // console.log("btn edit prod: " + JSON.stringify(product));
     
     const [loading, setLoading] = useState(false);
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
@@ -122,7 +121,10 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     reader.onload = async () => {
                         const base64Image = reader.result;
                         try {
-                            const ImageLink = await saveImage(base64Image);
+                            // Get the original file name from the image object
+                            const originalFileName = image.name;
+                            // Pass both the base64 image and original file name to saveImage
+                            const ImageLink = await saveImage(base64Image, originalFileName);
                             imagePaths.push(ImageLink);
                             console.log(`Image saved successfully: ${ImageLink}`);
                             resolveImage();
@@ -135,12 +137,12 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                         console.error(`Error reading image file: ${error}`);
                         rejectImage(error);
                     };
-                    reader.readAsDataURL(image);
+                    reader.readAsDataURL(image); // Convert the image file to base64
                 });
             });
             Promise.all(uploadPromises)
                 .then(() => {
-                    //console.log('All images uploaded successfully:', imagePaths);
+                    // All images uploaded successfully, resolve the image paths
                     resolve(imagePaths);
                 })
                 .catch(error => {
@@ -149,6 +151,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 });
         });
     };
+
     const uploadRelatedFiles = () => {
         return new Promise((resolve, reject) => {
             const filesPaths = [];
@@ -242,13 +245,16 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setNewProductPrice(0);
             setNewProductUrlCode("");
             setNewProductName("");
-            setProductImages(uniqueImagePaths);
-            setProductFiles(uniqueFilePaths);
+            // setProductImages(uniqueImagePaths);
+            // setProductFiles(uniqueFilePaths);
             setLoading(false);
             setNameError(false);
             setDescriptionError(false);
             setUrlCodeError(false);
             setNewProductMinStock(newProductMinStock)
+
+            // console.log("btn edit prod: " + JSON.stringify(product));
+
             // onClose();
         } catch (error) {
             console.error("Error uploading images:", error);
@@ -351,7 +357,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                                 <img
                                                     src={imagePath}
                                                     alt={`Product Image ${index + 1}`}
-                                                    className="h-[100px] w-[150px]  object-cover rounded-lg mb-2 border-2 border-gray-200"
+                                                    className="h-[100px] w-[150px]  object-contain rounded-lg mb-2 border-2 border-gray-200"
                                                     width="350"
                                                     height="80"
                                                 />
@@ -400,7 +406,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                                         Guardar
                                     </button>
                                     <button onClick={onClose} className="w-[150px] bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded">
-                                        Cancelar
+                                        Cerrar
                                     </button>
                                 </div>
                                 {(descriptionError || urlCodeError || nameError) && <span className="text-red-500 italic text-xs">¡Hay algunos errores en el formulario!</span>}

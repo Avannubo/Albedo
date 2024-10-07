@@ -3,13 +3,8 @@ import { promises as fs } from 'fs';
 import jwt from 'jsonwebtoken';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
-import nodemailer from 'nodemailer';
-import { exec } from 'child_process';
-import util from 'util';
+import nodemailer from 'nodemailer'; 
 import path from 'path';  // Import the path module
-
-// Promisify the exec function to use it as a promise
-// const execPromise = util.promisify(exec);
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 var filteredProductList = [];
@@ -17,7 +12,6 @@ const filePath = './public/data/Products.json';
 const filePathActiveOrders = './public/data/ClientOrdersActive.json';
 const filePathInactiveOrders = './public/data/ClientOrdersInactive.json';
 const filePathParameters = './public/data/Parameters.json';
-
 const transporter = nodemailer.createTransport({
     host: "smtp.serviciodecorreo.es",
     port: 465,
@@ -27,7 +21,6 @@ const transporter = nodemailer.createTransport({
         pass: process.env.PASS,
     },
 });
-
 async function revalidateMultiplePaths() {
     const paths = [
         '/admin/list',
@@ -37,7 +30,6 @@ async function revalidateMultiplePaths() {
         '/admin/publicados',
         '/admin/destacados',
     ];
-
     // Revalidate all paths concurrently using Promise.all()
     try {
         await Promise.all(paths.map((path) => revalidatePath(path)));
@@ -46,8 +38,6 @@ async function revalidateMultiplePaths() {
         console.error('Error revalidating paths:', error);
     }
 }
-
-
 export async function requireContent() {
     // if (!cachedContent) {
     const res = await fs.readFile(filePath, 'utf8');
@@ -82,7 +72,6 @@ export async function getListProductsFiltered() {
         // console.log(filteredProductList);
         if (filteredProductList.length == 0) {
             revalidateMultiplePaths();
-
             return categories;
         } else {
             revalidateMultiplePaths();
@@ -156,7 +145,6 @@ export async function getFeaturedProducts() {
             return []; // Return an empty array if no products need refilling
         }
         revalidateMultiplePaths();
-
         return productList; // Return the array of products needing refilling
     } catch (error) {
         console.log("Error:", error.message);
@@ -252,20 +240,16 @@ export async function searchFilter(searchTerm, searchBy) {
             return false;  // Default case if searchBy doesn't match
         }).forEach((product) => {
             // console.log(product);
-
             searchedList.push(product);
         });
         // revalidatePath("/admin/buscador")
         // console.log(searchedList);
-
         return searchedList;  // Return the array of filtered products
     } catch (error) {
         console.error("Error:", error);
         return [];  // Return an empty array if there was an error
     }
 }
-
-
 // Function to return the filtered list on the client side
 export async function searchFilterList() {
     console.log(searchedList);
@@ -389,13 +373,11 @@ export async function deleteElement(categoryId, product) {
     try {
         const data = await fs.readFile(filePath, 'utf8'); // Load file data
         const { categories } = JSON.parse(data); // Parse JSON
-
         // Recursive function to delete a category
         const deleteCategoryRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
                 //console.log(`Checking category with ID: ${category.id}`); // Debug log
-
                 // Check if the category matches the categoryId
                 if (category.id == categoryId.id) {
                     // Remove the category from the array
@@ -406,7 +388,6 @@ export async function deleteElement(categoryId, product) {
                     revalidatePath("/admin/list");
                     return true; // Category successfully deleted
                 }
-
                 // If the category has subcategories, check them recursively
                 if (category.subCategories && category.subCategories.length > 0) {
                     const subcategoryDeleted = await deleteCategoryRecursive(category.subCategories);
@@ -415,12 +396,10 @@ export async function deleteElement(categoryId, product) {
             }
             return false; // Category not found
         };
-
         // Recursive function to delete a product
         const deleteProductRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
-
                 // Check if the category has products
                 if (category.products) {
                     for (let j = 0; j < category.products.length; j++) {
@@ -434,7 +413,6 @@ export async function deleteElement(categoryId, product) {
                         }
                     }
                 }
-
                 // If the category has subcategories, check them recursively for products
                 if (category.subCategories && category.subCategories.length > 0) {
                     const subcategoryDeleted = await deleteProductRecursive(category.subCategories);
@@ -443,7 +421,6 @@ export async function deleteElement(categoryId, product) {
             }
             return false; // Product not found
         };
-
         // Determine whether we are deleting a category or a product
         if (categoryId !== "none") {
             const categoryDeleted = await deleteCategoryRecursive(categories);
@@ -467,8 +444,6 @@ export async function deleteElement(categoryId, product) {
         return false;
     }
 }
-
-
 /**
  * Adds a new category with provided details to the product data.
  * @param {string} Code - The code of the new category.
@@ -683,7 +658,6 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-
         const loopRecursive = async (categoryList) => {
             for (let i = 0; i < categoryList.length; i++) {
                 const category = categoryList[i];
@@ -695,13 +669,11 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
                     category.isPublished = isPublished;
                     category.imagens = imagePaths;
                     category.FechaDeModificacion = euFormattedDateTime;
-
                     // Write the updated JSON data to the file
                     await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                     revalidateMultiplePaths();
                     return true;
                 }
-
                 if (category.subCategories && category.subCategories.length > 0) {
                     const subcategorySaved = await loopRecursive(category.subCategories);
                     if (subcategorySaved) return true;
@@ -709,7 +681,6 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
             }
             return false;
         };
-
         const categorySaved = await loopRecursive(categories);
         if (!categorySaved) {
             return false;
@@ -720,14 +691,12 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
         return false;
     }
 }
-
 // Function to edit a product and propagate publishing status upwards to parent subcategories and categories
 // Function to edit a product and propagate publishing status to the root parent category
 export async function editProduct(productId, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, isFeatured, imagePaths, filePaths) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
-
         // Recursive function to propagate publishing status upwards to the root category
         const propagatePublishingStatusToRoot = async (category, parentList) => {
             // If the current category is not published but the product is, mark it as published
@@ -735,7 +704,6 @@ export async function editProduct(productId, url_Id, Name, Price, Description, B
                 category.isPublished = true;
                 category.FechaDeModificacion = euFormattedDateTime;
             }
-
             // Traverse up through the list of parent categories to the root and publish them
             for (let i = parentList.length - 1; i >= 0; i--) {
                 const parentCategory = parentList[i];
@@ -745,7 +713,6 @@ export async function editProduct(productId, url_Id, Name, Price, Description, B
                 }
             }
         };
-
         // Recursive function to traverse categories and update the product
         const loopRecursive = async (categoryList, parentCategories = []) => {
             for (let i = 0; i < categoryList.length; i++) {
@@ -767,19 +734,16 @@ export async function editProduct(productId, url_Id, Name, Price, Description, B
                         product.isFeatured = isFeatured;
                         product.imagens = imagePaths;
                         product.archivos = filePaths;
-
                         // Propagate the publishing status upwards to the root category
                         if (isPublished) {
                             await propagatePublishingStatusToRoot(category, parentCategories);
                         }
-
                         // Write the updated JSON data to the file
                         await fs.writeFile(filePath, JSON.stringify({ categories, deletedContent }));
                         revalidateMultiplePaths();
                         return true;
                     }
                 }
-
                 // If there are subcategories, traverse them recursively, passing the current category as the parent
                 if (category.subCategories && category.subCategories.length > 0) {
                     const subcategoryUpdated = await loopRecursive(category.subCategories, [...parentCategories, category]);
@@ -788,7 +752,6 @@ export async function editProduct(productId, url_Id, Name, Price, Description, B
             }
             return false;
         };
-
         const productUpdated = await loopRecursive(categories);
         if (!productUpdated) {
             return false;
@@ -1080,9 +1043,7 @@ export async function sendEmail(orderData) {
         if (!orderData || !orderData.userInfo || !orderData.cartProducts || !orderData.selectedShipping) {
             throw new Error("Invalid order data");
         }
-
         const { userInfo: customerDetails, cartProducts: products, selectedShipping: shippingDetails } = orderData;
-
         // Build product details in HTML
         // <td>${product.ALBEDOdescripcion.replace(/<[^>]*>?/gm, '')}</td>
         let productsHTML = '';
@@ -1095,7 +1056,6 @@ export async function sendEmail(orderData) {
                     <td>${product.quantity}</td>
                 </tr>`;
         });
-
         // Compose HTML email content for owner and client
         const emailHTML = (isOwner) => `
             <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
@@ -1144,7 +1104,6 @@ export async function sendEmail(orderData) {
                 ` : ''}
             </div>
         `;
-
         // Define mail options
         const mailOptionsOwner = {
             from: process.env.SENDER,
@@ -1152,19 +1111,16 @@ export async function sendEmail(orderData) {
             subject: "Detalles del pedido realizado",
             html: emailHTML(true),
         };
-
         const mailOptionsClient = {
             from: process.env.SENDER,
             to: customerDetails.email,
             subject: "Detalles del pedido",
             html: emailHTML(false),
         };
-
         // Send emails
         const infoOwner = await transporter.sendMail(mailOptionsOwner);
         const infoClient = await transporter.sendMail(mailOptionsClient);
         console.log("Email Sent:", infoOwner.response, infoClient.response);
-
         return true;
     } catch (error) {
         console.error("Error sending email:", error.message);
@@ -1174,7 +1130,6 @@ export async function sendEmail(orderData) {
         return false;
     }
 }
-
 //functions to /admin/orders
 /**
  * Retrieves all orders.
@@ -1405,19 +1360,6 @@ export async function login(userInput) {
         return { error: 'Error during login. Please try again.' };
     }
 }
-function generateToken() {
-    const secretKey = getSecKey();
-    const token = jwt.sign({ user: 'username' }, secretKey, { expiresIn: '1h' });
-    return token;
-}
-function getSecKey() {
-    const key = process.env.SECRET_KEY;
-    if (key) {
-        return key;
-    } else {
-        throw new Error("Stored secret key not found in environment variables.");
-    }
-}
 export async function saveImage(base64Image, originalFileName) {
     // Extract the extension from the base64 data (e.g., image/jpeg -> jpeg)
     const matches = base64Image.match(/^data:image\/(\w+);base64,/);
@@ -1425,33 +1367,27 @@ export async function saveImage(base64Image, originalFileName) {
         throw new Error('Invalid image format');
     }
     const imageExtension = matches[1]; // This will be something like 'jpeg', 'png', etc.
-
     // Ensure the original file name has the correct extension
     const fileNameWithoutExtension = originalFileName.replace(/\s+/g, "_");
     const localImagePath = path.join('./public/assets/images/', `${fileNameWithoutExtension}`);
-
     try {
         // Remove the data URI prefix
         const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
         // Create a buffer from the base64 string
         const buffer = Buffer.from(base64Data, 'base64');
-
         // Write the buffer to the file locally
         await fs.writeFile(localImagePath, buffer);
         console.log('Image saved locally.');
         // await execPromise(command);
         console.log('Image uploaded to server successfully.');
-
         // Return the URL of the uploaded image
         const imageUrl = `http://blog.albedo.biz/images/${fileNameWithoutExtension}`; // Adjust as needed
         return imageUrl;
-
     } catch (error) {
         console.error('Error saving or uploading image:', error);
         throw error; // Re-throw the error to propagate it back
     }
 }
-
 export async function saveFile(fileData, filePath) {
     try {
         const base64Data = fileData.replace(/^data:\w+\/\w+;base64,/, '');
@@ -1487,4 +1423,20 @@ export async function deleteImages(imagePathsToDelete) {
             .then(() => resolve())
             .catch(error => reject(error));
     });
+} 
+
+
+
+function generateToken() {
+    const secretKey = getSecKey();
+    const token = jwt.sign({ user: 'username' }, secretKey, { expiresIn: '1h' });
+    return token;
+}
+function getSecKey() {
+    const key = process.env.SECRET_KEY;
+    if (key) {
+        return key;
+    } else {
+        throw new Error("Stored secret key not found in environment variables.");
+    }
 }

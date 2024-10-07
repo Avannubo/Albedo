@@ -76,7 +76,7 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
         }, 4000);
     };
     const handleConfirmPayment = async () => {
-        try { 
+        try {
             localStorage.clear();
             await saveNewOrder(orderData);
             setPaymentConfirmed(true);
@@ -117,7 +117,7 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
         });
         setCartItems(updatedCartItems);
         localStorage.setItem("carrito", JSON.stringify(updatedCartItems));
-    }; 
+    };
     return isOpen ? (
         <div className="fixed inset-0 p-6 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
             {outOfStock ? (
@@ -158,7 +158,7 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
                         <Link href="/products" className='text-center self-center w-auto rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa] text-nowrap' >
                             SEGUIR COMPRANDO
                         </Link>
-                            <Link href="/about/contacto" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' >
+                        <Link href="/about/contacto" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' >
                             CONTACTO
                         </Link>
                     </div>
@@ -183,8 +183,8 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
                                     ))}
                                 </ul>
                                 <p className="mt-1.5 font-medium">Por favor, actualice el carrito para proceder con el pedido.</p>
-                                        <button onClick={handleContinueWithUpdatedStock} className='text-center self-center w-auto rounded-md py-1.5 px-4 font-medium text-blue-50 bg-[#304590] hover:bg-[#475caa]'>Actualizar Stock</button>
-                                    </div>
+                                <button onClick={handleContinueWithUpdatedStock} className='text-center self-center w-auto rounded-md py-1.5 px-4 font-medium text-blue-50 bg-[#304590] hover:bg-[#475caa]'>Actualizar Stock</button>
+                            </div>
                         )}
                         <div className='flex flex-col justify-start items-center text-center'>
                             <h1 className="text-3xl font-bold mb-2 text-center">Pago por transferencia</h1>
@@ -229,8 +229,7 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
                         <button
                             disabled={stockWarning && stockWarning.length > 0}
                             onClick={handleConfirmPayment}
-                            className={`text-center self-center w-auto rounded-md py-1.5 px-4 font-medium text-blue-50 
-                ${stockWarning && stockWarning.length > 0 ? 'bg-[#304590] cursor-not-allowed' : 'bg-[#304590] hover:bg-[#475caa]'}`}
+                            className={`text-center self-center w-auto rounded-md py-1.5 px-4 font-medium text-blue-50 ${stockWarning && stockWarning.length > 0 ? 'bg-[#304590] cursor-not-allowed' : 'bg-[#304590] hover:bg-[#475caa]'}`}
                         >
                             Confirmar pago
                         </button>

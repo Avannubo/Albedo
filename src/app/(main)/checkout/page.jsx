@@ -7,7 +7,6 @@ import ModalTPV from "@/components/main/checkout/modalTPV";
 import { getParameters } from '@/lib/data';
 // import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import axios from 'axios';
-
 export default function Page() {
   const [parameters, setParameters] = useState(null);
   const [selectedShipping, setSelectedShipping] = useState({ method: null, price: null });
@@ -33,11 +32,16 @@ export default function Page() {
   });
   const [errors, setErrors] = useState({}); // Define errors state
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalTPVOpen, setIsModalTPVOpen] = useState(false);
   const [orderData, setOrderData] = useState({});
   const [totalPedido, setTotalPedido] = useState();
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+  const toggleModalTPV = () => {
+    setIsModalTPVOpen(!isModalTPVOpen);
+  };
+
   const handleShippingSelect = (shippingOption, shipingPrice) => {
     setSelectedShipping({ method: shippingOption, price: shipingPrice });
     const total = shipingPrice + subTotal;
@@ -83,7 +87,7 @@ export default function Page() {
   }, []);
   useEffect(() => {
     if (parameters) {
-     // console.log(parameters.EnvioEspaña);
+      // console.log(parameters.EnvioEspaña);
     }
   }, [parameters]);
   useEffect(() => {
@@ -148,23 +152,7 @@ export default function Page() {
     if (Object.keys(newErrors).length > 0) {
       console.log(newErrors);
       return;
-    }
-
-    // if (!executeRecaptcha) {
-    //   console.log("not avalilable to execute recaptcha");
-    //   return;
-    // }
-
-    // const gRecaptchaToken = await executeRecaptcha('inquirySubmit');
-
-    // const response = await axios({
-    //   method: 'post',
-    //   url: '',
-    //   data: {
-    //     orderData,
-    //     gRecaptchaToken
-    //   }
-    // })
+    } 
     setOrderData({
       userInfo,
       cartProducts,
@@ -173,11 +161,11 @@ export default function Page() {
       totalPedido,
       invoice: userInfo.invoice
     });
-   //  console.log(orderData);
+    //  console.log(orderData);
     if (selectedPayment === 'Transferencia') {
       toggleModal();
-    } else if (selectedShipping === 'Visa-Mastercard') {
-      toggleModalVisaMastercard();
+    } else if (selectedPayment === 'Visa-Mastercard') {
+      toggleModalTPV();  
     }
   };
   return (
@@ -471,7 +459,7 @@ export default function Page() {
                 </div>
                 <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] cursor-pointer ${selectedPayment === 'Visa-Mastercard' ? 'bg-[#304590] hover:bg-[#475caa] text-blue-50' : 'bg-white'}`} onClick={() => handlePaymentSelect('Visa-Mastercard')} >
                   Visa-Mastercard
-                </div> 
+                </div>
                 {/* <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  cursor-not-allowed ${selectedPayment === 'Bizum' ? '' : 'bg-grey-300'}`} >
                   onClick={() => handlePaymentSelect('Bizum')} 
                   Bizum
@@ -511,19 +499,12 @@ export default function Page() {
                     <button type="submit" className="mt-2 w-full rounded-md bg-[#304590] py-1.5 font-medium text-blue-50 hover:bg-[#475caa]">
                       Proceder al pago
                     </button>
-                  </form> 
-                  
-                 
- 
+                  </form>
                 </div>
               </div>
             </div>
-          
-           <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} precioTotal={((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)} />
-                 
-                 
-                  <ModalTPV isOpen={isModalTPVOpen} onClose={toggleModalTPV} orderData={orderData} precioTotal={((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)} />
-                  
+            <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} precioTotal={((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)} />
+            <ModalTPV isOpen={isModalTPVOpen} onClose={toggleModalTPV} orderData={orderData} precioTotal={((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)} />
           </div>
         </div>
       </div>

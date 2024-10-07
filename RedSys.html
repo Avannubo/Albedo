@@ -1,0 +1,84 @@
+<html>
+<head>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/tripledes.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac-sha256.min.js"></script>
+    <script>
+        function des_encrypt(message, key) {
+            let ivArray = [0, 0, 0, 0, 0, 0, 0, 0];
+            let IV = ivArray.map(item => String.fromCharCode(item)).join("");
+            console.log("IV", IV)
+            let encode_str = CryptoJS.TripleDES.encrypt(message, key, {
+                iv: CryptoJS.enc.Utf8.parse(IV),
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.ZeroPadding
+            });
+            return encode_str.toString();
+        }
+        function stringBase64Encode(input) {
+            let utf8Input = CryptoJS.enc.Utf8.parse(input);
+            return CryptoJS.enc.Base64.stringify(utf8Input);
+        }
+        function bytesBase64Encode(input) {
+            return CryptoJS.enc.Base64.stringify(input);
+        }
+        function base64Decode(input) {
+            //Decodifica el Base64 y devuelve el array de bytes directamente
+            return CryptoJS.enc.Base64.parse(input);
+        }
+        function calcularFirma() {
+            let merchantOrder = "123456789";
+            console.log(merchantOrder);
+            let data = {
+                "DS_MERCHANT_AMOUNT": "145",
+                "DS_MERCHANT_CURRENCY": "978",
+                "DS_MERCHANT_CVV2": "123",
+                "DS_MERCHANT_EXPIRYDATE": "1512",
+                "DS_MERCHANT_MERCHANTCODE": "999008881",
+                "DS_MERCHANT_ORDER": merchantOrder,
+                "DS_MERCHANT_PAN": "1111111111111117",
+                "DS_MERCHANT_TERMINAL": "1",
+                "DS_MERCHANT_TRANSACTIONTYPE": "0"
+            }
+            console.log(data);
+            let encodedParameters = stringBase64Encode(JSON.stringify(data));
+            console.log("base64", encodedParameters)
+            //No hay que pasar la firma a base64 puesto que ya est� en base64
+            //Lo que hay que hacer es decodificarla de bas64 y tal cual pasarla como clave para encriptar el N� de pedido
+            //La encriptaci�n tiene que ser con ZeroPadding
+            let encodedSignature = "sq7HjrUOBfKmC576ILgskD5srU870gJ7"; //Valor de la clave en el portal de administraci�n
+            let encodedSignatureDES = des_encrypt(merchantOrder, base64Decode(encodedSignature)); //Se cifra el n�mero de pedido con la clave para obtener la clave de operaci�n
+            console.log("Clave de la operaci�n:", encodedSignatureDES);
+            let encodedDsSignature = CryptoJS.HmacSHA256(encodedParameters, base64Decode(encodedSignatureDES)); //Se calcula el HMAC de los par�metros en Base64 con la clave de operaci�n
+            console.log("HMAC", encodedDsSignature);
+            let dsSignature = CryptoJS.enc.Base64.stringify(encodedDsSignature); //Se pasa a Base 64
+            console.log("HMAC base64", dsSignature)
+            let encodedRequest = { "Ds_MerchantParameters": encodedParameters, "Ds_Signature": dsSignature, "Ds_SignatureVersion": "HMAC_SHA256_V1" }
+            console.log(encodedRequest)
+            //Esto es para validarlo contra test por redirecci�n. A ellos no les sirve
+            document.pago.datos.value = JSON.stringify(data);
+            document.pago.Ds_MerchantParameters.value = encodedParameters;
+            document.pago.Ds_Signature.value = dsSignature;
+        }
+    </script>
+</head>
+<body>
+    <a href="javascript:calcularFirma()">Calcular Firma</a>
+    <form name="pago" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST">
+        Datos en claro:
+        <textarea name="datos" cols="80" rows="5">
+</textarea></br>
+        Datos en Base64:
+        <textarea name="Ds_MerchantParameters" cols="80" rows="5">
+</textarea></br>
+        Firma calculada:
+        <input type="text" name="Ds_Signature" value="" size="100" /></br>
+        Versi�n Firma:
+        <input type="text" name="Ds_SignatureVersion" value="HMAC_SHA256_V1" /></br>
+        <input type="submit" value="Probar contra test" />
+    </form>
+</body>
+</html>

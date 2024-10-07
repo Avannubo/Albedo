@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import CartItem from "@/components/main/products/cartItem";
 import Layout from "@/app/(main)/WebLayout";
 import ModalTransference from "@/components/main/checkout/modalTransference";
+import ModalTPV from "@/components/main/checkout/modalTPV";
 import { getParameters } from '@/lib/data';
 // import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import axios from 'axios';
@@ -45,7 +46,7 @@ export default function Page() {
   };
   const handlePaymentSelect = (paymentMethod) => {
     setSelectedPayment(paymentMethod);
-   // console.log("Selected payment method:", paymentMethod);
+    console.log("Selected payment method:", paymentMethod);
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -175,6 +176,8 @@ export default function Page() {
    //  console.log(orderData);
     if (selectedPayment === 'Transferencia') {
       toggleModal();
+    } else if (selectedShipping === 'Visa-Mastercard') {
+      toggleModalVisaMastercard();
     }
   };
   return (
@@ -466,14 +469,13 @@ export default function Page() {
                 <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedPayment === 'Transferencia' ? 'bg-[#304590] hover:bg-[#475caa] text-blue-50' : 'bg-white'}`} onClick={() => handlePaymentSelect('Transferencia')}>
                   Transferencia
                 </div>
-                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] cursor-not-allowed ${selectedPayment === 'Visa-Mastercard' ? '' : 'bg-grey-300'}`} >
+                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] cursor-pointer ${selectedPayment === 'Visa-Mastercard' ? 'bg-[#304590] hover:bg-[#475caa] text-blue-50' : 'bg-white'}`} onClick={() => handlePaymentSelect('Visa-Mastercard')} >
                   Visa-Mastercard
-                </div>
-                {/* onClick={() => handlePaymentSelect('Visa-Mastercard')} */}
-                <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  cursor-not-allowed ${selectedPayment === 'Bizum' ? '' : 'bg-grey-300'}`} >
-                  {/* onClick={() => handlePaymentSelect('Bizum')} */}
+                </div> 
+                {/* <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  cursor-not-allowed ${selectedPayment === 'Bizum' ? '' : 'bg-grey-300'}`} >
+                  onClick={() => handlePaymentSelect('Bizum')} 
                   Bizum
-                </div>
+                </div> */}
               </div>
               {errors.payment && (
                 <p className="text-red-500 text-xs italic py-2">{errors.payment}</p>
@@ -509,11 +511,19 @@ export default function Page() {
                     <button type="submit" className="mt-2 w-full rounded-md bg-[#304590] py-1.5 font-medium text-blue-50 hover:bg-[#475caa]">
                       Proceder al pago
                     </button>
-                  </form> <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} precioTotal={((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)} />
-                  {/* orderData={orderData}  */}
+                  </form> 
+                  
+                 
+ 
                 </div>
               </div>
             </div>
+          
+           <ModalTransference isOpen={isModalOpen} onClose={toggleModal} orderData={orderData} precioTotal={((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)} />
+                 
+                 
+                  <ModalTPV isOpen={isModalTPVOpen} onClose={toggleModalTPV} orderData={orderData} precioTotal={((subTotal * (parameters?.IVA / 100)) + subTotal + selectedShipping.price).toFixed(2)} />
+                  
           </div>
         </div>
       </div>

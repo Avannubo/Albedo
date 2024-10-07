@@ -30,7 +30,7 @@ function Footer() {
           {/* Copyright */}
           <div className="text-center lg:text-start w-full lg:w-[30%]">
             <p className="text-[16px] lg:text-[20px]">
-              Copyright © 2004 - 2023 Albedo Design S.L. Todos los derechos reservados. Si desea comprar, lea nuestras
+              Copyright © 2004 - 2023 Albedo Design S.L. Todos los derechos reservados. Si desea comprar, lea nuestros
               <Link href="/condiciones" className="cursor-pointer font-semibold text-[#304590]">
                 Términos y Condiciones
               </Link>.

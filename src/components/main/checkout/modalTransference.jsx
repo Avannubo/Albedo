@@ -188,7 +188,7 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
                         <Link href="/products" className='text-center self-center w-auto rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa] text-nowrap' >
                             SEGUIR COMPRANDO
                         </Link>
-                        <Link href="/products" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' >
+                            <Link href="/about/contacto" className='text-center self-center w-[150px] rounded-md bg-[#304590] py-1.5 px-4 font-medium text-blue-50 hover:bg-[#475caa]' >
                             CONTACTO
                         </Link>
                     </div>

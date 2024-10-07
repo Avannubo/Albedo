@@ -5,6 +5,8 @@ import QuillEditor from "@/components/admin/products/QuillEditor"
 import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent"
 export default function EditModal({ isOpen, onClose, category, product }) {
     const [loading, setLoading] = useState(false);
+    const [saveMessageVisible, setSaveMessageVisible] = useState(false); // New state for saving message
+
     const [newProductName, setNewProductName] = useState(product.ALBEDOtitulo);
     const [newProductUrlCode, setNewProductUrlCode] = useState(product.url_Id);
     const [newProductPrice, setNewProductPrice] = useState(product.ALBEDOprecio);
@@ -21,23 +23,7 @@ export default function EditModal({ isOpen, onClose, category, product }) {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [nameError, setNameError] = useState(false);
     const [urlCodeError, setUrlCodeError] = useState(false);
-    const [descriptionError, setDescriptionError] = useState(false);
-    useEffect(() => {
-        if (product) {
-            setNewProductName(product.ALBEDOtitulo);
-            setNewProductUrlCode(product.url_Id);
-            setNewProductPrice(product.ALBEDOprecio);
-            setNewProductDescription(product.ALBEDOdescripcion);
-            setNewProductBody(product.ALBEDOcuerpo || '');
-            setNewProductStock(product.ALBEDOstock);
-            setNewProductMinStock(product.ALBEDOstock_minimo);
-            setNewProductDeliveryTime(product.ALBEDOplazo_entrega);
-            setNewCategoryIsPublished(product.isPublished);
-            setNewCategoryIsFeatured(product.isFeatured);
-            setSelectedImages([]); // Reset selected images
-            setSelectedFiles([]);  // Reset selected files
-        }
-    }, [product]);
+    const [descriptionError, setDescriptionError] = useState(false); 
     const handleInputChangeProduct = (event) => {
         setNewProductName(event.target.value);
     };
@@ -224,16 +210,16 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                 uniqueImagePaths,
                 uniqueFilePaths);
             // Reset the form fields
-            setNewCategoryIsFeatured("");
-            setNewCategoryIsPublished(false);
-            setNewProductDeliveryTime(0);
-            setNewProductMinStock(0);
-            setNewProductStock(0);
-            setNewProductBody("");
-            setNewProductDescription("");
-            setNewProductPrice(0);
-            setNewProductUrlCode("");
-            setNewProductName("");
+            setNewProductName(newProductName);
+            setNewProductUrlCode(newProductUrlCode);
+            setNewProductPrice(newProductPrice);
+            setNewProductDescription(newProductDescription);
+            setNewProductBody(newProductBody || '');
+            setNewProductStock(newProductStock);
+            setNewProductMinStock(newProductMinStock);
+            setNewProductDeliveryTime(newProductDeliveryTime);
+            setNewCategoryIsPublished(newCategoryIsPublished);
+            setNewCategoryIsFeatured(newCategoryIsFeatured);
             // Set the updated images and files (this will cause a re-render)
             setProductImages(uniqueImagePaths);
             setProductFiles(uniqueFilePaths);
@@ -242,6 +228,12 @@ export default function EditModal({ isOpen, onClose, category, product }) {
             setDescriptionError(false);
             setUrlCodeError(false);
             setLoading(false);
+
+            // Trigger the save message
+            setSaveMessageVisible(true);
+            setTimeout(() => setSaveMessageVisible(false), 3000); // Hide after 3 seconds
+
+
             // onClose();
         } catch (error) {
             console.error("Error uploading images:", error);
@@ -402,6 +394,21 @@ export default function EditModal({ isOpen, onClose, category, product }) {
                     </div>
                 </div>
             </div>
+            {/* Save message */}
+            {saveMessageVisible && (
+                <div style={{
+                    position: 'fixed',
+                    top: '20px',
+                    right: '45%',
+                    backgroundColor: '#31AD83',
+                    color: 'white',
+                    padding: '10px 20px',
+                    borderRadius: '5px',
+                    zIndex: 1000
+                }}>
+                    Producto actualizado!
+                </div>
+            )}
         </div >
     ) : null;
 }

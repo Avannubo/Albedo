@@ -6,6 +6,8 @@ import HTMLEditorComponent from "@/components/admin/products/HTMLEditorComponent
 
 import Image from 'next/image';
 export default function EditModal({ isOpen, onClose, categoryId }) {
+    const [saveMessageVisible, setSaveMessageVisible] = useState(false); // New state for saving message
+
     const [newCategoryName, setNewCategoryName] = useState('');
     const [newCategoryUrlId, setNewCategoryUrlId] = useState('');
     const [newCategoryDescription, setNewCategoryDescription] = useState('');
@@ -123,6 +125,9 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
             uniqueImagePaths
         );
         setLoading(false);
+        setSaveMessageVisible(true);
+        setTimeout(() => setSaveMessageVisible(false), 3000); // Hide after 3 seconds
+
         // onClose();
     };
     return isOpen ? (
@@ -221,6 +226,21 @@ export default function EditModal({ isOpen, onClose, categoryId }) {
                     </div>
                 </div>
             </div>
+            {/* Save message */}
+            {saveMessageVisible && (
+                <div style={{
+                    position: 'fixed',
+                    top: '20px',
+                    right: '45%',
+                    backgroundColor: '#31AD83',
+                    color: 'white',
+                    padding: '10px 20px',
+                    borderRadius: '5px',
+                    zIndex: 1000
+                }}>
+                    Contenido actualizado!
+                </div>
+            )} 
         </div>
     ) : null;
 }

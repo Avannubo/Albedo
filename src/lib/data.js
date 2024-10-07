@@ -1080,74 +1080,91 @@ export async function sendEmail(orderData) {
         if (!orderData || !orderData.userInfo || !orderData.cartProducts || !orderData.selectedShipping) {
             throw new Error("Invalid order data");
         }
+
         const { userInfo: customerDetails, cartProducts: products, selectedShipping: shippingDetails } = orderData;
-        let productsText = '';
+
+        // Build product details in HTML
+        // <td>${product.ALBEDOdescripcion.replace(/<[^>]*>?/gm, '')}</td>
+        let productsHTML = '';
         products.forEach(product => {
-            productsText += `
-                Código del Producto: ${product.ALBEDOcodigo}
-                Título del Producto: ${product.ALBEDOtitulo}
-                Descripción: ${product.ALBEDOdescripcion.replace(/<[^>]*>?/gm, '')}
-                Precio: ${product.ALBEDOprecio} EUR
-                Cantidad Pedida: ${product.quantity} 
-                \n`;
+            productsHTML += `
+                <tr>
+                    <td>${product.ALBEDOcodigo}</td>
+                    <td>${product.ALBEDOtitulo}</td>
+                    <td>${product.ALBEDOprecio} EUR</td>
+                    <td>${product.quantity}</td>
+                </tr>`;
         });
-        // Compose email text for owner and client
-        const emailTextOwner = `
-            Información del Pedido:
-            Detalles del Cliente:
-            - Nombre: ${customerDetails.firstName}
-            - Apellidos: ${customerDetails.lastName}
-            - DNI: ${customerDetails.dni}
-            - Fecha de Nacimiento: ${customerDetails.dateOfBirth || '[No proporcionado]'}
-            - Empresa: ${customerDetails.company}
-            - CIF: ${customerDetails.cif || '[No proporcionado]'}
-            - Número de Teléfono: ${customerDetails.phoneNumber}
-            - Correo Electrónico: ${customerDetails.email}
-            - Dirección: ${customerDetails.address}
-            - Ciudad: ${customerDetails.city}
-            - Provincia: ${customerDetails.province}
-            - Código Postal: ${customerDetails.zipCode}
-            - Solicitud de Factura: ${customerDetails.invoice ? 'Sí' : 'No'}
-            Detalles del Pedido:
-            ${productsText}
-            Información de Envío:
-            - Método de Envío: ${shippingDetails.method}
-            - Precio del Envío: ${shippingDetails.price} EUR
-            Información de Pago:
-            - Método de Pago: ${orderData.selectedPayment}
-            Monto Total del Pedido: ${orderData.totalPedido} EUR
-            Factura Requerida: ${orderData.invoice ? 'Sí' : 'No'}
+
+        // Compose HTML email content for owner and client
+        const emailHTML = (isOwner) => `
+            <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+                <h2>Detalles del Pedido</h2>
+                <h3>Detalles del Cliente</h3>
+                <p>
+                    <strong>Nombre:</strong> ${customerDetails.firstName} ${customerDetails.lastName} <br>
+                    <strong>DNI:</strong> ${customerDetails.dni} <br>
+                    <strong>Fecha de Nacimiento:</strong> ${customerDetails.dateOfBirth || '[No proporcionado]'} <br>
+                    <strong>Empresa:</strong> ${customerDetails.company || '[No proporcionado]'} <br>
+                    <strong>CIF:</strong> ${customerDetails.cif || '[No proporcionado]'} <br>
+                    <strong>Número de Teléfono:</strong> ${customerDetails.phoneNumber} <br>
+                    <strong>Correo Electrónico:</strong> ${customerDetails.email} <br>
+                    <strong>Dirección:</strong> ${customerDetails.address}, ${customerDetails.city}, ${customerDetails.province} <br>
+                    <strong>Código Postal:</strong> ${customerDetails.zipCode} <br>
+                    <strong>Solicitud de Factura:</strong> ${customerDetails.invoice ? 'Sí' : 'No'} <br>
+                </p>
+                <h3>Detalles del Pedido</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">Código del Producto</th>
+                            <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">Título del Producto</th>
+                            <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">Precio</th>
+                            <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${productsHTML}
+                    </tbody>
+                </table>
+                <h3>Información de Envío</h3>
+                <p>
+                    <strong>Método de Envío:</strong> ${shippingDetails.method} <br>
+                    <strong>Precio del Envío:</strong> ${shippingDetails.price} EUR <br>
+                </p>
+                <h3>Información de Pago</h3>
+                <p>
+                    <strong>Método de Pago:</strong> ${orderData.selectedPayment} <br>
+                    <strong>Monto Total del Pedido:</strong> ${orderData.totalPedido.toFixed(2) } EUR <br>
+                    <strong>Factura Requerida:</strong> ${orderData.invoice ? 'Sí' : 'No'} <br>
+                </p>
+                ${isOwner ? `
+                    <h3>Detalles Adicionales del Cliente</h3>
+                    <p><strong>Solicitado por:</strong> ${customerDetails.firstName} ${customerDetails.lastName}</p>
+                ` : ''}
+            </div>
         `;
-        const emailTextClient = `
-            Información del Pedido: 
-            ${productsText}
-            Información de Envío:
-            - Método de Envío: ${shippingDetails.method}
-            - Precio del Envío: ${shippingDetails.price} EUR
-            Información de Pago:
-            - Método de Pago: ${orderData.selectedPayment}
-            Monto Total del Pedido: ${orderData.totalPedido} EUR
-            Factura Requerida: ${orderData.invoice ? 'Sí' : 'No'}
-        `;
-        console.log(process.env.SENDER);
-        console.log(customerDetails.email);
+
         // Define mail options
         const mailOptionsOwner = {
             from: process.env.SENDER,
             to: process.env.SENDER,
             subject: "Detalles del pedido realizado",
-            text: emailTextOwner,
+            html: emailHTML(true),
         };
+
         const mailOptionsClient = {
             from: process.env.SENDER,
             to: customerDetails.email,
             subject: "Detalles del pedido",
-            text: emailTextClient,
+            html: emailHTML(false),
         };
+
         // Send emails
         const infoOwner = await transporter.sendMail(mailOptionsOwner);
         const infoClient = await transporter.sendMail(mailOptionsClient);
         console.log("Email Sent:", infoOwner.response, infoClient.response);
+
         return true;
     } catch (error) {
         console.error("Error sending email:", error.message);
@@ -1157,6 +1174,7 @@ export async function sendEmail(orderData) {
         return false;
     }
 }
+
 //functions to /admin/orders
 /**
  * Retrieves all orders.

@@ -51,8 +51,6 @@ export default function OrdersStateCount() {
                 <div className="flex flex-col items-start justify-between space-y-2 mt-2"> 
                     <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div>
                     <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div>
-                    <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div>
-                    <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div>
                     <div className="h-5 w-56 bg-gray-200 rounded-full animate-pulse"></div> 
                 </div>
             ) : (

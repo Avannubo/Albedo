@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 import jwt from 'jsonwebtoken';
 import { revalidatePath } from 'next/cache';
 import { readFile, writeFile } from 'fs/promises';
-import nodemailer from 'nodemailer'; 
+import nodemailer from 'nodemailer';
 import path from 'path';  // Import the path module
 const currentdate = new Date();
 const euFormattedDateTime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + (currentdate.getHours()) + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
@@ -1095,7 +1095,7 @@ export async function sendEmail(orderData) {
                 <h3>Información de Pago</h3>
                 <p>
                     <strong>Método de Pago:</strong> ${orderData.selectedPayment} <br>
-                    <strong>Monto Total del Pedido:</strong> ${orderData.totalPedido.toFixed(2) } EUR <br>
+                    <strong>Monto Total del Pedido:</strong> ${orderData.totalPedido.toFixed(2)} EUR <br>
                     <strong>Factura Requerida:</strong> ${orderData.invoice ? 'Sí' : 'No'} <br>
                 </p>
                 ${isOwner ? `
@@ -1423,7 +1423,7 @@ export async function deleteImages(imagePathsToDelete) {
             .then(() => resolve())
             .catch(error => reject(error));
     });
-} 
+}
 
 
 

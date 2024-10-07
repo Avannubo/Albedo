@@ -41,7 +41,6 @@ export default function Page() {
   const toggleModalTPV = () => {
     setIsModalTPVOpen(!isModalTPVOpen);
   };
-
   const handleShippingSelect = (shippingOption, shipingPrice) => {
     setSelectedShipping({ method: shippingOption, price: shipingPrice });
     const total = shipingPrice + subTotal;
@@ -152,8 +151,16 @@ export default function Page() {
     if (Object.keys(newErrors).length > 0) {
       console.log(newErrors);
       return;
-    } 
+    }
+    function generateOrderId() {
+      const timestamp = Date.now().toString(); // Current timestamp
+      const randomNum = Math.floor(Math.random() * 10000); // Random number
+      return `${timestamp}-${randomNum}`; // Combine them to form OrderId
+    }
+    // Usage
+    const orderId = generateOrderId();
     setOrderData({
+      orderId,
       userInfo,
       cartProducts,
       selectedShipping,
@@ -165,7 +172,7 @@ export default function Page() {
     if (selectedPayment === 'Transferencia') {
       toggleModal();
     } else if (selectedPayment === 'Visa-Mastercard') {
-      toggleModalTPV();  
+      toggleModalTPV();
     }
   };
   return (

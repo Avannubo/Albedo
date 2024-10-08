@@ -26,7 +26,7 @@ export default function Delete({ category, product }) {
                     />
                 </svg>
             </div>
-            <h1 className=''>Eliminar</h1>
+            <h1 className='select-none'>Eliminar</h1>
             <Modal isOpen={isModalOpen} onClose={toggleModal} category={category} product={product} />
         </div>
     );

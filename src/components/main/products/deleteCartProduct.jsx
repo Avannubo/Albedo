@@ -20,7 +20,7 @@ export default function deleteCartProduct() {
           />
         </svg>
       </div>
-      <h1>Eliminar</h1>
+      <h1 className="select-none">Eliminar</h1>
     </div>
   );
 }

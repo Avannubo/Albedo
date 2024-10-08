@@ -78,7 +78,7 @@ export default function PageContent() {
                                 <div className='md:top-18 w-full md:sticky flex flex-col sm:flex-row md:flex-col sm:space-x-2 md:space-x-0'>
                                     <div className='flex flex-col w-full'>
                                         <img
-                                            className={`md:h-[300px] sm:h-[230px] h-[250px] md:w-[550px] object-cover rounded-lg`}
+                                            className={`md:h-[300px] sm:h-[230px] h-auto md:w-[550px] object-contain rounded-lg`}
                                             src={productData.imagens[0]}
                                             alt={`Image ${productData.imagens[0]}`}
                                             width={1000}

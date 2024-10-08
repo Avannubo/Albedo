@@ -27,7 +27,7 @@ export default async function page() {
             <Layout>
                 <div className="flex flex-row justify-between mb-8">
                     <div className="flex flex-row">
-                        <h1 className="font-semibold text-4xl">Todas las categorías</h1>
+                        <h1 className="font-semibold text-4xl">Todas las categorías y productos</h1>
                         <AddNewCategory />
                     </div>
                     <div className="flex flex-row space-x-4">
@@ -77,12 +77,12 @@ function List({ category }) {
                                     {product.url_Id} : {product.ALBEDOtitulo}
                                 </p>
                                 <div className=" flex flex-row h-auto w-full self-center whitespace-nowrap space-x-2">
-                                    <div className='flex flex-row h-auto w-full'>
+                                    <div className='flex flex-row h-auto w-full select-none'>
                                         <svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.5 6.3C6.5 5.30589 7.30589 4.5 8.3 4.5H14.7C15.6941 4.5 16.5 5.30589 16.5 6.3V11.5H8.3C7.30589 11.5 6.5 10.6941 6.5 9.7V6.3Z" stroke="#44403C"></path> <path d="M4.5 13.3C4.5 12.3059 5.30589 11.5 6.3 11.5H12.5V19.5H6.3C5.30589 19.5 4.5 18.6941 4.5 17.7V13.3Z" stroke="#44403C"></path> <path d="M12.5 11.5H18.7C19.6941 11.5 20.5 12.3059 20.5 13.3V17.7C20.5 18.6941 19.6941 19.5 18.7 19.5H12.5V11.5Z" stroke="#44403C"></path> <path d="M16.5 11.5V14.5" stroke="#44403C" strokeLinecap="round"></path> <path d="M8.5 11.5V14.5" stroke="#44403C" strokeLinecap="round"></path> <path d="M11.5 4.5V7.5" stroke="#44403C" strokeLinecap="round"></path> </g></svg>
                                         {product.ALBEDOstock}
                                     </div>
-                                    <p>/</p>
-                                    <div className='flex flex-row h-auto w-full'>
+                                    <p className="select-none">/</p>
+                                    <div className='flex flex-row h-auto w-full select-none'>
                                         <svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 8H13" stroke="#44403C" strokeLinecap="round"></path> <path d="M5 12H11" stroke="#44403C" strokeLinecap="round"></path> <path d="M5 16H9" stroke="#44403C" strokeLinecap="round"></path> <path d="M19 18L22 15M19 18L16 15M19 18L19 6" stroke="#44403C"></path> </g></svg>
                                         {product.ALBEDOstock_minimo}
                                     </div>

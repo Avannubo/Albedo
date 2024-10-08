@@ -152,10 +152,9 @@ export default function Page() {
       console.log(newErrors);
       return;
     }
-    function generateOrderId() {
-      const timestamp = Date.now().toString(); // Current timestamp
+    function generateOrderId() { 
       const randomNum = Math.floor(Math.random() * 10000); // Random number
-      return `${timestamp}-${randomNum}`; // Combine them to form OrderId
+      return `${randomNum}`; // Combine them to form OrderId
     }
     // Usage
     const orderId = generateOrderId();

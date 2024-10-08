@@ -20,7 +20,7 @@ export default function duplicate({ category, product }) {
                         </g>
                     </g>
                 </svg>
-                <h1>Duplicar</h1>
+                <h1 className="select-none">Duplicar</h1>
             </div>
         </>
     )

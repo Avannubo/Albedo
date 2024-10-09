@@ -5,6 +5,8 @@ import Layout from "@/app/(main)/WebLayout";
 import ModalTransference from "@/components/main/checkout/modalTransference";
 import ModalTPV from "@/components/main/checkout/modalTPV";
 import { getParameters } from '@/lib/data';
+import Cookies from 'js-cookie';
+
 // import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import axios from 'axios';
 export default function Page() {
@@ -166,6 +168,7 @@ export default function Page() {
       selectedPayment,
       totalPedido,
       invoice: userInfo.invoice
+      
     });
     //  console.log(orderData);
     if (selectedPayment === 'Transferencia') {
@@ -464,7 +467,7 @@ export default function Page() {
                   Transferencia
                 </div>
                 <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] cursor-pointer ${selectedPayment === 'Visa-Mastercard' ? 'bg-[#304590] hover:bg-[#475caa] text-blue-50' : 'bg-white'}`} onClick={() => handlePaymentSelect('Visa-Mastercard')} >
-                  Visa-Mastercard
+                  Visa-Mastercard / Bizum
                 </div>
                 {/* <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  cursor-not-allowed ${selectedPayment === 'Bizum' ? '' : 'bg-grey-300'}`} >
                   onClick={() => handlePaymentSelect('Bizum')} 

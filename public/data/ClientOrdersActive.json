@@ -1,1 +1,67 @@
-{"ClientOrders":[{"userInfo":{"firstName":"kjh","lastName":"khjk","dni":"khjk","dateOfBirth":"","company":"hj","cif":"","phoneNumber":"567567567","email":"arjun.singh@avannubo.com","address":"567657","city":"56756","province":"7567","zipCode":"567567","acceptedTerms":true,"invoice":true,"payment":"","shipping":""},"cartProducts":[{"ALBEDOcodigo":"indoorNav","url_Id":"001","ALBEDOtitulo":"IndoorNav Basic","ALBEDOprecio":7200,"ALBEDOdescripcion":"<p>Pack con lo necesario para crear y mantener su sistema de guía accesible en su museo o exposición. Con 20 balizas.</p>","isPublished":true,"ALBEDOcuerpo":"<p>Sistema de comunicación accesible que proporciona información sobre la localización del usuario, los objetos próximos y sus características, el espacio donde se ubican y los posibles recorridos a realizar.</p><p><br></p><p>El Sistema se compone de:</p><ul><li>Un subsistema de gestión de contenidos (CMS por sus siglas en inglés).</li><li>Balizas Bluetooth, beacons, para identificar ubicaciones y objetos. Pueden funcionar en el exterior, por su nivel de estanqueidad.</li><li>Una aplicación web para a la gestión de balizas y usuarios.</li><li>Una aplicación móvil de usuario en iOS y Android (audioguía).</li></ul><p><br></p><p>El Servicio Básico comprende:</p><ul><li>20 balizas Bluetooth con una garantía de dos años.</li><li>Almacenamiento en la nube durante el primer año de servicio.</li><li>Mantenimiento correctivo y adaptativo durante el primer año de servicio.</li><li>Manual de instalación y uso.</li></ul><p><br></p><p>El sistema de gestión de contenidos puede almacenar la información en diferentes idiomas, con lenguaje comprensivo según formación, edad y capacidades cognitivas, con audio descripción para personas con discapacidad visual, vídeo en lengua de signos y realidad aumentada. Cada entidad decide el nivel al que quiere llegar en función de los recursos dedicados a la creación del itinerario. Por supuesto, los contenidos siempre pueden ser actualizados.</p><p>La aplicación móvil se descarga de Google Play o de Apple Store. La interfaz se adapta a las capacidades del usuario. Proporciona información de todos los elementos de la exposición con el formato más adecuado para el usuario. Da indicaciones de navegación de la visita y recomienda los posibles itinerarios.</p><p>Nota: en el mantenimiento no se incluye el cambio de pilas de las balizas.</p>","ALBEDOstock_minimo":"5","ALBEDOstock":4,"imagens":["/assets/images/caracteristicas-energia-geotermica-660x400-1.jpeg","/assets/images/1.jpg","/assets/images/imagen2.jpg"],"archivos":[],"ALBEDOplazo_entrega":4,"FechaDeModificacion":"9/7/2024 18:0:16","quantity":4}],"selectedShipping":{"method":"internacional","price":14},"selectedPayment":"Transferencia","totalPedido":28814,"invoice":true,"orderState":"Confirmado","createdAt":"10/7/2024 11:15:39"}]}
+{
+  "ClientOrders": [
+    {
+      "orderState": "Pendiente",
+      "createdAt": "9/10/2024 13:22:24"
+    },
+    {
+      "orderState": "Pendiente",
+      "createdAt": "9/10/2024 13:19:41"
+    },
+    {
+      "orderState": "Pendiente",
+      "createdAt": "9/10/2024 13:19:9"
+    },
+    {
+      "userInfo": {
+        "firstName": "kjh",
+        "lastName": "khjk",
+        "dni": "khjk",
+        "dateOfBirth": "",
+        "company": "hj",
+        "cif": "",
+        "phoneNumber": "567567567",
+        "email": "arjun.singh@avannubo.com",
+        "address": "567657",
+        "city": "56756",
+        "province": "7567",
+        "zipCode": "567567",
+        "acceptedTerms": true,
+        "invoice": true,
+        "payment": "",
+        "shipping": ""
+      },
+      "cartProducts": [
+        {
+          "ALBEDOcodigo": "indoorNav",
+          "url_Id": "001",
+          "ALBEDOtitulo": "IndoorNav Basic",
+          "ALBEDOprecio": 7200,
+          "ALBEDOdescripcion": "<p>Pack con lo necesario para crear y mantener su sistema de guía accesible en su museo o exposición. Con 20 balizas.</p>",
+          "isPublished": true,
+          "ALBEDOcuerpo": "<p>Sistema de comunicación accesible que proporciona información sobre la localización del usuario, los objetos próximos y sus características, el espacio donde se ubican y los posibles recorridos a realizar.</p><p><br></p><p>El Sistema se compone de:</p><ul><li>Un subsistema de gestión de contenidos (CMS por sus siglas en inglés).</li><li>Balizas Bluetooth, beacons, para identificar ubicaciones y objetos. Pueden funcionar en el exterior, por su nivel de estanqueidad.</li><li>Una aplicación web para a la gestión de balizas y usuarios.</li><li>Una aplicación móvil de usuario en iOS y Android (audioguía).</li></ul><p><br></p><p>El Servicio Básico comprende:</p><ul><li>20 balizas Bluetooth con una garantía de dos años.</li><li>Almacenamiento en la nube durante el primer año de servicio.</li><li>Mantenimiento correctivo y adaptativo durante el primer año de servicio.</li><li>Manual de instalación y uso.</li></ul><p><br></p><p>El sistema de gestión de contenidos puede almacenar la información en diferentes idiomas, con lenguaje comprensivo según formación, edad y capacidades cognitivas, con audio descripción para personas con discapacidad visual, vídeo en lengua de signos y realidad aumentada. Cada entidad decide el nivel al que quiere llegar en función de los recursos dedicados a la creación del itinerario. Por supuesto, los contenidos siempre pueden ser actualizados.</p><p>La aplicación móvil se descarga de Google Play o de Apple Store. La interfaz se adapta a las capacidades del usuario. Proporciona información de todos los elementos de la exposición con el formato más adecuado para el usuario. Da indicaciones de navegación de la visita y recomienda los posibles itinerarios.</p><p>Nota: en el mantenimiento no se incluye el cambio de pilas de las balizas.</p>",
+          "ALBEDOstock_minimo": "5",
+          "ALBEDOstock": 4,
+          "imagens": [
+            "/assets/images/caracteristicas-energia-geotermica-660x400-1.jpeg",
+            "/assets/images/1.jpg",
+            "/assets/images/imagen2.jpg"
+          ],
+          "archivos": [],
+          "ALBEDOplazo_entrega": 4,
+          "FechaDeModificacion": "9/7/2024 18:0:16",
+          "quantity": 4
+        }
+      ],
+      "selectedShipping": {
+        "method": "internacional",
+        "price": 14
+      },
+      "selectedPayment": "Transferencia",
+      "totalPedido": 28814,
+      "invoice": true,
+      "orderState": "Confirmado",
+      "createdAt": "10/7/2024 11:15:39"
+    }
+  ]
+}

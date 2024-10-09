@@ -60,7 +60,7 @@ export default function CartItem() {
                 <img
                   src={product.imagens[0]}
                   alt="product-image"
-                  className="w-[160px] h-[100px] object-cover rounded-lg"
+                  className="w-[160px] h-[100px] object-contain rounded-lg"
                   priority="true"
                 />
                 <div className="flex flex-col justify-between items-end ">

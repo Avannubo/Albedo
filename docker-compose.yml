@@ -9,5 +9,9 @@ services:
       - "32769:3000"
     volumes:
       - ./public:/app/public
+      - ./public/data:/app/public/data
+      - ./public/assets:/app/public/assets
+      - ./public/assets/archivos:/app/public/archivos
+      - ./public/assets/images:/app/public/images
       - ./next-cache:/app/.next/cache
 

@@ -142,11 +142,9 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
         try {
             calcularFirma();
             document.forms["pago"].submit();
-            if (paymentStatus === 'OK') {
                 console.log(orderData);
                 saveNewOrder(orderData);  // Save the order
                 localStorage.clear();  // Clear the cart
-            }
         } catch (error) {
             setPaymentStatus('KO');
             console.error("Error processing payment:", error);
@@ -168,7 +166,8 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
                         {/* <Link href="/" className="mt-4 inline-block text-blue-600 hover:underline">
                             Ver resumen del pedido
                         </Link> */}
-                        <h2 className="text-2xl mt-4 font-bold">Resumen del Pedido</h2>
+                            <h2 className="text-2xl mt-4 font-bold">El resumen del pedido llegará a tu correo electrónico.</h2>
+                            {/*
                         <div className="">
                             <table className="w-full table-auto border-collapse">
                                 <thead>
@@ -190,7 +189,7 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </div> */}
                         {/* <p className="mt-4 text-right font-bold border p-1">Total con IVA*: {precioTotal}€</p> */}
                         <div className='flex flex-row justify-center space-x-4'>
                             <Link href="/" className="mt-4 bg-[#304590] hover:bg-[#475caa] text-white px-4 py-2 rounded">

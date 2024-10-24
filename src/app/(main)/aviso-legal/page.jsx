@@ -34,7 +34,7 @@ export default function page() {
                 </div>
                 <div className='mb-[40px]'>
                     <h2 className='text-2xl mb-2'>
-                        2.Condiciones de uso
+                        Aviso Legal
                     </h2>
                     <h3 className='text-xl mt-4'>
                         2.1.Contenidos

@@ -5,8 +5,10 @@ export default function page() {
     return (
         <Layout>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700 mt-10" />
-            <div className="flex justify-start my-2">
-                <h1 className="text-2xl font-bold">Términos y Condiciones</h1>
+            <div className="flex justify-start ">
+                <h2 className='text-4xl font-bold mb-2'>
+                    Términos y Condiciones
+                </h2> 
             </div>
             <div className='text-xl space-y-4 mb-4'>
                 <div className='text-justify'>

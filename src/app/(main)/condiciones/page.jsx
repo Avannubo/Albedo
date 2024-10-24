@@ -5,88 +5,48 @@ export default function page() {
     return (
         <Layout>
             <hr className="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700 mt-10" />
-            <div className="flex justify-center my-4">
-                <h1 className="text-2xl font-bold text-center">Comprar en ALBEDO Design S.L.</h1>
+            <div className="flex justify-start my-2">
+                <h1 className="text-2xl font-bold">Términos y Condiciones</h1>
             </div>
             <div className='text-xl space-y-4 mb-4'>
-                <div className="flex justify-center my-4">
-                    <h1 className="text-2xl font-bold text-center">Realizar el pedido:</h1>
+                <div className='text-justify'>
+                    <p>Titular: ALBEDO Design S.L.</p>
+                    <p>Domicilio social: CALLE JOAN D AUSTRIA, 112. 08018, BARCELONA, ESPAÑA.</p>
+                    <p>CIF/NIF: B63441489</p>
+                    <p>E-mail: adsl@albedo.biz</p>
+                </div>
+                <div className="flex my-2">
+                    <h2 className="text-2xl font-bold">OBJETO</h2>
                 </div>
                 <p className='text-justify'>
-                    Para realizar un pedido en la Tienda de ALBEDO Design S.L. llámenos por teléfono (pregunte por el departamento de ventas) al número 93-221-09-24, de lunes a viernes de 9:00 h. a 14:30 h y de 16:00 a 18:00 o envíe un correo electrónico a indicando los productos que desee comprar. No olvide de rellenar todos sus datos incluido su código postal para que nuestro equipo de ventas pueda calcular los costes de envío más ajustados posibles. En el segundo caso, nuestro equipo de ventas se pondrá en contacto con Usted mediante un correo electrónico, para enviarle la factura proforma y el plazo de entrega del material solicitado.
-                    <br /><br />
-                    La Tienda de ALBEDO Design S.L. también le da la posibilidad de consultar cualquier duda sobre nuestros productos y/o su aplicación escribiendo un correo electrónico a . También puede hacerlo por teléfono, llamando al 93-221-09-24, de lunes a viernes de 9:00 h. a 14:30 h y de 16:00 a 18:00.
-                    <br /><br />
-                    Los pedidos se entregarán dentro de la España peninsular, Baleares y Canarias. No se entregarán en apartados postales.
+                    Mediante el presente texto ponemos a disposición de todos los usuarios y clientes las condiciones de uso y registro que son de aplicación a nuestra plataforma de venta online albedo.biz, quedando reflejados en éste todos los derechos y obligaciones que asisten a las partes.<br></br>
+                    Todos los usuarios que visitan o acceden a nuestra plataforma y/o que utilizan alguno de los servicios que ponemos a disposición, aceptan las condiciones de uso y la política de privacidad, así como las diferentes modificaciones y/o textos legales adicionales que sean incluidas en el futuro. En caso de no estar de acuerdo con alguna de las condiciones, puedes darte de baja del servicio en cualquier momento o en caso de no ser usuario registrado, abandonar la plataforma.
+                    Junto a las presentes condiciones, cada uno de los servicios prestados puede quedar regulado por condiciones de uso y registro de carácter particular, siendo obligatorio en todo caso que el usuario acepte las mismas expresamente antes de su utilización y/o contratación.
                 </p>
-                <div className="flex justify-center my-4">
-                    <h1 className="text-2xl font-bold">Realizar el pedido:</h1>
-                    <h1 className="text-xl font-bold">Formas de pago:</h1>
+                <div className="flex flex-col my-2">
+                    <h2 className="text-2xl font-bold">CONTRATACIÓN ELECTRÓNICA</h2>
                 </div>
+                <h3 className="text-xl font-bold mt-2">INFORMACIÓN PREVIA APLICABLE A LA CONTRATACIÓN ELECTRÓNICA</h3>
                 <p className='text-justify'>
-                    Si Usted acepta la Factura Proforma del pedido mediante el envío de un correo electrónico a , deberá realizar una transferencia bancaria por el importe Total de la Factura Proforma, a favor de "ALBEDO Design S.L.". Esta transferencia deberá realizarse en un plazo máximo de 3 días hábiles desde que aceptó el pedido (en caso de no haber recibido confirmación de la transferencia transcurrido este plazo, se cancelará el pedido). En el concepto de la transferencia recuerde mencionar el número de la Factura Proforma aceptada.
-                    <br />
-                    Los datos de nuestra cuenta son:
-                    <br />
-                    Banco Banif<br />
-                    CCC: 0086-5148-81-0010001457<br />
-                    Código Internacional de Cuenta Bancaria (IBAN): IBAN ES96-0086-5148-81-0010001457<br />
+                    De conformidad con lo establecido en  la Ley 34/2002 de servicios de la sociedad de la información y de comercio electrónico, los contratos celebrados por vía electrónica producirán todos los efectos previstos por el ordenamiento jurídico, siempre que concurra el consentimiento de ambas partes y éste pueda ser acreditado.<br></br>
+                    A estos efectos, se entenderá que el seguimiento de todas las fases del proceso de registro y en su caso, el abono de la cantidad económica correspondiente implica necesariamente la prestación del consentimiento expreso requerido para la contratación.<br></br>
+                    Las condiciones de contratación indicadas a continuación son de aplicación directa a la contratación de todos los productos puestos a disposición a través del portal web albedo.biz, salvo que expresamente se disponga lo contrario.
                 </p>
-                <div className="flex justify-center my-4">
-                    <h1 className="text-xl font-bold text-center">Precios y disponibilidad de productos:</h1>
-                </div>
+                <h3 className="text-xl font-bold mt-2">PROCEDIMIENTO DE CONTRATACIÓN</h3>
                 <p className='text-justify'>
-                    Los precios y la disponibilidad de los productos de la Tienda de ALBEDO Design S.L. son válidos salvo fin de existencias o error tipográfico. Los pedidos se atenderán por riguroso orden de recepción, de acuerdo al Artículo 9 de la Ley de Comercio Minorista.
-                    <br />
-                    El importe (sin impuestos) del pedido mínimo será de 120€. En el caso de importes inferiores al indicado, se podrá efectuar la compra igualmente, pero existirá un recargo por gastos de tramitación y manipulación de 25€.
-                    <br />
-                    En caso de finalizar las existencias de un producto solicitado, se avisará al cliente del posible nuevo precio y plazo de entrega del producto y se solicitará la aceptación por el cliente. Si el cliente no acepta el posible nuevo precio y el nuevo plazo de entrega se cancelará el pedido del cliente. Si no es posible contactar con el cliente en el plazo de 3 días, se dará automáticamente por cancelado el pedido.
+                    El procedimiento de contratación de los productos se lleva a cabo de forma completamente electrónica a través de nuestra plataforma, sin que exista en ningún momento presencia física de las partes y/o transacción física externa. Cualquier persona con acceso a Internet puede llevar a cabo la contratación.
+                    Las fases del procedimiento de contratación son visibles para los usuarios a lo largo de todo el procedimiento de contratación. Pueden diferenciarse 3 fases:<br></br>
+                    - Identificación del usuario.<br></br>
+                    - Selección del servicio y forma de pago.<br></br>
+                    - Confirmación del servicio.<br></br>
+                    El usuario únicamente debe seleccionar el producto que desea adquirir y pulsar el botón de compra dispuesto al efecto. De esta forma, dará comienzo el procedimiento de contratación que seguirá siempre los pasos anteriormente indicados para todos los servicios disponibles.<br></br>
+                    Una vez seleccionado el producto, la cantidad, los impuestos aplicables, el precio total y el medio de pago, la plataforma mostrará al usuario un resumen de la contratación realizada, junto a las condiciones de contratación aplicables, que en todo caso deberán ser expresamente aceptadas por el usuario para poder seguir el proceso de contratación.<br></br>
+                    Una vez marcada la casilla de aceptación de las condiciones de contratación, en caso de haber seleccionado como forma de pago alguno de los medios electrónicos, el usuario será directamente redireccionado a la plataforma de pago externa correspondiente para realizar el pago, sin que albedo.biz tenga posibilidad de acceder en ningún momento a los datos de tarjetas de crédito y/o sistemas de pago del usuario.<br></br>
+                    La seguridad del procedimiento de pago se encuentra garantizada por parte de la entidad financiera. Una vez finalizada la contratación del servicio o producto, se mostrará una pantalla resumen de la contratación realizada. En caso de haberse seleccionado el pago mediante tarjeta de crédito, éste se llevará a cabo a través de la TPV del banco, plataforma completamente ajena e independiente del prestador.<br></br>
+                    En el plazo máximo de 24 horas, el contratante del servicio recibirá un correo electrónico en el que se mostrará toda la información relativa al pedido. Este documento es la confirmación de que la contratación se ha realizado con éxito, siendo válida como medio de acreditación para cualquier tipo de reclamación, siempre y cuando se adjunte el justificante del pago correspondiente.<br></br>
+                    El prestador informa al usuario de que todas las contrataciones realizadas quedarán registradas en un fichero para el control y gestión de contrataciones, en el que quedarán reflejados junto a la información de los servicios contratados, información adicional para garantizar la seguridad y evidencia de la correcta realización del procedimiento.
                 </p>
-                <div className="flex justify-center my-4">
-                    <h1 className="text-xl font-bold text-center" >Impuestos:</h1>
-                </div>
-                <p className='text-justify'>
-                    Los precios publicados en la Tienda de ALBEDO Design S.L. son sin impuestos (I.V.A.)
-                </p>
-                <div className="flex justify-center my-4">
-                    <h1 className="text-xl font-bold text-center">Gastos de envío:</h1>
-                </div>
-                <p className='text-justify'>
-                    Los gastos de envío se calculan en función de las dimensiones y peso del pedido. Por ejemplo como precios indicativos tendremos que para envíos de paquetes de menos de 5Kg de peso y de dimensiones normales estarán comprendidos entre 8,99€ y 14,99€ más I.V.A. en función del destino.
-                </p>
-                <div className="flex justify-center my-4">
-                    <h1 className="text-2xl font-bold text-center">Envío del producto:</h1>
-                    <h1 className="text-xl font-bold text-center">¿Cuándo y cómo recibirá sus pedidos?</h1>
-                </div>
-                <p className='text-justify'>
-                    Si tenemos los productos del pedido en existencia, usted recibirá el pedido en tan sólo 5 días hábiles después de que se haya cursado el pedido y realizado el pago por Transferencia Bancaria, mediante un servicio de mensajería.
-                    <br />
-                    El plazo de 5 días hábiles será efectivo en el caso de que el cliente se encuentre localizable en el lugar de entrega durante ese periodo.
-                    <br />
-                    El pedido será cancelado en cualquiera de los dos supuestos siguientes:
-                    <br />
-                    No se puede realizar la entrega cuando ésta se intente en dos ocasiones.
-                    No ha sido posible contactar con el cliente en los 3 días hábiles posteriores al primer intento fallido de entrega.
-                    <br />
-                    En el caso de que el producto llegase en condiciones deterioradas o defectuosas, deberá reclamar al transportista inmediatamente, y además avisarnos de la No Conformidad de la Recepción para que podamos solucionar lo antes posible la entrega del producto en perfectas condiciones, por supuesto sin ningún cargo adicional para usted.
-                </p>
-                <div className="flex justify-center my-4">
-                    <h1 className="text-2xl font-bold text-center">Gastos de envío:</h1>
-                </div>
-                <p className='text-justify'>
-                    Cuando compra en la Tienda de ALBEDO Design S.L. puede sentirse tranquilo y seguro porque está comprando con la garantía de ALBEDO Design S.L.
-                    <br />
-                    Los productos adquiridos en ALBEDO Design S.L. siempre disponen de instrucciones de uso en Castellano y/o Inglés y un servicio técnico en España *. Para más información sobre garantías del fabricante de productos específicos, por favor diríjase a nuestro Servicio de Soporte mediante correo electrónico a la dirección . También puede llamarnos al teléfono 93-221-09-24, de lunes a viernes de 9:00 h. a 14:00 h.
-                    <br />
-                    * En el caso de requerirlo el producto                 </p>
-                <div className="flex justify-center my-4">
-                    <h1 className="text-2xl font-bold text-center">Factura:</h1>
-                </div>
-                <p className='text-justify'>
-                    Guarde la factura como comprobante de su compra. En el caso de avería en el producto adquirido no derivada de una mala utilización, deberá presentarla junto a la garantía que incluye el producto en cualquiera de los servicios técnicos especificados por el fabricante.                 </p>
-                <div className="flex justify-center my-4">
-                    <h1 className="text-2xl font-bold text-center">Devoluciones:</h1>
-                </div>
+                <h3 className="text-xl font-bold mt-2">Devoluciones:</h3>
                 <p className='text-justify'>
                     Los pedidos son en firme. Por tanto, ninguna devolución será aceptada sin previa autorización. Deberá solicitar un número de autorización de devolución ("RMA"), aplicando la posibilidad de devolución para los casos en que la mercancia sea defectuosa o en que la mercancia esté equivocada por un error nuestro. En ambos casos, puede solicitar que se le envíe la mercancia correcta o que le devolvamos el importe de la misma. En cualquier caso, antes de recibir la nueva mercancia o el importe, tendrá que devolvernos previamente la mercancia defectuosa o equivocada. El plazo para solicitar la devolución será de 7 días hábiles, a contar desde el día de recepción de la mercancía.
                     <br />
@@ -98,16 +58,48 @@ export default function page() {
                     <br />
                     En el caso de que en una devolución el artículo no se encuentre en las condiciones mencionadas, será remitido al cliente, cobrándole además los portes correspondientes.
                     <br />
-                    No se aceptarán devoluciones de aquellos productos "que, por su naturaleza, no puedan ser devueltos o son susceptibles de ser descargados o reproducidos con carácter inmediato para su uso permanente" (ley 47/2002, de 19 de diciembre, de Ordenación del Comercio Minorista art. 45).                                 </p>
-                <div className="flex justify-center my-4">
-                    <h1 className="text-2xl font-bold text-center">Política de privacidad de datos:</h1>
-                </div>
+                    No se aceptarán devoluciones de aquellos productos "que, por su naturaleza, no puedan ser devueltos o son susceptibles de ser descargados o reproducidos con carácter inmediato para su uso permanente" (ley 47/2002, de 19 de diciembre, de Ordenación del Comercio Minorista art. 45).
+                </p>
+                <h3 className="text-xl font-bold mt-2">CANCELACIONES</h3>
                 <p className='text-justify'>
-                    En ALBEDO Design S.L. ponemos especial cuidado en la protección de sus datos personales. Conforme a lo dispuesto en el artículo 5 de la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal, le informamos que los datos que nos facilite voluntariamente a través de los formularios, vía correo electrónico o teléfono serán incorporados a un fichero automatizado de ALBEDO Design S.L.. El registro y tratamiento de estos datos tiene como finalidad la gestión de sus pedidos, así como la realización de estudios de marketing para ofrecerle, de forma segmentada y personalizada, información propia o de terceros, acerca de productos y servicios electrónicos.
-                    <br />
-                    En ALBEDO Design S.L. queremos garantizar que todas las comunicaciones comerciales que dirigimos a nuestros clientes cumplen la legislación vigente. Por ello le informamos que ALBEDO Design S.L. podrá enviarle comunicaciones comerciales de sus productos y servicios por correo electrónico o a través de otros medios electrónicos. Dichas comunicaciones comerciales podrán consistir en información que resulte interesante para Usted, como promociones, descuentos exclusivos, encuestas, etc. Si no deseara recibir dicha información, bastará con que nos lo indique, en cualquier momento, en la dirección
-                    <br />
-                    Según lo dispuesto en la Ley Orgánica de Protección de Datos de Carácter Personal (LO 15/1999), Usted puede ejercitar en todo momento sus derechos de acceso, rectificación, oposición y cancelación de los datos personales, dirigiéndose a                     </p>
+                    Impuestos:  Nuestro productos no incluyen el IVA aplicable<br />
+                    Costes de envío: Todos nuestros productos incluyen el coste de envío para envíos ordinarios dentro del período inicialmente programado.<br />
+                    Plazo de envío: 3-14 dias laborables para envíos nacionales, 10-25 días para envíos internacionales. En ocasiones los pedidos pueden sufrir algún retraso, rogamos tengan paciencia. En todo caso facilitaremos un número de seguimiento de su pedido. En caso de no recibir su producto, rogamos lo pongan en conocimiento del departamento de atención al cliente.
+                </p>
+                <h3 className="text-xl font-bold mt-2">IMPUESTOS, COSTES Y PLAZO DE ENVÍO</h3>
+                <p className='text-justify'>
+                    El cliente o usuario podrá cancelar su pedido, siempre y cuando éste no esté ya en reparto . En tal caso, deberá ponerse en contacto con el PROPIETARIO a través del correo electrónico o de los canales de Atención al Cliente, comunicando sus datos identificativos y número de referencia del pedido. En caso de cancelaciones se procederá a la devolución de los importes abonados previamente por el usuario o cliente, a través del mismo medio empleado para la transacción inicial.
+                </p>
+                <h3 className="text-xl font-bold mt-2">GARANTÍAS Y RESPONSABILIDADES</h3>
+                <p className='text-justify'>
+                    Estamos profundamente comprometidos con que nuestros servicios funcionen correctamente y conforme a las condiciones acordadas con nuestros usuarios. No obstante, en ocasiones es posible que se produzcan, especialmente por la intervención de terceros mal intencionados, situaciones que pudieran provocar responsabilidades.<br />
+                    En este sentido, a continuación os indicamos aquellas situaciones en las que no nos hacemos responsables de las actuaciones de los usuarios, asumiendo éstos todas las responsabilidades derivadas:<br />
+                    En caso de que aparezca publicada en la plataforma información que no hubiera sido alojada por nuestra parte o que en su caso hubiera sido publicada por un tercero ajeno a la organización.<br />
+                    En caso de que la plataforma no se encuentre operativa por razones técnicas imputables a terceros o causas imprevisibles y/o de fuerza mayor.<br />
+                    En caso de que el usuario almacene o cualquier tercero, difunda, publique o distribuya en la plataforma cualquier tipo de material difamatorio, injurioso, discriminatorio, que incite a la violencia o que vaya contra la moral, el orden público, los derechos fundamentales, las libertas públicas, el honor, la intimidad o la imagen de terceros.<br />
+                    En caso de que el usuario o cualquier tercero utilice la plataforma para introducir datos, virus, código malicioso, hardware o cualquier otro instrumento o dispositivo electrónico o físico, y se causen daños a los sistemas de otros usuarios.<br />
+                    En ocasiones los productos mostrados en la web  pueden sufrir cambios  respecto al original debido a  la fotografía o calibración de la pantalla.<br />
+                </p>
+                <h3 className="text-xl font-bold mt-2">CONFIDENCIALIDAD Y PROTECCIÓN DE DATOS</h3>
+                <p className='text-justify'>
+                    De conformidad con lo dispuesto por el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo, de 27 de abril de 2016, relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de estos, todos los datos de carácter personal facilitados durante la utilización de la plataforma y durante la prestación de los servicios serán tratados de conformidad con lo dispuesto en la Política de Privacidad, que todo usuario debe aceptar expresamente y de forma previa para poder registrarse.<br />
+                    Todo usuario que acepte las presentes condiciones de uso, aceptan de forma informada, expresa e inequívoca nuestra Política de Privacidad, asistiéndole en este sentido los derechos de acceso, rectificación, cancelación y oposición respecto a sus datos de carácter personal, pudiendo ejercerlos según se informa en la mencionada Política de Privacidad.
+                </p>
+                <h3 className="text-xl font-bold mt-2">SERVICIO DE ATENCIÓN AL CLIENTE</h3>
+                <div className='text-justify'>
+                    <p>Mañanas de Lunes - Viernes de 08:00 a  14:00</p>
+                    <p>Teléfono: 932210924</p>
+                    <p>Email: adsl@albedo.biz</p>
+                </div>
+                <h3 className="text-xl font-bold mt-2">RESOLUCIÓN EXTRAJUDICIAL DE CONFLICTOS</h3>
+                <p className='text-justify'>
+                    Asimismo, en los términos que se recogen en el artículo 14 del Reglamento UE 524/2013, sobre resolución de litigios en materia de consumo, se proporciona un enlace directo a la plataforma de resolución de litigios en línea: https://ec.europa.eu/consumers/odr/main/index.cfm
+                </p>
+                <h3 className="text-xl font-bold mt-2">LEY APLICABLE Y JURISDICCIÓN
+                </h3>
+                <p className='text-justify'>
+                    Para cualquier controversia o conflicto que pudiera surgir, derivado de estos términos o condiciones, resultará de aplicación la Ley Española. La resolución de los conflictos judiciales se someterá a la competencia de los Juzgados y Tribunales del domicilio del usuario o cliente.
+                </p>
             </div>
         </Layout>
     )

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import CryptoJS from 'crypto-js';
+
 import { saveNewOrder, checkStock } from '@/lib/data';
 export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
     const [cartItems, setCartItems] = useState([]);
@@ -53,8 +54,8 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
             "DS_MERCHANT_ORDER": merchantOrder,
             "DS_MERCHANT_TERMINAL": "1",
             "DS_MERCHANT_TRANSACTIONTYPE": "0",
-            "DS_MERCHANT_URLOK": "http://localhost:3000/checkout?status=OK",  // Redirect on success
-            "DS_MERCHANT_URLKO": "http://localhost:3000/checkout?status=KO",  // Redirect on failure
+            "DS_MERCHANT_URLOK": "https://albedo.biz/checkout?status=OK",  // Redirect on success
+            "DS_MERCHANT_URLKO": "https://albedo.biz/checkout?status=KO",  // Redirect on failure
         };
         console.log('Payment Data:', data);
         // Encode parameters and calculate signature

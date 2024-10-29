@@ -14,7 +14,7 @@ export default function page() {
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         ¿Quién es el responsable de los datos?
                     </h2>
                     <div>
@@ -28,10 +28,10 @@ export default function page() {
                     </div>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         ¿Qué categorías de datos se tratan?
                     </h2>
-                    <h3 className='text-xl'>
+                    <h3 className='text-2xl font-bold'>
                         2.1.Contenidos
                     </h3>
                     <div>
@@ -46,21 +46,21 @@ export default function page() {
                     </div>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         Tipo de Datos Mantenidos por ALBEDO Design
                     </h2>
                     <p> A continuación se explica la finalidad, plazo de conservación y legitimación de los datos recabados y mantenidos por ALBEDO Design. Se informa al interesado que no se generarán perfiles comerciales ni se tomarán decisiones automatizadas.
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         Datos de Clientes
                     </h2>
                     <p> ALBEDO Design conservará los datos de carácter personal para la prestación de los servicios jurídicos solicitados por cualquier cliente o potencial cliente. Normalmente, el alcance de tales servicios jurídicos quedará acotado en la carta por encargo firmada entre ALBEDO Design y el cliente. También ALBEDO Design podrá tratar los datos personales en sede precontractual, como por ejemplo con el fin de preparar una propuesta de servicios al cliente o potencial cliente.
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         ¿Con qué finalidad se tratan los datos?
                     </h2>
                     <p> Los datos personales de nuestros clientes serán tratados para el desarrollo y ejecución de los servicios solicitados y/o contratados, lo que incluye:</p>
@@ -86,35 +86,35 @@ export default function page() {
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         ¿Cuál es la legitimación para el tratamiento de los datos?
                     </h2>
                     <p> La legitimación respecto del tratamiento relativo al desarrollo y ejecución de los servicios solicitados y/o contratados tiene su origen en la relación contractual entre las partes. El resto de tratamientos la base legal del tratamiento es el consentimiento prestado y el interés legítimo en el mantenimiento de la relación existente.
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         ¿Cuánto tiempo guarda ALBEDO Design los datos?
                     </h2>
                     <p> Los datos personales objeto de tratamiento por ALBEDO Design serán tratados mientras sea necesario para la finalidad para la que fueron recogidos o continúe vigente la relación entre las partes y siempre que el titular de aquéllos no manifieste su oposición o enfoscado el consentimiento prestado . Una vez finalizado este plazo, y sólo en caso de que resulte necesario de acuerdo con la normativa vigente, se conservarán los datos debidamente bloqueados durante los plazos legalmente establecidos. Si desea obtener más información al respecto puede solicitarla en adsl@albedo.biz.
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         Datos de personas que solicite información
                     </h2>
                     <p> Finalidad: ALBEDO Design conservará los datos personales y materiales de acompañamiento que envíe cualquier persona por cualquier medio solicitando información sobre los servicios de ALBEDO Design. La finalidad consistirá en responder a la consulta del interesado. Plazo de Conservación: Los datos personales de personas que soliciten información sobre los servicios de ALBEDO Design, o de alguna otra forma soliciten estar informados sobre una cuestión determinada, se conservarán hasta que el interesado retire su consentimiento, salvo que existiera una obligación legal de conservar los datos personales por un plazo superior. Legitimación: ALBEDO Design está legitimado para la conservación de los datos personales de personas que soliciten información de conformidad con el consentimiento específico que deberá devolver firmado cualquier interesado. Si el interesado se negara a firmar el consentimiento específico, sus datos y materiales serán borrados y no se atenderá la consulta realizada.
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         Comunicaciones Comerciales
                     </h2>
                     <p> Finalidad: En caso de que ALBEDO Design fuera a enviar a un interesado comunicaciones comerciales, ALBEDO Design solicitará al interesado su consentimiento expreso y previo para tal efecto. La finalidad será enviar comunicaciones comerciales puntuales o periódicas a el interesado, incluyendo un newsletter y/o comunicaciones específicas. Plazo de Conservación: Los datos personales de personas que acepten recibir comunicaciones comerciales de ALBEDO Design se conservarán hasta que el interesado retire su consentimiento, salvo que hubiera una obligación legal de conservar los datos personales por plazo superior. Legitimación: ALBEDO Design está legitimado para la conservación de los datos personales de interesados en recibir comunicaciones comerciales de ALBEDO Design de conformidad con el consentimiento específico que deberá devolver firmado cualquier interesado. Si el interesado se negara a firmar el consentimiento específico, sus datos serán borrados y ALBEDO Design no le enviará comunicaciones comerciales.
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         Datos de Proveedores
                     </h2>
                     <p> Finalidad: ALBEDO Design conservará los datos de carácter personal para la recepción de los servicios prestados por cualquier proveedor o potencial proveedor de servicios. Normalmente, el alcance de tales servicios quedará acotado en el contrato de prestación de servicios firmado entre ALBEDO Design y el proveedor de servicios. También ALBEDO Design podrá tratar los datos personales en sede precontractual, como por ejemplo con el fin de solicitar una propuesta de servicios al proveedor o potencial proveedor de servicios. Plazo de Conservación: Los datos personales de proveedores y potenciales proveedores de servicios se conservarán en cualquier caso mientras se mantenga la relación jurídica con ALBEDO Design y, posteriormente, hasta que el proveedor o potencial proveedor de servicios solicite su supresión.
@@ -124,7 +124,7 @@ export default function page() {
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         ¿A qué destinatarios se comunican los datos?
                     </h2>
                     <p> Para cumplir con los fines indicados, ALBEDO Design puede comunicar datos a la sociedad así como a terceros que nos proporcionan servicios financieros, tecnológicos, logísticos, etc. En el marco de los servicios profesionales que presta ALBEDO Design, así como para la ejecución de contratos con clientes y proveedores, ALBEDO Design puede comunicar sus datos personales a terceros, incluyendo:
@@ -138,14 +138,14 @@ export default function page() {
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         Destinatarios y Transferencias Internacionales
                     </h2>
                     <p> Salvo obligación legal o consentimiento expreso del interesado, ALBEDO Design no realizará ninguna cesión ni transferencia internacional de datos de carácter personal.
                     </p>
                 </div>
                 <div className='mb-[40px]'>
-                    <h2 className='text-2xl mb-2'>
+                    <h2 className='text-2xl mb-2 font-bold'>
                         ¿Cuáles son sus derechos cuando facilita sus datos personales?
                     </h2>
                     <p>

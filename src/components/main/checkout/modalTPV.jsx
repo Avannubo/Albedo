@@ -47,7 +47,6 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
             localStorage.clear();  // Clear the cart
         }else{
             console.log("order could not be saved!");
-            
         }
     }, [paymentStatus]);
     const calcularFirma = () => {

@@ -41,7 +41,14 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
             setPaymentStatus(status);
         }
         // If the payment status is 'OK', save the order and clear the cart
-        
+        if (paymentStatus == 'OK') {
+            console.log(orderData);
+            saveNewOrder(orderData);  // Save the order
+            localStorage.clear();  // Clear the cart
+        }else{
+            console.log("order could not be saved!");
+            
+        }
     }, [paymentStatus]);
     const calcularFirma = () => {
         let cleanPrecioTotal = (precioTotal * 100).toString(); // Convert to cents and string
@@ -60,7 +67,7 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
         console.log('Payment Data:', data);
         // Encode parameters and calculate signature
         let encodedParameters = stringBase64Encode(JSON.stringify(data));
-        let encodedSignature = "sq7HjrUOBfKmC576ILgskD5srU870gJ7";
+        let encodedSignature = "UkHeixRw+zAEm+wYp4dnWiKriay9sV2b";
         let encodedSignatureDES = des_encrypt(merchantOrder, base64Decode(encodedSignature));
         let encodedDsSignature = CryptoJS.HmacSHA256(encodedParameters, base64Decode(encodedSignatureDES));
         let dsSignature = CryptoJS.enc.Base64.stringify(encodedDsSignature);
@@ -142,10 +149,7 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
         setIsProcessingPayment(true);
         try {
             calcularFirma();
-            document.forms["pago"].submit();
-                console.log(orderData);
-                saveNewOrder(orderData);  // Save the order
-                localStorage.clear();  // Clear the cart
+            document.forms["pago"].submit(); 
         } catch (error) {
             setPaymentStatus('KO');
             console.error("Error processing payment:", error);
@@ -270,7 +274,7 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
                     </div>
                 )}
                 {/* Hidden form for payment submission target="_blank" */}
-                <form className="hidden" name="pago" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST" >
+                <form className="hidden" name="pago" action="https://sis.redsys.es/sis/realizarPago" method="POST" >
                     Datos en claro:
                     <textarea name="datos" cols="80" rows="5"></textarea><br />
                     Datos en Base64:

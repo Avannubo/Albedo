@@ -152,7 +152,8 @@ export default function Page() {
       console.log(newErrors);
       return;
     }
-    function generateOrderId() { 
+    
+    function generateOrderId() {
       const randomNum = Math.floor(Math.random() * 10000); // Random number
       return `${randomNum}`; // Combine them to form OrderId
     }
@@ -167,7 +168,8 @@ export default function Page() {
       totalPedido,
       invoice: userInfo.invoice
     });
-    //  console.log(orderData);
+
+     //  console.log(orderData);
     if (selectedPayment === 'Transferencia') {
       toggleModal();
     } else if (selectedPayment === 'Visa-Mastercard') {

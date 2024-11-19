@@ -42,12 +42,11 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
         }
         // If the payment status is 'OK', save the order and clear the cart
         if (paymentStatus == 'OK') {
-            console.log(orderData);
-            saveNewOrder(orderData);  // Save the order
-            localStorage.clear();  // Clear the cart
-        }else{
-            console.log("order could not be saved!");
+            console.log("Payment Status OK");
             
+        } else {
+            console.log("order could not be saved!");
+
         }
     }, [paymentStatus]);
     const calcularFirma = () => {
@@ -59,7 +58,7 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
             "DS_MERCHANT_CURRENCY": "978",
             "DS_MERCHANT_MERCHANTCODE": "362134496",
             "DS_MERCHANT_ORDER": merchantOrder,
-            "DS_MERCHANT_TERMINAL": "1",
+            "DS_MERCHANT_TERMINAL": "001",
             "DS_MERCHANT_TRANSACTIONTYPE": "0",
             "DS_MERCHANT_URLOK": "https://albedo.biz/checkout?status=OK",  // Redirect on success
             "DS_MERCHANT_URLKO": "https://albedo.biz/checkout?status=KO",  // Redirect on failure
@@ -95,7 +94,6 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
         });
         return encode_str.toString();
     };
-    
     const handleContinueWithUpdatedStock = () => {
         orderData.cartProducts.forEach(product => {
             const stockProduct = stockWarning.find(p => p.ALBEDOcodigo === product.ALBEDOcodigo);
@@ -140,7 +138,7 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
         // Clear the URL parameters after closing the modal
         // router.push('/checkout', undefined, { shallow: true });
     };
-    
+
     const handlePaymentProcess = async () => {
         if (stockWarning && stockWarning.length > 0) {
             // alert("Some products are out of stock or insufficient in quantity. Please review your cart.");
@@ -149,7 +147,12 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
         setIsProcessingPayment(true);
         try {
             calcularFirma();
-            document.forms["pago"].submit(); 
+            document.forms["pago"].submit();
+            console.log("order being processed...");
+            localStorage.setItem("orderData", JSON.stringify(orderData));
+
+            // saveNewOrder(orderData);  // Save the order 
+
         } catch (error) {
             setPaymentStatus('KO');
             console.error("Error processing payment:", error);
@@ -171,31 +174,7 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
                         {/* <Link href="/" className="mt-4 inline-block text-blue-600 hover:underline">
                             Ver resumen del pedido
                         </Link> */}
-                            <h2 className="text-2xl mt-4 font-bold">El resumen del pedido llegará a tu correo electrónico.</h2>
-                            {/*
-                        <div className="">
-                            <table className="w-full table-auto border-collapse">
-                                <thead>
-                                    <tr className="text-left border">
-                                        <th className="px-4 py-2 border">Producto</th>
-                                        <th className="px-4 py-2 border">Cantidad</th>
-                                        <th className="px-4 py-2 border">Precio</th>
-                                        <th className="px-4 py-2 border">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {cartItems.map((product) => (
-                                        <tr key={product.ALBEDOcodigo} className="text-left">
-                                            <td className="px-4 py-2 border">{product.ALBEDOtitulo}</td>
-                                            <td className="px-4 py-2 border">{product.ALBEDOprecio.toFixed(2)}€</td>
-                                            <td className="px-4 py-2 border">{product.quantity}</td>
-                                            <td className="px-4 py-2 border">{(product.ALBEDOprecio * product.quantity).toFixed(2)}€</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div> */}
-                        {/* <p className="mt-4 text-right font-bold border p-1">Total con IVA*: {precioTotal}€</p> */}
+                        <h2 className="text-2xl mt-4 font-bold">El resumen del pedido llegará a tu correo electrónico.</h2>
                         <div className='flex flex-row justify-center space-x-4'>
                             <Link href="/" className="mt-4 bg-[#304590] hover:bg-[#475caa] text-white px-4 py-2 rounded">
                                 Inicio
@@ -216,29 +195,29 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
                             {/* <button onClick={handlePaymentProcess} className="mt-4 bg-[#304590] hover:bg-[#475caa] text-white px-4 py-2 rounded">
                                 Reintentar pago
                             </button> */}
-                                    <button onClick={handleCloseModal} className="mt-4 bg-gray-500 hover:bg-gray-400 text-white px-4 py-2 rounded">
+                            <button onClick={handleCloseModal} className="mt-4 bg-gray-500 hover:bg-gray-400 text-white px-4 py-2 rounded">
                                 Cerrar
                             </button>
                         </div>
                     </div>
                 ) : (
-                                <div className="bg-white px-12 py-6 rounded shadow-lg">
-                                    {stockWarning && stockWarning.length > 0 && (
-                                        <div className="p-4 mb-4 mt-6 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-                                            <p className="font-medium">Los siguientes productos tienen stock insuficiente:</p>
-                                            <ul className="mt-1.5 ml-4 list-disc list-inside">
-                                                {stockWarning.map((product, index) => (
-                                                    <li key={index}>
-                                                        {product.ALBEDOtitulo} - Stock disponible: {product.availableStock}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                            <p className="mt-1.5 font-medium">Por favor, actualice el carrito para proceder con el pedido.</p>
-                                            <button onClick={handleContinueWithUpdatedStock} className='text-center self-center w-auto rounded-md py-1.5 px-4 font-medium text-blue-50 bg-[#304590] hover:bg-[#475caa]'>
-                                                Actualizar Stock
-                                            </button>
-                                        </div>
-                                    )}
+                    <div className="bg-white px-12 py-6 rounded shadow-lg">
+                        {stockWarning && stockWarning.length > 0 && (
+                            <div className="p-4 mb-4 mt-6 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                                <p className="font-medium">Los siguientes productos tienen stock insuficiente:</p>
+                                <ul className="mt-1.5 ml-4 list-disc list-inside">
+                                    {stockWarning.map((product, index) => (
+                                        <li key={index}>
+                                            {product.ALBEDOtitulo} - Stock disponible: {product.availableStock}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <p className="mt-1.5 font-medium">Por favor, actualice el carrito para proceder con el pedido.</p>
+                                <button onClick={handleContinueWithUpdatedStock} className='text-center self-center w-auto rounded-md py-1.5 px-4 font-medium text-blue-50 bg-[#304590] hover:bg-[#475caa]'>
+                                    Actualizar Stock
+                                </button>
+                            </div>
+                        )}
                         <h2 className="text-2xl font-bold">Resumen del Pedido</h2>
                         <div className="mt-4">
                             <table className="w-full table-auto border-collapse">

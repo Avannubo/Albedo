@@ -1003,7 +1003,7 @@ export async function checkStock(orderData) {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories } = JSON.parse(data);
         if (!orderData || !orderData.cartProducts || orderData.cartProducts.length === 0) {
-            console.log("No products in the cart.");
+            //console.log("No products in the cart.");
             return [];
         }
         const stockList = [];

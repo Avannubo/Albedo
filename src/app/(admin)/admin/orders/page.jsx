@@ -13,6 +13,7 @@ export default async function page() {
   }
   const Active = await getAllActiveOrders();
   const Inactive = await getAllInactiveOrders();
+  console.log(Active,Inactive);
   return (
     <Layout>
       <div className='-mt-10'>
@@ -45,11 +46,11 @@ export default async function page() {
                       {Active.map((order, index) => (
                         <tr key={index} className="border-b border-neutral-200 rounded-lg">
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">#{index + 1}</td>
-                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.userInfo.firstName}</td>
-                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.userInfo.lastName}</td>
-                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.userInfo.dni}</td>
-                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.totalPedido}€</td>
-                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.selectedPayment}</td>
+                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.userInfo?.firstName}</td>
+                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.userInfo?.lastName}</td>
+                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.userInfo?.dni}</td>
+                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.totalPedido}€</td>
+                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.selectedPayment}</td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">
                             <State orderState={order.orderState} orderId={index} />
                           </td>
@@ -94,11 +95,11 @@ export default async function page() {
                     {Inactive.map((order, index) => (
                       <tr key={index} className="border-b border-neutral-200 rounded-lg">
                         <td className="text-center whitespace-nowrap px-6 py-2 font-medium">#{index + 1}</td>
-                        <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.userInfo.firstName}</td>
-                        <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.userInfo.lastName}</td>
-                        <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.userInfo.dni}</td>
-                        <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.totalPedido}€</td>
-                        <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order.selectedPayment}</td>
+                        <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.userInfo?.firstName}</td>
+                        <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.userInfo?.lastName}</td>
+                        <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.userInfo?.dni}</td>
+                        <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.totalPedido}€</td>
+                        <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.selectedPayment}</td>
                         <td className="text-center whitespace-nowrap px-6 py-2 font-medium">
                           <State orderState={order.orderState} orderId={index} />
                           {/* //handleModalClose={handleModalClose} */}

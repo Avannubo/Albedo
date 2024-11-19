@@ -925,6 +925,7 @@ export async function getDataByUrlId(slugIds) {
  */
 export async function saveNewOrder(orderData) {
     console.log('Order Data:', orderData);
+    console.log('Order Data:', JSON.stringify(orderData));
     try {
         // console.log('Reading file:', filePathActiveOrders);
         const data = await fs.readFile(filePathActiveOrders, 'utf8');

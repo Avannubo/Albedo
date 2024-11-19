@@ -34,21 +34,34 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
         if (storedCartItems) {
             setCartItems(storedCartItems);
         }
+
         // Check for status in URL parameters (OK or KO)
         const params = new URLSearchParams(window.location.search);
         const status = params.get('status');
         if (status) {
+            console.log(status);
+            if (status === 'OK') {
+                console.log("Payment Status OK");
+                const storedOrderData = JSON.parse(localStorage.getItem("orderData"));
+                console.log("localStorage data:", storedOrderData);
+
+                // Ensure full order data is passed to saveNewOrder
+                if (storedOrderData) {
+                    console.log("calling saveNewOrder() to save order in JSON");
+                    saveNewOrder(storedOrderData);
+                } else {
+                    console.error('No order data found in localStorage.');
+                }
+
+                // Clear localStorage after saving order
+                localStorage.clear();
+            } else {
+                console.log("Order could not be saved!");
+            }
             setPaymentStatus(status);
         }
-        // If the payment status is 'OK', save the order and clear the cart
-        if (paymentStatus == 'OK') {
-            console.log("Payment Status OK");
-            
-        } else {
-            console.log("order could not be saved!");
+    }, []);
 
-        }
-    }, [paymentStatus]);
     const calcularFirma = () => {
         let cleanPrecioTotal = (precioTotal * 100).toString(); // Convert to cents and string
         let merchantOrder = orderData.orderId;

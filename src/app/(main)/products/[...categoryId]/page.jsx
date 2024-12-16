@@ -71,72 +71,75 @@ export default function PageContent() {
                 </>
             ) : (
                 productData && (
-                        <div className='grow  my-10'>
-                                <h1 className='font-extrabold text-2xl my-4 md:mt-0 hidden md:flex'>{productData.ALBEDOtitulo}</h1>
-                            <div className='flex flex-col md:flex-row justify-between'>
-                            <div className='md:w-1/3 md:mr-6 sm:mr-3'>
-                                <div className='md:top-18 w-full md:sticky flex flex-col sm:flex-row md:flex-col sm:space-x-2 md:space-x-0'>
-                                    <div className='flex flex-col w-full'>
-                                        <img
-                                            className={`md:h-[300px] sm:h-[230px] h-auto md:w-[550px] object-contain rounded-lg`}
-                                            src={productData.imagens[0]}
-                                            alt={`Image ${productData.imagens[0]}`}
-                                            width={1000}
-                                            height={1050}
-                                        />
-                                    </div>
-                                    <div className='my-4 sm:my-0 w-full'>
-                                        <h1 className='md:hidden font-extrabold text-2xl'>{productData.ALBEDOtitulo}</h1>
-                                        <p className='text-xl font-medium mt-2'><b>Precio: </b>{productData.ALBEDOprecio}€</p>
-                                        <div className='md:hidden sm:flex hidden' dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />
-                                        <div className='mt-4 w-full'>
-                                            <AddToCart producto={productData} />
+                        <div className="grow my-10">
+                            <h1 className="font-extrabold text-2xl my-4 md:mt-0 hidden md:flex">{productData.ALBEDOtitulo}</h1>
+                            <div className="flex flex-col md:flex-row justify-between">
+                                <div className="md:w-1/3 sm:w-full md:mr-6 sm:mr-3">
+                                    <div className="md:top-18 w-full md:sticky flex flex-col sm:flex-row md:flex-col sm:space-x-2 md:space-x-0">
+                                        <div className="flex flex-col w-full">
+                                            <img
+                                                className="md:h-[300px] sm:h-[230px] h-auto md:w-[550px] object-contain rounded-lg"
+                                                src={productData.imagens[0]}
+                                                alt={`Image ${productData.imagens[0]}`}
+                                                width={1000}
+                                                height={1050}
+                                            />
+                                        </div>
+                                        <div className="my-4 sm:my-0 w-full">
+                                            <h1 className="md:hidden font-extrabold text-2xl">{productData.ALBEDOtitulo}</h1>
+                                            <p className="text-xl font-medium mt-2">
+                                                <b>Precio: </b>{productData.ALBEDOprecio}€
+                                            </p>
+                                            <div className="md:hidden sm:flex hidden" dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />
+                                            <div className="mt-4 w-full">
+                                                <AddToCart producto={productData} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='md:w-2/3 mt-0 sm:mt-4 md:mt-0'>
-                                    <h1 className='font-extrabold text-xl mt-4 md:mt-0 pl-[15px] hidden md:flex'>Descripción:</h1>
-                                <QuillTextDisplay value={productData.ALBEDOdescripcion} />
-                                {productData.archivos.length > 0 && (
-                                    <div className='flex flex-col md:pl-[15px]'>
-                                        <p className='font-semibold'>Hoja de características del {productData.ALBEDOtitulo}</p>
-                                        {productData.archivos.map((archivo, index) => (
-                                            <a key={index}
-                                                target='_blank'
-                                                rel='noopener noreferrer'
-                                                href={`/${archivo}`}
-                                                className='font-semibold text-[#304590]'>
-                                                {archivo.substring(archivo.lastIndexOf('/') + 1)}
-                                            </a>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                        {productData.ALBEDOcuerpo ? (
-                            <h1 className='font-extrabold text-xl mt-4 md:mt-8 hidden md:flex'>Más Información:</h1>
-                        ) : (<p></p>)
-                        }
-                        <HTMLPreviewComponent content={productData.ALBEDOcuerpo} />
-                        {relatedProducts.length > 1 && (
-                            <div className='flex flex-col my-2'>
-                                <h1 className='md:font-extrabold font-semibold text-xl mt-4 md:mt-0'>Productos relacionados que pueden ser de su interés:</h1>
-                                <div className={"flex flex-row flex-wrap items-start justify-start"}>
-                                    {relatedProducts
-                                        .filter(product => product.isPublished)
-                                        .map((product) => (
-                                            <div key={product.ALBEDOcodigo} className="lg:w-[270px] md:w-[300px] md:h-[330px] justify-between w-full m-2 p-2 rounded-md box-shadow">
-                                                <Link href={`/products/${slugArrayHook.slice(0, -1).join("/")}/${product.url_Id}`}>
-                                                    <ProductItem product={product} />
-                                                </Link>
-                                                <AddToCart producto={product} />
-                                            </div>
-                                        ))}
+
+                                <div className="sm:w-full md:w-2/3 mt-0 sm:mt-4 md:mt-0">
+                                    <h1 className="font-extrabold text-xl mt-4 md:mt-0 pl-[15px] hidden md:flex">Descripción:</h1>
+                                    <QuillTextDisplay value={productData.ALBEDOdescripcion} />
+                                    {productData.archivos.length > 0 && (
+                                        <div className="flex flex-col md:pl-[15px]">
+                                            <p className="font-semibold">Hoja de características del {productData.ALBEDOtitulo}</p>
+                                            {productData.archivos.map((archivo, index) => (
+                                                <a key={index}
+                                                    target='_blank'
+                                                    rel='noopener noreferrer'
+                                                    href={`/${archivo}`}
+                                                    className='font-semibold text-[#304590]'>
+                                                    {archivo.substring(archivo.lastIndexOf('/') + 1)}
+                                                </a>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                        )}
-                    </div>
+                            {productData.ALBEDOcuerpo ? (
+                                <h1 className="font-extrabold text-xl mt-4 md:mt-8 hidden md:flex">Más Información:</h1>
+                            ) : (<p></p>)}
+                            <HTMLPreviewComponent content={productData.ALBEDOcuerpo} />
+                            {relatedProducts.length > 1 && (
+                                <div className="flex flex-col my-2">
+                                    <h1 className="md:font-extrabold font-semibold text-xl mt-4 md:mt-0">Productos relacionados que pueden ser de su interés:</h1>
+                                    <div className="flex flex-row flex-wrap items-start justify-start">
+                                        {relatedProducts
+                                            .filter(product => product.isPublished)
+                                            .map((product) => (
+                                                <div key={product.ALBEDOcodigo} className="lg:w-[270px] md:w-[300px] justify-between w-full m-2 p-2 rounded-md box-shadow">
+                                                    <Link href={`/products/${slugArrayHook.slice(0, -1).join("/")}/${product.url_Id}`}>
+                                                        <ProductItem product={product} />
+                                                    </Link>
+                                                    <AddToCart producto={product} />
+                                                </div>
+                                            ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
                 )
             )}
                 {loading ? (

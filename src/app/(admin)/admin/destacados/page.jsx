@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
-import { getFeaturedProducts } from '@/lib/data';
+import { getFeaturedProducts, getProductById } from '@/lib/data';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers'
-import EditProduct from "@/components/admin/products/product/actions/edit";
-import Delete from "@/components/admin/products/category/delete";
+import EditProduct from "@/components/admin/products/product/actions/edit"; 
+import Toggle from "@/components/admin/destacados/toggle"
 import Layout from "@/app/(admin)/admin/AdminLayout";
 export default async function page() {
     const filteredList = await getFeaturedProducts();
@@ -44,11 +44,12 @@ export default async function page() {
                                         </div>
                                     </div>
                                     <div className="space-x-4 flex flex-row justify-center items-center">
-                                        <EditProduct product={product} />
+                                        <Toggle product={product} productId={product.ALBEDOcodigo} />
+                                        {/* <EditProduct product={product} /> */}
                                         {/* <Delete category={"none"} product={product} /> */}
-                                        <p className={`flex justify-center px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
+                                        {/* <p className={`flex justify-center px-2 py-1 rounded-full w-[100px] ${product.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
                                             {product.isPublished ? "Publicado" : "Oculto"}
-                                        </p>
+                                        </p> */}
                                     </div>
                                 </div>
                             ))

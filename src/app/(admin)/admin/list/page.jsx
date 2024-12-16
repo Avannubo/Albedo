@@ -28,10 +28,10 @@ export default async function page() {
                 <div className="flex flex-row justify-between mb-8">
                     <div className="flex flex-row">
                         <h1 className="font-semibold text-4xl">Todas las categorías y productos</h1>
-                        <AddNewCategory />
+                        <AddNewCategory list={list} />
                     </div>
                     <div className="flex flex-row space-x-4">
-                        <Suspense>
+                        <Suspense fallback={<Loading />}>
                             <Filters list={list} />
                         </Suspense>
                     </div>
@@ -40,7 +40,7 @@ export default async function page() {
                     {filteredList.map((category, index) => (
                         <div key={index} className="my-10">
                             <Suspense fallback={<Loading />}>
-                                <List category={category} />
+                                <List category={category} list={list} />
                             </Suspense>
                         </div>
                     ))}
@@ -49,7 +49,7 @@ export default async function page() {
         </>
     )
 }
-function List({ category }) {
+function List({ category , list}) {
     return (
         <div className="space-y-2 w-full">
             <div className="border bg-slate-50 rounded-lg p-2 flex flex-row justify-between mb-2 mt-4">
@@ -58,7 +58,7 @@ function List({ category }) {
                     <AddNewProduct categoryId={category} />
                     <AddSubCategory categoryId={category} />
                     {/* after update/edit a categry the filter needs to be reselected to load new data  */}
-                    <EditCatedory categoryId={category} />
+                    <EditCatedory categoryId={category} list={list} />
                     <Delete category={category} product={"none"} />
                     <p className={`flex justify-center px-2 py-1 rounded-full w-[100px]  ${category.isPublished ? 'select-none font-medium text-green-500' : 'select-none font-medium text-red-500'}`}>
                         {category.isPublished ? "Publicado" : "Oculto"}
@@ -104,7 +104,7 @@ function List({ category }) {
                 category.subCategories.length > 0 && (
                     <div className="ml-14">
                         {category.subCategories.map((subCategory, index) => (
-                            <List key={index} category={subCategory} />
+                            <List key={index} category={subCategory}  />
                         ))}
                     </div>
                 )}

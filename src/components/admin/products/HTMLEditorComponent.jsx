@@ -49,11 +49,11 @@ export default function HTMLEditorComponent({ value, onChange }) {
                         ref={iframeRef}
                         title="HTML Preview"
                         sandbox="allow-scripts allow-same-origin" // Relaxing restrictions
-                        className="w-full h-auto min-h-[500px] bg-white border rounded"
+                        className="w-full h-auto min-h-[200px] bg-white border rounded"
                     />
                 ) : (
                     <textarea
-                        className="w-full h-auto min-h-[500px] p-2 border bg-gray-100 text-gray-800"
+                        className="w-full h-auto min-h-[200px] p-2 border bg-gray-100 text-gray-800"
                         value={rawHtml}
                         onChange={handleRawChange}
                         style={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }} // Apply custom CSS for raw editing

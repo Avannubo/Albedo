@@ -7,9 +7,9 @@ function Footer() {
     <footer className="bottom-0 left-0 text-stone-700 z-40 w-full">
       <hr className="h-1 w-full mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
       <div className="flex flex-col items-center justify-start text-black space-y-6">
-        <div className="flex flex-col lg:flex-row justify-end items-end space-y-6 lg:space-y-0 lg:space-x-4 py-6 w-full max-w-[1500px] px-6">
+        <div className="flex flex-col lg:flex-row justify-end items-center space-y-6 lg:space-y-0 lg:space-x-4 py-6 w-full max-w-[1500px] px-6">
           {/* Logo and Links */}
-          <div className="flex flex-col justify-end w-[40%] space-y-4 items-end lg:items-start">
+          <div className="flex flex-col justify-end w-[40%] space-y-4 items-center lg:items-start">
             <Link href="/" className="w-[350px] flex justify-start">
               <Image
                 src="/assets/images/Logo_albedo.png"

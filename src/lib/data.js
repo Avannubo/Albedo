@@ -21,6 +21,15 @@ const transporter = nodemailer.createTransport({
         pass: process.env.PASS,
     },
 });
+
+function generateRandomId(length = 30) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
 async function revalidateMultiplePaths() {
     const paths = [
         '/admin/list',
@@ -177,6 +186,49 @@ export async function getProducts() {
     } catch (error) {
         console.log("Error:", error.message);
         return []; // Return an empty array on error
+    }
+}
+export async function getProductById(productId) {
+    console.log(productId);
+    
+    try {
+        // Validate the input
+        if (!productId) {
+            throw new Error("Invalid productId");
+        }
+
+        const data = await fs.readFile(filePath, 'utf8');
+        const { categories } = JSON.parse(data);
+
+        // Recursive function to search for the product by ID in categories and subcategories
+        const findProductRecursive = async (categories) => {
+            for (let i = 0; i < categories.length; i++) {
+                const category = categories[i];
+
+                // Check products within the current category
+                for (let j = 0; j < category.products.length; j++) {
+                    const product = category.products[j];
+                    if (product.ALBEDOcodigo === productId) {
+                        return product; // Product found
+                    }
+                }
+
+                // If subcategories exist, search within them
+                if (category.subCategories && category.subCategories.length > 0) {
+                    const foundProduct = await findProductRecursive(category.subCategories);
+                    if (foundProduct) {
+                        return foundProduct; // Product found in subcategories
+                    }
+                }
+            }
+            return null; // Product not found
+        };
+
+        const product = await findProductRecursive(categories);
+        return product ? product : null; // Return the found product or null if not found
+    } catch (error) {
+        console.error("Error:", error.message);
+        return null; // Return null on error
     }
 }
 export async function getFiltersListProducts(categoryFilter = '', refillStock) {
@@ -379,7 +431,7 @@ export async function deleteElement(categoryId, product) {
                 const category = categoryList[i];
                 //console.log(`Checking category with ID: ${category.id}`); // Debug log
                 // Check if the category matches the categoryId
-                if (category.id == categoryId.id) {
+                if (category.id === categoryId.id) {
                     // Remove the category from the array
                     const deletedObject = categoryList.splice(i, 1)[0];
                     console.log(`Category deleted: ${JSON.stringify(deletedObject)}`); // Debug log
@@ -466,7 +518,7 @@ export async function addCategory(Url_Id, name, description, body, isPublished, 
         // const savedImageFilePath = await saveFileToAssets(imageFile, name + '_' + Url_Id + '_' + getFileIdNumber(100000, 10000000) + '.jpg');
         // const savedPdfFilePath = await saveFileToAssets(pdfFile, name + '_' + Url_Id + '.pdf');
         const newCategory = {
-            "id": name.replace(/ /g, "-"),
+            "id": generateRandomId(),
             "url_Id": Url_Id,
             "fixedUrl": "",
             "name": name,
@@ -519,7 +571,7 @@ export async function addSubcategory(categoryId, subCategoryData) {
                         category.subCategories = [];
                     }
                     const dataObj = {
-                        "id": subCategoryData.newCategoryName.replace(/ /g, "-"),
+                        "id": generateRandomId(),
                         "url_Id": subCategoryData.newCategoryUrlCode,
                         "name": subCategoryData.newCategoryName,
                         "description": subCategoryData.newCategoryDescription,
@@ -593,7 +645,7 @@ export async function addproduct(categoryId, productData) {
                     }
                     //console.log(productData.relatedFilePaths);
                     const dataObj = {
-                        "ALBEDOcodigo": productData.newProductCode,  //productCode.replace(/ /g, "-"),
+                        "ALBEDOcodigo": generateRandomId(),  //productCode.replace(/ /g, "-"),
                         "url_Id": productData.newProductUrlCode,
                         "ALBEDOtitulo": productData.newProductName,
                         "ALBEDOprecio": parseFloat(productData.newProductPrice),
@@ -655,6 +707,8 @@ export async function addproduct(categoryId, productData) {
  */
 // Function to edit a category (no longer modifies child subcategories or products' publishing status)
 export async function editCategory(categoryId, UrlCode, Name, Description, Body, isPublished, imagePaths) {
+    console.log(Description);
+    
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -694,6 +748,8 @@ export async function editCategory(categoryId, UrlCode, Name, Description, Body,
 // Function to edit a product and propagate publishing status upwards to parent subcategories and categories
 // Function to edit a product and propagate publishing status to the root parent category
 export async function editProduct(productId, url_Id, Name, Price, Description, Body, Stock, MinStock, DeliveryTime, isPublished, isFeatured, imagePaths, filePaths) {
+    // console.log(productId.ALBEDOcodigo);
+    // console.log(productId);
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -805,6 +861,58 @@ export async function getCategoryById(categoryId) {
         return false;
     }
 }
+export async function getParentCategoryById(categoryId) {
+    console.log(categoryId);
+    
+    try {
+        // Validate the categoryId
+        if (!categoryId) {
+            throw new Error("Invalid categoryId");
+        }
+
+        // Read the contents of the JSON file
+        const data = await fs.readFile(filePath, 'utf8');
+        // Parse the JSON file contents into a JavaScript object
+        const { categories } = JSON.parse(data);
+
+        // Recursive function to search for the category by ID
+        const Recursive = async (categoryList, parent = null) => {
+            // Loop through the category list
+            for (let i = 0; i < categoryList.length; i++) {
+                const category = categoryList[i];
+
+                // Check if the category ID matches
+                if (category.id === categoryId) {
+                    // If parent exists, return the category and its parent
+                    console.log(category, parent);
+                    
+                    return { category, parent };
+                }
+
+                // If the category has subcategories, search within them
+                if (category.subCategories && category.subCategories.length > 0) {
+                    const result = await Recursive(category.subCategories, category);
+                    if (result) return result;
+                }
+            }
+            return null; // Return null if the category is not found
+        };
+
+        const result = await Recursive(categories);
+
+        if (!result) {
+            console.error("Category not found.");
+            return false; // Category not found
+        }
+
+        // Return the found category and its parent (if any)
+        return result;
+    } catch (error) {
+        console.error("Error occurred:", error);
+        return false;
+    }
+}
+
 export async function duplicateProduct(category, product) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -826,7 +934,7 @@ export async function duplicateProduct(category, product) {
                     // Get the next unique url_Id
                     const nextUrlId = findNextUniqueUrlId(category.products);
                     const dataObj = {
-                        "ALBEDOcodigo": product.ALBEDOcodigo + "(copia)",  //productCode.replace(/ /g, "-"),
+                        "ALBEDOcodigo": generateRandomId(),  //productCode.replace(/ /g, "-"),
                         "url_Id": nextUrlId,
                         "ALBEDOtitulo": product.ALBEDOtitulo + "(copia)",
                         "ALBEDOprecio": product.ALBEDOprecio,
@@ -1425,9 +1533,6 @@ export async function deleteImages(imagePathsToDelete) {
             .catch(error => reject(error));
     });
 }
-
-
-
 function generateToken() {
     const secretKey = getSecKey();
     const token = jwt.sign({ user: 'username' }, secretKey, { expiresIn: '1h' });

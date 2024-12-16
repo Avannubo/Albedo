@@ -11,7 +11,7 @@ export default function DeleteModal({ isOpen, onClose, index }) {
         // Check if deletion was successful
         if (success) {
             // If successful, close the modal 
-            onClose();
+            //onClose();
             
         } else {
             // Handle deletion failure if needed

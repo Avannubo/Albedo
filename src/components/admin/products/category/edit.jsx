@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Modal from '@/components/admin/products/category/editModal';
 // import { useRouter } from "next/navigation";
-export default function editCategory({ categoryId }) {
+export default function editCategory({ categoryId, list }) {
     // const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -18,7 +18,7 @@ export default function editCategory({ categoryId }) {
                 </svg>
                 <h1 className="select-none"> Editar</h1>
             </div>
-            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} />
+            <Modal isOpen={isModalOpen} onClose={toggleModal} categoryId={categoryId} list={list} />
         </div>
     )
 }

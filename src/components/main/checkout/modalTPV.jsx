@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import CryptoJS from 'crypto-js';
-
-import { saveNewOrder, checkStock } from '@/lib/data';
+import { saveNewOrder, saveNewOrderLog, sendEmailPrevioCompra, checkStock } from '@/lib/data';
 export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
     const [cartItems, setCartItems] = useState([]);
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
@@ -34,7 +33,6 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
         if (storedCartItems) {
             setCartItems(storedCartItems);
         }
-
         // Check for status in URL parameters (OK or KO)
         const params = new URLSearchParams(window.location.search);
         const status = params.get('status');
@@ -44,7 +42,6 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
                 console.log("Payment Status OK");
                 const storedOrderData = JSON.parse(localStorage.getItem("orderData"));
                 console.log("localStorage data:", storedOrderData);
-
                 // Ensure full order data is passed to saveNewOrder
                 if (storedOrderData) {
                     console.log("calling saveNewOrder() to save order in JSON");
@@ -52,16 +49,15 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
                 } else {
                     console.error('No order data found in localStorage.');
                 }
-
                 // Clear localStorage after saving order
                 localStorage.clear();
             } else {
                 console.log("Order could not be saved!");
+                //localStorage.removeItem("orderData");
             }
             setPaymentStatus(status);
         }
     }, []);
-
     const calcularFirma = () => {
         let cleanPrecioTotal = (precioTotal * 100).toString(); // Convert to cents and string
         let merchantOrder = orderData.orderId;
@@ -151,21 +147,22 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
         // Clear the URL parameters after closing the modal
         // router.push('/checkout', undefined, { shallow: true });
     };
-
     const handlePaymentProcess = async () => {
-        if (stockWarning && stockWarning.length > 0) {
-            // alert("Some products are out of stock or insufficient in quantity. Please review your cart.");
-            return;
-        }
-        setIsProcessingPayment(true);
+        localStorage.setItem("orderData", JSON.stringify(orderData));
         try {
+            if (stockWarning && stockWarning.length > 0) {
+                return;
+            }
+            if (!orderData || Object.keys(orderData).length === 0) {
+                throw new Error("Order data is missing or invalid.");
+            }
+            setIsProcessingPayment(true);
             calcularFirma();
             document.forms["pago"].submit();
             console.log("order being processed...");
-            localStorage.setItem("orderData", JSON.stringify(orderData));
-
-            // saveNewOrder(orderData);  // Save the order 
-
+            saveNewOrderLog(orderData);  // Save the order log
+            sendEmailPrevioCompra(orderData);  // Send email befire order
+            // saveNewOrder(orderData);  // Save the order
         } catch (error) {
             setPaymentStatus('KO');
             console.error("Error processing payment:", error);

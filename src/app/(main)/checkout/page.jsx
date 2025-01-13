@@ -4,9 +4,7 @@ import CartItem from "@/components/main/products/cartItem";
 import Layout from "@/app/(main)/WebLayout";
 import ModalTransference from "@/components/main/checkout/modalTransference";
 import ModalTPV from "@/components/main/checkout/modalTPV";
-import { getParameters } from '@/lib/data';
-// import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-import axios from 'axios';
+import { getParameters } from '@/lib/data'; 
 export default function Page() {
   const [parameters, setParameters] = useState(null);
   const [selectedShipping, setSelectedShipping] = useState({ method: null, price: null });
@@ -156,8 +154,7 @@ export default function Page() {
     function generateOrderId() {
       const randomNum = Math.floor(Math.random() * 10000); // Random number
       return `${randomNum}`; // Combine them to form OrderId
-    }
-    // Usage
+    } 
     const orderId = generateOrderId();
     setOrderData({
       orderId,
@@ -168,8 +165,6 @@ export default function Page() {
       totalPedido,
       invoice: userInfo.invoice
     });
-
-     //  console.log(orderData);
     if (selectedPayment === 'Transferencia') {
       toggleModal();
     } else if (selectedPayment === 'Visa-Mastercard') {
@@ -405,7 +400,7 @@ export default function Page() {
             </div>
           </form>
         </div>
-        <div className="grow sm:w-[55%] md:space-y-2 sm:mt-4 md:mt-0">
+        <div className="grow sm:w-[55%] md:space-y-2 sm:mt-4">
           <div className="bg-gray-50 rounded-lg p-2 hidden sm:flex">
             <div className="h-auto w-full">
               <h1 className="mb-4 text-start text-2xl font-bold">
@@ -460,13 +455,13 @@ export default function Page() {
               <h1 className="mb-2 text-start text-2xl font-bold">
                 Selecciona el método de pago:
               </h1>
-              <p className="mb-4 text-slate-800 fobt-bold text-[16px]">(De momento los pagos sólo están disponible por transferencias)</p>
+              {/* <p className="mb-4 text-slate-800 fobt-bold text-[16px]">(De momento los pagos sólo están disponible por transferencias)</p> */}
               <div className="flex flex-row justify-start space-x-2 text-sm">
                 <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  hover:bg-[#304590] hover:text-blue-50 cursor-pointer ${selectedPayment === 'Transferencia' ? 'bg-[#304590] hover:bg-[#475caa] text-blue-50' : 'bg-white'}`} onClick={() => handlePaymentSelect('Transferencia')}>
                   Transferencia
                 </div>
                 <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px] cursor-pointer ${selectedPayment === 'Visa-Mastercard' ? 'bg-[#304590] hover:bg-[#475caa] text-blue-50' : 'bg-white'}`} onClick={() => handlePaymentSelect('Visa-Mastercard')} >
-                  Visa-Mastercard
+                  Visa-Mastercard / Bizum
                 </div>
                 {/* <div className={`grow text-center border  py-2 font-medium rounded-md whitespace-nowrap text-bold text-[16px]  cursor-not-allowed ${selectedPayment === 'Bizum' ? '' : 'bg-grey-300'}`} >
                   onClick={() => handlePaymentSelect('Bizum')} 

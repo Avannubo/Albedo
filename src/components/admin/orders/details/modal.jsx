@@ -33,7 +33,7 @@ export default function modal({ isOpen, onClose, order }) {
                               />
                             </div>
                             <div className='ml-4 my-2'>
-                              <h1 className='font-bold w-full'>{product.ALBEDOtitulo}({product.ALBEDOcodigo})</h1>
+                              <h1 className='font-bold w-full'>{product.ALBEDOtitulo}</h1>
                               <p className='text-left'>{product.quantity} x {product.ALBEDOprecio}€</p>
                             </div>
                           </div>

@@ -1043,8 +1043,8 @@ export async function getDataByUrlId(slugIds) {
  * @param {Object} orderData - The data of the new order.
  * @returns {boolean} Indicates whether the addition was successful.
  */
-export async function saveNewOrder(orderData) {
-    console.log('Order Data:', orderData);
+export async function saveNewOrder(orderData, precioTotal) {
+    console.log('Order total:', orderData.precioTotalConIva);
     console.log('Order Data:', JSON.stringify(orderData));
     try {
         // console.log('Reading file:', filePathActiveOrders);
@@ -1062,6 +1062,7 @@ export async function saveNewOrder(orderData) {
         // console.log('Current ClientOrders:', jsonData.ClientOrders);
         const orderDataWithState = {
             ...orderData,
+            precioTotalConIva: precioTotal,
             orderState: 'Pendiente',
             createdAt: euFormattedDateTime
         };
@@ -1069,8 +1070,8 @@ export async function saveNewOrder(orderData) {
         jsonData.ClientOrders.unshift(orderDataWithState);
         // console.log('Updated ClientOrders:', jsonData.ClientOrders);
         await fs.writeFile(filePathActiveOrders, JSON.stringify(jsonData, null, 2), 'utf8');
-        await sendEmail(orderData);
-        await sendEmailTecnicoAvannubo(orderData);
+        await sendEmail(orderDataWithState);
+        await sendEmailTecnicoAvannubo(orderDataWithState);
         //await saveNewOrderLog(orderData); 
         await updateStock(orderData);
         // console.log('Email sent.');
@@ -1121,7 +1122,6 @@ export async function saveNewOrderLog(orderData) {
         return false;
     }
 }
-
 export async function updateStock(orderData) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -1199,7 +1199,7 @@ export async function checkStock(orderData) {
         return [];
     }
 }
-export async function sendEmailPrevioCompra(orderData) {
+export async function sendEmailPrevioCompra(orderData, precioTotalConIva) {
     try {
         // Validate orderData
         if (!orderData || !orderData.userInfo || !orderData.cartProducts || !orderData.selectedShipping) {
@@ -1252,13 +1252,9 @@ export async function sendEmailPrevioCompra(orderData) {
                 <h3>Información de Pago</h3>
                 <p>
                     <strong>Método de Pago:</strong> ${orderData.selectedPayment} <br>
-                    <strong>Monto Total del Pedido:</strong> ${orderData.totalPedido.toFixed(2)} EUR <br>
+                    <strong>Monto Total del Pedido con Iva:</strong> ${precioTotalConIva} EUR <br>
                     <strong>Factura Requerida:</strong> ${orderData.invoice ? 'Sí' : 'No'} <br>
                 </p>
-                ${isOwner ? `
-                    <h3>Detalles Adicionales del Cliente</h3>
-                    <p><strong>Solicitado por:</strong> ${customerDetails.firstName} ${customerDetails.lastName}</p>
-                ` : ''}
             </div>
         `;
         // Define mail options
@@ -1334,13 +1330,9 @@ export async function sendEmail(orderData) {
                 <h3>Información de Pago</h3>
                 <p>
                     <strong>Método de Pago:</strong> ${orderData.selectedPayment} <br>
-                    <strong>Monto Total del Pedido:</strong> ${orderData.totalPedido.toFixed(2)} EUR <br>
+                    <strong>Monto Total del Pedido con Iva:</strong> ${orderData.precioTotalConIva} EUR <br>
                     <strong>Factura Requerida:</strong> ${orderData.invoice ? 'Sí' : 'No'} <br>
-                </p>
-                ${isOwner ? `
-                    <h3>Detalles Adicionales del Cliente</h3>
-                    <p><strong>Solicitado por:</strong> ${customerDetails.firstName} ${customerDetails.lastName}</p>
-                ` : ''}
+                </p> 
             </div>
         `;
         // Define mail options
@@ -1423,13 +1415,9 @@ export async function sendEmailTecnicoAvannubo(orderData) {
                 <h3>Información de Pago</h3>
                 <p>
                     <strong>Método de Pago:</strong> ${orderData.selectedPayment} <br>
-                    <strong>Monto Total del Pedido:</strong> ${orderData.totalPedido.toFixed(2)} EUR <br>
+                    <strong>Monto Total del Pedido con Iva:</strong> ${orderData.precioTotalConIva} EUR <br>
                     <strong>Factura Requerida:</strong> ${orderData.invoice ? 'Sí' : 'No'} <br>
-                </p>
-                ${isOwner ? `
-                    <h3>Detalles Adicionales del Cliente</h3>
-                    <p><strong>Solicitado por:</strong> ${customerDetails.firstName} ${customerDetails.lastName}</p>
-                ` : ''}
+                </p> 
             </div>
         `;
         // Define mail options

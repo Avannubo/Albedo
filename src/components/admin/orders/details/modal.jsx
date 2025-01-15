@@ -98,8 +98,8 @@ export default function modal({ isOpen, onClose, order }) {
                           <p>{order.selectedPayment}</p>
                         </div>
                         <div className='flex flex-row items-center space-x-2  w-1/2'>
-                          <h1 className='font-bold'>Total de Pedido: </h1>
-                          <p>{order.totalPedido}€</p>
+                          <h1 className='font-bold'>Total de Pedido con Iva: </h1>
+                          <p>{order.precioTotalConIva}€</p>
                         </div>
                       </div>
                       <div className='flex flex-row'>

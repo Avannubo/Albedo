@@ -13,7 +13,7 @@ export default async function page() {
   }
   const Active = await getAllActiveOrders();
   const Inactive = await getAllInactiveOrders();
-  console.log(Active,Inactive);
+  //console.log(Active,Inactive);
   return (
     <Layout>
       <div className='-mt-10'>
@@ -36,7 +36,7 @@ export default async function page() {
                         <th scope="col" className="text-center px-6 py-2">First</th>
                         <th scope="col" className="text-center px-6 py-2">Last</th>
                         <th scope="col" className="text-center px-6 py-2">DNI</th>
-                        <th scope="col" className="text-center px-6 py-2">Total de Pedido</th>
+                        <th scope="col" className="text-center px-6 py-2">Total de Pedido con Iva</th>
                         <th scope="col" className="text-center px-6 py-2">Metodo de Pago</th>
                         <th scope="col" className="text-center px-6 py-2">Estado</th>
                         <th scope="col" className="text-center px-6 py-2">Ver</th>
@@ -49,7 +49,7 @@ export default async function page() {
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.userInfo?.firstName}</td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.userInfo?.lastName}</td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.userInfo?.dni}</td>
-                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.totalPedido}€</td>
+                          <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.precioTotalConIva}€</td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">{order?.selectedPayment}</td>
                           <td className="text-center whitespace-nowrap px-6 py-2 font-medium">
                             <State orderState={order.orderState} orderId={index} />
@@ -84,7 +84,7 @@ export default async function page() {
                       <th scope="col" className="text-center px-6 py-2">First</th>
                       <th scope="col" className="text-center px-6 py-2">Last</th>
                       <th scope="col" className="text-center px-6 py-2">DNI</th>
-                      <th scope="col" className="text-center px-6 py-2">Total de Pedido</th>
+                      <th scope="col" className="text-center px-6 py-2">Total de Pedido con Iva</th>
                       <th scope="col" className="text-center px-6 py-2">Metodo de Pago</th>
                       <th scope="col" className="text-center px-6 py-2">Estado</th>
                       <th scope="col" className="text-center px-6 py-2">Ver</th>

@@ -87,9 +87,19 @@ export default function PageContent() {
                                         </div>
                                         <div className="my-4 sm:my-0 w-full">
                                             <h1 className="md:hidden font-extrabold text-2xl">{productData.ALBEDOtitulo}</h1>
-                                            <p className="text-xl font-medium mt-2">
-                                                <b>Precio: </b>{productData.ALBEDOprecio}€
-                                            </p>
+                                            <div className="flex flex-row justify-between text-xl font-medium mt-2">
+                                                <p><b>Precio: </b>{productData.ALBEDOprecio}€</p> 
+                                                <p>
+                                                    Entrega Aprox: {
+                                                        isNaN(productData.ALBEDOplazo_entrega) || productData.ALBEDOplazo_entrega === undefined || productData.ALBEDOplazo_entrega === 0
+                                                            ? "No disponible"
+                                                            : productData.ALBEDOplazo_entrega == 1
+                                                                ? "1 día"
+                                                                : `${productData.ALBEDOplazo_entrega} días`
+                                                    }
+                                                </p>
+
+                                            </div>
                                             <div className="md:hidden sm:flex hidden" dangerouslySetInnerHTML={{ __html: sanitizeHTML(productData.ALBEDOdescripcion) }} />
                                             <div className="mt-4 w-full">
                                                 <AddToCart producto={productData} />

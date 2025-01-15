@@ -78,7 +78,7 @@ export default function ModalTransference({ isOpen, onClose, orderData, precioTo
     const handleConfirmPayment = async () => {
         try {
             localStorage.clear();
-            await saveNewOrder(orderData);
+            await saveNewOrder(orderData, precioTotal);
             setPaymentConfirmed(true);
         } catch (error) {
             console.error('Error during stock check:', error);

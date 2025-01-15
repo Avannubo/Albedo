@@ -45,7 +45,7 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
                 // Ensure full order data is passed to saveNewOrder
                 if (storedOrderData) {
                     console.log("calling saveNewOrder() to save order in JSON");
-                    saveNewOrder(storedOrderData);
+                    saveNewOrder(storedOrderData, precioTotal);
                 } else {
                     console.error('No order data found in localStorage.');
                 }
@@ -161,7 +161,7 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
             document.forms["pago"].submit();
             console.log("order being processed...");
             saveNewOrderLog(orderData);  // Save the order log
-            sendEmailPrevioCompra(orderData);  // Send email befire order
+            sendEmailPrevioCompra(orderData, precioTotal);  // Send email befire order
             // saveNewOrder(orderData);  // Save the order
         } catch (error) {
             setPaymentStatus('KO');

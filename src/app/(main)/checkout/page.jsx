@@ -152,7 +152,7 @@ export default function Page() {
     }
     
     function generateOrderId() {
-      const randomNum = Math.floor(Math.random() * 10000); // Random number
+      const randomNum = new Date().getTime().toString().slice(-8); // Random number
       return `${randomNum}`; // Combine them to form OrderId
     } 
     const orderId = generateOrderId();

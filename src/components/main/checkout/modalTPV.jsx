@@ -160,7 +160,7 @@ export default function ModalTPV({ isOpen, onClose, orderData, precioTotal }) {
             calcularFirma();
             document.forms["pago"].submit();
             console.log("order being processed...");
-            saveNewOrderLog(orderData);  // Save the order log
+            saveNewOrderLog(orderData, precioTotal);  // Save the order log
             sendEmailPrevioCompra(orderData, precioTotal);  // Send email befire order
             // saveNewOrder(orderData);  // Save the order
         } catch (error) {

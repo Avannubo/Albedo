@@ -202,7 +202,7 @@ export async function getProducts() {
 }
 export async function getProductById(productId) {
     console.log(productId);
-    
+
     try {
         // Validate the input
         if (!productId) {
@@ -720,7 +720,7 @@ export async function addproduct(categoryId, productData) {
 // Function to edit a category (no longer modifies child subcategories or products' publishing status)
 export async function editCategory(categoryId, UrlCode, Name, Description, Body, isPublished, imagePaths) {
     console.log(Description);
-    
+
     try {
         const data = await fs.readFile(filePath, 'utf8');
         const { categories, deletedContent } = JSON.parse(data);
@@ -875,7 +875,7 @@ export async function getCategoryById(categoryId) {
 }
 export async function getParentCategoryById(categoryId) {
     console.log(categoryId);
-    
+
     try {
         // Validate the categoryId
         if (!categoryId) {
@@ -897,7 +897,7 @@ export async function getParentCategoryById(categoryId) {
                 if (category.id === categoryId) {
                     // If parent exists, return the category and its parent
                     console.log(category, parent);
-                    
+
                     return { category, parent };
                 }
 
@@ -1044,7 +1044,7 @@ export async function getDataByUrlId(slugIds) {
  * @returns {boolean} Indicates whether the addition was successful.
  */
 export async function saveNewOrder(orderData, precioTotal) {
-    console.log('Order total:', orderData.precioTotalConIva);
+    console.log('Order total:', precioTotal);
     console.log('Order Data:', JSON.stringify(orderData));
     try {
         // console.log('Reading file:', filePathActiveOrders);
@@ -1070,8 +1070,8 @@ export async function saveNewOrder(orderData, precioTotal) {
         jsonData.ClientOrders.unshift(orderDataWithState);
         // console.log('Updated ClientOrders:', jsonData.ClientOrders);
         await fs.writeFile(filePathActiveOrders, JSON.stringify(jsonData, null, 2), 'utf8');
-        await sendEmail(orderDataWithState);
-        await sendEmailTecnicoAvannubo(orderDataWithState);
+        await sendEmail(orderData, precioTotal);
+        //await sendEmailTecnicoAvannubo(orderDataWithState);
         //await saveNewOrderLog(orderData); 
         await updateStock(orderData);
         // console.log('Email sent.');
@@ -1085,9 +1085,9 @@ export async function saveNewOrder(orderData, precioTotal) {
     }
 }
 
-export async function saveNewOrderLog(orderData) {
-    // console.log('Order Data:', orderData);
-    // console.log('Order Data:', JSON.stringify(orderData));
+export async function saveNewOrderLog(orderData, precioTotalConIva) {
+    console.log('Order Data:', orderData);
+    console.log('Order Data:', JSON.stringify(orderData));
     try {
         // console.log('Reading file:', filePathActiveOrders);
         const data = await fs.readFile(filePathLogOrders, 'utf8');
@@ -1104,15 +1104,16 @@ export async function saveNewOrderLog(orderData) {
         // console.log('Current ClientOrders:', jsonData.ClientOrders);
         const orderDataWithState = {
             ...orderData,
+            precioTotalConIva: precioTotalConIva,
             orderState: 'Pendiente',
             createdAt: euFormattedDateTime
         };
         // console.log('Order data with state:', orderDataWithState);
         jsonData.ClientOrders.unshift(orderDataWithState);
         // console.log('Updated ClientOrders:', jsonData.ClientOrders);
-        await fs.writeFile(filePathLogOrders, JSON.stringify(jsonData, null, 2), 'utf8'); 
+        //await sendEmail(orderDataWithState, precioTotalConIva);
+        await fs.writeFile(filePathLogOrders, JSON.stringify(jsonData, null, 2), 'utf8');
         //await sendEmailTecnicoAvannubo(orderData); 
-        console.log('Email sent tecnico');
         revalidatePath('/admin/orders');
         // console.log('Path revalidated.');
         // console.log('Order saved successfully.');
@@ -1264,7 +1265,7 @@ export async function sendEmailPrevioCompra(orderData, precioTotalConIva) {
             subject: "Información de pedido previo a la compra",
             html: emailHTML(true),
         };
-        
+
         // Send emails
         const infoOwner = await transporter.sendMail(mailOptionsOwner);
         console.log("Email Sent:", infoOwner.response);
@@ -1277,7 +1278,7 @@ export async function sendEmailPrevioCompra(orderData, precioTotalConIva) {
         return false;
     }
 }
-export async function sendEmail(orderData) {
+export async function sendEmail(orderData, precioTotalConIva) {
     try {
         // Validate orderData
         if (!orderData || !orderData.userInfo || !orderData.cartProducts || !orderData.selectedShipping) {
@@ -1330,7 +1331,7 @@ export async function sendEmail(orderData) {
                 <h3>Información de Pago</h3>
                 <p>
                     <strong>Método de Pago:</strong> ${orderData.selectedPayment} <br>
-                    <strong>Monto Total del Pedido con Iva:</strong> ${orderData.precioTotalConIva} EUR <br>
+                    <strong>Monto Total del Pedido con Iva:</strong> ${precioTotalConIva} EUR <br>
                     <strong>Factura Requerida:</strong> ${orderData.invoice ? 'Sí' : 'No'} <br>
                 </p> 
             </div>
@@ -1348,95 +1349,18 @@ export async function sendEmail(orderData) {
             subject: "Pedido confirmado",
             html: emailHTML(false),
         };
-        // Send emails
-        const infoOwner = await transporter.sendMail(mailOptionsOwner);
-        const infoClient = await transporter.sendMail(mailOptionsClient);
-        console.log("Email Sent:", infoOwner.response, infoClient.response);
-        return true;
-    } catch (error) {
-        console.error("Error sending email:", error.message);
-        if (error.responseCode === 535) {
-            console.error("Invalid login. Please check your email and password.");
-        }
-        return false;
-    }
-}
-export async function sendEmailTecnicoAvannubo(orderData) {
-    try {
-        // Validate orderData
-        if (!orderData || !orderData.userInfo || !orderData.cartProducts || !orderData.selectedShipping) {
-            throw new Error("Invalid order data");
-        }
-        const { userInfo: customerDetails, cartProducts: products, selectedShipping: shippingDetails } = orderData; 
-        let productsHTML = '';
-        products.forEach(product => {
-            productsHTML += `
-                <tr> 
-                    <td>${product.ALBEDOtitulo}</td>
-                    <td>${product.ALBEDOprecio} EUR</td>
-                    <td>${product.quantity}</td>
-                </tr>`;
-        });
-        // Compose HTML email content for owner and client
-        const emailHTML = (isOwner) => `
-            <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
-                <h2>Detalles del Pedido</h2>
-                <h3>Detalles del Cliente</h3>
-                <p>
-                    <strong>Nombre:</strong> ${customerDetails.firstName} ${customerDetails.lastName} <br>
-                    <strong>DNI:</strong> ${customerDetails.dni} <br>
-                    <strong>Fecha de Nacimiento:</strong> ${customerDetails.dateOfBirth || '[No proporcionado]'} <br>
-                    <strong>Empresa:</strong> ${customerDetails.company || '[No proporcionado]'} <br>
-                    <strong>CIF:</strong> ${customerDetails.cif || '[No proporcionado]'} <br>
-                    <strong>Número de Teléfono:</strong> ${customerDetails.phoneNumber} <br>
-                    <strong>Correo Electrónico:</strong> ${customerDetails.email} <br>
-                    <strong>Dirección:</strong> ${customerDetails.address}, ${customerDetails.city}, ${customerDetails.province} <br>
-                    <strong>Código Postal:</strong> ${customerDetails.zipCode} <br>
-                    <strong>Solicitud de Factura:</strong> ${customerDetails.invoice ? 'Sí' : 'No'} <br>
-                </p>
-                <h3>Detalles del Pedido</h3>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr> 
-                            <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">Título del Producto</th>
-                            <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">Precio</th>
-                            <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${productsHTML}
-                    </tbody>
-                </table>
-                <h3>Información de Envío</h3>
-                <p>
-                    <strong>Método de Envío:</strong> ${shippingDetails.method} <br>
-                    <strong>Precio del Envío:</strong> ${shippingDetails.price} EUR <br>
-                </p>
-                <h3>Información de Pago</h3>
-                <p>
-                    <strong>Método de Pago:</strong> ${orderData.selectedPayment} <br>
-                    <strong>Monto Total del Pedido con Iva:</strong> ${orderData.precioTotalConIva} EUR <br>
-                    <strong>Factura Requerida:</strong> ${orderData.invoice ? 'Sí' : 'No'} <br>
-                </p> 
-            </div>
-        `;
-        // Define mail options
-        const mailOptionsOwner = {
+        const mailOptionsClient2 = {
             from: process.env.SENDERTECNICO,
             to: process.env.SENDERTECNICO,
             subject: "Detalles del pedido realizado",
             html: emailHTML(true),
         };
-        // const mailOptionsClient = {
-        //     from: process.env.SENDERTECNICO,
-        //     to: "web@avannubo.com",
-        //     subject: "Detalles del pedido",
-        //     html: emailHTML(false),
-        // };
         // Send emails
-        const infoOwner = await transporterAvannubo.sendMail(mailOptionsOwner);
-        // const infoClient = await transporterAvannubo.sendMail(mailOptionsClient);
-        console.log("Email Sent:", infoOwner.response);
+        const infoOwner = await transporter.sendMail(mailOptionsOwner);
+        const infoClient = await transporter.sendMail(mailOptionsClient);
+        const infoClient2 = await transporterAvannubo.sendMail(mailOptionsClient2);
+        console.log("Emails Sent:", infoOwner.response, infoClient.response, infoClient2.response);
+        console.log('Email sent tecnico');
         return true;
     } catch (error) {
         console.error("Error sending email:", error.message);
@@ -1446,6 +1370,91 @@ export async function sendEmailTecnicoAvannubo(orderData) {
         return false;
     }
 }
+// export async function sendEmailTecnicoAvannubo(orderData) {
+//     try {
+//         // Validate orderData
+//         if (!orderData || !orderData.userInfo || !orderData.cartProducts || !orderData.selectedShipping) {
+//             throw new Error("Invalid order data");
+//         }
+//         const { userInfo: customerDetails, cartProducts: products, selectedShipping: shippingDetails } = orderData; 
+//         let productsHTML = '';
+//         products.forEach(product => {
+//             productsHTML += `
+//                 <tr> 
+//                     <td>${product.ALBEDOtitulo}</td>
+//                     <td>${product.ALBEDOprecio} EUR</td>
+//                     <td>${product.quantity}</td>
+//                 </tr>`;
+//         });
+//         // Compose HTML email content for owner and client
+//         const emailHTML = (isOwner) => `
+//             <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+//                 <h2>Detalles del Pedido</h2>
+//                 <h3>Detalles del Cliente</h3>
+//                 <p>
+//                     <strong>Nombre:</strong> ${customerDetails.firstName} ${customerDetails.lastName} <br>
+//                     <strong>DNI:</strong> ${customerDetails.dni} <br>
+//                     <strong>Fecha de Nacimiento:</strong> ${customerDetails.dateOfBirth || '[No proporcionado]'} <br>
+//                     <strong>Empresa:</strong> ${customerDetails.company || '[No proporcionado]'} <br>
+//                     <strong>CIF:</strong> ${customerDetails.cif || '[No proporcionado]'} <br>
+//                     <strong>Número de Teléfono:</strong> ${customerDetails.phoneNumber} <br>
+//                     <strong>Correo Electrónico:</strong> ${customerDetails.email} <br>
+//                     <strong>Dirección:</strong> ${customerDetails.address}, ${customerDetails.city}, ${customerDetails.province} <br>
+//                     <strong>Código Postal:</strong> ${customerDetails.zipCode} <br>
+//                     <strong>Solicitud de Factura:</strong> ${customerDetails.invoice ? 'Sí' : 'No'} <br>
+//                 </p>
+//                 <h3>Detalles del Pedido</h3>
+//                 <table style="width: 100%; border-collapse: collapse;">
+//                     <thead>
+//                         <tr> 
+//                             <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">Título del Producto</th>
+//                             <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">Precio</th>
+//                             <th style="border-bottom: 1px solid #ccc; text-align: left; padding: 8px;">Cantidad</th>
+//                         </tr>
+//                     </thead>
+//                     <tbody>
+//                         ${productsHTML}
+//                     </tbody>
+//                 </table>
+//                 <h3>Información de Envío</h3>
+//                 <p>
+//                     <strong>Método de Envío:</strong> ${shippingDetails.method} <br>
+//                     <strong>Precio del Envío:</strong> ${shippingDetails.price} EUR <br>
+//                 </p>
+//                 <h3>Información de Pago</h3>
+//                 <p>
+//                     <strong>Método de Pago:</strong> ${orderData.selectedPayment} <br>
+//                     <strong>Monto Total del Pedido con Iva:</strong> ${orderData.precioTotalConIva} EUR <br>
+//                     <strong>Factura Requerida:</strong> ${orderData.invoice ? 'Sí' : 'No'} <br>
+//                 </p> 
+//             </div>
+//         `;
+//         // Define mail options
+//         const mailOptionsOwner = {
+//             from: process.env.SENDERTECNICO,
+//             to: process.env.SENDERTECNICO,
+//             subject: "Detalles del pedido realizado",
+//             html: emailHTML(true),
+//         };
+//         // const mailOptionsClient = {
+//         //     from: process.env.SENDERTECNICO,
+//         //     to: "web@avannubo.com",
+//         //     subject: "Detalles del pedido",
+//         //     html: emailHTML(false),
+//         // };
+//         // Send emails
+//         const infoOwner = await transporterAvannubo.sendMail(mailOptionsOwner);
+//         // const infoClient = await transporterAvannubo.sendMail(mailOptionsClient);
+//         console.log("Email Sent:", infoOwner.response);
+//         return true;
+//     } catch (error) {
+//         console.error("Error sending email:", error.message);
+//         if (error.responseCode === 535) {
+//             console.error("Invalid login. Please check your email and password.");
+//         }
+//         return false;
+//     }
+// }
 //functions to /admin/orders
 /**
  * Retrieves all orders.

@@ -31,6 +31,7 @@ export default function EditModal({ isOpen, onClose, categoryId, list }) {
     const resetState = () => {
         setNewCategoryName(categoryId.name || '');
         setNewCategoryUrlId(categoryId.url_Id || ''); 
+        setNewCategoryDescription(categoryId.ALBEDOdescripcion || '');
         setNewCategoryBody(categoryId.ALBEDOcuerpo || '');
         setNewCategoryIsPublished(categoryId.isPublished || false);
         setCategoryImages(categoryId.imagens || []);
